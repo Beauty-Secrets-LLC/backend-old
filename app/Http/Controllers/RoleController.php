@@ -13,6 +13,7 @@ class RoleController extends Controller
     {
         $roles = Role::withCount('users')->get();
         return view('roles.list', compact('roles'));
+        
     }
 
     public function create(Request $request)
