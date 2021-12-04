@@ -25,28 +25,21 @@
                         <div class="fw-bolder text-gray-600 mb-5">Энэ үүрэгт багтсан ажилтны тоо: {{ $role->users_count }}</div>
                         <!--end::Users-->
                         <!--begin::Permissions-->
-                        <div class="d-flex flex-column text-gray-600">
-                            <div class="d-flex align-items-center py-2">
-                            <span class="bullet bg-primary me-3"></span>All Admin Controls</div>
-                            <div class="d-flex align-items-center py-2">
-                            <span class="bullet bg-primary me-3"></span>View and Edit Financial Summaries</div>
-                            <div class="d-flex align-items-center py-2">
-                            <span class="bullet bg-primary me-3"></span>Enabled Bulk Reports</div>
-                            <div class="d-flex align-items-center py-2">
-                            <span class="bullet bg-primary me-3"></span>View and Edit Payouts</div>
-                            <div class="d-flex align-items-center py-2">
-                            <span class="bullet bg-primary me-3"></span>View and Edit Disputes</div>
-                            <div class='d-flex align-items-center py-2'>
-                                <span class='bullet bg-primary me-3'></span>
-                                <em>and 7 more...</em>
+                        @if (!empty($role->permissions))
+                            <div class="d-flex flex-column text-gray-600">
+                                @foreach ($role->permissions->pluck('name') as $perm)
+                                    <div class="d-flex align-items-center py-2">
+                                        <span class="bullet bg-primary me-3"></span>{{ $perm }}
+                                    </div>
+                                @endforeach
                             </div>
-                        </div>
+                        @endif
                         <!--end::Permissions-->
                     </div>
                     <!--end::Card body-->
                     <!--begin::Card footer-->
                     <div class="card-footer flex-wrap pt-0">
-                        <a href="#" class="btn btn-light btn-active-primary my-1 me-2">Дэлгэрэнгүй</a>
+                        <a href="{{ route('role.view', $role->id) }}" class="btn btn-light btn-active-primary my-1 me-2">Дэлгэрэнгүй</a>
                         <button type="button" class="btn btn-light btn-active-light-primary my-1" data-bs-toggle="modal" data-bs-target="#kt_modal_update_role">Засварлах</button>
                     </div>
                     <!--end::Card footer-->

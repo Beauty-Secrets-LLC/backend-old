@@ -52,4 +52,9 @@ class RoleController extends Controller
         }
         return redirect('users/roles');
     }
+
+    public function view($id) {
+        $role = Role::find($id);
+        return view('roles.view');
+    }
 }
