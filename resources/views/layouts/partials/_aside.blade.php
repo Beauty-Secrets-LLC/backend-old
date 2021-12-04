@@ -554,7 +554,15 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Системийн эрх</span>
+                                <span class="menu-title">Системийн үүрэг</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{ route('permissions.list') }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Системийн эрхүүд</span>
                             </a>
                         </div>
                     </div>

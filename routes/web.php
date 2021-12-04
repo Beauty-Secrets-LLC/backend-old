@@ -25,7 +25,11 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['prefix' => 'users'], function () {
         Route::get('/list', [UserController::class, 'index'])->name('users.list');
+        Route::get('/permissions', [RoleController::class, 'permissions_list'])->name('permissions.list');
+        Route::post('/permissions/ajaxadd', [RoleController::class, 'permissions_ajax_add']);
+        Route::get('/permissions/delete/{id}', [RoleController::class, 'permissions_delete']);
         Route::get('/roles', [RoleController::class, 'index'])->name('roles.list');
+        
         Route::post('/roles/create', [RoleController::class, 'create'])->name('roles.create');
     });
 
