@@ -122,17 +122,26 @@
 
 @section('scripts')
     <script src="{{ asset('assets/js/custom/apps/user-management/roles/list/add.js') }}"></script>
-    <script src="{{ asset('assets/js/custom/apps/user-management/roles/list/update-role.js') }}"></script>
+
     <script src="{{ asset('assets/js/custom/widgets.js') }}"></script>
     <script src="{{ asset('assets/js/custom/apps/chat/chat.js') }}"></script>
     <script src="{{ asset('assets/js/custom/modals/create-app.js') }}"></script>
     <script src="{{ asset('assets/js/custom/modals/upgrade-plan.js') }}"></script>
 
+    
+@endsection
+
+@push('js')
     <script>
         function showRoleEditModal(id) {
             Livewire.emit('update-role:setRole',id)
             $("#kt_modal_update_role").modal('show')
         }
+
+        window.livewire.on('component-modal-close',(modalid)=>{
+            $("#"+modalid).modal('hide');
+        });
+
     </script>
-@endsection
+@endpush
 

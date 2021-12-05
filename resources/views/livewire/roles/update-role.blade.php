@@ -5,7 +5,7 @@
         <h2 class="fw-bolder">Update Role</h2>
         <!--end::Modal title-->
         <!--begin::Close-->
-        <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-roles-modal-action="close">
+        <div class="btn btn-icon btn-sm btn-active-icon-primary" wire:click="close">
             <!--begin::Svg Icon | path: icons/duotone/Navigation/Close.svg-->
             <span class="svg-icon svg-icon-1">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -34,7 +34,7 @@
                     </label>
                     <!--end::Label-->
                     <!--begin::Input-->
-                    <input class="form-control form-control-solid" placeholder="Enter a role name" name="role_name" value="Developer" />
+                    <input class="form-control form-control-solid" placeholder="Enter a role name" name="role_name" wire:model="role_name" />
                     <!--end::Input-->
                 </div>
                 <!--end::Input group-->
