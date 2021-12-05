@@ -47,7 +47,7 @@
                         <!--begin::Permissions-->
                         <div class="fv-row">
                             <!--begin::Label-->
-                            <label class="fs-5 fw-bolder form-label mb-2">Эрхүүд</label>
+                            <label class="fs-5 fw-bolder form-label mb-2">Системийн эрхүүд</label>
                             <!--end::Label-->
                             <!--begin::Table wrapper-->
                             <div class="table-responsive">

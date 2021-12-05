@@ -2,7 +2,7 @@
     <!--begin::Modal header-->
     <div class="modal-header">
         <!--begin::Modal title-->
-        <h2 class="fw-bolder">Update Role</h2>
+        <h2 class="fw-bolder">Үүрэг засварлах</h2>
         <!--end::Modal title-->
         <!--begin::Close-->
         <div class="btn btn-icon btn-sm btn-active-icon-primary" wire:click="close">
@@ -30,19 +30,20 @@
                 <div class="fv-row mb-10">
                     <!--begin::Label-->
                     <label class="fs-5 fw-bolder form-label mb-2">
-                        <span class="required">Role name</span>
+                        <span class="required">Нэр</span>
                     </label>
                     <!--end::Label-->
                     <!--begin::Input-->
-                    <input class="form-control form-control-solid" placeholder="Enter a role name" name="role_name" wire:model="role_name" />
+                    <input class="form-control form-control-solid" placeholder="Нэрээ оруулна уу" name="role_name" wire:model="role_name" />
                     <!--end::Input-->
                 </div>
                 <!--end::Input group-->
                 <!--begin::Permissions-->
                 <div class="fv-row">
                     <!--begin::Label-->
-                    <label class="fs-5 fw-bolder form-label mb-2">Role Permissions</label>
+                    <label class="fs-5 fw-bolder form-label mb-2">Системийн эрхүүд</label>
                     <!--end::Label-->
+                    @dump($permissions)
                     <!--begin::Table wrapper-->
                     <div class="table-responsive">
                         <!--begin::Table-->
@@ -51,13 +52,13 @@
                             <tbody class="text-gray-600 fw-bold">
                                 <!--begin::Table row-->
                                 <tr>
-                                    <td class="text-gray-800">Administrator Access
+                                    <td class="text-gray-800">Админ эрх 
                                     <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Allows a full access to the system"></i></td>
                                     <td>
                                         <!--begin::Checkbox-->
                                         <label class="form-check form-check-sm form-check-custom form-check-solid me-9">
                                             <input class="form-check-input" type="checkbox" value="" id="kt_roles_select_all" />
-                                            <span class="form-check-label" for="kt_roles_select_all">Select all</span>
+                                            <span class="form-check-label" for="kt_roles_select_all">Бүгдийг сонгох</span>
                                         </label>
                                         <!--end::Checkbox-->
                                     </td>

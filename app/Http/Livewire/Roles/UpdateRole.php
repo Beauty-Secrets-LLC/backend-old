@@ -27,7 +27,8 @@ class UpdateRole extends Component
 
     public function render()
     {
-        return view('livewire.roles.update-role');
+        $permissions = Permission::all();
+        return view('livewire.roles.update-role', ['permissions' => $permissions]);
     }
 
     public function close(){      
