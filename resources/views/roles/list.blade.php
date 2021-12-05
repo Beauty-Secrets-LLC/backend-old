@@ -40,7 +40,7 @@
                     <!--begin::Card footer-->
                     <div class="card-footer flex-wrap pt-0">
                         <a href="{{ route('role.view', $role->id) }}" class="btn btn-light btn-active-primary my-1 me-2">Дэлгэрэнгүй</a>
-                        <button type="button" class="btn btn-light btn-active-light-primary my-1" data-bs-toggle="modal" data-bs-target="#kt_modal_update_role">Засварлах</button>
+                        <button type="button" class="btn btn-light btn-active-light-primary my-1" onclick="showRoleEditModal({{$role->id }})">Засварлах</button>
                     </div>
                     <!--end::Card footer-->
                 </div>
@@ -54,6 +54,17 @@
 <!--begin::Modals-->
 @component('components.roles.role_add_modal', ['permissions'=>$permissions])@endcomponent
 <!--end::Modals-->
+
+<div class="modal fade" id="kt_modal_update_role" tabindex="-1" aria-hidden="true">
+    <!--begin::Modal dialog-->
+    <div class="modal-dialog modal-dialog-centered mw-750px">
+        <!--begin::Modal content-->
+            @livewire('roles.update-role')
+        <!--end::Modal content-->
+    </div>
+    <!--end::Modal dialog-->
+</div>
+
 </div>
 @endsection
 
@@ -116,4 +127,12 @@
     <script src="{{ asset('assets/js/custom/apps/chat/chat.js') }}"></script>
     <script src="{{ asset('assets/js/custom/modals/create-app.js') }}"></script>
     <script src="{{ asset('assets/js/custom/modals/upgrade-plan.js') }}"></script>
+
+    <script>
+        function showRoleEditModal(id) {
+            Livewire.emit('update-role:setRole',id)
+            $("#kt_modal_update_role").modal('show')
+        }
+    </script>
 @endsection
+

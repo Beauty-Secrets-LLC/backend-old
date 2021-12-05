@@ -13,6 +13,7 @@
         
         @include('layouts.partials._styles')
         @yield('styles')
+		@livewireStyles
 	</head>
 	<!--end::Head-->
 	<!--begin::Body-->
@@ -82,6 +83,8 @@
 		@yield('scripts')
 		<!--end::Page Custom Javascript-->
 		<!--end::Javascript-->
+		@livewireScripts
+		@stack('js')
 	</body>
 	<!--end::Body-->
 </html>

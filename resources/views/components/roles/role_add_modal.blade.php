@@ -50,7 +50,6 @@
                             <label class="fs-5 fw-bolder form-label mb-2">Эрхүүд</label>
                             <!--end::Label-->
                             <!--begin::Table wrapper-->
-                            @dump($permissions)
                             <div class="table-responsive">
                                 <!--begin::Table-->
                                 <table class="table align-middle table-row-dashed fs-6 gy-5">
@@ -70,7 +69,6 @@
                                             </td>
                                         </tr>
                                         <!--end::Table row-->
-
                                         @if (!empty($permissions))
                                             @foreach ($permissions as $permission)
                                                  <!--begin::Table row-->
@@ -96,9 +94,6 @@
                                                 <!--end::Table row-->
                                             @endforeach
                                         @endif
-                                       
-                                      
-       
                                     </tbody>
                                     <!--end::Table body-->
                                 </table>
