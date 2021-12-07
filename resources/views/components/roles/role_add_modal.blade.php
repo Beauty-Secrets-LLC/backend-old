@@ -28,7 +28,7 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y mx-lg-5 my-7">
                 <!--begin::Form-->
-                <form  class="form" action="{{ route('roles.create') }}" method="POST"  id="kt_modal_add_role_form">
+                <form  class="form" action="{{ route('role.create') }}" method="POST"  id="kt_modal_add_role_form">
                     @csrf
                     <!--begin::Scroll-->
                     <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_role_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_role_header" data-kt-scroll-wrappers="#kt_modal_add_role_scroll" data-kt-scroll-offset="300px">

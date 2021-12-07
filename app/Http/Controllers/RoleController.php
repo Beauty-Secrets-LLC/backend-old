@@ -15,7 +15,6 @@ class RoleController extends Controller
         $roles = Role::withCount('users')->get();
         $permissions = Permission::all()->toArray();
         return view('roles.list', compact('roles', 'permissions'));
-        
     }
 
     public function permissions_list() {
@@ -75,6 +74,13 @@ class RoleController extends Controller
                 $role->givePermissionTo($permission);
             }
         }
+        session()->flash('success', 'Амжилттай шинэчлэгдлээ.');
         return redirect('/users/roles');
+    }
+
+    public function removeUser($role_id, $user_id) {
+        $role = Role::find($role_id);
+        $user = User::find($user_id)->removeRole($role->name);
+        return true;
     }
 }

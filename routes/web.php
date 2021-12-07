@@ -23,16 +23,20 @@ Route::get('/', function () {
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard'); 
 
-    Route::group(['prefix' => 'users'], function () {
+    Route::group(['prefix' => 'user'], function () {
         Route::get('/list', [UserController::class, 'index'])->name('users.list');
+        Route::get('/view/{id}', [UserController::class, 'show'])->name('user.view');
+        Route::post('{id}/role/assign', [UserController::class, 'roleAssign'])->name('user.roleAssign');
+
+        /*ROLES AND PERMIISIONS management*/
         Route::get('/permissions', [RoleController::class, 'permissions_list'])->name('permissions.list');
         Route::post('/permissions/ajaxadd', [RoleController::class, 'permissions_ajax_add']);
         Route::get('/permissions/delete/{id}', [RoleController::class, 'permissions_delete']);
         Route::get('/roles', [RoleController::class, 'index'])->name('roles.list');
         Route::get('/roles/view/{id}', [RoleController::class, 'view'])->name('role.view');
         Route::post('/roles/update', [RoleController::class, 'update'])->name('role.update');
-        
-        Route::post('/roles/create', [RoleController::class, 'create'])->name('roles.create');
+        Route::post('/roles/create', [RoleController::class, 'create'])->name('role.create');
+        Route::get('/role/{role_id}/removeuser/{user_id}', [RoleController::class, 'removeUser']);
     });
 
 });
