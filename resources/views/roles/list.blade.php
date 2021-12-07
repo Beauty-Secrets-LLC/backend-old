@@ -122,13 +122,6 @@
 
 @section('scripts')
     <script src="{{ asset('assets/js/custom/apps/user-management/roles/list/add.js') }}"></script>
-
-    <script src="{{ asset('assets/js/custom/widgets.js') }}"></script>
-    <script src="{{ asset('assets/js/custom/apps/chat/chat.js') }}"></script>
-    <script src="{{ asset('assets/js/custom/modals/create-app.js') }}"></script>
-    <script src="{{ asset('assets/js/custom/modals/upgrade-plan.js') }}"></script>
-
-    
 @endsection
 
 @push('js')

@@ -30,6 +30,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/permissions/delete/{id}', [RoleController::class, 'permissions_delete']);
         Route::get('/roles', [RoleController::class, 'index'])->name('roles.list');
         Route::get('/roles/view/{id}', [RoleController::class, 'view'])->name('role.view');
+        Route::post('/roles/update', [RoleController::class, 'update'])->name('role.update');
         
         Route::post('/roles/create', [RoleController::class, 'create'])->name('roles.create');
     });

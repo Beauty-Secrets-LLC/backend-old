@@ -5,6 +5,7 @@ use DB;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use App\Models\User;
 
 class RoleController extends Controller
 {
@@ -55,6 +56,25 @@ class RoleController extends Controller
 
     public function view($id) {
         $role = Role::find($id);
-        return view('roles.view');
+        $users = User::role($role->name)->get();
+        return view('roles.view', compact('role', 'users'));
+    }
+
+    public function update(Request $request) {
+        $role = Role::find($request['role_id']);
+        $role_permissions = $role->permissions;
+        //Remove all permissions
+        if(!empty($role_permissions) || empty($request['permissions'])) {
+            foreach($role_permissions as $role_permission) {
+                $role->revokePermissionTo($role_permission->id);
+            }
+        }
+        //Assign selected permissions
+        if(!empty($request['permissions'])) {
+            foreach($request['permissions'] as $permission) {
+                $role->givePermissionTo($permission);
+            }
+        }
+        return redirect('/users/roles');
     }
 }
