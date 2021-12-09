@@ -1,6 +1,6 @@
 {
     "version": 3,
-    "mappings": "AAAA,AAAA,IAAI,EAAE,IAAI,CAAC;EACP,WAAW,EAAE,oBAAoB;CACpC",
+    "mappings": "AAAA,AAAA,IAAI,EAAE,IAAI,CAAC;EACP,WAAW,EAAE,oBAAoB;CACpC;;AAED,AAAA,YAAY,AAAA,oBAAoB,CAAC,oBAAoB,CAAC;EAClD,UAAU,EAAE,IAAI;CACnB",
     "sources": [
         "beauty.scss"
     ],

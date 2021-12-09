@@ -24,6 +24,10 @@ class UserController extends Controller
         return view('users.view', compact('user', 'roles'));
     }
 
+    public function register(Request $request) {
+        dd($request->all());
+    }
+
     public function roleAssign(Request $request, $user_id ) {
         if(isset($request['roles']) && !empty($request['roles'])) {
             $user = User::find($user_id);

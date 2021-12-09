@@ -1,4 +1,9 @@
 body, html {
   font-family: 'Roboto', sans-serif;
 }
+
+.image-input.image-input-outline .image-input-wrapper {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
 /*# sourceMappingURL=beauty.css.map */

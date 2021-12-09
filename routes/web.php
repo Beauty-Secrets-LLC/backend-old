@@ -26,7 +26,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'user'], function () {
         Route::get('/list', [UserController::class, 'index'])->name('users.list');
         Route::get('/view/{id}', [UserController::class, 'show'])->name('user.view');
+        Route::post('/register', [UserController::class, 'register']);
         Route::post('{id}/role/assign', [UserController::class, 'roleAssign'])->name('user.roleAssign');
+       
 
         /*ROLES AND PERMIISIONS management*/
         Route::get('/permissions', [RoleController::class, 'permissions_list'])->name('permissions.list');
