@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
@@ -25,7 +27,27 @@ class UserController extends Controller
     }
 
     public function register(Request $request) {
-        dd($request->all());
+        
+        $user_data = $request->get('user_data');
+        $user_data['password'] = Hash::make($user_data['password']);
+        DB::beginTransaction();
+        try {
+            $user = User::create($user_data);
+            $user->assignRole($user_data['role']);
+            DB::commit();
+            return [
+                'result' => 'success',
+                'message' => 'Амжилттай',
+                'user'  => $user
+            ];
+        }
+        catch(\Exception $e) {
+            DB::rollback();
+            return [
+                'result' => 'failed',
+                'message' => $e->getMessage()
+            ];
+        }
     }
 
     public function roleAssign(Request $request, $user_id ) {
@@ -35,5 +57,14 @@ class UserController extends Controller
             session()->flash('success', 'Хэрэглэгчийн үүргийг шинэчиллээ.');
         }
         return redirect(route('user.view', $user_id));
+    }
+
+    public function delete($id) {
+        
+        $deletion = User::find($id)->delete();
+        return [
+            'result' => $deletion
+        ];
+
     }
 }

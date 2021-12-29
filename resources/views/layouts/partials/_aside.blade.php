@@ -161,7 +161,7 @@
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
                         <div class="menu-item">
-                            <a class="menu-link" href="account/overview.html">
+                            <a class="menu-link" href="/shop/product/list">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -169,7 +169,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="account/settings.html">
+                            <a class="menu-link" href="/shop/product/new">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -516,14 +516,6 @@
                                     <span class="bullet bullet-dot"></span>
                                 </span>
                                 <span class="menu-title">Жагсаалт</span>
-                            </a>
-                        </div>
-                        <div class="menu-item">
-                            <a class="menu-link" href="layouts/toolbars/toolbar-2.html">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Шинэ хэрэглэгч</span>
                             </a>
                         </div>
                         <div class="menu-item">

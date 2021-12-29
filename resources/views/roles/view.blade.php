@@ -1,8 +1,6 @@
 @extends('layouts.admin')
 
 @section('content')
-<!--begin::Container-->
-<div id="kt_content_container" class="container">
     <!--begin::Layout-->
     <div class="d-flex flex-column flex-xl-row">
         <!--begin::Sidebar-->
@@ -197,8 +195,6 @@
         <!--end::Content-->
     </div>
     <!--end::Layout-->
-</div>
-<!--end::Container-->
 @endsection
 
 @section('styles')

@@ -7,28 +7,47 @@ var KTUsersList = (function () {
         o = document.getElementById("kt_table_users"),
         c = () => {
             o.querySelectorAll('[data-kt-users-table-filter="delete_row"]').forEach((t) => {
+            
                 t.addEventListener("click", function (t) {
                     t.preventDefault();
                     const n = t.target.closest("tr"),
-                        r = n.querySelectorAll("td")[1].querySelectorAll("a")[1].innerText;
+                        r = n.querySelectorAll("td")[1].querySelectorAll("a")[1].innerText,
+                        deleteRow = n.querySelectorAll("td")[0].querySelector("input[type=checkbox]").value;
+                    console.log(deleteRow);
                     Swal.fire({
-                        text: "Are you sure you want to delete " + r + "?",
+                        text: "Та " + r + " нэртэй хэрэглэгчийг устгах гэж байна уу?" ,
                         icon: "warning",
                         showCancelButton: !0,
                         buttonsStyling: !1,
-                        confirmButtonText: "Yes, delete!",
-                        cancelButtonText: "No, cancel",
+                        confirmButtonText: "Тийм",
+                        cancelButtonText: "Үгүй",
                         customClass: { confirmButton: "btn fw-bold btn-danger", cancelButton: "btn fw-bold btn-active-light-primary" },
                     }).then(function (t) {
-                        t.value
-                            ? Swal.fire({ text: "You have deleted " + r + "!.", icon: "success", buttonsStyling: !1, confirmButtonText: "Ok, got it!", customClass: { confirmButton: "btn fw-bold btn-primary" } })
-                                  .then(function () {
-                                      e.row($(n)).remove().draw();
-                                  })
-                                  .then(function () {
-                                      a();
-                                  })
-                            : "cancel" === t.dismiss && Swal.fire({ text: customerName + " was not deleted.", icon: "error", buttonsStyling: !1, confirmButtonText: "Ok, got it!", customClass: { confirmButton: "btn fw-bold btn-primary" } });
+                        if(t.value) {
+                            jQuery.ajax({
+                                type: "GET",
+                                url: '/user/delete/'+deleteRow,
+                                dataType:"json",
+                                success: function(response){
+                                    if(response.result) {
+                                        Swal.fire({ text: r + " нэртэй хэрэглэгч устгагдлаа", icon: "success", buttonsStyling: !1, confirmButtonText: "Ok", customClass: { confirmButton: "btn fw-bold btn-primary" } })
+                                        .then(function () {
+                                            e.row($(n)).remove().draw();
+                                        })
+                                        .then(function () {
+                                            a();
+                                        })
+            
+                                    }
+                                }
+                            });
+
+
+                        }
+                        else {
+                            "cancel" === t.dismiss && Swal.fire({ text: customerName + " was not deleted.", icon: "error", buttonsStyling: !1, confirmButtonText: "Ok, got it!", customClass: { confirmButton: "btn fw-bold btn-primary" } });
+                        }
+                        
                     });
                 });
             });
@@ -86,7 +105,37 @@ var KTUsersList = (function () {
     return {
         init: function () {
             o &&
-                (
+                (o.querySelectorAll("tbody tr").forEach((e) => {
+                    const t = e.querySelectorAll("td"),
+                        n = t[3].innerText.toLowerCase();
+                    let r = 0,
+                        o = "minutes";
+                    n.includes("yesterday")
+                        ? ((r = 1), (o = "days"))
+                        : n.includes("mins")
+                        ? ((r = parseInt(n.replace(/\D/g, ""))), (o = "minutes"))
+                        : n.includes("hours")
+                        ? ((r = parseInt(n.replace(/\D/g, ""))), (o = "hours"))
+                        : n.includes("days")
+                        ? ((r = parseInt(n.replace(/\D/g, ""))), (o = "days"))
+                        : n.includes("weeks") && ((r = parseInt(n.replace(/\D/g, ""))), (o = "weeks"));
+                    const c = moment().subtract(r, o).format();
+                    t[3].setAttribute("data-order", c);
+                    const l = moment(t[5].innerHTML, "DD MMM YYYY, LT").format();
+                    t[5].setAttribute("data-order", l);
+                }),
+                (e = $(o).DataTable({
+                    info: !1,
+                    order: [],
+                    pageLength: 10,
+                    lengthChange: !1,
+                    columnDefs: [
+                        { orderable: !1, targets: 0 },
+                        { orderable: !1, targets: 6 },
+                    ],
+                })).on("draw", function () {
+                    l(), c(), a();
+                }),
                 l(),
                 document.querySelector('[data-kt-user-table-filter="search"]').addEventListener("keyup", function (t) {
                     e.search(t.target.value).draw();

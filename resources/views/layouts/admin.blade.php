@@ -43,7 +43,9 @@
 						<!--begin::Post-->
 						<div class="post d-flex flex-column-fluid" id="kt_post">
 							<!--begin::Container-->
-							@yield('content')
+							<div id="kt_content_container" class="container">
+								@yield('content')
+							</div>
 							<!--end::Container-->
 						</div>
 						<!--end::Post-->

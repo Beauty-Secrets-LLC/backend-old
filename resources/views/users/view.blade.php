@@ -1,9 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-    <!--begin::Container-->
-    <div id="kt_content_container" class="container">
-        @if (session('success'))
+    @if (session('success'))
         <div class="alert alert-success d-flex align-items-center p-5 mb-10">
             <!--begin::Svg Icon | path: icons/duotone/General/Shield-check.svg-->
             <span class="svg-icon svg-icon-2hx svg-icon-success me-4">
@@ -4010,6 +4008,4 @@
     </div>
     <!--end::Modal - Add task-->
     <!--end::Modals-->
-</div>
-<!--end::Container-->
 @endsection

@@ -73,7 +73,7 @@
                             <label class="required fw-bold fs-6 mb-2">Нэр</label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input type="text" name="user_fullname" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="" value="" />
+                            <input type="text" name="name" autocomplete="off" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="" value="" />
                             <!--end::Input-->
                         </div>
                         <!--end::Input group-->
@@ -83,7 +83,7 @@
                             <label class="required fw-bold fs-6 mb-2">Утас</label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input type="tel" maxlength="8" name="user_phone" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="" value="" />
+                            <input type="tel" autocomplete="off" maxlength="8" name="phone" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="" value="" />
                             <!--end::Input-->
                         </div>
                         <!--end::Input group-->
@@ -93,7 +93,7 @@
                             <label class="required fw-bold fs-6 mb-2">И-мэйл</label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input type="email" name="user_email" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="" value="" />
+                            <input type="email" name="email" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="" value="" />
                             <!--end::Input-->
                         </div>
                         <!--end::Input group-->
@@ -110,7 +110,7 @@
                                         <!--begin::Radio-->
                                         <div class="form-check form-check-custom form-check-solid">
                                             <!--begin::Input-->
-                                            <input class="form-check-input me-3" id="role_{{ $role->id }}" name="user_role" type="radio" value="{{ $role->id }}"   />
+                                            <input {{ ($roles[0] == $role) ? 'checked' : '' }} class="form-check-input me-3" id="role_{{ $role->id }}" name="role" type="radio" value="{{ $role->id }}"   />
                                             <!--end::Input-->
                                             <!--begin::Label-->
                                             <label class="form-check-label" for="role_{{ $role->id }}">
@@ -129,16 +129,54 @@
                             <!--end::Roles-->
                         </div>
                         <!--end::Input group-->
-                        <!--begin::Input group-->
-                        <div class="fv-row mb-7">
-                            <!--begin::Label-->
-                            <label class="required fw-bold fs-6 mb-2">Нууц үг</label>
-                            <!--end::Label-->
-                            <!--begin::Input-->
-                            <input type="password"  name="user_password" class="form-control form-control-solid mb-3 mb-lg-0" value="" />
-                            <!--end::Input-->
+                      
+
+                        <!--begin::Main wrapper-->
+                        <div class="fv-row" data-kt-password-meter="true">
+                            <!--begin::Wrapper-->
+                            <div class="mb-1">
+                                <!--begin::Label-->
+                                <label class="required form-label fw-bold fs-6 mb-2">
+                                    Нууц үг
+                                </label>
+                                <!--end::Label-->
+
+                                <!--begin::Input wrapper-->
+                                <div class="position-relative mb-3">
+                                    <input class="form-control form-control-lg form-control-solid"
+                                        type="text" placeholder="" name="password" autocomplete="off" rel="gp" data-size="12" data-character-set="a-z,A-Z,0-9,#" />
+                                   
+
+                                    <!--begin::Visibility toggle-->
+                                    <span id="generatePassword" class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2">
+                                        <i class="bi bi-eye-slash fs-2"></i>
+                                    </span>
+                                    <!--end::Visibility toggle-->
+
+
+                                </div>
+                                <!--end::Input wrapper-->
+
+                                <!--begin::Highlight meter-->
+                                <div class="d-flex align-items-center mb-3" data-kt-password-meter-control="highlight">
+                                    <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+                                    <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+                                    <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+                                    <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px"></div>
+                                </div>
+                                <!--end::Highlight meter-->
+
+                            </div>
+                            <!--end::Wrapper-->
+
+                            <!--begin::Hint-->
+                            <div class="text-muted">
+                                8-с дээш тэмдэгтийн урттай үсэг, тоо, тусгай тэмдэгт орсон байх шаардлагатай.
+                            </div>
+
+                            
+                            <!--end::Hint-->
                         </div>
-                        <!--end::Input group-->
                     </div>
                     <!--end::Scroll-->
                     <!--begin::Actions-->

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-<div id="kt_content_container" class="container">
+
     <!--begin::Card-->
     <div class="card card-flush">
         <!--begin::Card header-->
@@ -200,7 +200,6 @@
     </div>
     <!--end::Modal - Update permissions-->
     <!--end::Modals-->
-</div>
 @endsection
 
 

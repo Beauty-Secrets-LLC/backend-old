@@ -1,47 +1,49 @@
 @extends('layouts.admin')
 
+@section('toolbar')
+    <!--begin::Container-->
+    <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
+        <!--begin::Page title-->
+        <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
+            <!--begin::Title-->
+            <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Хэрэглэгчдийн жагсаалт</h1>
+            <!--end::Title-->
+            <!--begin::Separator-->
+            <span class="h-20px border-gray-200 border-start mx-4"></span>
+            <!--end::Separator-->
+            <!--begin::Breadcrumb-->
+            <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
+                <!--begin::Item-->
+                <li class="breadcrumb-item text-muted">
+                    <a href="/" class="text-muted text-hover-primary">Эхлэл</a>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item">
+                    <span class="bullet bg-gray-200 w-5px h-2px"></span>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item text-muted">Хэрэглэгчид</li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item">
+                    <span class="bullet bg-gray-200 w-5px h-2px"></span>
+                </li>
+                <!--end::Item-->
+         
+                <!--begin::Item-->
+                <li class="breadcrumb-item text-dark">Жагсаалт</li>
+                <!--end::Item-->
+            </ul>
+            <!--end::Breadcrumb-->
+        </div>
+        <!--end::Page title-->
+    </div>
+    <!--end::Container-->
+@endsection
+
 @section('content')
-<div id="kt_content_container" class="container">
-    @if (session('success'))
-        <div class="alert alert-success d-flex align-items-center p-5 mb-10">
-            <!--begin::Svg Icon | path: icons/duotone/General/Shield-check.svg-->
-            <span class="svg-icon svg-icon-2hx svg-icon-success me-4">
-                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                        <rect x="0" y="0" width="24" height="24"></rect>
-                        <path d="M4,4 L11.6314229,2.5691082 C11.8750185,2.52343403 12.1249815,2.52343403 12.3685771,2.5691082 L20,4 L20,13.2830094 C20,16.2173861 18.4883464,18.9447835 16,20.5 L12.5299989,22.6687507 C12.2057287,22.8714196 11.7942713,22.8714196 11.4700011,22.6687507 L8,20.5 C5.51165358,18.9447835 4,16.2173861 4,13.2830094 L4,4 Z" fill="#000000" opacity="0.3"></path>
-                        <path d="M11.1750002,14.75 C10.9354169,14.75 10.6958335,14.6541667 10.5041669,14.4625 L8.58750019,12.5458333 C8.20416686,12.1625 8.20416686,11.5875 8.58750019,11.2041667 C8.97083352,10.8208333 9.59375019,10.8208333 9.92916686,11.2041667 L11.1750002,12.45 L14.3375002,9.2875 C14.7208335,8.90416667 15.2958335,8.90416667 15.6791669,9.2875 C16.0625002,9.67083333 16.0625002,10.2458333 15.6791669,10.6291667 L11.8458335,14.4625 C11.6541669,14.6541667 11.4145835,14.75 11.1750002,14.75 Z" fill="#000000"></path>
-                    </g>
-                </svg>
-            </span>
-            <!--end::Svg Icon-->
-            <div class="d-flex flex-column">
-                <h5 class="mb-1">Амжилттай</h5>
-                <span>{{ session('success') }}</span>
-            </div>
-        </div>
-    @endif
-
-    @if (session('error'))
-        <div class="alert alert-danger d-flex align-items-center p-5 mb-10">
-            <!--begin::Svg Icon | path: icons/duotone/General/Shield-check.svg-->
-            <span class="svg-icon svg-icon-2hx svg-icon-danger me-4">
-                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                        <rect x="0" y="0" width="24" height="24"></rect>
-                        <path d="M4,4 L11.6314229,2.5691082 C11.8750185,2.52343403 12.1249815,2.52343403 12.3685771,2.5691082 L20,4 L20,13.2830094 C20,16.2173861 18.4883464,18.9447835 16,20.5 L12.5299989,22.6687507 C12.2057287,22.8714196 11.7942713,22.8714196 11.4700011,22.6687507 L8,20.5 C5.51165358,18.9447835 4,16.2173861 4,13.2830094 L4,4 Z" fill="#000000" opacity="0.3"></path>
-                        <path d="M11.1750002,14.75 C10.9354169,14.75 10.6958335,14.6541667 10.5041669,14.4625 L8.58750019,12.5458333 C8.20416686,12.1625 8.20416686,11.5875 8.58750019,11.2041667 C8.97083352,10.8208333 9.59375019,10.8208333 9.92916686,11.2041667 L11.1750002,12.45 L14.3375002,9.2875 C14.7208335,8.90416667 15.2958335,8.90416667 15.6791669,9.2875 C16.0625002,9.67083333 16.0625002,10.2458333 15.6791669,10.6291667 L11.8458335,14.4625 C11.6541669,14.6541667 11.4145835,14.75 11.1750002,14.75 Z" fill="#000000"></path>
-                    </g>
-                </svg>
-            </span>
-            <!--end::Svg Icon-->
-            <div class="d-flex flex-column">
-                <h5 class="mb-1">Алдаа</h5>
-                <span>{{ session('error') }}</span>
-            </div>
-        </div>
-    @endif
-
     <!--begin::Card-->
     <div class="card">
         <!--begin::Card header-->
@@ -61,7 +63,7 @@
                         </svg>
                     </span>
                     <!--end::Svg Icon-->
-                    <input type="text" data-kt-user-table-filter="search" class="form-control form-control-solid w-250px ps-14" placeholder="Ажилтан хайх" />
+                    <input type="text" data-kt-user-table-filter="search" class="form-control form-control-solid w-250px ps-14" placeholder="Хайх" />
                 </div>
                 <!--end::Search-->
             </div>
@@ -86,7 +88,7 @@
                     <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
                         <!--begin::Header-->
                         <div class="px-7 py-5">
-                            <div class="fs-5 text-dark fw-bolder">Filter Options</div>
+                            <div class="fs-5 text-dark fw-bolder">Шүүх сонголтууд</div>
                         </div>
                         <!--end::Header-->
                         <!--begin::Separator-->
@@ -96,30 +98,30 @@
                         <div class="px-7 py-5" data-kt-user-table-filter="form">
                             <!--begin::Input group-->
                             <div class="mb-10">
-                                <label class="form-label fs-6 fw-bold">Role:</label>
-                                <select class="form-select form-select-solid fw-bolder" data-kt-select2="true" data-placeholder="Select option" data-allow-clear="true" data-kt-user-table-filter="role" data-hide-search="true">
+                                <label class="form-label fs-6 fw-bold">Үүрэг:</label>
+                                <select class="form-select form-select-solid fw-bolder" data-kt-select2="true" data-placeholder="Сонгох" data-allow-clear="true" data-kt-user-table-filter="role" data-hide-search="true">
                                     <option></option>
-                                    <option value="Administrator">Administrator</option>
-                                    <option value="Analyst">Analyst</option>
-                                    <option value="Developer">Developer</option>
-                                    <option value="Support">Support</option>
-                                    <option value="Trial">Trial</option>
+                                    @if (!empty($roles))
+                                        @foreach ($roles as $role)
+                                            <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                        @endforeach
+                                    @endif
                                 </select>
                             </div>
                             <!--end::Input group-->
                             <!--begin::Input group-->
-                            <div class="mb-10">
+                            {{-- <div class="mb-10">
                                 <label class="form-label fs-6 fw-bold">Two Step Verification:</label>
                                 <select class="form-select form-select-solid fw-bolder" data-kt-select2="true" data-placeholder="Select option" data-allow-clear="true" data-kt-user-table-filter="two-step" data-hide-search="true">
                                     <option></option>
                                     <option value="Enabled">Enabled</option>
                                 </select>
-                            </div>
+                            </div> --}}
                             <!--end::Input group-->
                             <!--begin::Actions-->
                             <div class="d-flex justify-content-end">
-                                <button type="reset" class="btn btn-light btn-active-light-primary fw-bold me-2 px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="reset">Reset</button>
-                                <button type="submit" class="btn btn-primary fw-bold px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="filter">Apply</button>
+                                <button type="reset" class="btn btn-light btn-active-light-primary fw-bold me-2 px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="reset">Цуцлах</button>
+                                <button type="submit" class="btn btn-primary fw-bold px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="filter">Шүүх</button>
                             </div>
                             <!--end::Actions-->
                         </div>
@@ -127,7 +129,21 @@
                     </div>
                     <!--end::Menu 1-->
                     <!--end::Filter-->
-                
+                    <!--begin::Export-->
+                    {{-- <button type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_export_users">
+                    <!--begin::Svg Icon | path: icons/duotone/Files/Export.svg-->
+                    <span class="svg-icon svg-icon-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <rect x="0" y="0" width="24" height="24" />
+                                <path d="M17,8 C16.4477153,8 16,7.55228475 16,7 C16,6.44771525 16.4477153,6 17,6 L18,6 C20.209139,6 22,7.790861 22,10 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 L2,9.99305689 C2,7.7839179 3.790861,5.99305689 6,5.99305689 L7.00000482,5.99305689 C7.55228957,5.99305689 8.00000482,6.44077214 8.00000482,6.99305689 C8.00000482,7.54534164 7.55228957,7.99305689 7.00000482,7.99305689 L6,7.99305689 C4.8954305,7.99305689 4,8.88848739 4,9.99305689 L4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,10 C20,8.8954305 19.1045695,8 18,8 L17,8 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
+                                <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 8.000000) scale(1, -1) rotate(-180.000000) translate(-12.000000, -8.000000)" x="11" y="2" width="2" height="12" rx="1" />
+                                <path d="M12,2.58578644 L14.2928932,0.292893219 C14.6834175,-0.0976310729 15.3165825,-0.0976310729 15.7071068,0.292893219 C16.0976311,0.683417511 16.0976311,1.31658249 15.7071068,1.70710678 L12.7071068,4.70710678 C12.3165825,5.09763107 11.6834175,5.09763107 11.2928932,4.70710678 L8.29289322,1.70710678 C7.90236893,1.31658249 7.90236893,0.683417511 8.29289322,0.292893219 C8.68341751,-0.0976310729 9.31658249,-0.0976310729 9.70710678,0.292893219 L12,2.58578644 Z" fill="#000000" fill-rule="nonzero" transform="translate(12.000000, 2.500000) scale(1, -1) translate(-12.000000, -2.500000)" />
+                            </g>
+                        </svg>
+                    </span>
+                    <!--end::Svg Icon-->Export</button> --}}
+                    <!--end::Export-->
                     <!--begin::Add user-->
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">
                     <!--begin::Svg Icon | path: icons/duotone/Navigation/Plus.svg-->
@@ -137,19 +153,19 @@
                             <rect fill="#000000" opacity="0.5" transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000)" x="4" y="11" width="16" height="2" rx="1" />
                         </svg>
                     </span>
-                    <!--end::Svg Icon-->Хэрэглэгч бүртгэх</button>
+                    <!--end::Svg Icon-->Хэрэглэгч нэмэх</button>
                     <!--end::Add user-->
                 </div>
                 <!--end::Toolbar-->
                 <!--begin::Group actions-->
                 <div class="d-flex justify-content-end align-items-center d-none" data-kt-user-table-toolbar="selected">
                     <div class="fw-bolder me-5">
-                    <span class="me-2" data-kt-user-table-select="selected_count"></span>Selected</div>
-                    <button type="button" class="btn btn-danger" data-kt-user-table-select="delete_selected">Delete Selected</button>
+                    <span class="me-2" data-kt-user-table-select="selected_count"></span>хэрэглэгч сонгогдсон</div>
+                    <button type="button" class="btn btn-danger" data-kt-user-table-select="delete_selected">Устгах</button>
                 </div>
                 <!--end::Group actions-->
                 <!--begin::Modal - Adjust Balance-->
-                <div class="modal fade" id="kt_modal_export_users" tabindex="-1" aria-hidden="true">
+                {{-- <div class="modal fade" id="kt_modal_export_users" tabindex="-1" aria-hidden="true">
                     <!--begin::Modal dialog-->
                     <div class="modal-dialog modal-dialog-centered mw-650px">
                         <!--begin::Modal content-->
@@ -230,7 +246,7 @@
                         <!--end::Modal content-->
                     </div>
                     <!--end::Modal dialog-->
-                </div>
+                </div> --}}
                 <!--end::Modal - New Card-->
                 <!--begin::Modal - Add task-->
                 @component('components.users.user_add_modal', ['roles' => $roles])@endcomponent
@@ -252,8 +268,10 @@
                                 <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_table_users .form-check-input" value="1" />
                             </div>
                         </th>
-                        <th class="min-w-125px">Ажилтан</th>
-                        <th class="min-w-125px">Системийн эрх</th>
+                        <th class="min-w-125px">Хэрэглэгч</th>
+                        <th class="min-w-125px">Үүрэг</th>
+                        <th class="min-w-125px">Сүүлд нэвтэрсэн</th>
+                        <th class="min-w-125px">2 алхамт баталгаажуулалт</th>
                         <th class="min-w-125px">Бүртгэгдсэн</th>
                         <th class="text-end min-w-100px">Үйлдэл</th>
                     </tr>
@@ -264,7 +282,6 @@
                 <tbody class="text-gray-600 fw-bold">
                     @if (!empty($users))
                         @foreach ($users as $user)
-                            <!--begin::Table row-->
                             <tr>
                                 <!--begin::Checkbox-->
                                 <td>
@@ -286,7 +303,7 @@
                                     <!--end::Avatar-->
                                     <!--begin::User details-->
                                     <div class="d-flex flex-column">
-                                        <a href="#" class="text-gray-800 text-hover-primary mb-1">{{ $user->name}}</a>
+                                        <a href="{{ route('user.view', $user->id) }}" class="text-gray-800 text-hover-primary mb-1">{{ $user->name}}</a>
                                         <span>{{ $user->email }}</span>
                                     </div>
                                     <!--begin::User details-->
@@ -301,12 +318,20 @@
                                     @endif
                                 </td>
                                 <!--end::Role=-->
+                                <!--begin::Last login=-->
+                                <td>
+                                    <div class="badge badge-light fw-bolder">Yesterday</div>
+                                </td>
+                                <!--end::Last login=-->
+                                <!--begin::Two step=-->
+                                <td></td>
+                                <!--end::Two step=-->
                                 <!--begin::Joined-->
                                 <td>{{ $user->created_at }}</td>
                                 <!--begin::Joined-->
                                 <!--begin::Action=-->
                                 <td class="text-end">
-                                    <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">Үйлдэл
+                                    <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">Сонгох
                                     <!--begin::Svg Icon | path: icons/duotone/Navigation/Angle-down.svg-->
                                     <span class="svg-icon svg-icon-5 m-0">
                                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -326,7 +351,7 @@
                                         <!--end::Menu item-->
                                         <!--begin::Menu item-->
                                         <div class="menu-item px-3">
-                                            <a href="#" class="menu-link px-3" data-kt-users-table-filter="delete_row">Устгах</a>
+                                            <a href="#" class="menu-link px-3" data-kt-users-table-filter="delete_row" data-delete="{{ $user->id }}">Устгах</a>
                                         </div>
                                         <!--end::Menu item-->
                                     </div>
@@ -334,10 +359,9 @@
                                 </td>
                                 <!--end::Action=-->
                             </tr>
-                            <!--end::Table row-->
                         @endforeach
                     @endif
-                    
+                    <!--begin::Table row-->
                 </tbody>
                 <!--end::Table body-->
             </table>
@@ -346,12 +370,15 @@
         <!--end::Card body-->
     </div>
     <!--end::Card-->
-</div>
 @endsection
 
+
 @section('scripts')
+    <!--end::Page Vendors Javascript-->
     <!--begin::Page Custom Javascript(used by this page)-->
     <script src="{{ asset('assets/js/custom/apps/user-management/users/list/table.js') }}"></script>
+    <script src="{{ asset('assets/js/custom/apps/user-management/users/list/export-users.js') }}"></script>
     <script src="{{ asset('assets/js/custom/apps/user-management/users/list/add.js') }}"></script>
-    <!--end::Page Custom Javascript-->
+    <script src="{{ asset('assets/js/custom/apps/user-management/users/password-generator.js') }}"></script>
+
 @endsection

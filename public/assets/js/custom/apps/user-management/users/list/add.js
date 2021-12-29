@@ -11,19 +11,24 @@ var KTUsersAddUser = (function () {
             (() => {
                 var o = FormValidation.formValidation(e, {
                     fields: { 
-                        user_fullname: { 
+                        name: { 
                             validators: { 
                                 notEmpty: { message: "Нэр бөглөх шаардлагатай" } 
                             } 
                         }, 
-                        user_phone: { 
+                        phone: { 
                             validators: { 
                                 notEmpty: { message: "Утасны дугаар бөглөх шаардлагатай" } 
                             } 
                         },
-                        user_email: { 
+                        email: { 
                             validators: { 
-                                notEmpty: { message: "Зөв и-мэйл бөглөх шаардлагатай" } 
+                                notEmpty: { message: "И-мэйл бөглөх шаардлагатай" } 
+                            } 
+                        },
+                        password: { 
+                            validators: { 
+                                notEmpty: { message: "Нууц үг бөглөх шаардлагатай" } 
                             } 
                         }
                     },
@@ -54,34 +59,41 @@ var KTUsersAddUser = (function () {
                                                     }
                                                 }
                                             }),
-
-                                            
-
                                             jQuery.ajax({
                                                 type: "POST",
                                                 url: '/user/register',
                                                 data: {
-                                                    sda        : form_values,
+                                                    user_data   : form_values,
                                                     "_token"    : token,
                                                 },
                                                 dataType:"json",
                                                 success: function(response){
-                                                   console.log(response);
+                                                    console.log(response);
+                                                    if(response.result == 'success') {
+                                                        Swal.fire({ text: "Хэрэглэгчийг амжилттай бүртгэлээ!", icon: "success", buttonsStyling: !1, confirmButtonText: "Ok", customClass: { confirmButton: "btn btn-primary" } }).then(
+                                                            function (t) {
+                                                                t.isConfirmed && n.hide();
+                                                            }
+                                                        ).then(function() {
+                                                            location.reload();
+                                                        });
+                                                    }else {
+                                                        Swal.fire({
+                                                            text: response.message,
+                                                            icon: "error",
+                                                            buttonsStyling: !1,
+                                                            confirmButtonText: "Okay",
+                                                            customClass: { confirmButton: "btn btn-primary" },
+                                                        });
+                                                    }
                                                 }
-                                            }),
-                                            Swal.fire({ text: "Form has been successfully submitted!", icon: "success", buttonsStyling: !1, confirmButtonText: "Ok, got it!", customClass: { confirmButton: "btn btn-primary" } }).then(
-                                                function (t) {
-                                                    t.isConfirmed && n.hide();
-                                                }
-                                            ),
-                                            console.log(form_values)
-                                          
+                                            })
                                           )
                                         : Swal.fire({
-                                              text: "Sorry, looks like there are some errors detected, please try again.",
+                                              text: "Уучлаарай, зарим мэдээлэл дутуу эсвэл алдаатай байна. Та мэдээллээ шалгаад дахин оролдоно уу.",
                                               icon: "error",
                                               buttonsStyling: !1,
-                                              confirmButtonText: "Ok, got it!",
+                                              confirmButtonText: "Ойлголоо",
                                               customClass: { confirmButton: "btn btn-primary" },
                                           });
                             });

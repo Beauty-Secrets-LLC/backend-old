@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ProductController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,6 +28,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/list', [UserController::class, 'index'])->name('users.list');
         Route::get('/view/{id}', [UserController::class, 'show'])->name('user.view');
         Route::post('/register', [UserController::class, 'register']);
+        Route::get('/delete/{id}', [UserController::class, 'delete']);
         Route::post('{id}/role/assign', [UserController::class, 'roleAssign'])->name('user.roleAssign');
        
 
@@ -40,6 +42,14 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/roles/create', [RoleController::class, 'create'])->name('role.create');
         Route::get('/role/{role_id}/removeuser/{user_id}', [RoleController::class, 'removeUser']);
     });
+
+
+    Route::group(['prefix' => 'shop'], function () {
+        Route::group(['prefix' => 'product'], function () {
+            Route::get('/list', [ProductController::class, 'index']);
+            Route::get('/new', [ProductController::class, 'create']);
+        }); 
+    });  
 
 });
 

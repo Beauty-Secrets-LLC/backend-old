@@ -8,12 +8,16 @@
    <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
    <!--end::Global Stylesheets Bundle-->
 
+   <!--begin::Page Vendor Stylesheets(used by this page)-->
+   <link href="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet" type="text/css" />
+   <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
+   <!--end::Page Vendor Stylesheets-->
+
+   
+
+
    <!--begin::Beauty Stylesheets-->
    <link href="{{ asset('assets/css/beauty.css') }}" rel="stylesheet" type="text/css" />
    <!--end::Beauty Stylesheets -->
 
-   <!--begin::Page Vendor Stylesheets(used by this page)-->
-   <link href="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet" type="text/css" />
-   <!--end::Page Vendor Stylesheets-->
 
-   <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
