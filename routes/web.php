@@ -17,7 +17,7 @@ use App\Http\Controllers\ProductController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 
@@ -47,7 +47,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'shop'], function () {
         Route::group(['prefix' => 'product'], function () {
             Route::get('/list', [ProductController::class, 'index']);
-            Route::get('/new', [ProductController::class, 'create']);
+            Route::get('/new', [ProductController::class, 'new']);
+            Route::post('/create', [ProductController::class, 'create'])->name('product.create');
         }); 
     });  
 

@@ -42,7 +42,8 @@
         </div>
     @endif
     
-    <form action="" class="form d-flex flex-column flex-lg-row fv-plugins-bootstrap5 fv-plugins-framework">
+    <form id="product_submittion" action="{{ route('product.create') }}" method="POST" class="form d-flex flex-column flex-lg-row fv-plugins-bootstrap5 fv-plugins-framework" enctype="multipart/form-data">
+        @csrf
         <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
             <div class="card card-flush py-4">
                 <!--begin::Card header-->
@@ -62,21 +63,21 @@
                         <div class="image-input-wrapper w-150px h-150px"></div>
                         <!--end::Preview existing avatar-->
                         <!--begin::Label-->
-                        <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="" data-bs-original-title="Change avatar">
+                        <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="" data-bs-original-title="Зураг солих">
                             <i class="bi bi-pencil-fill fs-7"></i>
                             <!--begin::Inputs-->
-                            <input type="file" name="avatar" accept=".png, .jpg, .jpeg">
+                            <input type="file" name="featured_image" accept=".png, .jpg, .jpeg">
                             <input type="hidden" name="avatar_remove">
                             <!--end::Inputs-->
                         </label>
                         <!--end::Label-->
                         <!--begin::Cancel-->
-                        <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="" data-bs-original-title="Cancel avatar">
+                        <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="" data-bs-original-title="Зураг устгах">
                             <i class="bi bi-x fs-2"></i>
                         </span>
                         <!--end::Cancel-->
                         <!--begin::Remove-->
-                        <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="" data-bs-original-title="Remove avatar">
+                        <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="" data-bs-original-title="Зураг устгах">
                             <i class="bi bi-x fs-2"></i>
                         </span>
                         <!--end::Remove-->
@@ -98,53 +99,117 @@
                 <!--end:::Tab item-->
                 <!--begin:::Tab item-->
                 <li class="nav-item">
-                    <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#product_advanced">Дэлгэрэнгүй мэдээлэл</a>
+                    <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#product_advanced">Нарийвчилсан мэдээлэл</a>
                 </li>
                 <!--end:::Tab item-->
             </ul>
-
             <div class="tab-content">
                 <!--begin::Tab pane-->
                 <div class="tab-pane fade show active" id="product_general" role="tab-panel">
-                    <div class="card card-flush py-4">
-                        <!--begin::Card header-->
-                        <div class="card-header">
-                            <div class="card-title">
-                                <h2>Ерөнхий</h2>
+                    <div class="d-flex flex-column gap-7 gap-lg-10">
+                        <!-- ЕРӨНХИЙ -->
+                        <div class="card card-flush py-4">
+                            <!--begin::Card header-->
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <h2>Бүтээгдэхүүний ерөнхий мэдээлэл</h2>
+                                </div>
                             </div>
+                            <!--end::Card header-->
+                            <!--begin::Card body-->
+                            <div class="card-body pt-0">
+                                <!--begin::Input group-->
+                                <div class="mb-10 fv-row fv-plugins-icon-container">
+                                    <!--begin::Label-->
+                                    <label class="required form-label">Бүтээгдэхүүний нэр</label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <input type="text" name="name" class="form-control mb-2" placeholder="" value="">
+                                    <!--end::Input-->
+                                <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div>
+                                    <!--begin::Label-->
+                                    <label class="form-label">Тайлбар</label>
+                                    <!--end::Label-->
+                                    <!--begin::Editor-->
+                                    <div id="general_description" class="min-h-200px mb-2 ql-container ql-snow"></div>
+                                    <textarea name="description" id="general_description_html" class="d-none"></textarea>
+                                    <!--end::Editor-->
+                                    <!--begin::Description-->
+                                    <!--end::Description-->
+                                </div>
+                                <!--end::Input group-->
+                            </div>
+                            <!--end::Card header-->
                         </div>
-                        <!--end::Card header-->
-                        <!--begin::Card body-->
-                        <div class="card-body pt-0">
-                            <!--begin::Input group-->
-                            <div class="mb-10 fv-row fv-plugins-icon-container">
-                                <!--begin::Label-->
-                                <label class="required form-label">Бүтээгдэхүүний нэр</label>
-                                <!--end::Label-->
-                                <!--begin::Input-->
-                                <input type="text" name="name" class="form-control mb-2" placeholder="" value="">
-                                <!--end::Input-->
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
-                            <!--end::Input group-->
-                            <!--begin::Input group-->
-                            <div>
-                                <!--begin::Label-->
-                                <label class="form-label">Тайлбар</label>
-                                <!--end::Label-->
-                                <!--begin::Editor-->
-                                <div  id="beauty_editor" name="description" class="min-h-200px mb-2 ql-container ql-snow"></div>
-                                <!--end::Editor-->
+                        <!-- МЕДИА -->
+                        {{-- <div class="card card-flush py-4">
+                            <!--begin::Card header-->
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <h2>Медиа</h2>
+                                </div>
+                            </div>
+                            <!--end::Card header-->
+                            <div class="card-body pt-0">
+                                <!--begin::Input group-->
+                                <div class="fv-row mb-2">
+                                    <!--begin::Dropzone-->
+                                    <form class="form" action="#" method="post">
+                                        <!--begin::Input group-->
+                                        <div class="fv-row">
+                                            <!--begin::Dropzone-->
+                                            <div class="dropzone" id="kt_dropzonejs_example_1">
+                                                <!--begin::Message-->
+                                                <div class="dz-message needsclick">
+                                                    <!--begin::Icon-->
+                                                    <i class="bi bi-file-earmark-arrow-up text-primary fs-3x"></i>
+                                                    <!--end::Icon-->
+
+                                                    <!--begin::Info-->
+                                                    <div class="ms-4">
+                                                        <h3 class="fs-5 fw-bolder text-gray-900 mb-1">Энд дарж эсвэл оруулах файлуудаа энд зөөж оруулна уу</h3>
+                                                        <span class="fs-7 fw-bold text-gray-400">10 хүртэлх файл хуулах боломжтой</span>
+                                                    </div>
+                                                    <!--end::Info-->
+                                                </div>
+                                            </div>
+                                            <!--end::Dropzone-->
+                                        </div>
+                                        <!--end::Input group-->
+                                    </form>
+                                    <!--end::Dropzone-->
+                                </div>
+                                <!--end::Input group-->
                                 <!--begin::Description-->
+                                <div class="text-muted fs-7">Бүтээгдэхүүний зургын галерейг үүсгэх</div>
                                 <!--end::Description-->
                             </div>
-                            <!--end::Input group-->
-                        </div>
-                        <!--end::Card header-->
+
+                        
+                        </div> --}}
+
+                        <!-- ҮНЭ -->
+                        @component('products.components.new_price')@endcomponent
                     </div>
+                    
                 </div>
                 <div class="tab-pane fade" id="product_advanced" role="tab-panel">
                     manal
                 </div>
+            </div>
+
+            <div class="d-flex justify-content-end">
+                <!--begin::Button-->
+                <a href="#" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">Цуцлах</a>
+                <!--end::Button-->
+                <!--begin::Button-->
+                <button type="submit" id="product_submit" class="btn btn-primary">
+                    <span class="indicator-label">Нэмэх</span>
+                </button>
+                <!--end::Button-->
             </div>
         </div>
     </form>
@@ -157,18 +222,54 @@
 
 @section('scripts')
     <script>
-        var quill = new Quill('#beauty_editor', {
+        var toolbarOptions = [
+            ['bold', 'italic', 'underline'],        // toggled buttons
+            ['link', 'image'],
+            ['blockquote', 'code-block'],
+
+            //[{ 'header': 1 }, { 'header': 2 }],               // custom button values
+            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+           // [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+            //[{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+           // [{ 'direction': 'rtl' }],                         // text direction
+
+           // [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+            [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+            [{ 'font': [] }],
+            [{ 'align': [] }],
+
+            ['clean']                                         // remove formatting button
+        ];
+        var general_description = new Quill('#general_description', {
             modules: {
-                toolbar: [
-                    [{
-                        header: [1, 2, false]
-                    }],
-                    ['bold', 'italic', 'underline'],
-                    ['image']
-                ]
+                toolbar: toolbarOptions
             },
             placeholder: '',
             theme: 'snow' // or 'bubble'
+        });
+
+       
+
+        var myDropzone = new Dropzone("#kt_dropzonejs_example_1", {
+            url: "https://keenthemes.com/scripts/void.php", // Set the url for your upload script location
+            paramName: "file", // The name that will be used to transfer the file
+            maxFiles: 10,
+            maxFilesize: 10, // MB
+            addRemoveLinks: true,
+            accept: function(file, done) {
+                if (file.name == "wow.jpg") {
+                    done("Naha, you don't.");
+                } else {
+                    done();
+                }
+            }
+        });
+
+        $('#product_submit').click(function(){
+            $('#general_description_html').val(general_description.root.innerHTML);
+            $('#product_submittion').submit();
         });
     </script>
 @endsection

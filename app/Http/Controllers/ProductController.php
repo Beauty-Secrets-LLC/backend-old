@@ -23,10 +23,17 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function new()
     {
         //
         return view('products.new');
+    }
+
+    public function create(Request $request)
+    {
+        //
+        dump($request->file());
+        dd($request->all());
     }
 
     /**

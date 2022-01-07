@@ -14,6 +14,11 @@
         @include('layouts.partials._styles')
         @yield('styles')
 		@livewireStyles
+
+		<!--begin::Global Javascript Bundle(used by all pages)-->
+        @include('layouts.partials._scripts')
+		<!--end::Global Javascript Bundle-->
+		
 	</head>
 	<!--end::Head-->
 	<!--begin::Body-->
@@ -77,10 +82,6 @@
 		</div>
 		<!--end::Main-->
 		<!--begin::Javascript-->
-		<!--begin::Global Javascript Bundle(used by all pages)-->
-        @include('layouts.partials._scripts')
-		<!--end::Global Javascript Bundle-->
-		
         <!--begin::Page Custom Javascript(used by this page)-->
 		@yield('scripts')
 		<!--end::Page Custom Javascript-->
