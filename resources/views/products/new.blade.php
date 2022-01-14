@@ -67,7 +67,7 @@
                             <i class="bi bi-pencil-fill fs-7"></i>
                             <!--begin::Inputs-->
                             <input type="file" name="featured_image" accept=".png, .jpg, .jpeg">
-                            <input type="hidden" name="avatar_remove">
+                            <input type="hidden" name="featured_image_remove">
                             <!--end::Inputs-->
                         </label>
                         <!--end::Label-->
@@ -89,6 +89,58 @@
                 </div>
                 <!--end::Card body-->
             </div>
+
+            <div class="card card-flush py-4">
+                <!--begin::Card header-->
+                <div class="card-header">
+                    <!--begin::Card title-->
+                    <div class="card-title">
+                        <h2>Төлөв</h2>
+                    </div>
+                    <!--end::Card title-->
+                    <!--begin::Card toolbar-->
+                    <div class="card-toolbar">
+                        <div class="rounded-circle bg-success w-15px h-15px" id="product_status"></div>
+                    </div>
+                    <!--begin::Card toolbar-->
+                </div>
+                <!--end::Card header-->
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+                    <!--begin::Select2-->
+                    <select class="form-select mb-2" data-control="select2" data-hide-search="true" data-placeholder="Сонгох">
+                        <option value="published">Нээлттэй</option>
+                        <option value="draft">Ноорог</option>
+                        <option value="scheduled">Хуваарьт</option>
+                        <option value="inactive">Идэвхигүй</option>
+                    </select>
+                    <!--end::Select2-->
+                </div>
+                <!--end::Card body-->
+            </div>
+
+            <div class="card card-flush py-4">
+                <!--begin::Card header-->
+                <div class="card-header">
+                    <!--begin::Card title-->
+                    <div class="card-title">
+                        <h2>Бүтээгдэхүүний ангилал</h2>
+                    </div>
+                    <!--end::Card title-->
+                </div>
+                <!--end::Card header-->
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+
+                    <label class="form-label d-block">Tags</label>
+                    <!--begin::Select2-->
+                    <input type="text" name="tags" id="tags" class="form-control">
+                    <!--end::Select2-->
+                    <div class="text-muted fs-7">Бүтээгдэхүүнийг илэрхийлэх үгс</div>
+                </div>
+                <!--end::Card body-->
+            </div>
+
         </div>
         <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
             <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-n2">
@@ -135,7 +187,7 @@
                                     <!--end::Label-->
                                     <!--begin::Editor-->
                                     <div id="general_description" class="min-h-200px mb-2 ql-container ql-snow"></div>
-                                    <textarea name="description" id="general_description_html" class="d-none"></textarea>
+                                    <textarea name="data[description]" id="general_description_html" class="d-none"></textarea>
                                     <!--end::Editor-->
                                     <!--begin::Description-->
                                     <!--end::Description-->
@@ -197,7 +249,12 @@
                     
                 </div>
                 <div class="tab-pane fade" id="product_advanced" role="tab-panel">
-                    manal
+                    <div class="d-flex flex-column gap-7 gap-lg-10">
+                        @component('products.components.new_inventory')@endcomponent
+                        @component('products.components.new_shipping')@endcomponent
+                        @component('products.components.new_others')@endcomponent
+                    </div>
+                   
                 </div>
             </div>
 
@@ -250,25 +307,45 @@
             theme: 'snow' // or 'bubble'
         });
 
+        var meta_guide = new Quill('#meta_guide', {
+            modules: {
+                toolbar: toolbarOptions
+            },
+            placeholder: 'Хэрэглэх зааварчилгаа',
+            theme: 'snow' // or 'bubble'
+        });
+        var meta_ingredients = new Quill('#meta_ingredients', {
+            modules: {
+                toolbar: toolbarOptions
+            },
+            placeholder: 'Орц найрлагын мэдээллийг энд оруулна уу',
+            theme: 'snow' // or 'bubble'
+        });
+
+        var taginput = document.querySelector("#tags");
+        new Tagify(taginput);
+
        
 
-        var myDropzone = new Dropzone("#kt_dropzonejs_example_1", {
-            url: "https://keenthemes.com/scripts/void.php", // Set the url for your upload script location
-            paramName: "file", // The name that will be used to transfer the file
-            maxFiles: 10,
-            maxFilesize: 10, // MB
-            addRemoveLinks: true,
-            accept: function(file, done) {
-                if (file.name == "wow.jpg") {
-                    done("Naha, you don't.");
-                } else {
-                    done();
-                }
-            }
-        });
+        // var myDropzone = new Dropzone("#kt_dropzonejs_example_1", {
+        //     url: "https://keenthemes.com/scripts/void.php", // Set the url for your upload script location
+        //     paramName: "file", // The name that will be used to transfer the file
+        //     maxFiles: 10,
+        //     maxFilesize: 10, // MB
+        //     addRemoveLinks: true,
+        //     accept: function(file, done) {
+        //         if (file.name == "wow.jpg") {
+        //             done("Naha, you don't.");
+        //         } else {
+        //             done();
+        //         }
+        //     }
+        // });
 
         $('#product_submit').click(function(){
             $('#general_description_html').val(general_description.root.innerHTML);
+            $('#meta_ingredients_html').val(meta_ingredients.root.innerHTML);
+            $('#meta_guide_html').val(meta_guide.root.innerHTML);
             $('#product_submittion').submit();
         });
     </script>
