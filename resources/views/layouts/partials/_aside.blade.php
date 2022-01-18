@@ -177,7 +177,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="account/security.html">
+                            <a class="menu-link" href="/shop/category/list">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>

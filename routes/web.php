@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductCategoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -49,6 +50,12 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/list', [ProductController::class, 'index']);
             Route::get('/new', [ProductController::class, 'new']);
             Route::post('/create', [ProductController::class, 'create'])->name('product.create');
+        }); 
+
+
+        Route::group(['prefix' => 'category'], function () {
+            Route::get('/list', [ProductCategoryController::class, 'index']);
+            Route::post('/new', [ProductCategoryController::class, 'store'])->name('product_category.create');
         }); 
     });  
 
