@@ -31,7 +31,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/register', [UserController::class, 'register']);
         Route::get('/delete/{id}', [UserController::class, 'delete']);
         Route::post('{id}/role/assign', [UserController::class, 'roleAssign'])->name('user.roleAssign');
-       
 
         /*ROLES AND PERMIISIONS management*/
         Route::get('/permissions', [RoleController::class, 'permissions_list'])->name('permissions.list');
@@ -47,11 +46,11 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['prefix' => 'shop'], function () {
         Route::group(['prefix' => 'product'], function () {
+            Route::get('/json', [ProductController::class, 'json'])->name('products.json');
             Route::get('/list', [ProductController::class, 'index']);
             Route::get('/new', [ProductController::class, 'new']);
-            Route::post('/create', [ProductController::class, 'create'])->name('product.create');
-        }); 
-
+            Route::post('/create', [ProductController::class, 'store'])->name('product.create');
+        });
 
         Route::group(['prefix' => 'category'], function () {
             Route::get('/list', [ProductCategoryController::class, 'index']);

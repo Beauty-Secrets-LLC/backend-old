@@ -21,7 +21,7 @@
                     <label class="btn btn-outline btn-outline-dashed btn-outline-default active d-flex text-start p-6" data-kt-button="true">
                         <!--begin::Radio-->
                         <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
-                            <input class="form-check-input" type="radio" name="product_type" value="simple" checked="checked">
+                            <input class="form-check-input" type="radio" name="type" value="simple" checked="checked">
                         </span>
                         <!--end::Radio-->
                         <!--begin::Info-->
@@ -39,7 +39,7 @@
                     <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-6" data-kt-button="true">
                         <!--begin::Radio-->
                         <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
-                            <input class="form-check-input" type="radio" name="product_type" value="variable">
+                            <input class="form-check-input" type="radio" name="type" value="variable">
                         </span>
                         <!--end::Radio-->
                         <!--begin::Info-->
@@ -92,7 +92,7 @@
 
 
 <script>
-    $('input[name="product_type"]').change(function() {
+    $('input[name="type"]').change(function() {
         var selected = $(this).val();
         $('.price-container').hide();
         $('#price_'+selected).show();

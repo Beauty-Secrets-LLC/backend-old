@@ -108,7 +108,7 @@
                 <!--begin::Card body-->
                 <div class="card-body pt-0">
                     <!--begin::Select2-->
-                    <select class="form-select mb-2" data-control="select2" data-hide-search="true" data-placeholder="Сонгох">
+                    <select  name="status" class="form-select mb-2" data-control="select2" data-hide-search="true" data-placeholder="Сонгох">
                         <option value="published">Нээлттэй</option>
                         <option value="draft">Ноорог</option>
                         <option value="scheduled">Хуваарьт</option>
@@ -131,7 +131,18 @@
                 <!--end::Card header-->
                 <!--begin::Card body-->
                 <div class="card-body pt-0">
-
+                    <select  name="categories[]" class="form-select mb-2" data-control="select2" data-placeholder="Сонгох" multiple="multiple">
+                        @php
+                            $traverse = function ($categories, $prefix = '') use (&$traverse) {
+                                foreach ($categories as $category) {
+                                    echo '<option value="'.$category->id.'">'.$prefix.' '.$category->name.'</option>';
+                                    $traverse($category->children, $prefix.'— ');
+                                }
+                            };
+                            $traverse($product_categories);
+                        @endphp
+                    </select>
+                   
                     <label class="form-label d-block">Tags</label>
                     <!--begin::Select2-->
                     <input type="text" name="tags" id="tags" class="form-control">

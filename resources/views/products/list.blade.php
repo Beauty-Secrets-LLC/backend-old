@@ -1,5 +1,52 @@
 @extends('layouts.admin')
-
+@section('toolbar')
+<!--begin::Container-->
+<div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
+    <!--begin::Page title-->
+    <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
+        <!--begin::Title-->
+        <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Бүтээгдэхүүн</h1>
+        <!--end::Title-->
+        <!--begin::Separator-->
+        <span class="h-20px border-gray-200 border-start mx-4"></span>
+        <!--end::Separator-->
+        <!--begin::Breadcrumb-->
+        <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
+            <!--begin::Item-->
+            <li class="breadcrumb-item text-muted">
+                <a href="/" class="text-muted text-hover-primary">Эхлэл</a>
+            </li>
+            <!--end::Item-->
+            <!--begin::Item-->
+            <li class="breadcrumb-item">
+                <span class="bullet bg-gray-200 w-5px h-2px"></span>
+            </li>
+            <!--end::Item-->
+            <!--begin::Item-->
+            <li class="breadcrumb-item text-muted">Бүтээгдэхүүн</li>
+            <!--end::Item-->
+            <!--begin::Item-->
+            <li class="breadcrumb-item">
+                <span class="bullet bg-gray-200 w-5px h-2px"></span>
+            </li>
+            <!--end::Item-->
+            <!--begin::Item-->
+            <li class="breadcrumb-item text-dark">Жагсаалт</li>
+            <!--end::Item-->
+        </ul>
+        <!--end::Breadcrumb-->
+    </div>
+    <!--end::Page title-->
+    <!--begin::Actions-->
+    <div class="d-flex align-items-center py-1">
+        <!--begin::Button-->
+        <a href="{{ route('product.create') }}" class="btn btn-sm btn-flex btn-light btn-active-primary">Шинэ бүтээгдэхүүн нэмэх</a>
+        <!--end::Button-->
+    </div>
+    <!--end::Actions-->
+</div>
+<!--end::Container-->
+@endsection
 @section('content')
     
     @if (session('success'))
@@ -46,53 +93,20 @@
     <div class="card card-flush">
         <!--begin::Card body-->
         <div class="card-body pt-0">
-            <table id="kt_datatable_example_1" class="table table-row-bordered gy-5">
+            <table id="product_table" class="table table-row-bordered gy-5">
                 <thead>
                     <tr class="fw-bold fs-6 text-muted">
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Office</th>
-                        <th>Age</th>
-                        <th>Start date</th>
-                        <th>Salary</th>
+                        <th></th>
+                        <th>Нэр</th>
+                        <th>Үнэ</th>
+                        <th>Үлдэгдэл</th>
+                        <th>Төлөв</th>
+                        <th>Ангилал</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>2011/04/25</td>
-                        <td>$320,800</td>
-                    </tr>
-                    <tr>
-                        <td>Garrett Winters</td>
-                        <td>Accountant</td>
-                        <td>Tokyo</td>
-                        <td>63</td>
-                        <td>2011/07/25</td>
-                        <td>$170,750</td>
-                    </tr>
-                    <tr>
-                        <td>Ashton Cox</td>
-                        <td>Junior Technical Author</td>
-                        <td>San Francisco</td>
-                        <td>66</td>
-                        <td>2009/01/12</td>
-                        <td>$86,000</td>
-                    </tr>
+                    
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Office</th>
-                        <th>Age</th>
-                        <th>Start date</th>
-                        <th>Salary</th>
-                    </tr>
-                </tfoot>
             </table>
         </div>
         <!--end::Card body-->
@@ -105,6 +119,56 @@
 
 @section('scripts')
     <script>
-        $("#kt_datatable_example_1").DataTable();
+        $("#product_table").DataTable({
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            pageLength: 50,
+            language: {
+                search: "Хайлт:",
+                infoFiltered: "",
+                processing: "Түр хүлээнэ үү ..."
+            },
+            oLanguage: {
+                sLengthMenu: "_MENU_",
+                sLoadingRecords: "Түр хүлээнэ үү ...",
+                sZeroRecords: "Тохирох хүсэлт олдсонгүй"
+            },
+            ajax: {
+                url: "{{ route('products.json') }}",
+                type: 'GET',
+                dataType: "json",
+                data: function(d) {  
+                    /* FILTER BOX */                         
+                },
+            },
+            columns: [
+                { data: 'id' },
+                { data: 'name' },
+                { data: 'price_regular' },
+                { data: 'stock_status' },
+                { data: 'status' },
+                { data: 'product_category' },
+            ],
+            columnDefs: [
+                {
+                    targets: 1,
+                    render: function(data, type, full, meta) {
+                        return '<a class="text-gray-800 text-hover-primary fs-5 fw-bolder" href="#">'+data+'</a>';
+                    }
+                },
+                {
+                    targets: 5,
+                    render: function(data, type, full, meta) {
+                        var output = '';
+                        $.each(data, function (key, value) {
+                            output += '<a href="#">' + value.name + '</a> ';
+                        });
+
+                        return output;
+                    }
+                }
+            ]
+        });
     </script>
 @endsection

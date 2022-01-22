@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -15,7 +16,15 @@ class ProductController extends Controller
     public function index()
     {
         //
+        $products = Product::get_products();
         return view('products.list');
+    }
+
+
+    public function json() {
+        $products = Product::get_products();
+        return $products;
+
     }
 
     /**
@@ -26,14 +35,19 @@ class ProductController extends Controller
     public function new()
     {
         //
-        return view('products.new');
+
+
+        $product_categories = ProductCategory::get()->toTree();
+        return view('products.new', compact('product_categories'));
     }
 
     public function create(Request $request)
     {
-        //
-        dump($request->file());
-        dd($request->all());
+       
+        //$product->productCategories()->sync($request->categories);
+
+        // dump($request->file());
+  
     }
 
     /**
@@ -44,7 +58,17 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = \Auth::user();
+
+        unset($request['_token']);
+        unset($request['featured_image_remove']);
+        unset($request['tags']);
+
+        $request['owner'] = $user->id;
+        $product = Product::create($request->all());
+        $product->productCategory()->sync($request->get('categories'));
+
+        dump($product );
     }
 
     /**
