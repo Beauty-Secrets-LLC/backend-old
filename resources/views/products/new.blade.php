@@ -124,24 +124,27 @@
                 <div class="card-header">
                     <!--begin::Card title-->
                     <div class="card-title">
-                        <h2>Бүтээгдэхүүний ангилал</h2>
+                        <h2>Ангилал</h2>
                     </div>
                     <!--end::Card title-->
                 </div>
                 <!--end::Card header-->
                 <!--begin::Card body-->
                 <div class="card-body pt-0">
-                    <select  name="categories[]" class="form-select mb-2" data-control="select2" data-placeholder="Сонгох" multiple="multiple">
-                        @php
-                            $traverse = function ($categories, $prefix = '') use (&$traverse) {
-                                foreach ($categories as $category) {
-                                    echo '<option value="'.$category->id.'">'.$prefix.' '.$category->name.'</option>';
-                                    $traverse($category->children, $prefix.'— ');
-                                }
-                            };
-                            $traverse($product_categories);
-                        @endphp
-                    </select>
+                    <div class="mb-4">
+                        <select  name="categories[]" class="form-select" data-control="select2" data-placeholder="Сонгох" multiple="multiple">
+                            @php
+                                $traverse = function ($categories, $prefix = '') use (&$traverse) {
+                                    foreach ($categories as $category) {
+                                        echo '<option value="'.$category->id.'">'.$prefix.' '.$category->name.'</option>';
+                                        $traverse($category->children, $prefix.'— ');
+                                    }
+                                };
+                                $traverse($product_categories);
+                            @endphp
+                        </select>
+                    </div>
+                    
                    
                     <label class="form-label d-block">Tags</label>
                     <!--begin::Select2-->
@@ -253,7 +256,8 @@
 
                         
                         </div> --}}
-
+                        <!-- Attributes -->
+                        @component('products.components.new_attributes')@endcomponent
                         <!-- ҮНЭ -->
                         @component('products.components.new_price')@endcomponent
                     </div>

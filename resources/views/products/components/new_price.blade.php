@@ -10,7 +10,7 @@
     <div class="card-body pt-0">
         <div class="fv-row mb-10">
             <!--begin::Label-->
-            <label class="fs-6 fw-bold mb-2">Бүтээгдэхүүний төрөл
+            <label class="fs-6 fw-bold mb-2">Төрөл
             <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Бүтээгдэхүүний төрлөөс хамааран үнийг динамикаар тохируулах боломжтой"></i></label>
             <!--End::Label-->
             <!--begin::Row-->
@@ -26,7 +26,7 @@
                         <!--end::Radio-->
                         <!--begin::Info-->
                         <span class="ms-5">
-                            <span class="fs-5 fw-bolder text-gray-800 d-block">Энгийн бүтээгдэхүүн</span>
+                            <span class="fs-5 fw-bolder text-gray-800 d-block">Дан бүтээгдэхүүн</span>
                         </span>
                         <!--end::Info-->
                     </label>

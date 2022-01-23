@@ -40,7 +40,7 @@
     <!--begin::Actions-->
     <div class="d-flex align-items-center py-1">
         <!--begin::Button-->
-        <a href="{{ route('product.create') }}" class="btn btn-sm btn-flex btn-light btn-active-primary">Шинэ бүтээгдэхүүн нэмэх</a>
+        <a href="{{ route('product.new') }}" class="btn btn-sm btn-flex btn-light btn-active-primary">Шинэ бүтээгдэхүүн нэмэх</a>
         <!--end::Button-->
     </div>
     <!--end::Actions-->

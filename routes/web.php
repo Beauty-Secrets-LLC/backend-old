@@ -48,7 +48,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::group(['prefix' => 'product'], function () {
             Route::get('/json', [ProductController::class, 'json'])->name('products.json');
             Route::get('/list', [ProductController::class, 'index']);
-            Route::get('/new', [ProductController::class, 'new']);
+            Route::get('/new', [ProductController::class, 'new'])->name('product.new');
             Route::post('/create', [ProductController::class, 'store'])->name('product.create');
         });
 
