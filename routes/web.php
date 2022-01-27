@@ -23,6 +23,8 @@ Route::get('/', function () {
 
 
 Route::group(['middleware' => ['auth']], function () {
+
+    Route::get('/test', [DashboardController::class, 'test']);
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard'); 
 
     Route::group(['prefix' => 'user'], function () {

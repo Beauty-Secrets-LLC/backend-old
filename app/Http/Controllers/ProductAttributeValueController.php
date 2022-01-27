@@ -2,14 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Dashboard;
+use App\Models\ProductAttributeValue;
 use Illuminate\Http\Request;
 
-use App\Models\ProductAttribute;
-use App\Models\ProductAttributeValue;
-
-
-class DashboardController extends Controller
+class ProductAttributeValueController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +15,6 @@ class DashboardController extends Controller
     public function index()
     {
         //
-        return view('dashboard');
     }
 
     /**
@@ -46,10 +41,10 @@ class DashboardController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Dashboard  $dashboard
+     * @param  \App\Models\ProductAttributeValue  $productAttributeValue
      * @return \Illuminate\Http\Response
      */
-    public function show(Dashboard $dashboard)
+    public function show(ProductAttributeValue $productAttributeValue)
     {
         //
     }
@@ -57,10 +52,10 @@ class DashboardController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Dashboard  $dashboard
+     * @param  \App\Models\ProductAttributeValue  $productAttributeValue
      * @return \Illuminate\Http\Response
      */
-    public function edit(Dashboard $dashboard)
+    public function edit(ProductAttributeValue $productAttributeValue)
     {
         //
     }
@@ -69,10 +64,10 @@ class DashboardController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Dashboard  $dashboard
+     * @param  \App\Models\ProductAttributeValue  $productAttributeValue
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Dashboard $dashboard)
+    public function update(Request $request, ProductAttributeValue $productAttributeValue)
     {
         //
     }
@@ -80,22 +75,11 @@ class DashboardController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Dashboard  $dashboard
+     * @param  \App\Models\ProductAttributeValue  $productAttributeValue
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Dashboard $dashboard)
+    public function destroy(ProductAttributeValue $productAttributeValue)
     {
         //
-    }
-
-
-    public function test()
-    {
-
-        $test = ProductAttribute::with('values')->get()->toArray();
-
-        $test2 = ProductAttributeValue::with('attribute')->get()->toArray();
-
-        dd($test2);
     }
 }
