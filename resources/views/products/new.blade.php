@@ -178,7 +178,7 @@
                             <!--begin::Card header-->
                             <div class="card-header">
                                 <div class="card-title">
-                                    <h2>Бүтээгдэхүүний ерөнхий мэдээлэл</h2>
+                                    <h2>Ерөнхий мэдээлэл</h2>
                                 </div>
                             </div>
                             <!--end::Card header-->
@@ -257,7 +257,7 @@
                         
                         </div> --}}
                         <!-- Attributes -->
-                        @component('products.components.new_attributes')@endcomponent
+                        @component('products.components.new_attributes', ['attributes' => $product_attributes])@endcomponent
                         <!-- ҮНЭ -->
                         @component('products.components.new_price')@endcomponent
                     </div>

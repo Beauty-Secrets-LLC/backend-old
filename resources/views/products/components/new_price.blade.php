@@ -2,7 +2,7 @@
     <!--begin::Card header-->
     <div class="card-header">
         <div class="card-title">
-            <h2>Бүтээгдэхүүний үнэ</h2>
+            <h2>Үнэ</h2>
         </div>
     </div>
     <!--end::Card header-->

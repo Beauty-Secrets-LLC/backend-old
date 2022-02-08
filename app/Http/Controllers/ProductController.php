@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\ProductAttribute;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -35,10 +36,9 @@ class ProductController extends Controller
     public function new()
     {
         //
-
-
         $product_categories = ProductCategory::get()->toTree();
-        return view('products.new', compact('product_categories'));
+        $product_attributes = ProductAttribute::with('values')->get()->ToArray();
+        return view('products.new', compact('product_categories', 'product_attributes'));
     }
 
     public function create(Request $request)
