@@ -37,8 +37,7 @@ class ProductController extends Controller
     {
         //
         $product_categories = ProductCategory::get()->toTree();
-        $product_attributes = ProductAttribute::with('values')->get()->ToArray();
-        return view('products.new', compact('product_categories', 'product_attributes'));
+        return view('products.new', compact('product_categories'));
     }
 
     public function create(Request $request)

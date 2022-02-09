@@ -257,7 +257,7 @@
                         
                         </div> --}}
                         <!-- Attributes -->
-                        @component('products.components.new_attributes', ['attributes' => $product_attributes])@endcomponent
+                        @component('products.components.new_attributes')@endcomponent
                         <!-- ҮНЭ -->
                         @component('products.components.new_price')@endcomponent
                     </div>
