@@ -1,6 +1,6 @@
 <div>
-    @dump($selected_attribute)
-    <div class="d-flex flex-column flex-md-row gap-5 mb-4">
+    @dump($attached_attributes)
+    <div class="d-flex flex-column flex-md-row gap-5 mb-10">
         <div class="flex-row-fluid">
             @if (!empty($all_attributes))
               
@@ -19,18 +19,18 @@
     </div>
     <div>
         @if (!empty($attached_attributes))
-            @foreach ($attached_attributes as $attribute)
-                @if ($attribute['name'] == 'custom')
-                    <div class="row mb-3">
+            @foreach ($attached_attributes as $attribute_key => $attribute)
+                @if (!isset($attribute['values']))
+                    <div class="row mb-5">
                         <div class="col-md-6">
-                            <input type="text" name="" class="form-control" placeholder="Нэршил" wire:model="attatched_attributes.$key.name" wire:key="aa$keyname">
+                            <input type="text" name="" class="form-control" placeholder="Нэр" wire:model.lazy="attached_attributes.{{ $attribute_key }}.name" wire:key="{{ $attribute_key.'_name' }}">
                         </div>
                         <div class="col-md-6">
-                            <textarea name="" class="form-control" placeholder="Утга (олон янзын утга бол | тэмдэгээр тусгаарлана)" rows="2"></textarea>
+                            <textarea name="" class="form-control" placeholder="Утга" rows="2" wire:model.lazy="attached_attributes.{{ $attribute_key }}.value" wire:key="{{ $attribute_key.'_value' }}"></textarea>
                         </div>
                     </div>
                 @else
-                    <div class="row mb-3">
+                    <div class="row mb-5">
                         <div class="col-md-6">
                             {{ $attribute['name'] }}
                         </div>

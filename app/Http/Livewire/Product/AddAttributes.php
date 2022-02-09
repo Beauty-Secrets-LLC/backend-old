@@ -22,15 +22,12 @@ class AddAttributes extends Component
 
     public function add() {
         if($this->selected_attribute != 'custom') {
-            $this->attached_attributes[] = ProductAttribute::with('values')->where('id', 1)->first()->toArray();
+            $this->attached_attributes[] = ProductAttribute::with('values')->select('id', 'name')->where('id', 1)->first()->toArray();
         }
         else {
-            $this->attached_attributes[] = ['name' => 'custom'];
+            $this->attached_attributes[] = ['name' => ''];
         }
         //$this->selected_attribute = 'asdasd';
     }
 
-    public function change($data) {
-        $selected_attribute = 'sdasda';
-    }
 }
