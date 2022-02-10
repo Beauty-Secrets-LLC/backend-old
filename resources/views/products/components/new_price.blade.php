@@ -81,11 +81,15 @@
         
 
         <div id="price_variable" class="price-container" style="display:none">
-            <div >
+            <div>
                 variable
             </div>
             
         </div>
+
+
+        @livewire('product.add-variations')
+
     </div>
     <!--end::Card body-->
 </div>

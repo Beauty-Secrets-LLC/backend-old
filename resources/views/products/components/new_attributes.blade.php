@@ -9,13 +9,9 @@
     <!--begin::Card body-->
     <div class="card-body pt-0">
         <!--begin::Input group-->
-        
-
         <div>
             @livewire('product.add-attributes')
         </div>
-
-        
     </div>
     <!--end::Card header-->
 </div>
