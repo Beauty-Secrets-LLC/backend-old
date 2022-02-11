@@ -265,8 +265,6 @@
                 </div>
                 <div class="tab-pane fade" id="product_advanced" role="tab-panel">
                     <div class="d-flex flex-column gap-7 gap-lg-10">
-                        @component('products.components.new_inventory')@endcomponent
-                        @component('products.components.new_shipping')@endcomponent
                         @component('products.components.new_others')@endcomponent
                     </div>
                    

@@ -2,7 +2,7 @@
     <!--begin::Card header-->
     <div class="card-header">
         <div class="card-title">
-            <h2>Үнэ</h2>
+            <h2>Бүтээгдэхүүний нөөц ба үнэ</h2>
         </div>
     </div>
     <!--end::Card header-->
@@ -57,7 +57,32 @@
         </div>
 
         <div id="price_simple"  class="price-container">
-            <div  class="d-flex flex-wrap gap-5">
+            <div class="mb-5 d-flex flex-wrap gap-5">
+                <div class="fv-row">
+                    <div class="form-check form-check-custom form-check-solid mb-2">
+                        <input class="form-check-input" type="checkbox" name="is_preorder" value="1">
+                        <label class="form-check-label form-label">Урьдчилсан захиалга</label>
+                    </div>
+                </div>
+                <div class="fv-row">
+                    <div class="form-check form-check-custom form-check-solid mb-2">
+                        <input class="form-check-input" type="checkbox" name="is_digital" value="1">
+                        <label class="form-check-label form-label">Цахим бүтээгдэхүүн </label>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-5 fv-row fv-plugins-icon-container">
+                <!--begin::Label-->
+                <label class="form-label">Код</label>
+                <!--end::Label-->
+                <!--begin::Input-->
+                <input type="text" name="data[sku]" class="form-control mb-2" placeholder="Код" value="">
+                <!--end::Input-->
+                <!--begin::Description-->
+                <div class="text-muted fs-7">Бүтээгдэхүүний кодыг оруулна уу</div>
+                <!--end::Description-->
+            </div>
+            <div class=" mb-5 d-flex flex-wrap gap-5">
                 <!--begin::Input group-->
                 <div class="fv-row w-100 flex-md-root fv-plugins-icon-container">
                     <!--begin::Label-->
@@ -77,19 +102,58 @@
                 </div>
                 <!--end::Input group-->
             </div>
+            <div class="mb-5 fv-row fv-plugins-icon-container">
+                <!--begin::Label-->
+                <label class="required form-label">Тоо ширхэг</label>
+                <!--end::Label-->
+                <!--begin::Input-->
+                <div class="d-flex gap-3">
+                    <input type="number" name="quantity" class="form-control mb-2" placeholder="" value="" required>
+                </div>
+                <!--end::Input-->
+            </div>
+            <div class="mb-5 fv-row">
+                <!--begin::Input-->
+                <div class="form-check form-check-custom form-check-solid mb-2">
+                    <input class="form-check-input" type="checkbox" name="data[backorder]" value="yes">
+                    <label class="form-check-label form-label">Нөөцөөс хамааралгүй захиалах</label>
+                </div>
+                <!--end::Input-->
+                <!--begin::Description-->
+                <div class="text-muted fs-7">Тухайн бүтээгдэхүүний нөөц дууссан ч хэрэглэгч захиалах боломжтой байна.</div>
+                <!--end::Description-->
+            </div>
+            <div class="mb-5 fv-row">
+                <!--begin::Label-->
+                <label class="form-label">Жин</label>
+                <!--end::Label-->
+                <!--begin::Editor-->
+                <input type="number" name="data[weight]" class="form-control mb-2" placeholder="" value="">
+                <!--end::Editor-->
+                <!--begin::Description-->
+                <div class="text-muted fs-7">Бүтээгдэхүүний жинг килограммаар (kg) тооцно.</div>
+                <!--end::Description-->
+            </div>
+            <div class="fv-row">
+                <!--begin::Label-->
+                <label class="form-label">Овор</label>
+                <!--end::Label-->
+                <!--begin::Input-->
+                <div class="d-flex flex-wrap flex-sm-nowrap gap-3">
+                    <input type="number" name="data[width]" class="form-control mb-2" placeholder="Өргөн (w)" value="">
+                    <input type="number" name="data[height]" class="form-control mb-2" placeholder="Өндөр (h)" value="">
+                    <input type="number" name="data[length]" class="form-control mb-2" placeholder="Урт (l)" value="">
+                </div>
+                <!--end::Input-->
+                <!--begin::Description-->
+                <div class="text-muted fs-7">Бүтээгдэхүүний оврыг сантиметрээр (cm) тооцно.</div>
+                <!--end::Description-->
+            </div>
         </div>
-        
 
         <div id="price_variable" class="price-container" style="display:none">
-            <div>
-                variable
-            </div>
-            
+            @livewire('product.add-variations')
         </div>
-
-
-        @livewire('product.add-variations')
-
     </div>
     <!--end::Card body-->
 </div>

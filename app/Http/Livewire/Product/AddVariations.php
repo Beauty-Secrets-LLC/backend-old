@@ -24,6 +24,6 @@ class AddVariations extends Component
     }
 
     public function add() {
-        $this->variations[] = 1;
+        $this->variations[] = [];
     }
 }
