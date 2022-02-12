@@ -24,15 +24,21 @@
                             <div class="form-group d-flex gap-5">
                                 @foreach ($attributes as $attribute_key => $attribute)
                                     @if (isset($attribute['use_for_variation']) && $attribute['use_for_variation'])
-                                        @php
-                                            $options = (isset($attribute['selected'])) ? $attribute['selected'] : explode("|", $attribute['values']);
-                                        @endphp
                                         <div class="w-50">
-                                            <select name="" class="form-select" wire:model.defer="variations.{{$variation_key}}.attributes.{{ $attribute_key }}.name">
-                                                <option value="" selected>Бүх {{ $attribute['name'] }}</option>
-                                                @foreach ($options as $option)
-                                                    <option value="{{ $option }}">{{ $option }}</option>
-                                                @endforeach
+                                            <select name="" class="form-select" wire:model.defer="variations.{{$variation_key}}.attributes.{{ $attribute['name'] }}">
+                                                <option value="any" selected>Бүх {{ $attribute['name'] }}</option>
+                                                @if (isset($attribute['selected']))
+                                                    @foreach ($attribute['selected'] as $option)
+                                                        @php
+                                                            $option = json_decode($option, true);
+                                                        @endphp
+                                                        <option value="{{ $option['id'] }}">{{ $option['name'] }}</option>
+                                                    @endforeach
+                                                @else
+                                                    @foreach (explode("|", $attribute['values']) as $option)
+                                                        <option value="{{ $option }}">{{ $option }}</option>
+                                                    @endforeach
+                                                @endif
                                             </select>
                                         </div>
                                     @endif
@@ -40,7 +46,7 @@
                                 <button class="btn btn-light-primary" type="button" data-bs-toggle="collapse" data-bs-target="#variationBody_{{$variation_key}}" aria-expanded="true" aria-controls="variationBody_{{$variation_key}}">
                                     Дата
                                 </button>
-                                <button class="btn btn-icon btn-light-danger"><i class="las la-times"></i></button>
+                                <button type="button" class="btn btn-icon btn-light-danger" wire:click="remove({{ $variation_key }})"><i class="las la-times"></i></button>
                             </div>
                         @endif
                     </h2>
@@ -97,7 +103,7 @@
                                 <!--end::Label-->
                                 <!--begin::Input-->
                                 <div class="d-flex gap-3">
-                                    <input type="number" name="quantity" class="form-control mb-2" placeholder="" value="" required wire:model.defer="variations.{{$variation_key}}.stock_quantity">
+                                    <input type="number" name="quantity" class="form-control mb-2" placeholder="" value="" required wire:model.defer="variations.{{ $variation_key }}.stock_quantity">
                                 </div>
                                 <!--end::Input-->
                             </div>

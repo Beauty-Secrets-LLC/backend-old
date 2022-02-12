@@ -48,7 +48,6 @@
         </div>
     </div>
     
-    
     @if (!empty($attached_attributes))
         <div class="my-10">
             @foreach ($attached_attributes as $attribute_key => $attribute)
@@ -68,7 +67,10 @@
                         @if (is_array($attribute['values']))
                             <select  class="form-select bs-select2 multiple-select" multiple="multiple" data-control="select2" data-placeholder="Сонгох" data-index="{{  $attribute_key }}">
                                 @foreach ($attribute['values'] as $values)
-                                    <option {{ (isset($attribute['selected']) && in_array( $values['value'],$attribute['selected'] )) ? 'selected' : '' }} value="{{ $values['value'] }}">{{ $values['value'] }}</option>
+                                    @php
+                                        $attribute_formatted = json_encode(['id'=>$values['id'], 'name'=>$values['value']], JSON_UNESCAPED_UNICODE);
+                                    @endphp
+                                    <option {{ (isset($attribute['selected']) && in_array( $attribute_formatted ,$attribute['selected'] )) ? 'selected' : '' }} value="{{ $attribute_formatted }}">{{ $values['value'] }}</option>
                                 @endforeach
                             </select>
                         @else 
@@ -84,7 +86,7 @@
                         
                     </div>
                     <div class="col-md-3">
-                        <button tyle="button" wire:click="remove({{  $attribute_key }})" class="btn btn-sm btn-light-danger">Устгах</button>
+                        <button type="button" wire:click="remove({{  $attribute_key }})" class="btn btn-sm btn-light-danger">Устгах</button>
                     </div>
                 </div>
             @endforeach
