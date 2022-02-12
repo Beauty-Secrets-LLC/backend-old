@@ -14,14 +14,14 @@
     @endif
 
     @if (session()->has('attribute-save-message'))
-        <div class="alert bg-light-success mb-3">
+        <div class="alert bg-light-success mb-5">
             {{ session('attribute-save-message') }}
         </div>
     @endif
-    <div class="row my-10">
+    <div class="row">
         <div class="col-md-4">
             @if (!empty($all_attributes))
-                <select class="form-select" id="select_attribute" wire:model.defer="selected_attribute" data-control="select2" data-placeholder="Сонгох" >
+                <select class="form-select bs-select2" id="select_attribute" wire:model.defer="selected_attribute" data-control="select2" data-placeholder="Сонгох" >
                     <option  value="custom">Дурын шинж</option>
                     @foreach ($all_attributes as $attribute)
                         @php
@@ -48,8 +48,9 @@
         </div>
     </div>
     
-    <div>
-        @if (!empty($attached_attributes))
+    
+    @if (!empty($attached_attributes))
+        <div class="my-10">
             @foreach ($attached_attributes as $attribute_key => $attribute)
                 <div class="row mb-6">
                     <div class="col-md-4">
@@ -65,7 +66,7 @@
                     </div>
                     <div class="col-md-5">
                         @if (is_array($attribute['values']))
-                            <select  class="form-select bs-select2" multiple="multiple" data-control="select2" data-placeholder="Сонгох" data-index="{{  $attribute_key }}">
+                            <select  class="form-select bs-select2 multiple-select" multiple="multiple" data-control="select2" data-placeholder="Сонгох" data-index="{{  $attribute_key }}">
                                 @foreach ($attribute['values'] as $values)
                                     <option {{ (isset($attribute['selected']) && in_array( $values['value'],$attribute['selected'] )) ? 'selected' : '' }} value="{{ $values['value'] }}">{{ $values['value'] }}</option>
                                 @endforeach
@@ -87,8 +88,9 @@
                     </div>
                 </div>
             @endforeach
-        @endif
-    </div>
+        </div>
+    @endif
+   
 </div>
 
 <script>
@@ -99,12 +101,12 @@
 
     document.addEventListener('livewire:load', function () {
         Livewire.hook('message.processed', (el, component) => {
-            $('.form-select').select2({
+            $('.bs-select2').select2({
                 closeOnSelect: false
             });
 
             //Select attribute change event
-            $('.bs-select2').on('select2:close', function (e) {
+            $('.multiple-select').on('select2:close', function (e) {
                 var options = $(this).val();
                 var index = $(this).data('index');
                 @this.set('attached_attributes.'+index+'.selected', options);

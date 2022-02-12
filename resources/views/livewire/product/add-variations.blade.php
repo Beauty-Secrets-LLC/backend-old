@@ -22,13 +22,13 @@
                     <h2 class="accordion-header" id="variationHeader_{{$variation_key}}">
                         @if (!empty($attributes))
                             <div class="form-group d-flex gap-5">
-                                @foreach ($attributes as $attribute)
+                                @foreach ($attributes as $attribute_key => $attribute)
                                     @if (isset($attribute['use_for_variation']) && $attribute['use_for_variation'])
                                         @php
                                             $options = (isset($attribute['selected'])) ? $attribute['selected'] : explode("|", $attribute['values']);
                                         @endphp
                                         <div class="w-50">
-                                            <select name="" class="form-select">
+                                            <select name="" class="form-select" wire:model.defer="variations.{{$variation_key}}.attributes.{{ $attribute_key }}.name">
                                                 <option value="" selected>Бүх {{ $attribute['name'] }}</option>
                                                 @foreach ($options as $option)
                                                     <option value="{{ $option }}">{{ $option }}</option>
