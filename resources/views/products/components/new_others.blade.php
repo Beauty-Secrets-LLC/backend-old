@@ -11,16 +11,6 @@
         <!--begin::Input group-->
         <div class="mb-10 fv-row fv-plugins-icon-container">
             <!--begin::Label-->
-            <label class="form-label">Хэмжээ</label>
-            <!--end::Label-->
-            <!--begin::Input-->
-            <input type="text" name="data[size]" class="form-control mb-2" placeholder="" value="">
-            <!--end::Input-->
-        </div>
-        <!--end::Input group-->
-        <!--begin::Input group-->
-        <div class="mb-10 fv-row fv-plugins-icon-container">
-            <!--begin::Label-->
             <label class="form-label">Орц</label>
             <!--end::Label-->
             <!--begin::Input-->

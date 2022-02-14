@@ -54,7 +54,10 @@
                 <div class="row mb-6">
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <input type="text" name="" class="form-control" placeholder="Нэр" wire:model.defer="attached_attributes.{{ $attribute_key }}.name" wire:key="{{ $attribute_key.'_name' }}">
+                            @isset($attribute['id'])
+                                <input type="hidden" name="attributes[{{ $attribute_key}}][id]" value="{{ $attribute['id']}}">
+                            @endisset
+                            <input type="text" name="attributes[{{ $attribute_key}}][name]" class="form-control" placeholder="Нэр" wire:model.defer="attached_attributes.{{ $attribute_key }}.name" wire:key="{{ $attribute_key.'_name' }}">
                         </div>
                         <div class="form-check form-check-custom form-check-solid">
                             <input class="form-check-input" type="checkbox" value="1" id="{{ $attribute_key.'_attr_for_variation' }}"  wire:model.defer="attached_attributes.{{ $attribute_key }}.use_for_variation"  wire:key="{{ $attribute_key.'_use_for_variation' }}" />
@@ -65,7 +68,7 @@
                     </div>
                     <div class="col-md-5">
                         @if (is_array($attribute['values']))
-                            <select  class="form-select bs-select2 multiple-select" multiple="multiple" data-control="select2" data-placeholder="Сонгох" data-index="{{  $attribute_key }}">
+                            <select name="attributes[{{ $attribute_key}}][value][]" class="form-select bs-select2 multiple-select" multiple="multiple" data-control="select2" data-placeholder="Сонгох" data-index="{{  $attribute_key }}">
                                 @foreach ($attribute['values'] as $values)
                                     @php
                                         $attribute_formatted = json_encode(['id'=>$values['id'], 'name'=>$values['value']], JSON_UNESCAPED_UNICODE);
@@ -74,7 +77,7 @@
                                 @endforeach
                             </select>
                         @else 
-                            <textarea name="" 
+                            <textarea name="attributes[{{ $attribute_key}}][value]"
                                 class="form-control" 
                                 placeholder="Утга (Ялгаатай утгыг | тэмдэгээр тусгаарлана)" 
                                 rows="3" 

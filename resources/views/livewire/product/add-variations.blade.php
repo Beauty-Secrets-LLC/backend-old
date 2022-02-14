@@ -83,7 +83,7 @@
                                     <!--begin::Label-->
                                     <label class="required form-label">Үндсэн үнэ</label>
                                     <!--end::Label-->
-                                    <input type="text" name="regular_price" class="form-control mb-2" value="" wire:model.defer="variations.{{$variation_key}}.regular_price">
+                                    <input type="number" name="regular_price" class="form-control mb-2" value="" wire:model.defer="variations.{{$variation_key}}.regular_price">
                                 <div class="fv-plugins-message-container invalid-feedback"></div></div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
@@ -92,7 +92,7 @@
                                     <label class="form-label">Хямдарсан үнэ</label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
-                                    <input type="text" name="sale_price"  class="form-control mb-2" value="" wire:model.defer="variations.{{$variation_key}}.sale_price">
+                                    <input type="number" name="sale_price"  class="form-control mb-2" value="" wire:model.defer="variations.{{$variation_key}}.sale_price">
                                     <!--end::Input-->
                                 </div>
                                 <!--end::Input group-->

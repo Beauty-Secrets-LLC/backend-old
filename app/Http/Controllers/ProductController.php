@@ -63,6 +63,8 @@ class ProductController extends Controller
         unset($request['featured_image_remove']);
         unset($request['tags']);
 
+        dd($request->all());
+
         $request['owner'] = $user->id;
         $product = Product::create($request->all());
         $product->productCategory()->sync($request->get('categories'));
