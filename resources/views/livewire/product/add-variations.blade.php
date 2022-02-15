@@ -25,7 +25,7 @@
                                 @foreach ($attributes as $attribute_key => $attribute)
                                     @if (isset($attribute['use_for_variation']) && $attribute['use_for_variation'])
                                         <div class="w-50">
-                                            <select name="" class="form-select" wire:model.defer="variations.{{$variation_key}}.attributes.{{ $attribute['name'] }}">
+                                            <select name="variations[{{$variation_key}}][attributes][{{ $attribute['name'] }}]" class="form-select" wire:model.defer="variations.{{$variation_key}}.attributes.{{ $attribute['name'] }}">
                                                 <option value="any" selected>Бүх {{ $attribute['name'] }}</option>
                                                 @if (isset($attribute['selected']))
                                                     @foreach ($attribute['selected'] as $option)
@@ -55,13 +55,13 @@
                             <div class="mb-5 d-flex flex-wrap gap-5">
                                 <div class="fv-row">
                                     <div class="form-check form-check-custom form-check-solid mb-2">
-                                        <input class="form-check-input" type="checkbox" name="is_preorder" value="1" wire:model.defer="variations.{{$variation_key}}.is_preorder">
+                                        <input class="form-check-input" type="checkbox" name="variations[{{$variation_key}}][is_preorder]" value="1" wire:model.defer="variations.{{$variation_key}}.is_preorder">
                                         <label class="form-check-label form-label">Урьдчилсан захиалга</label>
                                     </div>
                                 </div>
                                 <div class="fv-row">
                                     <div class="form-check form-check-custom form-check-solid mb-2">
-                                        <input class="form-check-input" type="checkbox" name="is_digital" value="1" wire:model.defer="variations.{{$variation_key}}.is_digital">
+                                        <input class="form-check-input" type="checkbox" name="variations[{{$variation_key}}][is_digital]" value="1" wire:model.defer="variations.{{$variation_key}}.is_digital">
                                         <label class="form-check-label form-label">Цахим бүтээгдэхүүн </label>
                                     </div>
                                 </div>
@@ -71,7 +71,7 @@
                                 <label class="form-label">Код</label>
                                 <!--end::Label-->
                                 <!--begin::Input-->
-                                <input type="text" name="data[sku]" class="form-control mb-2" placeholder="Код" value="" wire:model.defer="variations.{{$variation_key}}.sku">
+                                <input type="text" name="variations[{{$variation_key}}][sku]" class="form-control mb-2" placeholder="Код" value="" wire:model.defer="variations.{{$variation_key}}.sku">
                                 <!--end::Input-->
                                 <!--begin::Description-->
                                 <div class="text-muted fs-7">Бүтээгдэхүүний кодыг оруулна уу</div>
@@ -83,7 +83,7 @@
                                     <!--begin::Label-->
                                     <label class="required form-label">Үндсэн үнэ</label>
                                     <!--end::Label-->
-                                    <input type="number" name="regular_price" class="form-control mb-2" value="" wire:model.defer="variations.{{$variation_key}}.regular_price">
+                                    <input type="number" name="variations[{{$variation_key}}][regular_price]" class="form-control mb-2" value="" wire:model.defer="variations.{{$variation_key}}.regular_price">
                                 <div class="fv-plugins-message-container invalid-feedback"></div></div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
@@ -92,7 +92,7 @@
                                     <label class="form-label">Хямдарсан үнэ</label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
-                                    <input type="number" name="sale_price"  class="form-control mb-2" value="" wire:model.defer="variations.{{$variation_key}}.sale_price">
+                                    <input type="number" name="variations[{{$variation_key}}][sale_price]"  class="form-control mb-2" value="" wire:model.defer="variations.{{$variation_key}}.sale_price">
                                     <!--end::Input-->
                                 </div>
                                 <!--end::Input group-->
@@ -103,14 +103,14 @@
                                 <!--end::Label-->
                                 <!--begin::Input-->
                                 <div class="d-flex gap-3">
-                                    <input type="number" name="quantity" class="form-control mb-2" placeholder="" value="" required wire:model.defer="variations.{{ $variation_key }}.stock_quantity">
+                                    <input type="number" name="variations[{{$variation_key}}][quantity]" class="form-control mb-2" placeholder="" value="" required wire:model.defer="variations.{{ $variation_key }}.stock_quantity">
                                 </div>
                                 <!--end::Input-->
                             </div>
                             <div class="mb-5 fv-row">
                                 <!--begin::Input-->
                                 <div class="form-check form-check-custom form-check-solid mb-2">
-                                    <input class="form-check-input" type="checkbox" name="data[backorder]" value="yes" wire:model.defer="variations.{{$variation_key}}.backorder">
+                                    <input class="form-check-input" type="checkbox" name="variations[{{$variation_key}}][backorder]" value="yes" wire:model.defer="variations.{{$variation_key}}.backorder">
                                     <label class="form-check-label form-label">Нөөцөөс хамааралгүй захиалах</label>
                                 </div>
                                 <!--end::Input-->
@@ -124,7 +124,7 @@
                                 <label class="form-label">Жин</label>
                                 <!--end::Label-->
                                 <!--begin::Editor-->
-                                <input type="number" name="data[weight]" class="form-control mb-2" placeholder="" value="" wire:model.defer="variations.{{$variation_key}}.weight">
+                                <input type="number" name="variations[{{$variation_key}}][data][weight]" class="form-control mb-2" placeholder="" value="" wire:model.defer="variations.{{$variation_key}}.weight">
                                 <!--end::Editor-->
                                 <!--begin::Description-->
                                 <div class="text-muted fs-7">Бүтээгдэхүүний жинг килограммаар (kg) тооцно.</div>
@@ -136,9 +136,9 @@
                                 <!--end::Label-->
                                 <!--begin::Input-->
                                 <div class="d-flex flex-wrap flex-sm-nowrap gap-3">
-                                    <input type="number" name="data[width]" class="form-control mb-2" placeholder="Өргөн (w)" value="" wire:model.defer="variations.{{$variation_key}}.width">
-                                    <input type="number" name="data[height]" class="form-control mb-2" placeholder="Өндөр (h)" value="" wire:model.defer="variations.{{$variation_key}}.height">
-                                    <input type="number" name="data[length]" class="form-control mb-2" placeholder="Урт (l)" value="" wire:model.defer="variations.{{$variation_key}}.length">
+                                    <input type="number" name="variations[{{$variation_key}}][data][width]" class="form-control mb-2" placeholder="Өргөн (w)" value="" wire:model.defer="variations.{{$variation_key}}.width">
+                                    <input type="number" name="variations[{{$variation_key}}][data][height]" class="form-control mb-2" placeholder="Өндөр (h)" value="" wire:model.defer="variations.{{$variation_key}}.height">
+                                    <input type="number" name="variations[{{$variation_key}}][data][length]" class="form-control mb-2" placeholder="Урт (l)" value="" wire:model.defer="variations.{{$variation_key}}.length">
                                 </div>
                                 <!--end::Input-->
                                 <!--begin::Description-->
