@@ -30,9 +30,9 @@
                                                 @if (isset($attribute['selected']))
                                                     @foreach ($attribute['selected'] as $option)
                                                         @php
-                                                            $option = json_decode($option, true);
+                                                            $option_array = json_decode($option, true);
                                                         @endphp
-                                                        <option value="{{ $option['id'] }}">{{ $option['name'] }}</option>
+                                                        <option value="{{ $option }}">{{ $option_array['name'] }}</option>
                                                     @endforeach
                                                 @else
                                                     @foreach (explode("|", $attribute['values']) as $option)
