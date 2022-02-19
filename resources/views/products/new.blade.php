@@ -109,10 +109,10 @@
                 <div class="card-body pt-0">
                     <!--begin::Select2-->
                     <select  name="status" class="form-select mb-2" data-control="select2" data-hide-search="true" data-placeholder="Сонгох">
-                        <option value="published">Нээлттэй</option>
-                        <option value="draft">Ноорог</option>
-                        <option value="scheduled">Хуваарьт</option>
-                        <option value="inactive">Идэвхигүй</option>
+                        <option value="{{ Product::STATUS_ACTIVE }}">Нээлттэй</option>
+                        <option value="{{ Product::STATUS_DRAFT }}">Ноорог</option>
+                        <option value="{{ Product::STATUS_SCHEDULED }}">Хуваарьт</option>
+                        <option value="{{ Product::STATUS_INACTIVE }}">Идэвхигүй</option>
                     </select>
                     <!--end::Select2-->
                 </div>

@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\ProductAttribute;
 use Illuminate\Http\Request;
+use DB;
 
 class ProductController extends Controller
 {
@@ -57,19 +58,17 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $user = \Auth::user();
+        DB::beginTransaction();
+        try {
+            $product = Product::create_product($request->all());
+            $request->session()->flash('success', "Бүтээгдэхүүн нэмэгдлээ.");
 
-        unset($request['_token']);
-        unset($request['featured_image_remove']);
-        unset($request['tags']);
-
-        dd($request->all());
-
-        $request['owner'] = $user->id;
-        $product = Product::create($request->all());
-        $product->productCategory()->sync($request->get('categories'));
-
-        dump($product );
+        } catch (\Exception $e) {
+            $request->session()->flash('error', $e->getMessage());
+            DB::rollback();
+        }
+        return redirect()->back();
+      
     }
 
     /**
@@ -115,5 +114,22 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         //
+    }
+
+    public function test() {
+        // $product = Product::find(42)->with([
+        //     'productVariation' => function($variation) {
+        //         $variation->with([
+        //             'attributeValues' => function($attribute_value) {
+        //                 $attribute_value->with('attribute');
+        //             }
+        //         ]);
+        //     }
+        // ])
+        // ->first()->toArray();
+
+        $products = Product::get_products();
+
+        dd($products);
     }
 }

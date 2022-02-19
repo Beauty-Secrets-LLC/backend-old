@@ -47,6 +47,9 @@ Route::group(['middleware' => ['auth']], function () {
 
 
     Route::group(['prefix' => 'shop'], function () {
+
+        Route::get('/test', [ProductController::class, 'test']);
+
         Route::group(['prefix' => 'product'], function () {
             Route::get('/json', [ProductController::class, 'json'])->name('products.json');
             Route::get('/list', [ProductController::class, 'index']);

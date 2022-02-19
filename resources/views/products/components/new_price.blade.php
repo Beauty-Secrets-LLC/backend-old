@@ -60,13 +60,13 @@
             <div class="mb-5 d-flex flex-wrap gap-5">
                 <div class="fv-row">
                     <div class="form-check form-check-custom form-check-solid mb-2">
-                        <input class="form-check-input" type="checkbox" name="is_preorder" value="1">
+                        <input class="form-check-input" type="checkbox" name="simple[0][is_preorder]" value="1">
                         <label class="form-check-label form-label">Урьдчилсан захиалга</label>
                     </div>
                 </div>
                 <div class="fv-row">
                     <div class="form-check form-check-custom form-check-solid mb-2">
-                        <input class="form-check-input" type="checkbox" name="is_digital" value="1">
+                        <input class="form-check-input" type="checkbox" name="simple[0][is_digital]" value="1">
                         <label class="form-check-label form-label">Цахим бүтээгдэхүүн </label>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
                 <label class="form-label">Код</label>
                 <!--end::Label-->
                 <!--begin::Input-->
-                <input type="text" name="data[sku]" class="form-control mb-2" placeholder="Код" value="">
+                <input type="text" name="simple[0][sku]" class="form-control mb-2" placeholder="Код" value="">
                 <!--end::Input-->
                 <!--begin::Description-->
                 <div class="text-muted fs-7">Бүтээгдэхүүний кодыг оруулна уу</div>
@@ -88,7 +88,7 @@
                     <!--begin::Label-->
                     <label class="required form-label">Үндсэн үнэ</label>
                     <!--end::Label-->
-                    <input type="number" name="regular_price" class="form-control mb-2" value="">
+                    <input type="number" name="simple[0][regular_price]" class="form-control mb-2" value="">
                 <div class="fv-plugins-message-container invalid-feedback"></div></div>
                 <!--end::Input group-->
                 <!--begin::Input group-->
@@ -97,25 +97,38 @@
                     <label class="form-label">Хямдарсан үнэ</label>
                     <!--end::Label-->
                     <!--begin::Input-->
-                    <input type="number" name="sale_price"  class="form-control mb-2" value="">
+                    <input type="number" name="simple[0][sale_price]"  class="form-control mb-2" value="">
                     <!--end::Input-->
                 </div>
                 <!--end::Input group-->
             </div>
             <div class="mb-5 fv-row fv-plugins-icon-container">
                 <!--begin::Label-->
-                <label class="required form-label">Тоо ширхэг</label>
+                <label class="required form-label">Барааны нөөц</label>
                 <!--end::Label-->
                 <!--begin::Input-->
                 <div class="d-flex gap-3">
-                    <input type="number" name="quantity" class="form-control mb-2" placeholder="" value="" required>
+                    <select name="simple[0][stock_quantity]" class="form-select">
+                        <option value="{{ Product::STOCK_INSTOCK }}">Байгаа</option>
+                        <option value="{{ Product::STOCK_OUTOFSTOCK }}">Дууссан</option>
+                    </select>
+                </div>
+                <!--end::Input-->
+            </div>
+            <div class="mb-5 fv-row fv-plugins-icon-container">
+                <!--begin::Label-->
+                <label class="form-label">Тоо ширхэг</label>
+                <!--end::Label-->
+                <!--begin::Input-->
+                <div class="d-flex gap-3">
+                    <input type="number" name="simple[0][stock_quantity]" class="form-control mb-2" placeholder="" value="" required>
                 </div>
                 <!--end::Input-->
             </div>
             <div class="mb-5 fv-row">
                 <!--begin::Input-->
                 <div class="form-check form-check-custom form-check-solid mb-2">
-                    <input class="form-check-input" type="checkbox" name="data[backorder]" value="yes">
+                    <input class="form-check-input" type="checkbox" name="simple[0][backorder]" value="yes">
                     <label class="form-check-label form-label">Нөөцөөс хамааралгүй захиалах</label>
                 </div>
                 <!--end::Input-->
@@ -128,7 +141,7 @@
                 <label class="form-label">Жин</label>
                 <!--end::Label-->
                 <!--begin::Editor-->
-                <input type="number" name="data[weight]" class="form-control mb-2" placeholder="" value="">
+                <input type="number" name="simple[0][data][weight]" class="form-control mb-2" placeholder="" value="">
                 <!--end::Editor-->
                 <!--begin::Description-->
                 <div class="text-muted fs-7">Бүтээгдэхүүний жинг килограммаар (kg) тооцно.</div>
@@ -140,9 +153,9 @@
                 <!--end::Label-->
                 <!--begin::Input-->
                 <div class="d-flex flex-wrap flex-sm-nowrap gap-3">
-                    <input type="number" name="data[width]" class="form-control mb-2" placeholder="Өргөн (w)" value="">
-                    <input type="number" name="data[height]" class="form-control mb-2" placeholder="Өндөр (h)" value="">
-                    <input type="number" name="data[length]" class="form-control mb-2" placeholder="Урт (l)" value="">
+                    <input type="number" name="simple[0][data][width]" class="form-control mb-2" placeholder="Өргөн (w)" value="">
+                    <input type="number" name="simple[0][data][height]" class="form-control mb-2" placeholder="Өндөр (h)" value="">
+                    <input type="number" name="simple[0][data][length]" class="form-control mb-2" placeholder="Урт (l)" value="">
                 </div>
                 <!--end::Input-->
                 <!--begin::Description-->
