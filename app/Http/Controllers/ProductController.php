@@ -132,4 +132,8 @@ class ProductController extends Controller
 
         dd($products);
     }
+
+    public function api() {
+        return 'sda';
+    }
 }

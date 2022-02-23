@@ -44,7 +44,8 @@ class Product extends Model
 
     public function productVariation()
     {
-        return $this->hasMany(ProductVariation::class)->addSelect('product_id',  \DB::raw("CONCAT( MIN(regular_price), '-', MAX(regular_price)) AS price"));
+        //return $this->hasMany(ProductVariation::class)->addSelect('product_id',  \DB::raw("CONCAT( MIN(regular_price), '-', MAX(regular_price)) AS price"));
+        return $this->hasMany(ProductVariation::class);
     }
 
     public static function create_product($data) {
@@ -82,10 +83,22 @@ class Product extends Model
     public static function get_products($options = null) {
         $result = [];
         $result['draw'] = (isset($options['draw'])) ? $options['draw'] : 0;
-
         $query = Product::with([
             'productCategory',
-            'productVariation'
+            'productVariation'=>function($variation) {
+                $variation->with([
+                    'attributeValues' => function($attribute_value) {
+                        $attribute_value->with([
+                            'attribute' => function ($attribute) {
+                                $attribute->select('id', 'name');
+                            }
+                        ])->select(
+                            'value',
+                            'product_attribute_id'
+                        );
+                    }
+                ]);
+            }
         ]);
         //Нийт бичлэгийн тоог авч бна
         $result['recordsTotal'] = $query->count();
@@ -99,5 +112,27 @@ class Product extends Model
         $result['data'] = $query->get()->toArray();
         $result['draw']++;
         return $result;
+    }
+
+    public static function get_product($id) {
+        $product = Product::with([
+            'productCategory',
+            'productVariation'=>function($variation) {
+                $variation->with([
+                    'attributeValues' => function($attribute_value) {
+                        $attribute_value->with([
+                            'attribute' => function ($attribute) {
+                                $attribute->select('id', 'name');
+                            }
+                        ])->select(
+                            'value',
+                            'product_attribute_id'
+                        );
+                    }
+                ]);
+            }
+        ])->where('id', $id)->first()->toArray();
+
+        return $product;
     }
 }

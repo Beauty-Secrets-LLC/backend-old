@@ -19,6 +19,9 @@ class DashboardController extends Controller
     public function index()
     {
         //
+        $user = \Auth::user();
+        $token = $user->createToken('bsecret')->plainTextToken;
+        dd($token);
         return view('dashboard');
     }
 
