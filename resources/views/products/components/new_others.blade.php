@@ -14,8 +14,12 @@
             <label class="form-label">Орц</label>
             <!--end::Label-->
             <!--begin::Input-->
-            <div id="meta_ingredients" class="min-h-150px mb-2 ql-container ql-snow"></div>
-            <textarea name="data[ingredients]" id="meta_ingredients_html" class="d-none"></textarea>
+            <div id="meta_ingredients" class="min-h-150px mb-2 ql-container ql-snow">
+                {!! (isset($product['data']['ingredients'])) ? $product['data']['ingredients'] : '' !!}
+            </div>
+            <textarea name="data[ingredients]" id="meta_ingredients_html" class="d-none">
+                {{ (isset($product['data']['ingredients'])) ? $product['data']['ingredients'] : ''}}
+            </textarea>
             <!--end::Input-->
         </div>
         <!--end::Input group-->
@@ -25,8 +29,12 @@
             <label class="form-label">Хэрэглэх заавар</label>
             <!--end::Label-->
             <!--begin::Input-->
-            <div id="meta_guide" class="min-h-150px mb-2 ql-container ql-snow"></div>
-            <textarea name="data[guide]" id="meta_guide_html" class="d-none"></textarea>
+            <div id="meta_guide" class="min-h-150px mb-2 ql-container ql-snow">
+                {!! (isset($product['data']['guide'])) ? $product['data']['guide'] : '' !!}
+            </div>
+            <textarea name="data[guide]" id="meta_guide_html" class="d-none">
+                {{ (isset($product['data']['guide'])) ? $product['data']['guide'] : ''}}
+            </textarea>
             <!--end::Input-->
         </div>
         <!--end::Input group-->

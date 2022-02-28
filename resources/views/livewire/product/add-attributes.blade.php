@@ -94,29 +94,26 @@
             @endforeach
         </div>
     @endif
-   
+    <script>
+        $('#select_attribute').on('select2:select', function (e) {
+            var data = e.params.data;
+            @this.set('selected_attribute', data.id);
+        });
+    
+        document.addEventListener('livewire:load', function () {
+            Livewire.hook('message.processed', (el, component) => {
+                $('.bs-select2').select2({
+                    closeOnSelect: false
+                });
+    
+                //Select attribute change event
+                $('.multiple-select').on('select2:close', function (e) {
+                    var options = $(this).val();
+                    var index = $(this).data('index');
+                    @this.set('attached_attributes.'+index+'.selected', options);
+                });
+            });
+        })
+    </script>
 </div>
 
-<script>
-    $('#select_attribute').on('select2:select', function (e) {
-        var data = e.params.data;
-        @this.set('selected_attribute', data.id);
-    });
-
-    document.addEventListener('livewire:load', function () {
-        Livewire.hook('message.processed', (el, component) => {
-            $('.bs-select2').select2({
-                closeOnSelect: false
-            });
-
-            //Select attribute change event
-            $('.multiple-select').on('select2:close', function (e) {
-                var options = $(this).val();
-                var index = $(this).data('index');
-                @this.set('attached_attributes.'+index+'.selected', options);
-            });
-
-            
-        });
-    })
-</script>

@@ -41,7 +41,7 @@
         </div>
     @endif
     
-    <form id="product_submittion" action="{{ route('product.create') }}" method="POST" class="form d-flex flex-column flex-lg-row fv-plugins-bootstrap5 fv-plugins-framework" enctype="multipart/form-data">
+    <form id="product_submittion" action="{{ is_null($product) ? route('product.create') : route('product.update', $product['id'] ) }}" method="POST" class="form d-flex flex-column flex-lg-row fv-plugins-bootstrap5 fv-plugins-framework" enctype="multipart/form-data">
         @csrf
         <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
             <div class="card card-flush py-4">
@@ -144,12 +144,15 @@
                         </select>
                     </div>
                     
+                    <div>
+                        <label class="form-label d-block">Tags</label>
+                        <!--begin::Select2-->
+                        <input type="text" name="tags" id="tags" class="form-control" value="">
+                        <!--end::Select2-->
+                        <div class="text-muted fs-7">Бүтээгдэхүүнийг илэрхийлэх үгс</div>
+                    </div>
                    
-                    <label class="form-label d-block">Tags</label>
-                    <!--begin::Select2-->
-                    <input type="text" name="tags" id="tags" class="form-control">
-                    <!--end::Select2-->
-                    <div class="text-muted fs-7">Бүтээгдэхүүнийг илэрхийлэх үгс</div>
+                    
                 </div>
                 <!--end::Card body-->
             </div>
@@ -189,7 +192,7 @@
                                     <label class="required form-label">Бүтээгдэхүүний нэр</label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
-                                    <input type="text" name="name" class="form-control mb-2" placeholder="" value="">
+                                    <input type="text" name="name" class="form-control mb-2" placeholder="" value="{{ (isset($product['name'])) ? $product['name']: '' }}">
                                     <!--end::Input-->
                                 <div class="fv-plugins-message-container invalid-feedback"></div></div>
                                 <!--end::Input group-->
@@ -199,8 +202,14 @@
                                     <label class="form-label">Тайлбар</label>
                                     <!--end::Label-->
                                     <!--begin::Editor-->
-                                    <div id="general_description" class="min-h-200px mb-2 ql-container ql-snow"></div>
-                                    <textarea name="data[description]" id="general_description_html" class="d-none"></textarea>
+                                    <div id="general_description" class="min-h-200px mb-2 ql-container ql-snow">
+                                        {!! (isset($product['data']['description'])) ? $product['data']['description'] : ''; !!}
+                                    </div>
+                                    <textarea name="data[description]" id="general_description_html" class="d-none">
+                                        {{ (isset($product['data']['description'])) ? $product['data']['description'] : ''; }}
+                                    </textarea>
+
+
                                     <!--end::Editor-->
                                     <!--begin::Description-->
                                     <!--end::Description-->
@@ -258,13 +267,13 @@
                         <!-- Attributes -->
                         @component('products.components.new_attributes')@endcomponent
                         <!-- ҮНЭ -->
-                        @component('products.components.new_price')@endcomponent
+                        @component('products.components.new_price', ['product'=>$product])@endcomponent
                     </div>
                     
                 </div>
                 <div class="tab-pane fade" id="product_advanced" role="tab-panel">
                     <div class="d-flex flex-column gap-7 gap-lg-10">
-                        @component('products.components.new_others')@endcomponent
+                        @component('products.components.new_others', ['product'=>$product])@endcomponent
                     </div>
                    
                 </div>
@@ -286,10 +295,10 @@
 @endsection
 
 @section('styles')
-   
 @endsection
 
 @section('scripts')
+
     <script>
         var toolbarOptions = [
             ['bold', 'italic', 'underline'],        // toggled buttons
@@ -334,8 +343,6 @@
             theme: 'snow' // or 'bubble'
         });
 
-        var taginput = document.querySelector("#tags");
-        new Tagify(taginput);
 
        
 
@@ -354,11 +361,22 @@
         //     }
         // });
 
-        $('#product_submit').click(function(){
-            $('#general_description_html').val(general_description.root.innerHTML);
-            $('#meta_ingredients_html').val(meta_ingredients.root.innerHTML);
-            $('#meta_guide_html').val(meta_guide.root.innerHTML);
-            $('#product_submittion').submit();
+
+        $(function() {
+            
+            var taginput = document.querySelector("#tags");
+            new Tagify(taginput);
+
+            $('#product_submit').click(function(){
+                $('#general_description_html').val(general_description.root.innerHTML);
+                $('#meta_ingredients_html').val(meta_ingredients.root.innerHTML);
+                $('#meta_guide_html').val(meta_guide.root.innerHTML);
+                $('#product_submittion').submit();
+            });
+
+
         });
+
+        
     </script>
 @endsection

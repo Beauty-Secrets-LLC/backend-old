@@ -9,7 +9,7 @@
 		<meta name="keywords" content="Metronic, bootstrap, bootstrap 5, Angular 11, VueJs, React, Laravel, admin themes, web design, figma, web development, ree admin themes, bootstrap admin, bootstrap dashboard" />
 		<link rel="canonical" href="Https://preview.keenthemes.com/metronic8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico"') }}" />
+		<link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" />
         
         @include('layouts.partials._styles')
         @yield('styles')

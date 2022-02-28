@@ -18,10 +18,10 @@
                 <!--begin::Col-->
                 <div class="col">
                     <!--begin::Option-->
-                    <label class="btn btn-outline btn-outline-dashed btn-outline-default active d-flex text-start p-6" data-kt-button="true">
+                    <label class="btn btn-outline btn-outline-dashed btn-outline-default  d-flex text-start p-6 {{ (!is_null($product) && $product['type'] == 'simple' || is_null($product)) ? 'active' : '' }}" data-kt-button="true">
                         <!--begin::Radio-->
                         <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
-                            <input class="form-check-input" type="radio" name="type" value="simple" checked="checked">
+                            <input class="form-check-input" type="radio" name="type" value="simple" {{ (!is_null($product) && $product['type'] == 'simple' || is_null($product)) ? 'checked' : '' }}>
                         </span>
                         <!--end::Radio-->
                         <!--begin::Info-->
@@ -36,10 +36,10 @@
                 <!--begin::Col-->
                 <div class="col">
                     <!--begin::Option-->
-                    <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-6" data-kt-button="true">
+                    <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-6 {{ (!is_null($product) && $product['type'] == 'variable') ? 'active' : '' }} " data-kt-button="true">
                         <!--begin::Radio-->
                         <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
-                            <input class="form-check-input" type="radio" name="type" value="variable">
+                            <input class="form-check-input" type="radio" name="type" value="variable" {{ (!is_null($product) && $product['type'] == 'variable') ? 'checked' : '' }}>
                         </span>
                         <!--end::Radio-->
                         <!--begin::Info-->
@@ -56,7 +56,7 @@
             <!--end::Row-->
         </div>
 
-        <div id="price_simple"  class="price-container">
+        <div id="price_simple"  class="price-container" style="{{ (!is_null($product) && $product['type'] == 'variable') ? 'display:none' : '' }}">
             <div class="mb-5 d-flex flex-wrap gap-5">
                 <div class="fv-row">
                     <div class="form-check form-check-custom form-check-solid mb-2">
@@ -164,7 +164,7 @@
             </div>
         </div>
 
-        <div id="price_variable" class="price-container" style="display:none">
+        <div id="price_variable" class="price-container" style="{{ (!is_null($product) && $product['type'] == 'simple' || is_null($product)) ? 'display:none' : '' }}">
             @livewire('product.add-variations')
         </div>
     </div>

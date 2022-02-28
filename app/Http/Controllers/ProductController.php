@@ -34,20 +34,12 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function new()
-    {
-        //
-        $product_categories = ProductCategory::get()->toTree();
-        return view('products.new', compact('product_categories'));
-    }
 
     public function create(Request $request)
     {
-       
-        //$product->productCategories()->sync($request->categories);
-
-        // dump($request->file());
-  
+        $product = null;
+        $product_categories = ProductCategory::get()->toTree();
+        return view('products.new', compact('product', 'product_categories'));
     }
 
     /**
@@ -78,9 +70,17 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show($id)
     {
         //
+
+        $product = Product::get_product($id);
+
+        dump($product);
+
+
+        $product_categories = ProductCategory::get()->toTree();
+        return view('products.new', compact('product','product_categories'));
     }
 
     /**
@@ -101,9 +101,11 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
         //
+        dump($id);
+        dd($request->all());
     }
 
     public function delete($id)
