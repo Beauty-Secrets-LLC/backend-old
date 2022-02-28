@@ -55,6 +55,8 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/list', [ProductController::class, 'index']);
             Route::get('/new', [ProductController::class, 'new'])->name('product.new');
             Route::post('/create', [ProductController::class, 'store'])->name('product.create');
+            Route::post('/delete/{id}', [ProductController::class, 'delete']);
+
         });
 
         Route::group(['prefix' => 'category'], function () {

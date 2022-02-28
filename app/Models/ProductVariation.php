@@ -11,7 +11,7 @@ class ProductVariation extends Model
     use HasFactory;
 
     protected $fillable = [
-        'attributes', 'sku', 'stock_status', 'stock_quantity', 'regular_price', 'sale_price', 'data'
+        'product_id','attributes', 'sku', 'stock_status', 'stock_quantity', 'regular_price', 'sale_price', 'data'
     ];
 
     protected $casts = [

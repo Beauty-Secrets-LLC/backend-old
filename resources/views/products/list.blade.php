@@ -98,10 +98,9 @@
                     <tr class="fw-bold fs-6 text-muted">
                         <th></th>
                         <th>Нэр</th>
-                        <th>Үнэ</th>
-                        <th>Үлдэгдэл</th>
                         <th>Төлөв</th>
                         <th>Ангилал</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -119,7 +118,7 @@
 
 @section('scripts')
     <script>
-        $("#product_table").DataTable({
+        var product_table  = $("#product_table").DataTable({
             responsive: true,
             processing: true,
             serverSide: true,
@@ -145,10 +144,9 @@
             columns: [
                 { data: 'id' },
                 { data: 'name' },
-                { data: 'price_regular' },
-                { data: 'stock_status' },
                 { data: 'status' },
                 { data: 'product_category' },
+                { data: 'created_at' },
             ],
             columnDefs: [
                 {
@@ -158,7 +156,7 @@
                     }
                 },
                 {
-                    targets: 5,
+                    targets: 3,
                     render: function(data, type, full, meta) {
                         var output = '';
                         $.each(data, function (key, value) {
@@ -167,8 +165,52 @@
 
                         return output;
                     }
+                },
+                {
+                    targets: 4,
+                    render: function(data, type, full, meta) {
+                        return '<button onclick="deleteProduct(this)" value="'+full.id+'" data-title="'+full.name+'" class="btn btn-sm btn-light btn-active-light-primary" >Устгах</button>';
+                    }
                 }
             ]
         });
+
+
+        function deleteProduct(button) {
+            Swal.fire({
+                title: 'Та итгэлтэй байна уу?',
+                html: "<b>\""+button.dataset.title+"\"</b> нэртэй бүтээгдэхүүнийг устгах гэж байна уу?",
+                icon: 'warning',
+                showCancelButton: true,
+                customClass: {
+                    confirmButton: 'btn btn-primary',
+                    cancelButton: 'btn btn-light',
+                },
+                cancelButtonText: 'Үгүй',
+                confirmButtonText: 'Тийм'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    jQuery.ajax({
+                        type: "POST",
+                        url: "/shop/product/delete/"+button.value,
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                        },
+                        dataType:"json",
+                        success: function(response){
+                            if(response) {
+                                product_table.draw();
+                                Swal.fire(
+                                    'Устгалаа!',
+                                    'Таны сонгосон бүтээгдэхүүнийг амжилттай устгалаа',
+                                    'success'
+                                );
+                            }
+                            
+                        }
+                    });
+                }
+            })
+        }
     </script>
 @endsection

@@ -23,8 +23,8 @@ class ProductController extends Controller
     }
 
 
-    public function json() {
-        $products = Product::get_products();
+    public function json(Request $request) {
+        $products = Product::get_products($request->all());
         return $products;
 
     }
@@ -61,6 +61,7 @@ class ProductController extends Controller
         DB::beginTransaction();
         try {
             $product = Product::create_product($request->all());
+            DB::commit();
             $request->session()->flash('success', "Бүтээгдэхүүн нэмэгдлээ.");
 
         } catch (\Exception $e) {
@@ -104,6 +105,13 @@ class ProductController extends Controller
     {
         //
     }
+
+    public function delete($id)
+    {
+        //
+        return Product::find($id)->delete();
+    }
+
 
     /**
      * Remove the specified resource from storage.

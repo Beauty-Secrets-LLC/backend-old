@@ -1,8 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-    
-    @if (session('success'))
+    @if(session('success'))
         <div class="alert alert-success d-flex align-items-center p-5 mb-10">
             <!--begin::Svg Icon | path: icons/duotone/General/Shield-check.svg-->
             <span class="svg-icon svg-icon-2hx svg-icon-success me-4">

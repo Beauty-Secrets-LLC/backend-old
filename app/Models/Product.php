@@ -4,14 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 use App\Models\ProductCategory;
 
 class Product extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
+
     protected $casts = [
         'data'  =>  'array',
+        'total_quantity' =>  'integer'
     ];
     protected $fillable = [
         'name',
@@ -23,7 +26,7 @@ class Product extends Model
         'data',
         'is_preorder',
         'is_digital',
-        'owner'
+        'user_id'
     ];
 
 
@@ -41,11 +44,18 @@ class Product extends Model
         return $this->belongsToMany(ProductCategory::class,'products_product_category');
     }
 
-
     public function productVariation()
     {
         //return $this->hasMany(ProductVariation::class)->addSelect('product_id',  \DB::raw("CONCAT( MIN(regular_price), '-', MAX(regular_price)) AS price"));
         return $this->hasMany(ProductVariation::class);
+    }
+
+    public function variationSummary()
+    {
+        return $this->hasMany(ProductVariation::class)
+        ->addSelect('product_id',  \DB::raw("CONCAT( MIN(regular_price), '-', MAX(regular_price)) AS price"))
+        ->addSelect('product_id',   \DB::raw("SUM(stock_quantity) AS qty"));
+        //return $this->hasMany(ProductVariation::class);
     }
 
     public static function create_product($data) {
@@ -54,7 +64,7 @@ class Product extends Model
         unset($data['_token']);
         unset($data['featured_image_remove']);
         unset($data['tags']);
-        $data['owner'] = $user->id;
+        $data['user_id'] = $user->id;
         $product = Product::create($data);
         //Setting product categories
         if(isset($data['categories']) && !empty($data['categories'])) {
@@ -82,6 +92,7 @@ class Product extends Model
 
     public static function get_products($options = null) {
         $result = [];
+
         $result['draw'] = (isset($options['draw'])) ? $options['draw'] : 0;
         $query = Product::with([
             'productCategory',
@@ -97,9 +108,11 @@ class Product extends Model
                             'product_attribute_id'
                         );
                     }
-                ]);
-            }
+                ])->sum('stock_quantity');
+            },
+
         ]);
+
         //Нийт бичлэгийн тоог авч бна
         $result['recordsTotal'] = $query->count();
         
@@ -134,5 +147,14 @@ class Product extends Model
         ])->where('id', $id)->first()->toArray();
 
         return $product;
+    }
+
+
+    public static function boot() {
+        parent::boot();
+
+        static::deleting(function($product) { 
+            $product->productVariation()->delete();
+        });
     }
 }
