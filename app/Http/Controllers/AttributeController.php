@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ProductAttributeValue;
+use App\Models\Attribute;
 use Illuminate\Http\Request;
 
-class ProductAttributeValueController extends Controller
+class AttributeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class ProductAttributeValueController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ProductAttributeValue  $productAttributeValue
+     * @param  \App\Models\Attribute  $Attribute
      * @return \Illuminate\Http\Response
      */
-    public function show(ProductAttributeValue $productAttributeValue)
+    public function show(Attribute $Attribute)
     {
         //
     }
@@ -52,10 +52,10 @@ class ProductAttributeValueController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\ProductAttributeValue  $productAttributeValue
+     * @param  \App\Models\Attribute  $Attribute
      * @return \Illuminate\Http\Response
      */
-    public function edit(ProductAttributeValue $productAttributeValue)
+    public function edit(Attribute $Attribute)
     {
         //
     }
@@ -64,10 +64,10 @@ class ProductAttributeValueController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ProductAttributeValue  $productAttributeValue
+     * @param  \App\Models\Attribute  $Attribute
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProductAttributeValue $productAttributeValue)
+    public function update(Request $request, Attribute $Attribute)
     {
         //
     }
@@ -75,10 +75,10 @@ class ProductAttributeValueController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ProductAttributeValue  $productAttributeValue
+     * @param  \App\Models\Attribute  $Attribute
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProductAttributeValue $productAttributeValue)
+    public function destroy(Attribute $Attribute)
     {
         //
     }

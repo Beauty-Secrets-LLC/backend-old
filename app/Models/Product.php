@@ -13,8 +13,7 @@ class Product extends Model
     use HasFactory, SoftDeletes;
 
     protected $casts = [
-        'data'  =>  'array',
-        'total_quantity' =>  'integer'
+        'data'  =>  'array'
     ];
     protected $fillable = [
         'name',
@@ -41,7 +40,12 @@ class Product extends Model
 
     public function productCategory()
     {
-        return $this->belongsToMany(ProductCategory::class,'products_product_category');
+        return $this->belongsToMany(ProductCategory::class,'product_product_categories');
+    }
+
+    public function productAttributes()
+    {
+        return $this->hasMany(ProductAttributeValue::class);
     }
 
     public function productVariation()
@@ -66,26 +70,75 @@ class Product extends Model
         unset($data['tags']);
         $data['user_id'] = $user->id;
         $product = Product::create($data);
+        
         //Setting product categories
         if(isset($data['categories']) && !empty($data['categories'])) {
             $product->productCategory()->sync($data['categories']);
         }
-        
-        //Setting product variations
-        $variations = $product->productVariation()->createMany($data[$data['type']]);
-        //Setting variations attribute / pivot
-        if(!empty($variations)) {
-            foreach($variations as $variation) {
-                if(!empty( $variation['attributes'] )) {
-                    foreach( $variation['attributes'] as $attribute) {
-                        $json_to_array = json_decode($attribute, true);
-                        if(json_last_error() === 0 && isset($json_to_array['product_attribute_value_id'])) {
-                            $variation->attributeValues()->sync([$json_to_array['product_attribute_value_id']]);
+
+        $attributes_data = [];
+        if(isset($data['attributes']) && !empty($data['attributes'])) {
+            $index = 0;
+            foreach($data['attributes'] as $attribute) {
+                //setting up regsitered attribute data
+                if(isset($attribute['id'])) {
+                    if(!empty($attribute['value'])) {
+                        foreach($attribute['value'] as $value) {
+                            $value = json_decode($value, true);
+                            $attributes_data[$index]['type']                 = 'attribute'; 
+                            $attributes_data[$index]['attribute_id']         = $attribute['id'];
+                            $attributes_data[$index]['attribute_name']       = $attribute['name'];
+                            $attributes_data[$index]['attribute_value_id']   = $value['attribute_value_id'];
+                            $attributes_data[$index]['attribute_value']      = $value['name'];
+                            $index++;
+                        }
+                    }
+                }else {
+                    //setting up custom attribute data
+                    $values = explode('|', $attribute['value']);
+                    if(!empty($values)) {
+                        foreach($values as $value) {
+                            $attributes_data[$index]['type']                 = 'custom'; 
+                            $attributes_data[$index]['attribute_name']       = $attribute['name'];
+                            $attributes_data[$index]['attribute_value']      = $value;
+                            $index++;
                         }
                     }
                 }
             }
         }
+
+        $product_attributes = $product->productAttributes()->createMany($attributes_data);
+
+        dd($product_attributes);
+        dd('end');
+        
+        //Setting product variations
+        //$variations = $product->productVariation()->createMany($data[$data['type']]);
+        
+        //Setting variations attribute / pivot
+        // if(!empty($variations)) {
+        //     $variation_attribute_values = [];
+        //     foreach($variations as $variation) {
+        //         if(!empty( $variation['attributes'] )) {
+        //             dump($variation['attributes']);
+        //             foreach( $variation['attributes'] as $attribute_name => $attribute) {
+        //                 $json_to_array = json_decode($attribute, true);
+        //                 if(json_last_error() === 0 && isset($json_to_array['product_attribute_value_id'])) {
+        //                     $attribute_value_data = [
+        //                         'product_attribute_id' => $json_to_array['attribute_id'],
+        //                         'product_attribute_name' => $attribute_name,
+        //                         'product_attribute_value_id' => $json_to_array['product_attribute_value_id'],
+        //                         'product_attribute_value_name' => $json_to_array['name']
+        //                     ];
+        //                     $variation->attributeValues()->attach($json_to_array['product_attribute_value_id'], $attribute_value_data);
+   
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+
         return $product;
     }
 
@@ -96,21 +149,7 @@ class Product extends Model
         $result['draw'] = (isset($options['draw'])) ? $options['draw'] : 0;
         $query = Product::with([
             'productCategory',
-            'productVariation'=>function($variation) {
-                $variation->with([
-                    'attributeValues' => function($attribute_value) {
-                        $attribute_value->with([
-                            'attribute' => function ($attribute) {
-                                $attribute->select('id', 'name');
-                            }
-                        ])->select(
-                            'value',
-                            'product_attribute_id'
-                        );
-                    }
-                ])->sum('stock_quantity');
-            },
-
+            'productAttributes'
         ]);
 
         //Нийт бичлэгийн тоог авч бна
@@ -130,20 +169,23 @@ class Product extends Model
     public static function get_product($id) {
         $product = Product::with([
             'productCategory',
-            'productVariation'=>function($variation) {
-                $variation->with([
-                    'attributeValues' => function($attribute_value) {
-                        $attribute_value->with([
-                            'attribute' => function ($attribute) {
-                                $attribute->select('id', 'name');
-                            }
-                        ])->select(
-                            'value',
-                            'product_attribute_id'
-                        );
-                    }
-                ]);
+            'productAttributes' =>function($attribute) {
+
             }
+            // 'productVariation'=>function($variation) {
+            //     $variation->with([
+            //         'attributeValues' => function($attribute_value) {
+            //             $attribute_value->with([
+            //                 'attribute' => function ($attribute) {
+            //                     $attribute->select('id', 'name');
+            //                 }
+            //             ])->select(
+            //                 'value',
+            //                 'product_attribute_id'
+            //             );
+            //         }
+            //     ]);
+            // }
         ])->where('id', $id)->first()->toArray();
 
         return $product;
@@ -154,6 +196,7 @@ class Product extends Model
         parent::boot();
 
         static::deleting(function($product) { 
+            $product->productAttributes()->delete();
             $product->productVariation()->delete();
         });
     }

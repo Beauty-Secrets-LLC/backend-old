@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Product;
 
 use Livewire\Component;
-use App\Models\ProductAttribute;
+use App\Models\Attribute;
 
 class AddAttributes extends Component
 {
@@ -11,8 +11,13 @@ class AddAttributes extends Component
     public $selected_attribute = 'custom';
     public $attached_attributes = [];
 
-    public function mount(){
-        $this->all_attributes = ProductAttribute::with('values')->get()->ToArray();
+    public function mount($product){
+        $this->all_attributes = Attribute::with('values')->get()->ToArray();
+        //set stored attributes
+        if(isset($product['product_attributes']) && !empty($product['product_attributes'])) {
+            dump($product);
+        }
+        
     }
 
     public function render()
@@ -22,7 +27,7 @@ class AddAttributes extends Component
 
     public function add() {
         if($this->selected_attribute != 'custom') {
-            $this->attached_attributes[] = ProductAttribute::with('values')->select('id', 'name')->where('id', $this->selected_attribute)->first()->toArray();
+            $this->attached_attributes[] = Attribute::with('values')->select('id', 'name')->where('id', $this->selected_attribute)->first()->toArray();
         }
         else {
             $this->attached_attributes[] = [

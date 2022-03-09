@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Product;
 use App\Models\ProductCategory;
-use App\Models\ProductAttribute;
+use App\Models\Attribute;
 
 
 class ProductController extends Controller

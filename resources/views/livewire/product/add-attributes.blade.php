@@ -48,6 +48,7 @@
         </div>
     </div>
     @if (!empty($attached_attributes))
+    
         <div class="my-10">
             @foreach ($attached_attributes as $attribute_key => $attribute)
                 <div class="row mb-6">
@@ -70,7 +71,7 @@
                             <select name="attributes[{{ $attribute_key}}][value][]" class="form-select bs-select2 multiple-select" multiple="multiple" data-control="select2" data-placeholder="Сонгох" data-index="{{  $attribute_key }}">
                                 @foreach ($attribute['values'] as $values)
                                     @php
-                                        $attribute_formatted = json_encode(['attribute_id'=>$values['product_attribute_id'], 'product_attribute_value_id'=>$values['id'], 'name'=>$values['value']], JSON_UNESCAPED_UNICODE);
+                                        $attribute_formatted = json_encode(['attribute_id'=>$values['attribute_id'], 'attribute_value_id'=>$values['id'], 'name'=>$values['value']], JSON_UNESCAPED_UNICODE);
                                     @endphp
                                     <option {{ (isset($attribute['selected']) && in_array( $attribute_formatted ,$attribute['selected'] )) ? 'selected' : '' }} value="{{ $attribute_formatted }}">{{ $values['value'] }}</option>
                                 @endforeach
@@ -93,6 +94,7 @@
                 </div>
             @endforeach
         </div>
+        @dump($attached_attributes)
     @endif
     <script>
         $('#select_attribute').on('select2:select', function (e) {

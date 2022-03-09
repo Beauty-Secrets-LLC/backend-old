@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ProductAttribute;
+use App\Models\ProductAttributeValue;
 use Illuminate\Http\Request;
 
-class ProductAttributeController extends Controller
+class ProductAttributeValueController extends Controller
 {
     /**
      * Display a listing of the resource.

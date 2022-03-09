@@ -2,14 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Dashboard;
+use App\Models\AttributeValue;
 use Illuminate\Http\Request;
 
-use App\Models\Attribute;
-use App\Models\AttributeValue;
-
-
-class DashboardController extends Controller
+class AttributeValueController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,10 +15,6 @@ class DashboardController extends Controller
     public function index()
     {
         //
-        // $user = \Auth::user();
-        // $token = $user->createToken('bsecret')->plainTextToken;
-        // dd($token);
-        return view('dashboard');
     }
 
     /**
@@ -49,10 +41,10 @@ class DashboardController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Dashboard  $dashboard
+     * @param  \App\Models\AttributeValue  $AttributeValue
      * @return \Illuminate\Http\Response
      */
-    public function show(Dashboard $dashboard)
+    public function show(AttributeValue $AttributeValue)
     {
         //
     }
@@ -60,10 +52,10 @@ class DashboardController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Dashboard  $dashboard
+     * @param  \App\Models\AttributeValue  $AttributeValue
      * @return \Illuminate\Http\Response
      */
-    public function edit(Dashboard $dashboard)
+    public function edit(AttributeValue $AttributeValue)
     {
         //
     }
@@ -72,10 +64,10 @@ class DashboardController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Dashboard  $dashboard
+     * @param  \App\Models\AttributeValue  $AttributeValue
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Dashboard $dashboard)
+    public function update(Request $request, AttributeValue $AttributeValue)
     {
         //
     }
@@ -83,22 +75,11 @@ class DashboardController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Dashboard  $dashboard
+     * @param  \App\Models\AttributeValue  $AttributeValue
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Dashboard $dashboard)
+    public function destroy(AttributeValue $AttributeValue)
     {
         //
-    }
-
-
-    public function test()
-    {
-
-        $test = Attribute::with('values')->get()->toArray();
-
-        $test2 = AttributeValue::with('attribute')->get()->toArray();
-
-        dd($test2);
     }
 }

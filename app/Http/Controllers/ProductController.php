@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\ProductCategory;
-use App\Models\ProductAttribute;
+use App\Models\Attribute;
 use Illuminate\Http\Request;
 use DB;
 
@@ -73,12 +73,7 @@ class ProductController extends Controller
     public function show($id)
     {
         //
-
         $product = Product::get_product($id);
-
-        dump($product);
-
-
         $product_categories = ProductCategory::get()->toTree();
         return view('products.new', compact('product','product_categories'));
     }

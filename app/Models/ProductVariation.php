@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\ProductAttributeValue;
+use App\Models\AttributeValue;
 
 class ProductVariation extends Model
 {
@@ -18,17 +18,6 @@ class ProductVariation extends Model
         'attributes'    =>  'array',
         'data'          =>  'array'
     ];
-
-    public function attributeValues()
-    {
-        return $this->belongsToMany(ProductAttributeValue::class,'product_attribute_values_product_variation');
-    }
-
-    public function sda() {
-        return 'sda';
-    }
-
-  
 
 
 }

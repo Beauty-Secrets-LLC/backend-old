@@ -152,7 +152,7 @@
                 {
                     targets: 1,
                     render: function(data, type, full, meta) {
-                        return '<a class="text-gray-800 text-hover-primary fs-5 fw-bolder" href="#">'+data+'</a>';
+                        return '<a class="text-gray-800 text-hover-primary fs-5 fw-bolder" href="/shop/product/view/'+full.id+'">'+data+'</a>';
                     }
                 },
                 {
@@ -160,7 +160,7 @@
                     render: function(data, type, full, meta) {
                         var output = '';
                         $.each(data, function (key, value) {
-                            output += '<a href="#">' + value.name + '</a> ';
+                            output += '<a href="">' + value.name + '</a> ';
                         });
 
                         return output;

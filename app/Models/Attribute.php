@@ -4,13 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\ProductAttributeValue;
+use App\Models\AttributeValue;
 
-class ProductAttribute extends Model
+class Attribute extends Model
 {
     use HasFactory;
 
     public function values() {
-        return $this->hasMany(ProductAttributeValue::class);
+        return $this->hasMany(AttributeValue::class);
     }
 }
