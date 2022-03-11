@@ -12,7 +12,6 @@
         </div>
         <!--end::Alert-->
     @endif
-
     @if (session()->has('attribute-save-message'))
         <div class="alert bg-light-success mb-5">
             {{ session('attribute-save-message') }}
@@ -60,7 +59,7 @@
                             <input type="text" name="attributes[{{ $attribute_key}}][name]" class="form-control" placeholder="Нэр" wire:model.defer="attached_attributes.{{ $attribute_key }}.name" wire:key="{{ $attribute_key.'_name' }}">
                         </div>
                         <div class="form-check form-check-custom form-check-solid">
-                            <input class="form-check-input" type="checkbox" value="1" id="{{ $attribute_key.'_attr_for_variation' }}"  wire:model.defer="attached_attributes.{{ $attribute_key }}.use_for_variation"  wire:key="{{ $attribute_key.'_use_for_variation' }}" />
+                            <input name="attributes[{{ $attribute_key}}][use_for_variation]" class="form-check-input" type="checkbox" value="1" id="{{ $attribute_key.'_attr_for_variation' }}"  wire:model.defer="attached_attributes.{{ $attribute_key }}.use_for_variation"  wire:key="{{ $attribute_key.'_use_for_variation' }}" />
                             <label class="form-check-label" for="{{ $attribute_key.'_attr_for_variation' }}">
                                 Сонголт үүсгэхэд ашиглана
                             </label>
@@ -94,7 +93,7 @@
                 </div>
             @endforeach
         </div>
-        @dump($attached_attributes)
+
     @endif
     <script>
         $('#select_attribute').on('select2:select', function (e) {

@@ -11,9 +11,35 @@ class AddVariations extends Component
     public $listeners = [
         "new-product:setVariation" => 'setVariation',
     ];
-
+    public $stored_variations;
     public $attributes = [];
     public $variations = [];
+    
+
+    public function mount($stored_variations){
+        //set stored variations on edit page
+        if(!empty($stored_variations)) {
+            $variations = [];
+            foreach($stored_variations as $variation_index => $variation) {
+                $variations[$variation_index] = [
+                    'attributes'        => $variation['attributes'],
+                    'is_digital'        => null,
+                    'is_preorder'       => null,
+                    'sku'               => $variation['sku'],
+                    'regular_price'     => $variation['regular_price'],
+                    'sale_price'        => $variation['sale_price'],
+                    'stock_quantity'    => $variation['stock_quantity'],
+                    'backorder'         => null,
+                    'width'             => $variation['data']['width'],
+                    'height'            => $variation['data']['height'],
+                    'length'            => $variation['data']['length'],
+                    'weight'            => $variation['data']['weight'],
+                ];
+            }
+            dump($variations);
+            $this->variations = $variations;
+        }
+    }
 
     public function render()
     {

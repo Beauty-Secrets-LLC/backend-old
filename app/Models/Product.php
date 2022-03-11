@@ -63,6 +63,7 @@ class Product extends Model
     }
 
     public static function create_product($data) {
+
         $user = \Auth::user();
         
         unset($data['_token']);
@@ -90,6 +91,7 @@ class Product extends Model
                             $attributes_data[$index]['attribute_name']       = $attribute['name'];
                             $attributes_data[$index]['attribute_value_id']   = $value['attribute_value_id'];
                             $attributes_data[$index]['attribute_value']      = $value['name'];
+                            $attributes_data[$index]['use_for_variation']    = $attribute['use_for_variation'];
                             $index++;
                         }
                     }
@@ -101,6 +103,7 @@ class Product extends Model
                             $attributes_data[$index]['type']                 = 'custom'; 
                             $attributes_data[$index]['attribute_name']       = $attribute['name'];
                             $attributes_data[$index]['attribute_value']      = $value;
+                            $attributes_data[$index]['use_for_variation']    = $attribute['use_for_variation'];
                             $index++;
                         }
                     }
@@ -109,14 +112,10 @@ class Product extends Model
         }
 
         $product_attributes = $product->productAttributes()->createMany($attributes_data);
-
-        dd($product_attributes);
-        dd('end');
-        
         //Setting product variations
-        //$variations = $product->productVariation()->createMany($data[$data['type']]);
+        $variations = $product->productVariation()->createMany($data[$data['type']]);
         
-        //Setting variations attribute / pivot
+        // //Setting variations attribute / pivot
         // if(!empty($variations)) {
         //     $variation_attribute_values = [];
         //     foreach($variations as $variation) {
@@ -169,9 +168,8 @@ class Product extends Model
     public static function get_product($id) {
         $product = Product::with([
             'productCategory',
-            'productAttributes' =>function($attribute) {
-
-            }
+            'productAttributes',
+            'productVariation'
             // 'productVariation'=>function($variation) {
             //     $variation->with([
             //         'attributeValues' => function($attribute_value) {

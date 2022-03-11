@@ -8,6 +8,7 @@
     <!--end::Card header-->
     <!--begin::Card body-->
     <div class="card-body pt-0">
+
         <div class="fv-row mb-10">
             <!--begin::Label-->
             <label class="fs-6 fw-bold mb-2">Төрөл
@@ -165,7 +166,7 @@
         </div>
 
         <div id="price_variable" class="price-container" style="{{ (!is_null($product) && $product['type'] == 'simple' || is_null($product)) ? 'display:none' : '' }}">
-            @livewire('product.add-variations')
+            @livewire('product.add-variations', ['stored_variations' => $product['product_variation']])
         </div>
     </div>
     <!--end::Card body-->

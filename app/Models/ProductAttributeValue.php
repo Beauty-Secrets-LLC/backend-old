@@ -15,7 +15,8 @@ class ProductAttributeValue extends Model
         'attribute_id',
         'attribute_name',
         'attribute_value_id',
-        'attribute_value'
+        'attribute_value',
+        'use_for_variation'
     ];
 
 }

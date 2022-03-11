@@ -7,16 +7,54 @@ use App\Models\Attribute;
 
 class AddAttributes extends Component
 {
+    public $stored_attribute;
     public $all_attributes = [];
     public $selected_attribute = 'custom';
     public $attached_attributes = [];
 
-    public function mount($product){
+    public function mount($stored_attribute){
         $this->all_attributes = Attribute::with('values')->get()->ToArray();
         //set stored attributes
-        if(isset($product['product_attributes']) && !empty($product['product_attributes'])) {
-            dump($product);
+        $temp_attr_storage = [];
+        if(!empty($stored_attribute)) {
+            foreach($stored_attribute as $attribute) {
+                if(!is_null($attribute['attribute_id'])) {
+                    $temp_attr_storage[$attribute['attribute_id']]['id'] = $attribute['attribute_id'];
+                    $temp_attr_storage[$attribute['attribute_id']]['name'] = $attribute['attribute_name'];
+                    if(!empty($this->all_attributes)) {
+                        foreach($this->all_attributes as $all_attribute) {
+                            if($attribute['attribute_id'] == $all_attribute['id'])
+                                $temp_attr_storage[$attribute['attribute_id']]['values'] = $all_attribute['values'];
+                        }
+                    }
+                    $temp_attr_storage[$attribute['attribute_id']]['selected'][] = json_encode([
+                        'attribute_id'          => $attribute['attribute_id'], 
+                        'attribute_value_id'    =>$attribute['attribute_value_id'], 
+                        'name'                  =>$attribute['attribute_value']
+                    ], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
+                    $temp_attr_storage[$attribute['attribute_id']]['use_for_variation'] = $attribute['use_for_variation'];
+
+                } else {
+
+                    if(isset($temp_attr_storage[$attribute['attribute_name']])) {
+                        $custom_values = explode('|', $temp_attr_storage[$attribute['attribute_name']]['values']);
+                        $custom_values[] = $attribute['attribute_value'];
+                        $temp_attr_storage[$attribute['attribute_name']]['values'] = implode('|', $custom_values);
+
+                    } else {
+                        $temp_attr_storage[$attribute['attribute_name']] = [
+                            'name'              =>$attribute['attribute_name'], 
+                            'values'            => $attribute['attribute_value'],
+                            'use_for_variation' => $attribute['use_for_variation'],
+    
+                        ];
+                    }
+                    
+                } 
+            }
+            $this->attached_attributes = array_values($temp_attr_storage);
         }
+        //end
         
     }
 
