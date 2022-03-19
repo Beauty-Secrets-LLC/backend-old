@@ -58,6 +58,18 @@ class AddAttributes extends Component
         
     }
 
+    public function loadVariationAttributes() {
+        $variation_attr = [];
+        if(!empty($this->attached_attributes)) {
+            foreach($this->attached_attributes as $key => $attributes) {
+                if(isset($attributes['use_for_variation']) && $attributes['use_for_variation']) {
+                    $variation_attr[] = $this->attached_attributes[$key];
+                }
+            }
+        }
+        $this->emit('edit-product:setVariation', $variation_attr);
+    }   
+
     public function render()
     {
         return view('livewire.product.add-attributes');

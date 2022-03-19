@@ -13,6 +13,7 @@
         </div>
     @endif
     @if (!empty($variations))
+       
         <div class="accordion my-5" id="product_variations">
             @foreach ($variations as $variation_key => $variation)
                 <div class="accordion-item p-3">
@@ -20,6 +21,7 @@
                         @if (!empty($attributes))
                             <div class="form-group d-flex gap-5">
                                 @foreach ($attributes as $attribute_key => $attribute)
+                                   
                                     @if (isset($attribute['use_for_variation']) && $attribute['use_for_variation'])
                                         <div class="w-50">
                                             <select name="variable[{{$variation_key}}][attributes][{{ $attribute['name'] }}]" class="form-select" wire:model.defer="variations.{{$variation_key}}.attributes.{{ $attribute['name'] }}">

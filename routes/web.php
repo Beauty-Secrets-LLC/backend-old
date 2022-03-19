@@ -17,9 +17,10 @@ use App\Http\Controllers\ProductCategoryController;
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
-});
+// Route::get('/', function () {
+//     return view('auth.login');
+// });
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard'); 
 
 
 Route::group(['middleware' => ['auth']], function () {
@@ -58,6 +59,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/view/{id}', [ProductController::class, 'show'])->name('product.view');
             Route::post('/update/{id}', [ProductController::class, 'update'])->name('product.update');
             Route::post('/delete/{id}', [ProductController::class, 'delete']);
+            Route::post('/restore/{id}', [ProductController::class, 'restore']);
 
         });
 

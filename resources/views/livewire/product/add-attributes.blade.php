@@ -1,4 +1,4 @@
-<div>
+<div wire:init="loadVariationAttributes">
     @if (!empty($attached_attributes))
         <!--begin::Alert-->
         <div class="alert bg-light-primary d-flex flex-column flex-sm-row p-5 mb-3">

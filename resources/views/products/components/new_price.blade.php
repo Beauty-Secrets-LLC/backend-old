@@ -166,7 +166,7 @@
         </div>
 
         <div id="price_variable" class="price-container" style="{{ (!is_null($product) && $product['type'] == 'simple' || is_null($product)) ? 'display:none' : '' }}">
-            @livewire('product.add-variations', ['stored_variations' => $product['product_variation']])
+            @livewire('product.add-variations', ['stored_variations' => (isset($product['product_variation'])) ? $product['product_variation'] : []])
         </div>
     </div>
     <!--end::Card body-->

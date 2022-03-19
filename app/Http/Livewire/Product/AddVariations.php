@@ -10,6 +10,7 @@ class AddVariations extends Component
 
     public $listeners = [
         "new-product:setVariation" => 'setVariation',
+        "edit-product:setVariation" => 'setVariation',
     ];
     public $stored_variations;
     public $attributes = [];
@@ -36,7 +37,6 @@ class AddVariations extends Component
                     'weight'            => $variation['data']['weight'],
                 ];
             }
-            dump($variations);
             $this->variations = $variations;
         }
     }
@@ -48,7 +48,6 @@ class AddVariations extends Component
 
     public function setVariation($attr) {
         $this->attributes = $attr;
-
          //set default attributes for stored attributes
          if(!empty($this->variations)) {
             foreach($this->variations as $variation_key => $variation) {

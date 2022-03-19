@@ -5,12 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 use App\Models\ProductCategory;
 
 class Product extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, LogsActivity;
 
     protected $casts = [
         'data'  =>  'array'
@@ -34,6 +36,7 @@ class Product extends Model
     const STATUS_ACTIVE = 1;
     const STATUS_DRAFT = 2;
     const STATUS_INACTIVE = 3;
+
     /* STOCK STATUSES */
     const STOCK_INSTOCK = 1;
     const STOCK_OUTOFSTOCK = 0;
@@ -77,6 +80,7 @@ class Product extends Model
             $product->productCategory()->sync($data['categories']);
         }
 
+    
         $attributes_data = [];
         if(isset($data['attributes']) && !empty($data['attributes'])) {
             $index = 0;
@@ -91,7 +95,7 @@ class Product extends Model
                             $attributes_data[$index]['attribute_name']       = $attribute['name'];
                             $attributes_data[$index]['attribute_value_id']   = $value['attribute_value_id'];
                             $attributes_data[$index]['attribute_value']      = $value['name'];
-                            $attributes_data[$index]['use_for_variation']    = $attribute['use_for_variation'];
+                            $attributes_data[$index]['use_for_variation']    = (isset($attribute['use_for_variation'])) ? $attribute['use_for_variation'] : 0 ;
                             $index++;
                         }
                     }
@@ -103,7 +107,7 @@ class Product extends Model
                             $attributes_data[$index]['type']                 = 'custom'; 
                             $attributes_data[$index]['attribute_name']       = $attribute['name'];
                             $attributes_data[$index]['attribute_value']      = $value;
-                            $attributes_data[$index]['use_for_variation']    = $attribute['use_for_variation'];
+                            $attributes_data[$index]['use_for_variation']    = (isset($attribute['use_for_variation'])) ? $attribute['use_for_variation'] : 0 ;
                             $index++;
                         }
                     }
@@ -153,14 +157,38 @@ class Product extends Model
 
         //Нийт бичлэгийн тоог авч бна
         $result['recordsTotal'] = $query->count();
+
+
+        if (isset($options['search_key']) && trim($options['search_key'])) {
+            $query->whereRaw('name like "%'.$options['search_key'].'%"');
+        }
+        //Filter by STATUS
+        if (isset($options['status']) && trim($options['status'])) {
+            if($options['status'] == 'trashed') {
+                $query->onlyTrashed();
+            }else {
+
+            }
+        }
+
+        //Filter by CATEGORIES
+        if (isset($options['categories']) && !empty($options['categories']) ) {
+           
+            $query->whereHas('productCategory', function($categories) use($options) {
+                $categories->where(function($category) use($options){
+                    $category->whereIn('product_categories.id', $options['categories']);
+                });
+            });
+        }
         
         //Шүүлт хийсний дараах бичлэгийн тоог авч бна
         $result["recordsFiltered"] = $query->count();
         
         if(isset($options['start']) && isset($options['length']))
             $query->offset($options['start'])->limit($options['length']);
+        
 
-        $result['data'] = $query->get()->toArray();
+        $result['data'] = $query->orderby('created_at', 'DESC')->get()->toArray();
         $result['draw']++;
         return $result;
     }
@@ -184,7 +212,7 @@ class Product extends Model
             //         }
             //     ]);
             // }
-        ])->where('id', $id)->first()->toArray();
+        ])->where('id', $id)->first();
 
         return $product;
     }
@@ -198,4 +226,12 @@ class Product extends Model
             $product->productVariation()->delete();
         });
     }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->useLogName('product_log')
+        ->logOnly(['name', 'user_id']);
+    }
+
 }

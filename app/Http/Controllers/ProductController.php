@@ -19,7 +19,8 @@ class ProductController extends Controller
     {
         //
         $products = Product::get_products();
-        return view('products.list');
+        $product_categories = ProductCategory::get()->toTree()->toArray();
+        return view('products.list', compact('product_categories'));
     }
 
 
@@ -105,8 +106,21 @@ class ProductController extends Controller
 
     public function delete($id)
     {
-        //
-        return Product::find($id)->delete();
+        $product = Product::withTrashed()->find($id);
+        if ($product->trashed()) {
+            //Permanant delete
+            $product->forceDelete();
+        } 
+        else {
+            //Soft delete
+            $product->delete();
+        }
+        return $product;
+    }
+
+    public function restore($id)
+    {
+        return Product::onlyTrashed()->find($id)->restore();
     }
 
 
@@ -133,7 +147,7 @@ class ProductController extends Controller
         // ])
         // ->first()->toArray();
 
-        $products = Product::get_products();
+        $products = Product::get_products([]);
 
         dd($products);
     }
