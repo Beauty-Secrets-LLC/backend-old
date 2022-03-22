@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "beautys-333302",
+  "private_key_id": "c9b82843a5f1db30c69646f732af490a7669dc5d",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC/2yPMWUdXcbuY\nCXg3TDAoGLGD+B1Z4X2lgUT1SzptJX6ZUly7SPxuzriTSpo7gfyMvD4jSaXmPPJS\n3bxuzEfURnJFKTCsHtpVUxGmWRUE2l2mtuC3Y6ZVLgMQ1G/QhKYH9fPF2sW16AnD\nbUiGi0hq/sp1dBZn23jnqcBaRBCvPPavetuhxi24ZmQXIgWqq9tgFmA5G3tN0EXR\nqHrAeuNIVdLgUOJ5OWr6LtH/A1NEhcNs3AGT2kmghRrZS4LHsInBGtOR23BIZHvx\nvnuAobrejJMrGUz292h5rlZEvtzctDICd2ix4xrff9MPIM8Uj2b0qb72VsyYnn2R\nQ47RGCTbAgMBAAECggEAATUFVQNaXyALIDEPqH+ABnwFd/7IYNoNBYJSNvHmJtnc\nc9RyEjPFZwFvbQcDRTPz8c2bEvVRDk2ZJekSb/odv18MTof1HO6xAGoS3R3G79Mi\nOpt6yuweIye/5bImsDgORqgg65wcRxdkuxQuRh1saMnXEefBipoSUtYLMnQL3e6e\nrIbRQI0+XRLr47d/Vh1VCi4jOkOXLE0TJcoY9esWdeRr7fZW45JZZOGsphyT0Gnk\nXOsXMA6wyxAknucML4JvhrcKP9NTCDOI284WBYt3kLbQATrIYJanOEHRFgc4Ct/A\nTjso5p3sJkZv2B131oOL0Kuxu2/qQgRFQeWFPWin+QKBgQDwWiHT07KjRZKTOyfH\nJ1nyeicXLLbtTTPkS/7YNR/hoIy7i4TmYkAC+6CGzad0+kMhGdEKa6+DhkXe4ZnG\nE9qTimoaCZuJDZvynmIrgFs6fcEnLL4GbIks+PXgZK2C+3uRFIkCtngca0C1633n\nDBn4ATldwaDXL9L+ak6GqXG+/wKBgQDMWL1wPRgFzufc73vYwB44HNkNcGyYX7Is\nuUDi6FJw3QdZz21Dq+cPyyG3LROLbVlO8+lT7DAQotNSGFBP6cKG1PWRU2sd9q+G\nzFaz6serkSlq6TtIOnin1c8PoBIap1n/CiecJw0rYldkPVnci3V1+EsXmwHfRKlw\njlJVOGJ2JQKBgECq74kP33OAh5RniSdTVicgaJ4aoMkuSXT2YYYInSBW0yauvj5C\nVxi2XRWIBbM6lo80ZAMawClyGiCCsJ4Tv26NAkkpJpj0eW4I4T71FRaiuTJyHlqa\nHzpjbbxHOkwQn8mELez17VEwJkQMLV7Z6a7JnYa1TzI2ot1i+ufOdVU/AoGBAJJy\nppFht22yMwlruF5GkWG1ivjOsYUiUBctTQtRZIPuY+5BchUlhZsUAT292Fv8Kh0j\nQP0cL/Y8OyaCtkwPQ5JN3RAhsIrw2CrLFvgqMp8KkZxFOm8xOHdQC+0u0sq3VRAq\nvuhyNEX7XJZCQbyFVdEN+QMZ2+We17AKz4azuhzhAoGAHKxbO1G2Wnzowp909qMA\nTWh9w6FOZObKw0SLGiaUUNvYQ608GgkhYzOyzobbaP1GBCdNgUAFqTYhIvOJs/sG\nFdPn1bBSn7M4lYeomXhBtg+dpoiqYNgCSqVBQNnPDHnscZt8SZO3zIcN8kudqeBY\nOMyH7q/+ZlGK73K/4S9mDf8=\n-----END PRIVATE KEY-----\n",
+  "client_email": "beauty-media-manage@beautys-333302.iam.gserviceaccount.com",
+  "client_id": "100788006614220101982",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/beauty-media-manage%40beautys-333302.iam.gserviceaccount.com"
+}

@@ -146,10 +146,8 @@ class ProductController extends Controller
         //     }
         // ])
         // ->first()->toArray();
-
-        $products = Product::get_products([]);
-
-        dd($products);
+        return view('test');
+        
     }
 
     public function api() {

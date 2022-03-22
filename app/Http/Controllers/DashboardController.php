@@ -102,7 +102,18 @@ class DashboardController extends Controller
         $test = Attribute::with('values')->get()->toArray();
 
         $test2 = AttributeValue::with('attribute')->get()->toArray();
-
+        
         dd($test2);
+    }
+
+
+    public function upload(Request $request) {
+        // $file = $disk->put('images', $request['fileToUpload']);
+        // $url = $disk->url('/images/mkbeoX4ReO0S8CZWjX95IGJkrn5rOThi4TvbOgnC.jpg');
+        //$delete = $disk->delete('/images/mkbeoX4ReO0S8CZWjX95IGJkrn5rOThi4TvbOgnC.jpg');
+        $product = \Product::find(74);
+        // $sda = $product->addMedia($request['fileToUpload'])->toMediaCollection('sda', 'gcs');
+        $image = $product->getMedia('sda')->first()->getUrl();
+        dump($image);
     }
 }
