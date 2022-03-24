@@ -296,7 +296,6 @@
 
 @section('styles')
 @endsection
-
 @section('scripts')
 
     <script>
@@ -344,8 +343,6 @@
         });
 
 
-       
-
         // var myDropzone = new Dropzone("#kt_dropzonejs_example_1", {
         //     url: "https://keenthemes.com/scripts/void.php", // Set the url for your upload script location
         //     paramName: "file", // The name that will be used to transfer the file
@@ -361,11 +358,12 @@
         //     }
         // });
 
-
         $(function() {
-            
+
             var taginput = document.querySelector("#tags");
-            new Tagify(taginput);
+            var tagify = new Tagify(taginput, {
+                whitelist: <?php echo json_encode($product_tags); ?>
+            });
 
             $('#product_submit').click(function(){
                 $('#general_description_html').val(general_description.root.innerHTML);

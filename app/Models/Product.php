@@ -9,12 +9,14 @@ use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Tags\Tag;
+use Spatie\Tags\HasTags;
 
 use App\Models\ProductCategory;
 
 class Product extends Model implements HasMedia
 {
-    use HasFactory, SoftDeletes, LogsActivity, InteractsWithMedia;
+    use HasFactory, SoftDeletes, LogsActivity, InteractsWithMedia, HasTags;
 
     protected $casts = [
         'data'  =>  'array'
@@ -68,21 +70,33 @@ class Product extends Model implements HasMedia
     }
 
     public static function create_product($data) {
-
+        //Prepare create a product
         $user = \Auth::user();
-        
-        unset($data['_token']);
-        unset($data['featured_image_remove']);
-        unset($data['tags']);
         $data['user_id'] = $user->id;
+        //Creating product
         $product = Product::create($data);
         
-        //Setting product categories
+        //Add featured image
+        if(isset($data['featured_image']) && !empty($data['featured_image'])) {
+            $product->addMedia($data['featured_image'])->toMediaCollection('product_image', 'gcs');
+        }
+        
+        //Add tags
+        if(isset($data['tags']) && !empty($data['tags'])) {
+            $raw_tags = json_decode($data['tags'], true);
+            $tags = [];
+            foreach($raw_tags as $tag) {
+                $tagObject = Tag::findOrCreate($tag['value'], 'product', 'mn');
+                $product->attachTag($tagObject);
+            }
+        }
+        
+        //Add Categories
         if(isset($data['categories']) && !empty($data['categories'])) {
             $product->productCategory()->sync($data['categories']);
         }
-
-    
+        
+        //Add Attributes
         $attributes_data = [];
         if(isset($data['attributes']) && !empty($data['attributes'])) {
             $index = 0;
@@ -116,34 +130,11 @@ class Product extends Model implements HasMedia
                 }
             }
         }
-
         $product_attributes = $product->productAttributes()->createMany($attributes_data);
-        //Setting product variations
+        
+        //Add variations
         $variations = $product->productVariation()->createMany($data[$data['type']]);
         
-        // //Setting variations attribute / pivot
-        // if(!empty($variations)) {
-        //     $variation_attribute_values = [];
-        //     foreach($variations as $variation) {
-        //         if(!empty( $variation['attributes'] )) {
-        //             dump($variation['attributes']);
-        //             foreach( $variation['attributes'] as $attribute_name => $attribute) {
-        //                 $json_to_array = json_decode($attribute, true);
-        //                 if(json_last_error() === 0 && isset($json_to_array['product_attribute_value_id'])) {
-        //                     $attribute_value_data = [
-        //                         'product_attribute_id' => $json_to_array['attribute_id'],
-        //                         'product_attribute_name' => $attribute_name,
-        //                         'product_attribute_value_id' => $json_to_array['product_attribute_value_id'],
-        //                         'product_attribute_value_name' => $json_to_array['name']
-        //                     ];
-        //                     $variation->attributeValues()->attach($json_to_array['product_attribute_value_id'], $attribute_value_data);
-   
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
-
         return $product;
     }
 
@@ -153,16 +144,24 @@ class Product extends Model implements HasMedia
 
         $result['draw'] = (isset($options['draw'])) ? $options['draw'] : 0;
         $query = Product::with([
+            'media',
             'productCategory',
+            'tags',
             'productAttributes'
         ]);
 
         //Нийт бичлэгийн тоог авч бна
         $result['recordsTotal'] = $query->count();
 
-
+        //Search by Name and Tags
         if (isset($options['search_key']) && trim($options['search_key'])) {
-            $query->whereRaw('name like "%'.$options['search_key'].'%"');
+            $query
+            ->whereRaw('name like "%'.$options['search_key'].'%"')
+            ->orWhereHas('tags', function($tags) use($options) {
+                $tags->where(function($tag) use($options){
+                    $tag->whereRaw('LOWER(name->>"$.mn") like "%'.mb_strtolower($options['search_key']).'%"');
+                });
+            });
         }
         //Filter by STATUS
         if (isset($options['status']) && trim($options['status'])) {

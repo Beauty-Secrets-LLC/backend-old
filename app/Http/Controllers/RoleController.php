@@ -75,7 +75,7 @@ class RoleController extends Controller
             }
         }
         session()->flash('success', 'Амжилттай шинэчлэгдлээ.');
-        return redirect('/users/roles');
+        return redirect('/user/roles');
     }
 
     public function removeUser($role_id, $user_id) {

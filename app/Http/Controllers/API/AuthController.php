@@ -10,7 +10,7 @@ class AuthController extends Controller
 {
     //
 
-    public function login(Request $request)
+    public function token(Request $request)
     {
         if (!\Auth::attempt($request->only('email', 'password')))
         {
@@ -20,7 +20,7 @@ class AuthController extends Controller
 
         $user = User::where('email', $request['email'])->firstOrFail();
 
-        $token = $user->createToken('bs_authtoken')->plainTextToken;
+        $token = $user->createToken('beautydevelopment')->plainTextToken;
 
         return response()
              ->json(['access_token' => $token, 'token_type' => 'Bearer', ]);

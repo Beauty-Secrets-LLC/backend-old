@@ -19,7 +19,7 @@ use App\Http\Controllers\API\ProductController;
 //     return $request->user();
 // });
 
-Route::post('/token/auth', [AuthController::class, 'login']);
+Route::post('/token/auth', [AuthController::class, 'token']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/user', function(Request $request) {

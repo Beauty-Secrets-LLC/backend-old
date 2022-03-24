@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\Attribute;
+use App\Models\Media;
 use Illuminate\Http\Request;
+use Spatie\Tags\Tag;
 use DB;
 
 class ProductController extends Controller
@@ -38,9 +40,18 @@ class ProductController extends Controller
 
     public function create(Request $request)
     {
-        $product = null;
-        $product_categories = ProductCategory::get()->toTree();
-        return view('products.new', compact('product', 'product_categories'));
+        $user = \Auth::user();
+        if($user->hasPermissionTo('product_create')) {
+            $product = null;
+            $product_categories = ProductCategory::get()->toTree();
+            $product_tags = Tag::selectRaw('name->>"$.mn" as tagname')->where('type', 'product')->pluck('tagname')->toArray();
+            return view('products.new', compact('product', 'product_categories', 'product_tags'));
+        }
+        else {
+            $request->session()->flash('error', 'Танд бүтээгдэхүүн нэмэх эрх байхгүй байна.');
+            return redirect()->back();
+        }
+        
     }
 
     /**
@@ -104,18 +115,31 @@ class ProductController extends Controller
         dd($request->all());
     }
 
-    public function delete($id)
+    public function delete(Request $request)
     {
-        $product = Product::withTrashed()->find($id);
-        if ($product->trashed()) {
-            //Permanant delete
-            $product->forceDelete();
-        } 
-        else {
-            //Soft delete
-            $product->delete();
+        $user = \Auth::user();
+
+        if($user->hasPermissionTo('product_delete')) {
+            if(isset($request['ids']) && !empty($request['ids'])) {
+                $products = Product::withTrashed()->whereIn('id', $request['ids'])->get();
+                foreach($products as $product) {
+                    if ($product->trashed()) {
+                        //Permanant delete
+                        $product->forceDelete();
+                    } 
+                    else {
+                        //Soft delete
+                        $product->delete();
+                    }
+                }
+                return ['result' => 'success','message' => 'Амжилттай устгагдлаа.'];
+            }
         }
-        return $product;
+        else {
+            return ['result' => 'failed', 'message' => 'Та энэ үйлдлийг хийх эрхгүй !'];
+        }
+
+        return false;    
     }
 
     public function restore($id)
@@ -146,11 +170,11 @@ class ProductController extends Controller
         //     }
         // ])
         // ->first()->toArray();
+        $user = \Auth::user();
+        dd($user->hasPermissionTo('product_delete'));
         return view('test');
         
     }
 
-    public function api() {
-        return 'sda';
-    }
+
 }

@@ -39,7 +39,7 @@ var KTUsersPermissionsList = (function () {
                                 ? 
                                 jQuery.ajax({
                                     type: "GET",
-                                    url: '/users/permissions/delete/'+id,
+                                    url: '/user/permissions/delete/'+id,
                                     dataType:"json",
                                     success: function(response){
 

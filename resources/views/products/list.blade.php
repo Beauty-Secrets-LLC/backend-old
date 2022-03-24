@@ -109,7 +109,7 @@
             <!--begin::Card toolbar-->
             <div class="card-toolbar">
                 <!--begin::Toolbar-->
-                <div class="d-flex justify-content-end" data-kt-subscription-table-toolbar="base">
+                <div class="d-flex justify-content-end" data-kt-product-table-toolbar="base">
                     <!--begin::Filter-->
                     <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">
                     <!--begin::Svg Icon | path: icons/duotone/Text/Filter.svg-->
@@ -133,7 +133,7 @@
                         <div class="separator border-gray-200"></div>
                         <!--end::Separator-->
                         <!--begin::Content-->
-                        <div class="px-7 py-5" data-kt-subscription-table-filter="form">
+                        <div class="px-7 py-5" data-kt-product-table-filter="form">
                             <!--begin::Input group-->
                             {{-- <div class="mb-10">
                                 <label class="form-label fs-6 fw-bold">Month:</label>
@@ -219,6 +219,13 @@
                     <!--end::Add product-->
                 </div>
                 <!--end::Toolbar-->
+                <!--begin::Group actions-->
+                <div class="d-flex justify-content-end align-items-center d-none" data-kt-product-table-toolbar="selected">
+                    <div class="fw-bolder me-5">
+                    <span class="me-2" data-kt-product-table-select="selected_count"></span>бүтээгдэхүүн сонгогдсон</div>
+                    <button type="button" class="btn btn-danger" onclick="productsDelete()">Устгах</button>
+                </div>
+                <!--end::Group actions-->
             </div>
             <!--end::Card toolbar-->
         </div>
@@ -260,7 +267,7 @@
                 search: "Хайлт:",
                 infoFiltered: "",
                 processing: "Түр хүлээнэ үү ...",
-                info:           "Нийт _TOTAL_ бүтээгдэхүүнээс _START_ -с _END_ хүртэлхийг харуулж байна",
+                info:           "Нийт: _TOTAL_ | _START_ - _END_ харуулж байна",
             },
             oLanguage: {
                 sLengthMenu: "_MENU_",
@@ -287,6 +294,13 @@
                 { data: null },
             ],
             columnDefs: [
+                {
+                    orderable: false,
+                    targets:   0,
+                    render: function(data,type,full,meta) {
+                        return '<div class="form-check form-check-sm form-check-custom form-check-solid"><input class="form-check-input" type="checkbox" value="'+data+'"></div>'
+                    }
+                },
                 {
                     targets: 1,
                     render: function(data, type, full, meta) {

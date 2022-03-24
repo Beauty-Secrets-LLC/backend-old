@@ -54,7 +54,7 @@ var KTUsersAddPermission = (function () {
                                          
                                           jQuery.ajax({
                                             type: "POST",
-                                            url: '/users/permissions/ajaxadd',
+                                            url: '/user/permissions/ajaxadd',
                                             data: {
                                                 "_token"        : e.elements[0].value,
                                                 permission_name : e.elements[1].value,

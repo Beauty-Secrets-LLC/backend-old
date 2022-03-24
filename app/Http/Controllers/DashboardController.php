@@ -111,9 +111,9 @@ class DashboardController extends Controller
         // $file = $disk->put('images', $request['fileToUpload']);
         // $url = $disk->url('/images/mkbeoX4ReO0S8CZWjX95IGJkrn5rOThi4TvbOgnC.jpg');
         //$delete = $disk->delete('/images/mkbeoX4ReO0S8CZWjX95IGJkrn5rOThi4TvbOgnC.jpg');
-        $product = \Product::find(74);
-        // $sda = $product->addMedia($request['fileToUpload'])->toMediaCollection('sda', 'gcs');
-        $image = $product->getMedia('sda')->first()->getUrl();
-        dump($image);
+        // $product = \Product::find(74);
+        // $sda = $product->addMedia($request['fileToUpload'])->toMediaCollection('featured', 'gcs');
+        // $image = $product->getMedia('sda')->first()->getUrl();
+        dump($sda);
     }
 }

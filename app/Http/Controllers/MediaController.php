@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ProductTag;
+use App\Models\Media;
 use Illuminate\Http\Request;
 
-class ProductTagController extends Controller
+class MediaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class ProductTagController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ProductTag  $productTag
+     * @param  \App\Models\Media  $media
      * @return \Illuminate\Http\Response
      */
-    public function show(ProductTag $productTag)
+    public function show(Media $media)
     {
         //
     }
@@ -52,10 +52,10 @@ class ProductTagController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\ProductTag  $productTag
+     * @param  \App\Models\Media  $media
      * @return \Illuminate\Http\Response
      */
-    public function edit(ProductTag $productTag)
+    public function edit(Media $media)
     {
         //
     }
@@ -64,10 +64,10 @@ class ProductTagController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ProductTag  $productTag
+     * @param  \App\Models\Media  $media
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProductTag $productTag)
+    public function update(Request $request, Media $media)
     {
         //
     }
@@ -75,10 +75,10 @@ class ProductTagController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ProductTag  $productTag
+     * @param  \App\Models\Media  $media
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProductTag $productTag)
+    public function destroy(Media $media)
     {
         //
     }
