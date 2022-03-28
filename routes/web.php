@@ -3,9 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductCategoryController;
+
+use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\SubscriptionPlanController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -48,11 +52,14 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/role/{role_id}/removeuser/{user_id}', [RoleController::class, 'removeUser']);
     });
 
+    Route::group(['prefix' => 'customer'], function () {
+        Route::get('/list', [CustomerController::class, 'index'])->name('customers.list');
+        Route::get('/json', [CustomerController::class, 'json'])->name('customers.json');
+        
+    });
+
 
     Route::group(['prefix' => 'shop'], function () {
-
-        Route::get('/test', [ProductController::class, 'test']);
-
         Route::group(['prefix' => 'product'], function () {
             Route::get('/json', [ProductController::class, 'json'])->name('products.json');
             Route::get('/list', [ProductController::class, 'index']);
@@ -69,7 +76,14 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/list', [ProductCategoryController::class, 'index']);
             Route::post('/new', [ProductCategoryController::class, 'store'])->name('product_category.create');
         }); 
-    });  
+    });
+
+    Route::group(['prefix' => 'subscription'], function () {
+        
+        Route::get('/list', [SubscriptionController::class, 'index'])->name('subscription.list');
+        Route::get('/plans', [SubscriptionPlanController::class, 'index'])->name('subscription.plans');
+        
+    });
 
 });
 

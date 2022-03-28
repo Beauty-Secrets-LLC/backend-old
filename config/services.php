@@ -30,4 +30,10 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'mchat_sub' => [
+        'key' => env('MCHAT_SUB_KEY'),
+        'secret' => env('MCHAT_SUB_SECRET'),
+        'source_url' => env('MCHAT_SUB_SOURCEURL'),
+    ],
+
 ];

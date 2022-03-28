@@ -280,7 +280,7 @@
                     </div>
                 </div>
                 <div class="menu-item mb-1">
-                    <span class="menu-link">
+                    <a class="menu-link" href="{{ route('subscription.plans') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: assets/media/icons/duotone/Files/Folder-star.svg-->
                             <span class="svg-icon svg-icon-2"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -294,10 +294,10 @@
                             
                         </span>
                         <span class="menu-title">Subscription төрөл</span>
-                    </span>
+                    </a>
                 </div>
                 <div class="menu-item">
-                    <span class="menu-link">
+                    <a class="menu-link" href="{{ route('subscription.list') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: assets/media/icons/duotone/General/Heart.svg-->
                             <span class="svg-icon svg-icon-2"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -309,7 +309,7 @@
                             <!--end::Svg Icon-->
                         </span>
                         <span class="menu-title">Subscription жагсаалт</span>
-                    </span>
+                    </a>
                 </div>
                 <div class="menu-item">
                     <span class="menu-link">
@@ -555,7 +555,7 @@
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
                         <div class="menu-item">
-                            <a class="menu-link" href="layouts/aside/light.html">
+                            <a class="menu-link" href="{{ route('customers.list') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>

@@ -144,7 +144,14 @@ class ProductController extends Controller
 
     public function restore($id)
     {
-        return Product::onlyTrashed()->find($id)->restore();
+        $user = \Auth::user();
+        if($user->hasPermissionTo('product_restore')) {
+            Product::onlyTrashed()->find($id)->restore();
+            return ['result' => 'success','message' => 'Амжилттай сэргээлээ.'];
+        }
+        else {
+            return ['result' => 'failed', 'message' => 'Та энэ үйлдлийг хийх эрхгүй !'];
+        }
     }
 
 

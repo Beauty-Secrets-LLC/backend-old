@@ -122,15 +122,16 @@ function productRestore(button) {
                 },
                 dataType:"json",
                 success: function(response){
-                    console.log(response);
-                    if(response) {
+                    if(response.result == 'success') {
                         product_table.draw();
-                        // Swal.fire(
-                        //     'Устгалаа!',
-                        //     'Таны сонгосон бүтээгдэхүүнийг амжилттай устгалаа',
-                        //     'success'
-                        // );
                     }
+                    Swal.fire({
+                        title: (response.result == 'success') ? 'Амжилттай' : 'Алдаа',
+                        html: response.message,
+                        icon: (response.result == 'success') ? 'success' : 'error',
+                        showCancelButton: false,
+                        showConfirmButton: false
+                    });
                     
                 }
             });
