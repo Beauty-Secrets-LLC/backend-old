@@ -344,13 +344,7 @@
                         return output;
                     }
                 },
-                {
-                    targets: 4,
-                    render: function(data, type, full, meta) {
-                        date = new Date(data);
-                        return date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
-                    }
-                },
+
                 {
                     targets: 5,
                     render: function(data, type, full, meta) {

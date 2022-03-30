@@ -103,14 +103,14 @@
             </div>
         </div>
         <div class="card-body pt-0">
-            <table class="table" id="subscription_plan">
+            <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="subscription_plan">
                 <thead>
                     <tr class="fw-bold fs-6 text-muted">
                         <th>Төрлийн нэр</th>
                         <th>Хугацаа</th>
                         <th>Таталт хийх дүн</th>
                         <th>Давтамж</th>
-                        <th>Subscribe хийсэн</th>
+                        <th>Нийт бүртгүүлсэн</th>
                         <th>Огноо</th>
                     </tr>
                 </thead>

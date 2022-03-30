@@ -10,6 +10,7 @@ use App\Http\Controllers\ProductCategoryController;
 
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\SubscriptionPlanController;
+use App\Http\Controllers\SubscriptionTransactionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,7 +32,6 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/test', [DashboardController::class, 'test']);
     Route::post('/upload', [DashboardController::class, 'upload'])->name('dashboard.upload');
-
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard'); 
 
     Route::group(['prefix' => 'user'], function () {
@@ -55,9 +55,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'customer'], function () {
         Route::get('/list', [CustomerController::class, 'index'])->name('customers.list');
         Route::get('/json', [CustomerController::class, 'json'])->name('customers.json');
-        
+        Route::get('/view/{id}', [CustomerController::class, 'show']);
     });
-
 
     Route::group(['prefix' => 'shop'], function () {
         Route::group(['prefix' => 'product'], function () {
@@ -79,9 +78,9 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::group(['prefix' => 'subscription'], function () {
-        
         Route::get('/list', [SubscriptionController::class, 'index'])->name('subscription.list');
         Route::get('/plans', [SubscriptionPlanController::class, 'index'])->name('subscription.plans');
+        Route::get('/transactions', [SubscriptionTransactionController::class, 'index'])->name('subscription.transactions');
         
     });
 

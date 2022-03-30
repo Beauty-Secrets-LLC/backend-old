@@ -189,7 +189,7 @@
         <!--end::Card header-->
         <!--begin::Card body-->
         <div class="card-body pt-0">
-            <table id="customer_table" class="table table-row-bordered gy-5">
+            <table id="customer_table" class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer">
                 <thead>
                     <tr class="fw-bold fs-6 text-muted">
                         <th></th>

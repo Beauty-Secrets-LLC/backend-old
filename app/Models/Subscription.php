@@ -17,19 +17,6 @@ class Subscription extends Model
         return $this->belongsTo(CustomerAddress::class,'address_id','id');
     }
 
-    public static function api_auth_header() {
-        return [
-            'Content-Type'      => 'application/json',
-            'api-key'           => config('services.mchat_sub.key'),
-            'app-secret'        => config('services.mchat_sub.secret')
-        ];
-    }
-    public static function api_url($endpoint = null) {
-       
-        if(!is_null($endpoint)) {
-            return config('services.mchat_sub.source_url').$endpoint;
-        }
-        return null;
-    }
+    
 
 }

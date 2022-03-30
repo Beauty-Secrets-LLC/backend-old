@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Customer;
+use App\Models\CustomerCard;
 use Illuminate\Http\Request;
 
-class CustomerController extends Controller
+class CustomerCardController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,16 +15,7 @@ class CustomerController extends Controller
     public function index()
     {
         //
-        return view('customers.list');
     }
-
-    public function json()
-    {
-        //
-        $customers = Customer::get_customers([]);
-        return $customers;
-    }
-
 
     /**
      * Show the form for creating a new resource.
@@ -50,24 +41,21 @@ class CustomerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Customer  $customer
+     * @param  \App\Models\CustomerCard  $customerCard
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(CustomerCard $customerCard)
     {
         //
-        $customer = Customer::get_customer($id);
-        dd($customer);
-        return view('customers.view', compact('customer'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Customer  $customer
+     * @param  \App\Models\CustomerCard  $customerCard
      * @return \Illuminate\Http\Response
      */
-    public function edit(Customer $customer)
+    public function edit(CustomerCard $customerCard)
     {
         //
     }
@@ -76,10 +64,10 @@ class CustomerController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Customer  $customer
+     * @param  \App\Models\CustomerCard  $customerCard
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Customer $customer)
+    public function update(Request $request, CustomerCard $customerCard)
     {
         //
     }
@@ -87,10 +75,10 @@ class CustomerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Customer  $customer
+     * @param  \App\Models\CustomerCard  $customerCard
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Customer $customer)
+    public function destroy(CustomerCard $customerCard)
     {
         //
     }

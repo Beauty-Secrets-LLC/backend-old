@@ -19,7 +19,9 @@ class Product extends Model implements HasMedia
     use HasFactory, SoftDeletes, LogsActivity, InteractsWithMedia, HasTags;
 
     protected $casts = [
-        'data'  =>  'array'
+        'data'  =>  'array',
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s'
     ];
     protected $fillable = [
         'name',

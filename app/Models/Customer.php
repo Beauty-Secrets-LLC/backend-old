@@ -6,13 +6,23 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\CustomerAddress;
+use App\Models\CustomerCard;
 
 class Customer extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s'
+    ];
+
     public function addresses(){
         return $this->hasMany(CustomerAddress::class);
+    }
+
+    public function cards(){
+        return $this->hasMany(CustomerCard::class);
     }
 
 
@@ -20,7 +30,8 @@ class Customer extends Model
         $result = [];
         $result['draw'] = (isset($options['draw'])) ? $options['draw'] : 0;
         $query = Customer::with([
-            'addresses'
+            'addresses',
+            'cards'
         ]);
         //Нийт бичлэгийн тоог авч бна
         $result['recordsTotal'] = $query->count();
@@ -44,5 +55,13 @@ class Customer extends Model
         $result['data'] = $query->orderby('created_at', 'DESC')->get()->toArray();
         $result['draw']++;
         return $result;
+    }
+
+    public static function get_customer($id) {
+        $query = Customer::with([
+            'addresses',
+            'cards'
+        ])->find($id);
+        return $query->toArray();
     }
 }

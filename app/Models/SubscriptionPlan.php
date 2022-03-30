@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Http;
 
+use App\Models\Mongolchat;
+
 class SubscriptionPlan extends Model
 {
     use HasFactory;
@@ -27,8 +29,8 @@ class SubscriptionPlan extends Model
 
 
     public static function get_list_api() {
-        $response = Http::withHeaders(Subscription::api_auth_header())
-        ->post( Subscription::api_url('/api/application/subscribe/list'), [
+        $response = Http::withHeaders(Mongolchat::api_sub_header())
+        ->post( Mongolchat::api_sub_url('/api/application/subscribe/list'), [
             'page' => 0,
             'pper' => 100
         ])->json();
@@ -46,5 +48,7 @@ class SubscriptionPlan extends Model
                 }
             }
         }
+
+        return $synced;
     }
 }
