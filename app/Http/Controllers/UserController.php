@@ -67,4 +67,15 @@ class UserController extends Controller
         ];
 
     }
+
+    public function update($id, Request $request) {
+
+        unset($request['_token']);
+        unset($request['avatar_remove']);
+        unset($request['email']);
+
+        $user = User::find($id)->update($request->all());
+
+        return redirect()->back();
+    }
 }

@@ -37,6 +37,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'user'], function () {
         Route::get('/list', [UserController::class, 'index'])->name('users.list');
         Route::get('/view/{id}', [UserController::class, 'show'])->name('user.view');
+        Route::post('/update/{id}', [UserController::class, 'update'])->name('user.update');
         Route::post('/register', [UserController::class, 'register']);
         Route::get('/delete/{id}', [UserController::class, 'delete']);
         Route::post('{id}/role/assign', [UserController::class, 'roleAssign'])->name('user.roleAssign');

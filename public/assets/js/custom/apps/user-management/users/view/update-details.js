@@ -3,7 +3,6 @@ var KTUsersUpdateDetails = (function () {
     const t = document.getElementById("update_user_modal"),
         e = t.querySelector("#update_user_form"),
         n = new bootstrap.Modal(t);
-        var form_values = null;
     return {
         init: function () {
             (() => {

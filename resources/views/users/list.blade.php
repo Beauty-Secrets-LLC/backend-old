@@ -109,6 +109,8 @@
                                 </select>
                             </div>
                             <!--end::Input group-->
+
+
                             <!--begin::Input group-->
                             {{-- <div class="mb-10">
                                 <label class="form-label fs-6 fw-bold">Two Step Verification:</label>
@@ -269,10 +271,9 @@
                             </div>
                         </th>
                         <th class="min-w-125px">Хэрэглэгч</th>
-                        <th class="min-w-125px">Үүрэг</th>
-                        <th class="min-w-125px">Сүүлд нэвтэрсэн</th>
-                        <th class="min-w-125px">2 алхамт баталгаажуулалт</th>
-                        <th class="min-w-125px">Бүртгэгдсэн</th>
+                        <th class="">Үүрэг</th>
+                        <th class="">Утас</th>
+                        <th class="">Бүртгэгдсэн</th>
                         <th class="text-end min-w-100px">Үйлдэл</th>
                     </tr>
                     <!--end::Table row-->
@@ -318,14 +319,8 @@
                                     @endif
                                 </td>
                                 <!--end::Role=-->
-                                <!--begin::Last login=-->
-                                <td>
-                                    <div class="badge badge-light fw-bolder">Yesterday</div>
-                                </td>
-                                <!--end::Last login=-->
-                                <!--begin::Two step=-->
-                                <td></td>
-                                <!--end::Two step=-->
+                                <td>{{ $user->phone }}</td>
+
                                 <!--begin::Joined-->
                                 <td>{{ $user->created_at }}</td>
                                 <!--begin::Joined-->

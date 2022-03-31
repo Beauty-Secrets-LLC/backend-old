@@ -85,7 +85,8 @@
             <!--begin::Modal content-->
             <div class="modal-content">
                 <!--begin::Form-->
-                <form class="form" action="#" id="update_user_form">
+                <form method="post" class="form" action="{{ route('user.update', $user->id) }}" id="update_user_form">
+                    @csrf
                     <!--begin::Modal header-->
                     <div class="modal-header" id="kt_modal_update_user_header">
                         <!--begin::Modal title-->
@@ -184,20 +185,17 @@
                                     <label class="fs-6 fw-bold mb-2">Утас</label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
-                                    <input type="tel" class="form-control form-control-solid" placeholder="" name="email" value="{{ $user->phone_primary }}" />
+                                    <input type="tel" class="form-control form-control-solid" placeholder="" maxlength="8" name="phone" value="{{ $user->phone }}" />
                                     <!--end::Input-->
                                 </div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
                                 <div class="fv-row mb-7">
                                     <!--begin::Label-->
-                                    <label class="fs-6 fw-bold mb-2">
-                                        <span>И-мэйл</span>
-                                        <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Идэвхитэй зөв и-мэйл байх шаардлагатай"></i>
-                                    </label>
+                                    <label class="fs-6 fw-bold mb-2">И-мэйл</label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
-                                    <input type="email" class="form-control form-control-solid" placeholder="" name="email" value="{{ $user->email }}" />
+                                    <input type="email" disabled class="form-control form-control-solid" placeholder="" name="email" value="{{ $user->email }}" />
                                     <!--end::Input-->
                                 </div>
                                 <!--end::Input group-->
@@ -214,11 +212,7 @@
                         <button type="reset" class="btn btn-light me-3" data-kt-users-modal-action="cancel">Цуцлах</button>
                         <!--end::Button-->
                         <!--begin::Button-->
-                        <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
-                            <span class="indicator-label">Шинэчлэх</span>
-                            <span class="indicator-progress">Түр хүлээнэ үү...
-                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                        </button>
+                        <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">Шинэчлэх</button>
                         <!--end::Button-->
                     </div>
                     <!--end::Modal footer-->
