@@ -1,5 +1,5 @@
 <!--begin::Modal - Add permissions-->
-<div class="modal fade" id="kt_modal_add_permission" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="add_permission" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
@@ -10,7 +10,7 @@
                 <h2 class="fw-bolder">Шинээр эрх нэмэх</h2>
                 <!--end::Modal title-->
                 <!--begin::Close-->
-                <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-permissions-modal-action="close">
+                <div class="btn btn-icon btn-sm btn-active-icon-primary"  data-bs-dismiss="modal" aria-label="Close">
                     <!--begin::Svg Icon | path: icons/duotone/Navigation/Close.svg-->
                     <span class="svg-icon svg-icon-1">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -28,7 +28,7 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y">
                 <!--begin::Form-->
-                <form id="kt_modal_add_permission_form" class="form" action="#">
+                <form id="add_permission_form" class="form" action="#">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <!--begin::Input group-->
                     <div class="fv-row mb-7">
@@ -46,8 +46,8 @@
                 
                     <!--begin::Actions-->
                     <div class="text-center pt-15">
-                        <button type="reset" class="btn btn-light me-3" data-kt-permissions-modal-action="cancel">Цуцлах</button>
-                        <button type="submit" class="btn btn-primary" data-kt-permissions-modal-action="submit">
+                        <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Цуцлах</button>
+                        <button type="submit" class="btn btn-primary" >
                             <span class="indicator-label">Нэмэх</span>
                             <span class="indicator-progress">Түр хүлээнэ үү...
                             <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>

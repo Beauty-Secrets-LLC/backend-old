@@ -267,7 +267,7 @@
                     <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                         <th class="w-10px pe-2">
                             <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_table_users .form-check-input" value="1" />
+                                <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_table_users .form-check-input" value="" />
                             </div>
                         </th>
                         <th class="min-w-125px">Хэрэглэгч</th>
@@ -341,7 +341,7 @@
                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
                                         <!--begin::Menu item-->
                                         <div class="menu-item px-3">
-                                            <a href="apps/user-management/users/view.html" class="menu-link px-3">Засах</a>
+                                            <a href="{{ route('user.view', $user->id) }}" class="menu-link px-3">Засах</a>
                                         </div>
                                         <!--end::Menu item-->
                                         <!--begin::Menu item-->
@@ -367,13 +367,17 @@
     <!--end::Card-->
 @endsection
 
+@section('styles')
+    <meta name="_token" content="{{ csrf_token() }}">
+@endsection
 
 @section('scripts')
     <!--end::Page Vendors Javascript-->
     <!--begin::Page Custom Javascript(used by this page)-->
     <script src="{{ asset('assets/js/custom/apps/user-management/users/list/table.js') }}"></script>
-    <script src="{{ asset('assets/js/custom/apps/user-management/users/list/export-users.js') }}"></script>
     <script src="{{ asset('assets/js/custom/apps/user-management/users/list/add.js') }}"></script>
     <script src="{{ asset('assets/js/custom/apps/user-management/users/password-generator.js') }}"></script>
+    <script>
 
+    </script>
 @endsection

@@ -13,7 +13,7 @@ var KTUsersList = (function () {
                     const n = t.target.closest("tr"),
                         r = n.querySelectorAll("td")[1].querySelectorAll("a")[1].innerText,
                         deleteRow = n.querySelectorAll("td")[0].querySelector("input[type=checkbox]").value;
-                    console.log(deleteRow);
+           
                     Swal.fire({
                         text: "Та " + r + " нэртэй хэрэглэгчийг устгах гэж байна уу?" ,
                         icon: "warning",
@@ -65,31 +65,60 @@ var KTUsersList = (function () {
             }),
                 s.addEventListener("click", function () {
                     Swal.fire({
-                        text: "Are you sure you want to delete selected customers?",
+                        text: "Сонгогдсон хэрэглэгчдийг устгах уу?",
                         icon: "warning",
                         showCancelButton: !0,
                         buttonsStyling: !1,
-                        confirmButtonText: "Yes, delete!",
-                        cancelButtonText: "No, cancel",
+                        confirmButtonText: "Тэгье!",
+                        cancelButtonText: "Үгүй",
                         customClass: { confirmButton: "btn fw-bold btn-danger", cancelButton: "btn fw-bold btn-active-light-primary" },
                     }).then(function (t) {
-                        t.value
-                            ? Swal.fire({ text: "You have deleted all selected customers!.", icon: "success", buttonsStyling: !1, confirmButtonText: "Ok, got it!", customClass: { confirmButton: "btn fw-bold btn-primary" } })
-                                  .then(function () {
-                                      c.forEach((t) => {
-                                          t.checked &&
-                                              e
-                                                  .row($(t.closest("tbody tr")))
-                                                  .remove()
-                                                  .draw();
-                                      });
-                                      o.querySelectorAll('[type="checkbox"]')[0].checked = !1;
-                                  })
-                                  .then(function () {
-                                      a(), l();
-                                  })
-                            : "cancel" === t.dismiss &&
-                              Swal.fire({ text: "Selected customers was not deleted.", icon: "error", buttonsStyling: !1, confirmButtonText: "Ok, got it!", customClass: { confirmButton: "btn fw-bold btn-primary" } });
+
+                        if(t.value) {
+                            var selected_users = []
+                            c.forEach((t) => {
+                                if(t.checked)  {
+                                    selected_users.push(t.value);
+                                }
+                                    
+                            });
+
+                            jQuery.ajax({
+                                type: "POST",
+                                url: '/user/delete-selected/',
+                                dataType:"json",
+                                data: {
+                                    ids: selected_users
+                                },
+                                headers: {
+                                    'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+                                },
+                                success: function(response){
+                                    if(response.result == 'success') {
+                                        c.forEach((t) => {
+                                            if(t.checked)  {
+                                                e.row($(t.closest("tbody tr"))).remove().draw();
+                                            }
+                                        });
+                                    }
+
+                                    Swal.fire({
+                                        title: (response.result == 'success') ? 'Амжилттай' : 'Алдаа',
+                                        html: response.message,
+                                        icon: (response.result == 'success') ? 'success' : 'error',
+                                        showCancelButton: false,
+                                        showConfirmButton: false
+                                    })
+                                    .then(function () {
+                                        a(), l();
+                                    });
+
+                                    o.querySelectorAll('[type="checkbox"]')[0].checked = !1;
+
+                                }
+                            })
+                            
+                        };
                     });
                 });
         };
@@ -106,23 +135,7 @@ var KTUsersList = (function () {
         init: function () {
             o &&
                 (o.querySelectorAll("tbody tr").forEach((e) => {
-                    const t = e.querySelectorAll("td"),
-                        n = t[3].innerText.toLowerCase();
-                    let r = 0,
-                        o = "minutes";
-                    n.includes("yesterday")
-                        ? ((r = 1), (o = "days"))
-                        : n.includes("mins")
-                        ? ((r = parseInt(n.replace(/\D/g, ""))), (o = "minutes"))
-                        : n.includes("hours")
-                        ? ((r = parseInt(n.replace(/\D/g, ""))), (o = "hours"))
-                        : n.includes("days")
-                        ? ((r = parseInt(n.replace(/\D/g, ""))), (o = "days"))
-                        : n.includes("weeks") && ((r = parseInt(n.replace(/\D/g, ""))), (o = "weeks"));
-                    const c = moment().subtract(r, o).format();
-                    t[3].setAttribute("data-order", c);
-                    const l = moment(t[5].innerHTML, "DD MMM YYYY, LT").format();
-                    t[5].setAttribute("data-order", l);
+                   
                 }),
                 (e = $(o).DataTable({
                     info: !1,
@@ -131,7 +144,7 @@ var KTUsersList = (function () {
                     lengthChange: !1,
                     columnDefs: [
                         { orderable: !1, targets: 0 },
-                        { orderable: !1, targets: 6 },
+                        { orderable: !1, targets: 5 },
                     ],
                 })).on("draw", function () {
                     l(), c(), a();

@@ -83,7 +83,7 @@
                             <label class="required fw-bold fs-6 mb-2">Утас</label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input type="tel" autocomplete="off" maxlength="8" name="phone" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="" value="" />
+                            <input type="tel" required autocomplete="off" maxlength="8" name="phone" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="" value="" />
                             <!--end::Input-->
                         </div>
                         <!--end::Input group-->

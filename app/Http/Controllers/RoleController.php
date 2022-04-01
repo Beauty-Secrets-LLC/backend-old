@@ -18,11 +18,34 @@ class RoleController extends Controller
     }
 
     public function permissions_list() {
-        $permissions = Permission::all()->toArray();
-        return view('roles.permissions', compact('permissions'));
+        return view('roles.permissions');
+    }
+
+    public function permissions_json(Request $request) {
+        $result = [];
+        $result['draw'] = (isset($request['draw'])) ? $request['draw'] : 0;
+        $query = Permission::select('*');
+        
+        $result['recordsTotal'] = $query->count();
+
+        //Search by Name and Tags
+        if (isset($request['search_key']) && trim($request['search_key'])) {
+            $query->whereRaw('name like "%'.$request['search_key'].'%"');
+        }
+
+        //Шүүлт хийсний дараах бичлэгийн тоог авч бна
+        $result["recordsFiltered"] = $query->count();
+
+        if(isset($request['start']) && isset($request['length']))
+        $query->offset($request['start'])->limit($request['length']);
+    
+        $result['data'] = $query->orderby('created_at', 'DESC')->get()->toArray();
+        $result['draw']++;
+        return $result;
     }
 
     public function permissions_ajax_add(Request $request) {
+        $permission = false;
         DB::beginTransaction();
         try {
             $permission = Permission::create(['name' => $request['permission_name']]);
@@ -30,16 +53,36 @@ class RoleController extends Controller
 
         }catch (\Exception $e) {
             DB::rollback();
-            $permission = false;
         }
         return $permission;
     }
 
-    public function permissions_delete($id) {
-        $permission = Permission::find($id)->delete();
-        return $permission;
+    public function permissions_delete(Request $request) {
+        $permission = false;
+        $message = '';
+        $user = \Auth::user();
+        try {
+            if($user->hasPermissionTo('permission_delete')) {
+                if(isset($request['ids']) && !empty($request['ids'])) {
+                    DB::beginTransaction();
+                    $permission = Permission::whereIn('id', $request['ids'])->delete();
+                    $message = 'Амжилттай устгалаа.';
+                    DB::commit();
+                }
+            }
+            else {
+                throw new \Exception('Та энэ үйлдлийг хийх эрхгүй байна !');
+            }
+            
+            
+        }catch (\Exception $e) {
+            DB::rollback();
+            $message = $e->getMessage();
+        }
+        
+        return ['result' => ($permission) ? 'success' : 'failed', 'message' => $message ];
+        
     }
-
 
 
     public function create(Request $request)
@@ -61,17 +104,22 @@ class RoleController extends Controller
 
     public function update(Request $request) {
         $role = Role::find($request['role_id']);
-        $role_permissions = $role->permissions;
-        //Remove all permissions
+        $role_permissions = $role->permissions->pluck('name')->toArray();
+        
         if(!empty($role_permissions) || empty($request['permissions'])) {
-            foreach($role_permissions as $role_permission) {
-                $role->revokePermissionTo($role_permission->id);
+            $permission_to_revoke = array_diff($role_permissions, $request['permissions']);
+            $permission_to_give = array_diff($request['permissions'],$role_permissions);
+        }
+        //Remove permissions
+        if(!empty($permission_to_revoke)) {
+            foreach($permission_to_revoke as $revoke) {
+                $role->revokePermissionTo($revoke);
             }
         }
         //Assign selected permissions
-        if(!empty($request['permissions'])) {
-            foreach($request['permissions'] as $permission) {
-                $role->givePermissionTo($permission);
+        if(!empty($permission_to_give)) {
+            foreach($permission_to_give as $give) {
+                $role->givePermissionTo($give);
             }
         }
         session()->flash('success', 'Амжилттай шинэчлэгдлээ.');

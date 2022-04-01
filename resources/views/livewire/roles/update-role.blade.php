@@ -74,7 +74,7 @@
                                                 <div class="d-flex">
                                                     <!--begin::Checkbox-->
                                                     <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                                        <input {{ (!empty($role_permissions) && in_array($permission->id, $role_permissions)) ? 'checked' : '' }} class="form-check-input" type="checkbox" value="{{ $permission->id}}" name="permissions[]" />
+                                                        <input {{ (!empty($role_permissions) && in_array($permission->id, $role_permissions)) ? 'checked' : '' }} class="form-check-input" type="checkbox" value="{{ $permission->name}}" name="permissions[]" />
                                                         <span class="form-check-label">{{ $permission->name}}</span>
                                                     </label>
                                                 </div>

@@ -27,19 +27,28 @@ class UserController extends Controller
     }
 
     public function register(Request $request) {
-        
+        $user = \Auth::user();
         $user_data = $request->get('user_data');
         $user_data['password'] = Hash::make($user_data['password']);
         DB::beginTransaction();
         try {
-            $user = User::create($user_data);
-            $user->assignRole($user_data['role']);
-            DB::commit();
-            return [
-                'result' => 'success',
-                'message' => 'Амжилттай',
-                'user'  => $user
-            ];
+            if($user->hasPermissionTo('user_create')) {
+                $user = User::create($user_data);
+                $user->assignRole($user_data['role']);
+                DB::commit();
+                return [
+                    'result' => 'success',
+                    'message' => 'Амжилттай',
+                    'user'  => $user
+                ];
+            }
+            else {
+                return [
+                    'result' => 'failed',
+                    'message' => 'Танд энэ үйлдлийг хийх эрхгүй байна.'
+                ];
+            }
+            
         }
         catch(\Exception $e) {
             DB::rollback();
@@ -60,12 +69,43 @@ class UserController extends Controller
     }
 
     public function delete($id) {
-        
-        $deletion = User::find($id)->delete();
+
+        DB::beginTransaction();
+        try {
+            $deletion = User::find($id)->delete();
+            DB::commit();
+
+        }catch (\Exception $e) {
+            DB::rollback();
+            $deletion = false;
+        }
         return [
             'result' => $deletion
         ];
 
+    }
+
+    public function delete_selected(Request $request) {
+
+        $user = \Auth::user();
+        
+        if(isset($request['ids']) && !empty($request['ids'])) {
+            if($user->hasPermissionTo('user_delete')) {
+                $count = User::whereIn('id', $request['ids'])->delete();
+                return [
+                    'result' => 'success',
+                    'message' => 'Таны сонгосон '.$count.' хэрэглэгч устлаа.'
+                ]; 
+            }
+            else {
+                return ['result' => 'failed', 'message' => 'Та энэ үйлдлийг хийх эрхгүй !'];
+            }
+            
+        }
+        return [
+            'result' => 'failed',
+            'message' => 'Мэдээлэл буруу эсвэл хэрэглэгч сонгоогүй байна.'
+        ];
     }
 
     public function update($id, Request $request) {
@@ -73,8 +113,22 @@ class UserController extends Controller
         unset($request['_token']);
         unset($request['avatar_remove']);
         unset($request['email']);
-
-        $user = User::find($id)->update($request->all());
+        $user = \Auth::user();
+        
+        if($user->hasPermissionTo('user_edit')) {
+            DB::beginTransaction();
+            try {
+                $user_update = User::find($id)->update($request->all());
+                DB::commit();
+                session()->flash('success', 'Хэрэглэгчийн мэдээллэл шинэчлэгдлээ.');
+            }catch (\Exception $e) {
+                DB::rollback();
+                session()->flash('error', $e->getMessage());
+            }
+        }
+        else {
+            session()->flash('error', 'Хэрэглэгчийн мэдээллэл засах эрхгүй байна.');
+        }
 
         return redirect()->back();
     }

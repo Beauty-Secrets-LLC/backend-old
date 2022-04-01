@@ -366,8 +366,6 @@
         jQuery('#apply_filter').click(function(){
             product_table.draw();
         });
-
-
         
     </script>
     <script src="{{ asset('assets/js/custom/apps/products/products-list.js') }}"></script>

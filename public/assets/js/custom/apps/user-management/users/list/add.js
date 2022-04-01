@@ -101,35 +101,35 @@ var KTUsersAddUser = (function () {
                     t.querySelector('[data-kt-users-modal-action="cancel"]').addEventListener("click", (t) => {
                         t.preventDefault(),
                             Swal.fire({
-                                text: "Are you sure you would like to cancel?",
+                                text: "Та үйлдлээ цуцлах гэж байна уу?",
                                 icon: "warning",
                                 showCancelButton: !0,
                                 buttonsStyling: !1,
-                                confirmButtonText: "Yes, cancel it!",
-                                cancelButtonText: "No, return",
+                                confirmButtonText: "Тийм ээ!",
+                                cancelButtonText: "Үгүй, буцъя",
                                 customClass: { confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light" },
                             }).then(function (t) {
                                 t.value
                                     ? (e.reset(), n.hide())
                                     : "cancel" === t.dismiss &&
-                                      Swal.fire({ text: "Your form has not been cancelled!.", icon: "error", buttonsStyling: !1, confirmButtonText: "Ok, got it!", customClass: { confirmButton: "btn btn-primary" } });
+                                      Swal.fire({ text: "Цуцлах үйдэл хүчингүй", icon: "error", buttonsStyling: !1, confirmButtonText: "Ok", customClass: { confirmButton: "btn btn-primary" } });
                             });
                     }),
                     t.querySelector('[data-kt-users-modal-action="close"]').addEventListener("click", (t) => {
                         t.preventDefault(),
                             Swal.fire({
-                                text: "Are you sure you would like to cancel?",
+                                text: "Та энэ цонхыг хаах гэж байна уу?",
                                 icon: "warning",
                                 showCancelButton: !0,
                                 buttonsStyling: !1,
-                                confirmButtonText: "Yes, cancel it!",
-                                cancelButtonText: "No, return",
+                                confirmButtonText: "Тийм, хаая!",
+                                cancelButtonText: "Үгүй, байж байг",
                                 customClass: { confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light" },
                             }).then(function (t) {
                                 t.value
                                     ? (e.reset(), n.hide())
                                     : "cancel" === t.dismiss &&
-                                      Swal.fire({ text: "Your form has not been cancelled!.", icon: "error", buttonsStyling: !1, confirmButtonText: "Ok, got it!", customClass: { confirmButton: "btn btn-primary" } });
+                                      Swal.fire({ text: "Цонх хаах үйлдлийг цуцлалаа!.", icon: "error", buttonsStyling: !1, confirmButtonText: "Ok", customClass: { confirmButton: "btn btn-primary" } });
                             });
                     });
             })();

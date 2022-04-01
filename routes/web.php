@@ -40,12 +40,15 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/update/{id}', [UserController::class, 'update'])->name('user.update');
         Route::post('/register', [UserController::class, 'register']);
         Route::get('/delete/{id}', [UserController::class, 'delete']);
+        Route::post('/delete-selected', [UserController::class, 'delete_selected']);
         Route::post('{id}/role/assign', [UserController::class, 'roleAssign'])->name('user.roleAssign');
 
         /*ROLES AND PERMIISIONS management*/
         Route::get('/permissions', [RoleController::class, 'permissions_list'])->name('permissions.list');
-        Route::post('/permissions/ajaxadd', [RoleController::class, 'permissions_ajax_add']);
-        Route::get('/permissions/delete/{id}', [RoleController::class, 'permissions_delete']);
+        Route::get('/permissions/json', [RoleController::class, 'permissions_json'])->name('permissions.json');
+        Route::post('/permissions/add', [RoleController::class, 'permissions_ajax_add']);
+        Route::post('/permissions/delete', [RoleController::class, 'permissions_delete']);
+        
         Route::get('/roles', [RoleController::class, 'index'])->name('roles.list');
         Route::get('/roles/view/{id}', [RoleController::class, 'view'])->name('role.view');
         Route::post('/roles/update', [RoleController::class, 'update'])->name('role.update');
