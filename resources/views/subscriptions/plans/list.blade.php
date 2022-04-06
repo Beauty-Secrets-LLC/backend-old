@@ -106,23 +106,35 @@
             <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="subscription_plan">
                 <thead>
                     <tr class="fw-bold fs-6 text-muted">
+                        <th></th>
                         <th>Төрлийн нэр</th>
+                        <th>Төлөв</th>
                         <th>Хугацаа</th>
                         <th>Таталт хийх дүн</th>
                         <th>Давтамж</th>
-                        <th>Нийт бүртгүүлсэн</th>
                         <th>Огноо</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="text-gray-600 fw-bold">
                     @if (!empty($list))
                         @foreach ($list as $row)
                             <tr>
-                                <td><span class="text-gray-800 text-hover-primary fs-5 fw-bolder">{{ $row['sub_custom_name'] }}</span></td>
+                                <td>
+                                    <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                        <input class="form-check-input" type="checkbox" value="{{ $row['id'] }}" />
+                                    </div>
+                                </td>
+                                <td><span class="text-gray-800 text-hover-primary fs-5 fw-bolder">{{ $row['name'] }}</span></td>
+                                <td>
+                                    @if ($row['status'] == 1)
+                                        <div class="badge badge-light-success">Идэвхитэй</div>
+                                    @elseif($row['status'] == 0)
+                                        <div class="badge badge-light-danger">Идэвхигүй</div>
+                                    @endif
+                                </td>
                                 <td>{{ $row['sub_type'] }}</td>
                                 <td>{{ number_format($row['amount']) }}₮</td>
                                 <td>{{ $row['repeated_date'] }}</td>
-                                <td>{{ $row['subs_count'] }}</td>
                                 <td>{{ Carbon\Carbon::parse($row['created_at'])->format("Y-m-d H:i:s") }}</td>
                             </tr>
                         @endforeach

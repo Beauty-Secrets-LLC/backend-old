@@ -57,7 +57,6 @@ class CustomerController extends Controller
     {
         //
         $customer = Customer::get_customer($id);
-        dd($customer);
         return view('customers.view', compact('customer'));
     }
 

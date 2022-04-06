@@ -59,7 +59,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'customer'], function () {
         Route::get('/list', [CustomerController::class, 'index'])->name('customers.list');
         Route::get('/json', [CustomerController::class, 'json'])->name('customers.json');
-        Route::get('/view/{id}', [CustomerController::class, 'show']);
+        Route::get('/view/{id}', [CustomerController::class, 'show'])->name('customer.create');
+        Route::get('/create', [CustomerController::class, 'create'])->name('customers.create');
     });
 
     Route::group(['prefix' => 'shop'], function () {
@@ -84,7 +85,14 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'subscription'], function () {
         Route::get('/list', [SubscriptionController::class, 'index'])->name('subscription.list');
         Route::get('/plans', [SubscriptionPlanController::class, 'index'])->name('subscription.plans');
-        Route::get('/transactions', [SubscriptionTransactionController::class, 'index'])->name('subscription.transactions');
+
+        Route::group(['prefix' => 'transaction'], function () {
+            Route::get('/list', [SubscriptionTransactionController::class, 'index'])->name('transaction.list');
+            Route::get('/json', [SubscriptionTransactionController::class, 'json'])->name('transaction.json');
+            Route::get('/import', [SubscriptionTransactionController::class, 'import']);
+            Route::post('/importdata', [SubscriptionTransactionController::class, 'importdata'])->name('subscription.import_transaction');
+        });
+        
         
     });
 

@@ -1,4 +1,7 @@
 <!--begin::Aside-->
+@php
+    $user = \Auth::user();
+@endphp
 <div id="kt_aside" class="aside aside-dark aside-hoverable" data-kt-drawer="true" data-kt-drawer-name="aside" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_aside_mobile_toggle">
     <!--begin::Brand-->
     <div class="aside-logo flex-column-auto" id="kt_aside_logo">
@@ -280,7 +283,7 @@
                     </div>
                 </div>
                 <div class="menu-item mb-1">
-                    <a class="menu-link" href="{{ route('subscription.plans') }}">
+                    <a class="menu-link {{ (Route::currentRouteName() == 'subscription.plans') ? 'active' : ''  }}" href="{{ route('subscription.plans') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: assets/media/icons/duotone/Files/Folder-star.svg-->
                             <span class="svg-icon svg-icon-2"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -297,7 +300,7 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link" href="{{ route('subscription.list') }}">
+                    <a class="menu-link {{ (Route::currentRouteName() == 'subscription.list') ? 'active' : ''  }}" href="{{ route('subscription.list') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: assets/media/icons/duotone/General/Heart.svg-->
                             <span class="svg-icon svg-icon-2"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -312,7 +315,7 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link" href="{{ route('subscription.transactions') }}">
+                    <a class="menu-link {{ (Route::currentRouteName() == 'transaction.list') ? 'active' : ''  }}" href="{{ route('transaction.list') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotone/Shopping/Credit-card.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -329,7 +332,6 @@
                         </span>
                         <span class="menu-title">Гүйлгээ</span>
                     </a>
-        
                 </div>
                 
 
@@ -390,7 +392,8 @@
                         <span class="menu-section text-muted text-uppercase fs-8 ls-1">System</span>
                     </div>
                 </div>
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ (in_array(Route::currentRouteName(), ['users.list','roles.list','permissions.list'])) ? 'show' : ''  }}">
                     <span class="menu-link">
                         <span class="menu-icon">
 
@@ -410,7 +413,7 @@
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('users.list') }}">
+                            <a class="menu-link {{ (Route::currentRouteName() == 'users.list') ? 'active' : ''  }}" href="{{ route('users.list') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -418,7 +421,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('roles.list') }}">
+                            <a class="menu-link {{ (Route::currentRouteName() == 'roles.list') ? 'active' : ''  }}" href="{{ route('roles.list') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -426,7 +429,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('permissions.list') }}">
+                            <a class="menu-link {{ (Route::currentRouteName() == 'permissions.list') ? 'active' : ''  }}" href="{{ route('permissions.list') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -435,7 +438,7 @@
                         </div>
                     </div>
                 </div>
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ (in_array(Route::currentRouteName(), ['customers.list', 'customer.create'])) ? 'show' : ''  }}">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: assets/media/icons/duotone/Files/User-folder.svg-->
@@ -454,7 +457,7 @@
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('customers.list') }}">
+                            <a class="menu-link {{ (Route::currentRouteName() == 'customers.list') ? 'active' : ''  }}" href="{{ route('customers.list') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -467,22 +470,6 @@
                                     <span class="bullet bullet-dot"></span>
                                 </span>
                                 <span class="menu-title">Шинэ гишүүн нэмэх</span>
-                            </a>
-                        </div>
-                        <div class="menu-item">
-                            <a class="menu-link" href="layouts/aside/minimized.html">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Minimized</span>
-                            </a>
-                        </div>
-                        <div class="menu-item">
-                            <a class="menu-link" href="layouts/aside/none.html">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Without Aside</span>
                             </a>
                         </div>
                     </div>

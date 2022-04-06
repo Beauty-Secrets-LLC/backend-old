@@ -12,6 +12,28 @@ class SubscriptionTransaction extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'customer_id',
+        'type',
+        'reference_number',
+        'transaction_id',
+        'amount',
+        'subscription_plan_id',
+        'card_subscribe_id',
+        'card_id',
+        'settlement'
+    ];
+
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s'
+    ];
+
+
+    public function plan(){
+        return $this->belongsTo(SubscriptionPlan::class, 'subscription_plan_id','subscribe_id');
+    }
+
 
     public static function get_list_api() {
         $response = Http::withHeaders(Mongolchat::api_sub_header())
@@ -20,5 +42,61 @@ class SubscriptionTransaction extends Model
             'pper' => 100
         ])->json();
         return $response;
+    }
+
+    public static function get_transactions($options) {
+        $result = [];
+
+        $result['draw'] = (isset($options['draw'])) ? $options['draw'] : 0;
+        $query = SubscriptionTransaction::with([
+            'plan'
+        ]);
+
+        if (isset($options['date']) && trim($options['date'])) {
+            $date_range = explode('-', $options['date']);
+            $sdate = date("Y-m-d", strtotime($date_range[0]));
+            $edate = date("Y-m-d", strtotime($date_range[1]));
+        }
+        else {
+            $sdate = date('Y-m').'-01';
+            $edate = date('Y-m-t');
+        }
+
+        $query->whereBetween('created_at', array($sdate . ' 00:00:00', $edate . ' 23:59:59'));
+
+        //Нийт бичлэгийн тоог авч бна
+        $result['recordsTotal'] = $query->count();
+
+        if (isset($options['search_key']) && trim($options['search_key'])) {
+            $query
+            ->whereRaw('reference_number like "'.$options['search_key'].'%"')
+            ->orWhereRaw('transaction_id like "'.$options['search_key'].'%"')
+            ->orWhere('card_id', $options['search_key']);
+            // ->orWhereHas('tags', function($tags) use($options) {
+            //     $tags->where(function($tag) use($options){
+            //         $tag->whereRaw('LOWER(name->>"$.mn") like "%'.mb_strtolower($options['search_key']).'%"');
+            //     });
+            // });
+        }
+
+        if (isset($options['plans']) && !empty($options['plans'])) {
+            $query->whereIn('subscription_plan_id', $options['plans']);
+        }
+
+        if (isset($options['type']) && trim($options['type'])) {
+            $query->where('type', $options['type']);
+        }
+
+        //Шүүлт хийсний дараах бичлэгийн тоог авч бна
+        $result["recordsFiltered"] = $query->count();
+        
+        if(isset($options['start']) && isset($options['length']))
+            $query->offset($options['start'])->limit($options['length']);
+        
+
+        $result['data'] = $query->orderby('created_at', 'DESC')->get()->toArray();
+        $result['draw']++;
+        return $result;
+        
     }
 }

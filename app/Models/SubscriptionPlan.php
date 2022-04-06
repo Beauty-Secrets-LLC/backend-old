@@ -22,6 +22,9 @@ class SubscriptionPlan extends Model
         'subs_count',
     ];
 
+    const STATUS_ACTIVE = 1;
+    const STATUS_INACTIVE = 0;
+
     public static function get_list() {
         $result = self::get()->toArray();
         return $result;
