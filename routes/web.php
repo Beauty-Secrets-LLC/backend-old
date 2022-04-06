@@ -84,6 +84,10 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['prefix' => 'subscription'], function () {
         Route::get('/list', [SubscriptionController::class, 'index'])->name('subscription.list');
+        Route::get('/json', [SubscriptionController::class, 'json'])->name('subscription.json');
+        Route::get('/import', [SubscriptionController::class, 'import']);
+        Route::post('/importdata', [SubscriptionController::class, 'importdata'])->name('subscription.import');
+
         Route::get('/plans', [SubscriptionPlanController::class, 'index'])->name('subscription.plans');
 
         Route::group(['prefix' => 'transaction'], function () {

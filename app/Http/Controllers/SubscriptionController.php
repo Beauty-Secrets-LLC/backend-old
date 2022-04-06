@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Subscription;
 use Illuminate\Http\Request;
+use App\Imports\SubscriptionImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SubscriptionController extends Controller
 {
@@ -16,7 +18,11 @@ class SubscriptionController extends Controller
     {
         //
         return view('subscriptions.list');
-        dd('list ');
+    }
+
+    public function json(Request $request) {
+        $data = Subscription::get_subscriptions($request->all());
+        return $data;
     }
 
     /**
@@ -83,5 +89,14 @@ class SubscriptionController extends Controller
     public function destroy(Subscription $subscription)
     {
         //
+    }
+
+    public function import() {
+        return view('subscriptions.import');
+    }
+
+    public function importdata(Request $request) {
+        Excel::import(new SubscriptionImport, $request->file('transaction_file'));
+        return redirect('/')->with('success', 'All good!');
     }
 }

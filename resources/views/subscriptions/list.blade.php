@@ -103,31 +103,20 @@
             </div>
         </div>
         <div class="card-body pt-0">
-            <table class="table" id="subscriptions">
+            <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="subscriptions">
                 <thead>
                     <tr class="fw-bold fs-6 text-muted">
-                        <th>Төрлийн нэр</th>
-                        <th>Хугацаа</th>
-                        <th>Таталт хийх дүн</th>
-                        <th>Давтамж</th>
-                        <th>Subscribe хийсэн</th>
+                        <th></th>
+                        <th>Үйлчилгээ</th>
+                        <th>Захиалагч</th>
+                        <th>Төлөв</th>
+                        <th>Карт</th>
+                        <th>Хаяг</th>
                         <th>Огноо</th>
                     </tr>
                 </thead>
-                {{-- <tbody>
-                    @if (!empty($list))
-                        @foreach ($list as $row)
-                            <tr>
-                                <td><span class="text-gray-800 text-hover-primary fs-5 fw-bolder">{{ $row['sub_custom_name'] }}</span></td>
-                                <td>{{ $row['sub_type'] }}</td>
-                                <td>{{ number_format($row['amount']) }}₮</td>
-                                <td>{{ $row['repeated_date'] }}</td>
-                                <td>{{ $row['subs_count'] }}</td>
-                                <td>{{ Carbon\Carbon::parse($row['created_at'])->format("Y-m-d H:i:s") }}</td>
-                            </tr>
-                        @endforeach
-                    @endif
-                </tbody> --}}
+                <tbody class="text-gray-600 fw-bold">
+                </tbody> 
             </table>
             
         </div>
@@ -142,6 +131,13 @@
 @section('scripts')
     <script>
         var subscriptions_table  = $("#subscriptions").DataTable({
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            deferRender: true,
+            ordering: false,
+            scrollX: true,
+            pageLength: 50,
             language: {
                 search: "Хайлт:",
                 infoFiltered: "",
@@ -153,8 +149,62 @@
                 sLoadingRecords: "Түр хүлээнэ үү ...",
                 sZeroRecords: "Тохирох хүсэлт олдсонгүй"
             },
+            ajax: {
+                url: "{{ route('subscription.json') }}",
+                type: 'GET',
+                dataType: "json",
+                data: function(d) {  
+                    /* FILTER BOX */    
+                    d.search_key    = jQuery('#search_key').val();                                      
+                },
+            },
+            columns: [
+                { data: 'id' },
+                { data: 'subscription_plan_id' },
+                { data: 'customer_id' },
+                { data: 'status' },
+                { data: 'card_id' },
+                { data: 'address_id' },
+                { data: 'created_at' },
+            ],
+            columnDefs: [
+                {
+                    orderable: false,
+                    targets:   0,
+                    render: function(data,type,full,meta) {
+                        return '<div class="form-check form-check-sm form-check-custom form-check-solid"><input class="form-check-input" type="checkbox" value="'+data+'"></div>'
+                    }
+                },
+                {
+                    targets:1,
+                    render: function(data, type, full, meta) {
+                        return full.plan.name;
+                    }
+                },
+                {
+                    targets:2,
+                    render: function(data, type, full, meta) {
+                        return '<a class="text-gray-800 text-hover-primary mb-1" href="customer/view/'+full.customer.id+'">' + full.customer.name + '</a>';
+                    }
+                },
+                {
+                    targets:3,
+                    render: function(data, type, full, meta) {
+                        if(data == 1) {
+                            return '<div class="badge badge-light-success fw-bolder">Идэвхитэй</div>';
+                        }
+                        else {
+                            return '';
+                        }
+                    }
+                }
+            ]
         });
 
 
+        $('#search_key').on( 'keyup', function () {
+            subscriptions_table.search( this.value ).draw();
+        } );
+        
     </script>
 @endsection
