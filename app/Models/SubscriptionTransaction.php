@@ -48,6 +48,17 @@ class SubscriptionTransaction extends Model
         return $response;
     }
 
+    public static function get_list_by_card_api($card_id = null) {
+        if(!is_null($card_id )) {
+            $response = Http::withHeaders(Mongolchat::api_sub_header())
+            ->post( Mongolchat::api_sub_url('/api/transaction/card/list'), [
+                'public_id' => $card_id
+            ])->json();
+            return $response;
+        }
+        return null;
+    }
+
     public static function get_transactions($options) {
         $result = [];
 

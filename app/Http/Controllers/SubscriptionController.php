@@ -52,9 +52,16 @@ class SubscriptionController extends Controller
      * @param  \App\Models\Subscription  $subscription
      * @return \Illuminate\Http\Response
      */
-    public function show(Subscription $subscription)
+    public function show($id)
     {
         //
+        $subscription = Subscription::get_subscription($id);
+        if(is_null($subscription)) {
+            abort(404, "The Subscription was not found");
+        } 
+        else {
+            return view('subscriptions.view', compact('subscription'));
+        }
     }
 
     /**

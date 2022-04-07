@@ -106,7 +106,16 @@ class SubscriptionTransactionController extends Controller
 
         Excel::import(new SubscriptionTransactionImport, $request->file('transaction_file'));
         return redirect('/')->with('success', 'All good!');
+    }
 
-       
+    public function get_list_by_card(Request $request) {
+
+        if(isset($request['card_id'])) {
+            $data = SubscriptionTransaction::get_list_by_card_api($request['card_id']);
+            return response()->json($data, 200, [], JSON_UNESCAPED_UNICODE);
+        }
+
+        return null;
+        
     }
 }

@@ -85,6 +85,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'subscription'], function () {
         Route::get('/list', [SubscriptionController::class, 'index'])->name('subscription.list');
         Route::get('/json', [SubscriptionController::class, 'json'])->name('subscription.json');
+        Route::get('/view/{id}', [SubscriptionController::class, 'show'])->name('subscription.view');
         Route::get('/import', [SubscriptionController::class, 'import']);
         Route::post('/importdata', [SubscriptionController::class, 'importdata'])->name('subscription.import');
 
@@ -95,6 +96,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/json', [SubscriptionTransactionController::class, 'json'])->name('transaction.json');
             Route::get('/import', [SubscriptionTransactionController::class, 'import']);
             Route::post('/importdata', [SubscriptionTransactionController::class, 'importdata'])->name('subscription.import_transaction');
+            Route::get('/card', [SubscriptionTransactionController::class, 'get_list_by_card'])->name('card.transactions');
         });
         
         

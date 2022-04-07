@@ -36,6 +36,36 @@ class Subscription extends Model
         return $this->belongsTo(CustomerAddress::class,'address_id','id');
     }
 
+    public function transactions() {
+        return $this->hasMany(SubscriptionTransaction::class, 'card_subscribe_id', 'card_subscribe_id');
+    }
+
+    public static function get_subscription($id) {
+        $query = Subscription::with([
+            'customer',
+            'plan',
+            'address' => function($address) {
+                $address->select(
+                    'id', 
+                    'phone', 
+                    'city', 
+                    'district', 
+                    'khoroo', 
+                    'address',
+                    \DB::raw('CONCAT(city,", ", district,", ",khoroo,", ",address) as full_address')
+                );
+            },
+            'transactions'
+        ])->where('id', $id)->first();
+
+        if($query) 
+            return $query->toArray();
+        
+        else 
+            return null;
+        
+    }
+
     public static function get_subscriptions($options) {
         $result = [];
 
@@ -54,7 +84,6 @@ class Subscription extends Model
                 );
             }
         ]);
-
 
         //Нийт бичлэгийн тоог авч бна
         $result['recordsTotal'] = $query->count();
@@ -76,8 +105,6 @@ class Subscription extends Model
             });;
 
         }
-
-  
 
         //Шүүлт хийсний дараах бичлэгийн тоог авч бна
         $result["recordsFiltered"] = $query->count();
