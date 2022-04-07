@@ -123,6 +123,97 @@
                     <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">
                     <!--begin::Svg Icon | path: icons/duotone/Text/Filter.svg-->
                     <span class="svg-icon svg-icon-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path opacity="0.3" d="M21 22H14C13.4 22 13 21.6 13 21V3C13 2.4 13.4 2 14 2H21C21.6 2 22 2.4 22 3V21C22 21.6 21.6 22 21 22Z" fill="currentColor"/>
+                            <path d="M10 22H3C2.4 22 2 21.6 2 21V3C2 2.4 2.4 2 3 2H10C10.6 2 11 2.4 11 3V21C11 21.6 10.6 22 10 22Z" fill="currentColor"/>
+                        </svg>
+                    </span>
+                    <!--end::Svg Icon-->Баганы тохиргоо</button>
+                    <!--begin::Menu 1-->
+                    <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
+                        <!--begin::Header-->
+                        <div class="px-7 py-5">
+                            <div class="fs-5 text-dark fw-bolder">Шүүх талбарууд</div>
+                        </div>
+                        <!--end::Header-->
+                        <!--begin::Separator-->
+                        <div class="separator border-gray-200"></div>
+                        <!--end::Separator-->
+                        <!--begin::Content-->
+                        <div class="px-7 py-5" data-kt-product-table-filter="form">
+                            <!--begin::Input group-->
+
+                            <div class="mb-5">
+                                <!--begin::Switch-->
+                                <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
+                                   <input class="form-check-input toggle-column" type="checkbox" value="3" name="" checked>
+                                   <label class="form-check-label">Reference дугаар</label>
+                                </div>
+                                <!--end::Switch-->
+                            </div>
+
+                            <div class="mb-5">
+                                <!--begin::Switch-->
+                                <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
+                                <input class="form-check-input toggle-column" type="checkbox" value="4" name="" checked>
+                                <label class="form-check-label">ID</label>
+                                </div>
+                                <!--end::Switch-->
+                            </div>
+
+
+                            <div class="mb-5">
+                                 <!--begin::Switch-->
+                                 <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
+                                    <input class="form-check-input toggle-column" type="checkbox" value="6" name="" checked>
+                                    <label class="form-check-label">Карт</label>
+                                </div>
+                                <!--end::Switch-->
+                            </div>
+
+                            <div class="mb-5">
+                                <!--begin::Switch-->
+                                <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
+                                    <input class="form-check-input toggle-column" type="checkbox" value="7" name="">
+                                    <label class="form-check-label">Хүргэлтийн хаяг</label>
+                                </div>
+                                <!--end::Switch-->
+                            </div>
+
+                            <div class="mb-5">
+                                <!--begin::Switch-->
+                                <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
+                                    <input class="form-check-input toggle-column" type="checkbox" value="8" name="">
+                                    <label class="form-check-label">Гүйлгээ хийсэн</label>
+                                </div>
+                                <!--end::Switch-->
+                            </div>
+
+                            <div class="mb-5">
+                                <!--begin::Switch-->
+                                <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
+                                    <input class="form-check-input toggle-column" type="checkbox" value="9" name="" checked>
+                                    <label class="form-check-label">Огноо</label>
+                                </div>
+                                <!--end::Switch-->
+                            </div>
+
+                            
+                            
+                            <!--end::Input group-->
+                        </div>
+                        <!--end::Content-->
+                    </div>
+                    <!--end::Menu 1-->
+                    <!--end::Filter-->
+                </div>
+                <!--end::Toolbar-->
+
+                <div class="d-flex justify-content-end" data-kt-product-table-toolbar="base">
+                    <!--begin::Filter-->
+                    <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">
+                    <!--begin::Svg Icon | path: icons/duotone/Text/Filter.svg-->
+                    <span class="svg-icon svg-icon-2">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                 <rect x="0" y="0" width="24" height="24" />
@@ -154,7 +245,7 @@
                             </div>
                             <!--end::Input group-->
                             <!--begin::Input group-->
-                            <div class="mb-5">
+                            <div class="mb-10">
                                 <label class="form-label fs-6 fw-bold">Үйлчилгээ:</label>
                                 <select id="filter_plans" class="form-select form-select-solid fw-bolder" data-kt-select2="true" data-placeholder="Ангилал сонгох" data-allow-clear="true" data-hide-search="true" multiple >
                                     @if (!empty($plans))
@@ -194,7 +285,6 @@
                     <!--end::Export-->
                    
                 </div>
-                <!--end::Toolbar-->
             </div>
             <!--end::Card toolbar-->
         </div>
@@ -208,8 +298,9 @@
                         <th>Reference</th>
                         <th>ID</th>
                         <th>Дүн</th>
-                        
                         <th>Карт</th>
+                        <th>Хүргэх хаяг</th>
+                        <th>Гүйлгээ хийсэн</th>
                         <th>Огноо</th>
                     </tr>
                 </thead>
@@ -229,7 +320,7 @@
 @section('scripts')
     <script>
         var transaction_table  = $("#transaction_table").DataTable({
-            responsive: true,
+
             processing: true,
             serverSide: true,
             deferRender: true,
@@ -267,6 +358,8 @@
                 { data: 'transaction_id' },
                 { data: 'amount' },
                 { data: 'card_id' },
+                { data: null },
+                { data: null },
                 { data: 'created_at' },
             ],
             columnDefs: [
@@ -299,6 +392,20 @@
                         }
                     }
                 },
+                {
+                    targets:7,
+                    visible:false,
+                    render: function(data, type, full, meta) {
+                        return full.subscription.address.full_address;
+                    }
+                },
+                {
+                    targets:8,
+                    visible:false,
+                    render: function(data, type, full, meta) {
+                        return full.subscription.customer.email;
+                    }
+                }
             ]
         });
 
@@ -306,6 +413,11 @@
             transaction_table.search( this.value ).draw();
         } );
 
+
+        $('.toggle-column').change(function(){
+            var column = transaction_table.column( $(this).val() );
+            column.visible( ! column.visible() );
+        });
 
         jQuery('#apply_filter').click(function(){
             transaction_table.draw();

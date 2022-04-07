@@ -86,8 +86,16 @@ class ProductController extends Controller
     {
         //
         $product = Product::get_product($id);
-        $product_categories = ProductCategory::get()->toTree();
-        return view('products.new', compact('product','product_categories'));
+
+        if(is_null($product)) {
+            abort(404, "The Product was not found");
+        } 
+        else {
+            $product_categories = ProductCategory::get()->toTree();
+            $product_tags = Tag::selectRaw('name->>"$.mn" as tagname')->where('type', 'product')->pluck('tagname')->toArray();
+            return view('products.new', compact('product','product_categories', 'product_tags'));
+        }
+        
     }
 
     /**

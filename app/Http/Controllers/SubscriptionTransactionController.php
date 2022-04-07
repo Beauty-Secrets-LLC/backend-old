@@ -28,7 +28,7 @@ class SubscriptionTransactionController extends Controller
     {
         //
         $data = SubscriptionTransaction::get_transactions($request->all());
-        return $data;
+        return response()->json($data, 200, [], JSON_UNESCAPED_UNICODE);
     }
 
 

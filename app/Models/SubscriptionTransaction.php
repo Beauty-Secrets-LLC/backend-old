@@ -34,6 +34,10 @@ class SubscriptionTransaction extends Model
         return $this->belongsTo(SubscriptionPlan::class, 'subscription_plan_id','subscribe_id');
     }
 
+    public function subscription(){
+        return $this->belongsTo(Subscription::class, 'card_subscribe_id','card_subscribe_id');
+    }
+
 
     public static function get_list_api() {
         $response = Http::withHeaders(Mongolchat::api_sub_header())
@@ -49,7 +53,22 @@ class SubscriptionTransaction extends Model
 
         $result['draw'] = (isset($options['draw'])) ? $options['draw'] : 0;
         $query = SubscriptionTransaction::with([
-            'plan'
+            'plan',
+            'subscription' => function($subscription) {
+                $subscription->with([
+                    'customer',
+                    'address' => function($address) {
+                        $address->select(
+                            'id', 
+                            'city', 
+                            'district', 
+                            'khoroo', 
+                            'address',
+                            \DB::raw('CONCAT(city,", ", district,", ",khoroo,", ",address) as full_address')
+                        );
+                    }
+                ]);
+            }
         ]);
 
         if (isset($options['date']) && trim($options['date'])) {

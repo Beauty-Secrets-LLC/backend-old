@@ -29,7 +29,7 @@ class Subscription extends Model
     }
 
     public function plan() {
-        return $this->belongsTo(SubscriptionPLan::class, 'subscription_plan_id', 'subscribe_id');
+        return $this->belongsTo(SubscriptionPlan::class, 'subscription_plan_id', 'subscribe_id');
     }
 
     public function address() {
@@ -43,19 +43,36 @@ class Subscription extends Model
         $query = Subscription::with([
             'customer',
             'plan',
+            'address' => function($address) {
+                $address->select(
+                    'id', 
+                    'city', 
+                    'district', 
+                    'khoroo', 
+                    'address',
+                    \DB::raw('CONCAT(city,", ", district,", ",khoroo,", ",address) as full_address')
+                );
+            }
         ]);
 
 
         //Нийт бичлэгийн тоог авч бна
         $result['recordsTotal'] = $query->count();
 
-        if (isset($options['search_key']) && trim($options['search_key'])) {
+        if (isset($options['email']) && trim($options['email'])) {
             $query
             // ->whereRaw('reference_number like "'.$options['search_key'].'%"')
             // ->orWhereRaw('transaction_id like "'.$options['search_key'].'%"')
-            ->orWhere('card_id', $options['search_key'])
-            ->orWhereHas('customer', function($customer) use($options) {
-                $customer->whereRaw('email like "%'.$options['search_key'].'%"');
+            //->orWhere('card_id', $options['search_key'])
+            ->WhereHas('customer', function($customer) use($options) {
+                $customer->where('email' , $options['email']);
+            });;
+
+        }
+
+        if (isset($options['phone']) && trim($options['phone'])) {
+            $query->WhereHas('customer', function($customer) use($options) {
+                $customer->where('phone_primary' , $options['phone']);
             });;
 
         }

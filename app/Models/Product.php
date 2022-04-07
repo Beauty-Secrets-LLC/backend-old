@@ -216,8 +216,9 @@ class Product extends Model implements HasMedia
             //     ]);
             // }
         ])->where('id', $id)->first();
+        
 
-        return $product;
+        return ($product) ? $product->toArray() : null ;
     }
 
 

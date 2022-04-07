@@ -22,7 +22,7 @@ class SubscriptionController extends Controller
 
     public function json(Request $request) {
         $data = Subscription::get_subscriptions($request->all());
-        return $data;
+        return response()->json($data, 200, [], JSON_UNESCAPED_UNICODE);
     }
 
     /**
