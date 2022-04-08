@@ -95,8 +95,7 @@
             @livewire('subscription.detail', ['subscription' => $subscription])
             <!--end::Card-->
             <!--begin::Card-->
-            {{-- @livewire('transaction.card-transaction', ['card_id' => $subscription['card_id'], 'local_transactions' => $subscription['transactions']]) --}}
-            @livewire('transaction.card-transaction', ['card_id' => 'card-20393114856410658476556424228063', 'local_transactions' => $subscription['transactions']])
+            @livewire('transaction.card-transaction', ['card_id' => $subscription['card_id'], 'local_transactions' => $subscription['transactions']])
             <!--end::Card-->
         </div>
         <!--end::Content-->
@@ -127,11 +126,7 @@
                         </a>
                         <!--begin::Menu-->
                         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-6 w-200px py-4" data-kt-menu="true">
-                            <!--begin::Menu item-->
-                            <div class="menu-item px-3">
-                                <a href="#" class="menu-link px-3">Мэдээлэл засах</a>
-                            </div>
-                            <!--end::Menu item-->
+                           
                             <!--begin::Menu item-->
                             @if ($subscription['status'] == 1)
                                 <div class="menu-item px-3">
@@ -202,14 +197,20 @@
                         <!--begin::Details-->
                         <div class="mb-0">
                             <!--begin::Card info-->
-                            <div class="fw-bold text-gray-600 d-flex align-items-center">Beauty хэтэвч 
-                                <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <div class="fw-bold text-gray-600 d-flex align-items-center">
+                                <span class="svg-icon svg-icon-muted svg-icon-2hx" style="margin-right:5px"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                     <path d="M22 7H2V11H22V7Z" fill="currentColor"/>
                                     <path opacity="0.3" d="M21 19H3C2.4 19 2 18.6 2 18V6C2 5.4 2.4 5 3 5H21C21.6 5 22 5.4 22 6V18C22 18.6 21.6 19 21 19ZM14 14C14 13.4 13.6 13 13 13H5C4.4 13 4 13.4 4 14C4 14.6 4.4 15 5 15H13C13.6 15 14 14.6 14 14ZM16 15.5C16 16.3 16.7 17 17.5 17H18.5C19.3 17 20 16.3 20 15.5C20 14.7 19.3 14 18.5 14H17.5C16.7 14 16 14.7 16 15.5Z" fill="currentColor"/>
-                                    </svg></span></div>
+                                    </svg>
+                                </span>
+                                <span data-bs-toggle="tooltip" data-bs-custom-class="tooltip-dark" data-bs-placement="bottom" title="{{ $subscription['card_id'] }}">{{ bs_card_format($subscription['card_id']) }}</span>
+                            </div>
                             <!--end::Card info-->
                             <!--begin::Card expiry-->
-                            <div class="fw-bold text-gray-600">{{ $subscription['card_id'] }}</div>
+                            <div class="fw-bold text-gray-600">
+                                
+                                <span class="badge badge-light"></span>
+                            </div>
                             <!--end::Card expiry-->
                         </div>
                         <!--end::Details-->

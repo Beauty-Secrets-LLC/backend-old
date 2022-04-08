@@ -3,7 +3,7 @@
     <div class="card-header">
         <!--begin::Card title-->
         <div class="card-title">
-            <h2 class="fw-bolder">Дэлгэрэнгүй мэдээлэл</h2>
+            <h2 class="fw-bolder">Үйлчилгээ</h2>
         </div>
         <!--begin::Card title-->
         <!--begin::Card toolbar-->
@@ -147,64 +147,8 @@
             <!--end::Product table-->
         </div>
         <!--end::Section-->
-        @dump($address)
         <div class="modal fade" tabindex="-1" id="edit_subscription">
-            <div class="modal-dialog">
-                <div class="modal-content position-absolute">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Мэдээлэл засах</h5>
-        
-                        <!--begin::Close-->
-                        <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
-                            <span class="svg-icon svg-icon-2x"></span>
-                        </div>
-                        <!--end::Close-->
-                    </div>
-        
-                    <div class="modal-body">
-                        <div class="fv-row mb-7">
-                            <!--begin::Label-->
-                            <label class="fs-6 fw-bold mb-2">Нэмэлт утас:</label>
-                            <!--end::Label-->
-                            <!--begin::Input-->
-                            <input type="text" class="form-control form-control-solid" wire:model.defer="subscription.address.phone">
-                            <!--end::Input-->
-                        </div>
-                        <div class="fv-row mb-7">
-                            <!--begin::Label-->
-                            <label class="fs-6 fw-bold mb-2">Аймаг / Хот:</label>
-                            <!--end::Label-->
-                            <!--begin::Input-->
-                            <select class="form-select" wire:model.defer="subscription.address.city">
-                                @foreach ($address as $city)
-                                    <option value="{{ $city['name'] }}" {{ ($city['name'] == $subscription['address']['city']) ? 'selected' : '' }}>{{ $city['name'] }}</option>
-                                @endforeach
-                            </select>
-                            <!--end::Input-->
-                        </div>
-                        <div class="fv-row mb-7">
-                            <!--begin::Label-->
-                            <label class="fs-6 fw-bold mb-2">Сум / Дүүрэг:</label>
-                            <!--end::Label-->
-                            <!--begin::Input-->
-                            
-                            <!--end::Input-->
-                        </div>
-                        <div class="fv-row mb-7">
-                            <!--begin::Label-->
-                            <label class="fs-6 fw-bold mb-2">Дэлгэрэнгүй хаяг:</label>
-                            <!--end::Label-->
-                            <!--begin::Input-->
-                            <textarea class="form-control form-control-solid" wire:model.defer="subscription.address.address"></textarea>
-                            <!--end::Input-->
-                        </div>
-                    </div>
-        
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" wire:click="save" data-bs-dismiss="modal">Хадгалах</button>
-                    </div>
-                </div>
-            </div>
+            @livewire('subscription.detail-edit-modal', ['subscription' => $subscription])
         </div>
     </div>
     <!--end::Card body-->
