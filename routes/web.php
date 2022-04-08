@@ -7,6 +7,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductCategoryController;
+use App\Http\Controllers\ShopOrderController;
 
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\SubscriptionPlanController;
@@ -79,6 +80,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::group(['prefix' => 'category'], function () {
             Route::get('/list', [ProductCategoryController::class, 'index']);
             Route::post('/new', [ProductCategoryController::class, 'store'])->name('product_category.create');
+        }); 
+
+        Route::group(['prefix' => 'order'], function () {
+            Route::get('/list', [ShopOrderController::class, 'index'])->name('order.list');
+            Route::get('/json', [ShopOrderController::class, 'json'])->name('order.json');
         }); 
     });
 

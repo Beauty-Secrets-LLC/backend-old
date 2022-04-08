@@ -5,7 +5,7 @@
     <!--begin::Page title-->
     <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
         <!--begin::Title-->
-        <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Гишүүд</h1>
+        <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Бүртгэлтэй хэрэглэгчид</h1>
         <!--end::Title-->
         <!--begin::Separator-->
         <span class="h-20px border-gray-200 border-start mx-4"></span>
@@ -23,7 +23,7 @@
             </li>
             <!--end::Item-->
             <!--begin::Item-->
-            <li class="breadcrumb-item text-muted">Гишүүд</li>
+            <li class="breadcrumb-item text-muted">Хэрэглэгчид</li>
             <!--end::Item-->
             <!--begin::Item-->
             <li class="breadcrumb-item">
@@ -178,7 +178,7 @@
                             <rect fill="#000000" opacity="0.5" transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000)" x="4" y="11" width="16" height="2" rx="1" />
                         </svg>
                     </span>
-                    <!--end::Svg Icon-->Гишүүн нэмэх</a>
+                    <!--end::Svg Icon-->Хэрэглэгч нэмэх</a>
                     <!--end::Add product-->
                 </div>
                 <!--end::Toolbar-->

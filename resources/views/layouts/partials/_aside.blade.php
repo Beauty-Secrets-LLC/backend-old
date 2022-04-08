@@ -130,7 +130,7 @@
                     </div>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link" href="dashboards/header.html">
+                    <a class="menu-link" href="{{ route('order.list') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: assets/media/icons/duotone/Shopping/Cart1.svg-->
                             <span class="svg-icon svg-icon-2"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -408,7 +408,7 @@
                             <!--end::Svg Icon-->
                             
                         </span>
-                        <span class="menu-title">Хэрэглэгчид</span>
+                        <span class="menu-title">BS Team</span>
                         <span class="menu-arrow"></span>
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
@@ -452,7 +452,7 @@
                             </svg></span>
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-title">Гишүүд</span>
+                        <span class="menu-title">Хэрэглэгчид</span>
                         <span class="menu-arrow"></span>
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
@@ -469,7 +469,7 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Шинэ гишүүн нэмэх</span>
+                                <span class="menu-title">Шинэ хэрэглэгч нэмэх</span>
                             </a>
                         </div>
                     </div>
