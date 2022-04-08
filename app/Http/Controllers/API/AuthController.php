@@ -15,15 +15,19 @@ class AuthController extends Controller
         if (!\Auth::attempt($request->only('email', 'password')))
         {
             return response()
-                ->json(['message' => 'Unauthorized'], 401);
+                ->json([
+                    'success'=>false,
+                    'message'=>'Хэрэглэгчийн нэр эсвэл нууц үг буруу байна'
+                ], 400);
         }
 
         $user = User::where('email', $request['email'])->firstOrFail();
 
         $token = $user->createToken('beautydevelopment')->plainTextToken;
+        $user['token'] = $token;
 
         return response()
-             ->json(['access_token' => $token, 'token_type' => 'Bearer', ]);
+            ->json($user);
 
     }
 
