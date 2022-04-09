@@ -11,8 +11,21 @@ class ShopOrder extends Model
 
     protected $table = "orders";
     protected $casts = [
-        'created_at' => 'datetime:Y-m-d H:i:s',
-        'updated_at' => 'datetime:Y-m-d H:i:s'
+        'data'          => 'array',
+        'created_at'    => 'datetime:Y-m-d H:i:s',
+        'updated_at'    => 'datetime:Y-m-d H:i:s'
+    ];
+
+    protected $fillable = [
+        'customer',
+        'customer_email',
+        'customer_phone',
+        'address_id',
+        'subtotal',
+        'shipping_id',
+        'total',
+        'status',
+        'data'
     ];
 
     public function customer() {
@@ -21,6 +34,13 @@ class ShopOrder extends Model
 
     public function address() {
         return $this->belongsTo(CustomerAddress::class,'address_id','id');
+    }
+    public function items() {
+        return $this->hasMany(ShopOrderItem::class,'order_id','id');
+    }
+
+    public function vat() {
+        return $this->hasOne(Vat::class,'subject_id','id')->where('subject_type', self::class);
     }
 
     public static function get_orders($options) {
@@ -57,5 +77,50 @@ class ShopOrder extends Model
         $result['data'] = $query->orderby('created_at', 'DESC')->get()->toArray();
         $result['draw']++;
         return $result;
+    }
+
+    public static function get_order($id) {
+        $order = ShopOrder::with([
+            'customer',
+            'items'=> function($items) {
+                $items->with([
+                    'product',
+                    'variation'
+                ]);
+            },
+            'address' => function($address) {
+                $address->select(
+                    'id', 
+                    'phone', 
+                    'city', 
+                    'district', 
+                    'khoroo', 
+                    'address',
+                    \DB::raw('CONCAT(city,", ", district,", ",khoroo,", ",address) as full_address')
+                );
+            },
+            'vat'
+        ])->where('id', $id)->first();
+
+        if($order) 
+            return $order->toArray();
+        
+        else 
+            return null;
+    }
+
+    public function create_order($data = null) {
+        $data = [
+            'customer' => 1,
+            'customer_email' => 'manaltseren@gmail.com',
+            'customer_phone' => '90911025',
+            'address_id' => 1,
+            'subtotal' => 50000,
+            'shipping_id' => 1,
+            'total' => 55000,
+        ];
+
+        $order = ShopOrder::create($data);
+        return $order;
     }
 }

@@ -60,7 +60,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'customer'], function () {
         Route::get('/list', [CustomerController::class, 'index'])->name('customers.list');
         Route::get('/json', [CustomerController::class, 'json'])->name('customers.json');
-        Route::get('/view/{id}', [CustomerController::class, 'show'])->name('customer.create');
+        Route::get('/view/{id}', [CustomerController::class, 'show'])->name('customer.view');
         Route::get('/create', [CustomerController::class, 'create'])->name('customers.create');
     });
 
@@ -85,6 +85,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::group(['prefix' => 'order'], function () {
             Route::get('/list', [ShopOrderController::class, 'index'])->name('order.list');
             Route::get('/json', [ShopOrderController::class, 'json'])->name('order.json');
+            Route::get('/view/{id}', [ShopOrderController::class, 'show'])->name('order.show');
         }); 
     });
 

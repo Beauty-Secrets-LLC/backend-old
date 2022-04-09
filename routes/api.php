@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\ProductController;
+// use App\Http\Controllers\API\ShopOrderController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -26,6 +27,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         return $request->user();
     });
 
-    Route::apiResource('products', ProductController::class);
+    Route::apiResources([
+        'products'  => ProductController::class,
+        // 'orders'    => ShopOrderController::class,
+    ]);
+    
+
     // API route for logout user
 });
