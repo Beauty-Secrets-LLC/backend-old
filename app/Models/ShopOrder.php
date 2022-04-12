@@ -20,7 +20,9 @@ class ShopOrder extends Model
     ];
 
     protected $fillable = [
+        'customer_id',
         'customer_phone',
+        'customer_email',
         'address_id',
         'subtotal',
         'shipping_id',
