@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class ShopOrder extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes, LogsActivity;
 
     protected $table = "orders";
     protected $casts = [
@@ -17,8 +20,6 @@ class ShopOrder extends Model
     ];
 
     protected $fillable = [
-        'customer',
-        'customer_email',
         'customer_phone',
         'address_id',
         'subtotal',
@@ -29,7 +30,7 @@ class ShopOrder extends Model
     ];
 
     public function customer() {
-        return $this->belongsTo(Customer::class,'customer_id','id');
+        return $this->belongsTo(Customer::class,'customer_phone','phone_primary');
     }
 
     public function address() {
@@ -63,8 +64,24 @@ class ShopOrder extends Model
             },
         ]);
 
+        if (isset($options['date']) && trim($options['date'])) {
+            $date_range = explode('-', $options['date']);
+            $sdate = date("Y-m-d", strtotime($date_range[0]));
+            $edate = date("Y-m-d", strtotime($date_range[1]));
+        }
+        else {
+            $sdate = date('Y-m').'-01';
+            $edate = date('Y-m-t');
+        }
+
+        $query->whereBetween('created_at', array($sdate . ' 00:00:00', $edate . ' 23:59:59'));
+
         //Нийт бичлэгийн тоог авч бна
         $result['recordsTotal'] = $query->count();
+
+        if (isset($options['id']) && !empty($options['id'])) {
+            $query->where('id', $options['id']);
+        }
 
 
         //Шүүлт хийсний дараах бичлэгийн тоог авч бна
@@ -75,6 +92,7 @@ class ShopOrder extends Model
         
 
         $result['data'] = $query->orderby('created_at', 'DESC')->get()->toArray();
+
         $result['draw']++;
         return $result;
     }
@@ -109,18 +127,10 @@ class ShopOrder extends Model
             return null;
     }
 
-    public function create_order($data = null) {
-        $data = [
-            'customer' => 1,
-            'customer_email' => 'manaltseren@gmail.com',
-            'customer_phone' => '90911025',
-            'address_id' => 1,
-            'subtotal' => 50000,
-            'shipping_id' => 1,
-            'total' => 55000,
-        ];
-
-        $order = ShopOrder::create($data);
-        return $order;
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->useLogName('order_log')
+        ->logOnlyDirty();
     }
 }

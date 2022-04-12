@@ -214,7 +214,7 @@
                                     <div class="d-flex align-items-center justify-content-end">
                                         <!--begin:: Avatar -->
                                         <div class="symbol symbol-circle symbol-25px overflow-hidden me-3">
-                                            <a target="_blank" href="{{ route('customer.view', $order['customer_id']) }}">
+                                            <a target="_blank" href="{{ route('customer.view', $order['customer']['id']) }}">
                                                 <div class="symbol-label">
                                                     <img src="{{ asset('assets/media/avatars/blank.png') }}" class="w-100">
                                                 </div>
@@ -222,7 +222,7 @@
                                         </div>
                                         <!--end::Avatar-->
                                         <!--begin::Name-->
-                                        <a target="_blank" href="{{ route('customer.view', $order['customer_id']) }}" class="text-gray-600 text-hover-primary">{{ $order['customer']['name'] }}</a>
+                                        <a target="_blank" href="{{ route('customer.view', $order['customer']['id']) }}" class="text-gray-600 text-hover-primary">{{ $order['customer']['name'] }}</a>
                                         <!--end::Name-->
                                     </div>
                                 </td>
@@ -526,25 +526,26 @@
                                             </tr>
                                             
                                             <!--end::Products-->
-                                            <!--begin::Subtotal-->
-                                            <tr>
-                                                <td colspan="3" class="text-end">Захиалгын дүн</td>
-                                                <td class="text-end">{{ number_format($order['subtotal']) }}₮</td>
-                                            </tr>
-                                            <!--end::Subtotal-->
-                                            <!--begin::Shipping-->
-                                            <tr>
-                                                <td colspan="3" class="text-end">Хүргэлтийн тариф</td>
-                                                <td class="text-end">$5.00</td>
-                                            </tr>
-                                            <!--end::Shipping-->
-                                            <!--begin::Grand total-->
-                                            <tr>
-                                                <td colspan="3" class="fs-3 text-dark text-end">Нийт дүн</td>
-                                                <td class="text-dark fs-3 fw-boldest text-end">{{ number_format($order['total']) }}₮</td>
-                                            </tr>
-                                            <!--end::Grand total-->
+                                            
                                         @endforeach
+                                        <!--begin::Subtotal-->
+                                        <tr>
+                                            <td colspan="3" class="text-end">Захиалгын дүн</td>
+                                            <td class="text-end">{{ number_format($order['subtotal']) }}₮</td>
+                                        </tr>
+                                        <!--end::Subtotal-->
+                                        <!--begin::Shipping-->
+                                        <tr>
+                                            <td colspan="3" class="text-end">Хүргэлтийн тариф</td>
+                                            <td class="text-end">$5.00</td>
+                                        </tr>
+                                        <!--end::Shipping-->
+                                        <!--begin::Grand total-->
+                                        <tr>
+                                            <td colspan="3" class="fs-3 text-dark text-end">Нийт дүн</td>
+                                            <td class="text-dark fs-3 fw-boldest text-end">{{ number_format($order['total']) }}₮</td>
+                                        </tr>
+                                        <!--end::Grand total-->
                                     </tbody>
                                     <!--end::Table head-->
                                 </table>

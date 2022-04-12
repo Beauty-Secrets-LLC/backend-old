@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use App\Models\Attribute;
 use App\Models\AttributeValue;
 
+use Spatie\Activitylog\Models\Activity;
+
+
 
 class DashboardController extends Controller
 {
@@ -115,5 +118,27 @@ class DashboardController extends Controller
         // $sda = $product->addMedia($request['fileToUpload'])->toMediaCollection('featured', 'gcs');
         // $image = $product->getMedia('sda')->first()->getUrl();
         dump($sda);
+    }
+
+    public function activitylog() {
+        
+        return view('activity-log');
+    }
+
+    public function activitylog_listjson(Request $request) {
+        $options = $request->all();
+        $result = [];
+        $result['draw'] = (isset($options['draw'])) ? $options['draw'] : 0;
+        $query = Activity::select('*');
+        $result['recordsTotal'] = $query->count();
+        $result["recordsFiltered"] = $query->count();
+        
+        if(isset($options['start']) && isset($options['length']))
+            $query->offset($options['start'])->limit($options['length']);
+        
+
+        $result['data'] = $query->orderby('created_at', 'DESC')->get()->toArray();
+
+        return response()->json($result, 200, [], JSON_UNESCAPED_UNICODE);
     }
 }

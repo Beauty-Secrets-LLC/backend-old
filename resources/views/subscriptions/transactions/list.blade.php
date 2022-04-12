@@ -418,7 +418,7 @@
             column.visible( ! column.visible() );
         });
 
-        jQuery('#apply_filter').click(function(){
+        $('#apply_filter').click(function(){
             transaction_table.draw();
         });
 
@@ -430,6 +430,8 @@
             },
             startDate: "{{ date('Y/m').'/01' }}",
             endDate: "{{ date('Y/m/t') }}"
+        }).on('apply.daterangepicker', function(ev, picker) {
+            transaction_table.draw();
         });
     </script>
 @endsection

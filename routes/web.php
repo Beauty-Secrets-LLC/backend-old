@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\CustomerPointController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductCategoryController;
@@ -34,6 +35,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/test', [DashboardController::class, 'test']);
     Route::post('/upload', [DashboardController::class, 'upload'])->name('dashboard.upload');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard'); 
+    Route::get('/activity-log', [DashboardController::class, 'activitylog'])->name('activitylog'); 
+    Route::get('/activity-log/json', [DashboardController::class, 'activitylog_listjson'])->name('activitylog.json'); 
 
     Route::group(['prefix' => 'user'], function () {
         Route::get('/list', [UserController::class, 'index'])->name('users.list');
@@ -62,6 +65,14 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/json', [CustomerController::class, 'json'])->name('customers.json');
         Route::get('/view/{id}', [CustomerController::class, 'show'])->name('customer.view');
         Route::get('/create', [CustomerController::class, 'create'])->name('customers.create');
+
+
+        Route::group(['prefix' => 'points'], function () {
+            Route::get('/list', [CustomerPointController::class, 'index'])->name('points.list');
+            Route::get('/json', [CustomerPointController::class, 'json'])->name('points.json');
+            Route::post('/update', [CustomerPointController::class, 'update']);
+        });
+
     });
 
     Route::group(['prefix' => 'shop'], function () {
@@ -85,7 +96,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::group(['prefix' => 'order'], function () {
             Route::get('/list', [ShopOrderController::class, 'index'])->name('order.list');
             Route::get('/json', [ShopOrderController::class, 'json'])->name('order.json');
-            Route::get('/view/{id}', [ShopOrderController::class, 'show'])->name('order.show');
+            Route::get('/view/{id}', [ShopOrderController::class, 'show'])->name('order.view');
         }); 
     });
 
@@ -105,8 +116,6 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/importdata', [SubscriptionTransactionController::class, 'importdata'])->name('subscription.import_transaction');
             Route::get('/card', [SubscriptionTransactionController::class, 'get_list_by_card'])->name('card.transactions');
         });
-        
-        
     });
 
 });

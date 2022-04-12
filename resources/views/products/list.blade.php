@@ -368,5 +368,5 @@
         });
         
     </script>
-    <script src="{{ asset('assets/js/custom/apps/products/products-list.js') }}"></script>
+    <script src="{{ asset('assets/js/custom/apps/products/list.js') }}"></script>
 @endsection
