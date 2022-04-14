@@ -12,9 +12,18 @@ class Customer extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'phone_primary',
+        'email',
+        'data'
+    ];
+
+
     protected $casts = [
-        'created_at' => 'datetime:Y-m-d H:i:s',
-        'updated_at' => 'datetime:Y-m-d H:i:s'
+        'data'          => 'array',
+        'created_at'    => 'datetime:Y-m-d H:i:s',
+        'updated_at'    => 'datetime:Y-m-d H:i:s'
     ];
 
     public function addresses(){
@@ -38,10 +47,22 @@ class Customer extends Model
 
 
         //Search by Name and Tags
-        if (isset($options['search_key']) && trim($options['search_key'])) {
-            $query->whereRaw('name like "%'.$options['search_key'].'%"')
-            ->orwhereRaw('phone_primary like "'.$options['search_key'].'%"')
-            ->orwhereRaw('email like "'.$options['search_key'].'%"');
+        // if (isset($options['search_key']) && trim($options['search_key'])) {
+        //     $query->whereRaw('name like "%'.$options['search_key'].'%"')
+        //     ->orwhereRaw('phone_primary like "'.$options['search_key'].'%"')
+        //     ->orwhereRaw('email like "'.$options['search_key'].'%"');
+        // }
+
+        if (isset($options['name']) && trim($options['name'])) {
+            $query->whereRaw('LOWER(name) like "%'. mb_strtolower($options['name']).'%"');
+        }
+
+        if (isset($options['phone']) && trim($options['phone'])) {
+            $query->where('phone_primary', $options['phone']);
+        }
+
+        if (isset($options['email']) && trim($options['email'])) {
+            $query->where('email', $options['email']);
         }
 
 

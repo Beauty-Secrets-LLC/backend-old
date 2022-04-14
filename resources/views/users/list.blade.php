@@ -39,6 +39,11 @@
             <!--end::Breadcrumb-->
         </div>
         <!--end::Page title-->
+        <div class="d-flex align-items-center py-1">
+            <!--begin::Button-->
+            <button type="button" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user" class="btn btn-sm btn-primary">Ажилтан бүртгэх</button>
+            <!--end::Button-->
+        </div>
     </div>
     <!--end::Container-->
 @endsection
@@ -146,17 +151,7 @@
                     </span>
                     <!--end::Svg Icon-->Export</button> --}}
                     <!--end::Export-->
-                    <!--begin::Add user-->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">
-                    <!--begin::Svg Icon | path: icons/duotone/Navigation/Plus.svg-->
-                    <span class="svg-icon svg-icon-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                            <rect fill="#000000" x="4" y="11" width="16" height="2" rx="1" />
-                            <rect fill="#000000" opacity="0.5" transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000)" x="4" y="11" width="16" height="2" rx="1" />
-                        </svg>
-                    </span>
-                    <!--end::Svg Icon-->Хэрэглэгч нэмэх</button>
-                    <!--end::Add user-->
+                    
                 </div>
                 <!--end::Toolbar-->
                 <!--begin::Group actions-->

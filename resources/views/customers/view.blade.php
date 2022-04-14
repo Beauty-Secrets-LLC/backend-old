@@ -89,6 +89,7 @@
         <div class="flex-column flex-lg-row-auto w-100 w-xl-400px mb-10">
             <!--begin::Card-->
             @component('customers.components.customer-card', ['customer'=>$customer])@endcomponent
+            
             <!--end::Card-->
             <!--begin::Connected Accounts-->
             <div class="card mb-5 mb-xl-8">

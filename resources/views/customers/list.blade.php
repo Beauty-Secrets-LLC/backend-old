@@ -37,6 +37,11 @@
         <!--end::Breadcrumb-->
     </div>
     <!--end::Page title-->
+    <div class="d-flex align-items-center py-1">
+        <!--begin::Button-->
+        <a href="#" class="btn btn-sm btn-primary">Хэрэглэгч бүртгэх</a>
+        <!--end::Button-->
+    </div>
 </div>
 <!--end::Container-->
 @endsection
@@ -101,7 +106,7 @@
                         </svg>
                     </span>
                     <!--end::Svg Icon-->
-                    <input type="text" id="search_key" name="search" class="form-control form-control-solid w-250px ps-14" placeholder="Гишүүн хайх" />
+                    <input type="text" id="search_phone" name="search" class="form-control form-control-solid w-250px ps-14" placeholder="Утасны дугаар" />
                 </div>
                 <!--end::Search-->
             </div>
@@ -134,27 +139,15 @@
                         <!--end::Separator-->
                         <!--begin::Content-->
                         <div class="px-7 py-5" data-kt-customer-table-filter="form">
-                            <!--begin::Input group-->
-                            {{-- <div class="mb-10">
-                                <label class="form-label fs-6 fw-bold">Month:</label>
-                                <select class="form-select form-select-solid fw-bolder" data-kt-select2="true" data-placeholder="Select option" data-allow-clear="true" data-kt-subscription-table-filter="month" data-hide-search="true">
-                                    <option></option>
-                                    <option value="jan">January</option>
-                                    <option value="feb">February</option>
-                                    <option value="mar">March</option>
-                                    <option value="apr">April</option>
-                                    <option value="may">May</option>
-                                    <option value="jun">June</option>
-                                    <option value="jul">July</option>
-                                    <option value="aug">August</option>
-                                    <option value="sep">September</option>
-                                    <option value="oct">October</option>
-                                    <option value="nov">November</option>
-                                    <option value="dec">December</option>
-                                </select>
-                            </div> --}}
-                            <!--end::Input group-->
-                           
+                            
+                            <div class="mb-5">
+                                <label class="form-label fs-6 fw-bold">Нэр:</label>
+                                <input type="text" id="search_name" class="form-control form-control-solid fw-bolder"  placeholder="Хэрэглэгчнийн нэр"/>
+                            </div>
+                            <div class="mb-5">
+                                <label class="form-label fs-6 fw-bold">И-мэйл:</label>
+                                <input type="text" id="search_email" class="form-control form-control-solid fw-bolder"  placeholder="Бүртгэлтэй и-мэйл"/>
+                            </div>
                            
                             <!--begin::Actions-->
                             <div class="d-flex justify-content-end">
@@ -167,19 +160,6 @@
                     </div>
                     <!--end::Menu 1-->
                     <!--end::Filter-->
-
-                    <!--begin::Add customer -->
-                    
-                    <a href="#" class="btn btn-primary">
-                    <!--begin::Svg Icon | path: icons/duotone/Navigation/Plus.svg-->
-                    <span class="svg-icon svg-icon-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                            <rect fill="#000000" x="4" y="11" width="16" height="2" rx="1" />
-                            <rect fill="#000000" opacity="0.5" transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000)" x="4" y="11" width="16" height="2" rx="1" />
-                        </svg>
-                    </span>
-                    <!--end::Svg Icon-->Хэрэглэгч нэмэх</a>
-                    <!--end::Add product-->
                 </div>
                 <!--end::Toolbar-->
                
@@ -237,9 +217,9 @@
                 dataType: "json",
                 data: function(d) {  
                     /* FILTER BOX */    
-                    d.search_key    = jQuery('#search_key').val();           
-                    // d.status        = jQuery('#filter_status').val();           
-                    // d.categories    = jQuery('#filter_categories').val();           
+                    d.phone    = jQuery('#search_phone').val();           
+                    d.name     = jQuery('#search_name').val();           
+                    d.email    = jQuery('#search_email').val();           
                 },
             },
             columns: [
@@ -267,7 +247,10 @@
         });
 
         //Хайлт хийх талбар өөрчлөгдөх үед
-        jQuery('#search_key').change(function(){
+        jQuery('#search_phone').change(function(){
+            customer_table.draw();
+        });
+        jQuery('#apply_filter').click(function(){
             customer_table.draw();
         });
         

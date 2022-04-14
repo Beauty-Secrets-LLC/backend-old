@@ -18,10 +18,10 @@ class CustomerController extends Controller
         return view('customers.list');
     }
 
-    public function json()
+    public function json(Request $request)
     {
         //
-        $customers = Customer::get_customers([]);
+        $customers = Customer::get_customers($request->all());
         return $customers;
     }
 

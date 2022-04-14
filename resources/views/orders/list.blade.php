@@ -131,25 +131,6 @@
                             <!--begin::Content-->
                             <div class="px-7 py-5" data-kt-product-table-filter="form">
                                 <!--begin::Input group-->
-                                {{-- <div class="mb-10">
-                                    <label class="form-label fs-6 fw-bold">Month:</label>
-                                    <select class="form-select form-select-solid fw-bolder" data-kt-select2="true" data-placeholder="Select option" data-allow-clear="true" data-kt-subscription-table-filter="month" data-hide-search="true">
-                                        <option></option>
-                                        <option value="jan">January</option>
-                                        <option value="feb">February</option>
-                                        <option value="mar">March</option>
-                                        <option value="apr">April</option>
-                                        <option value="may">May</option>
-                                        <option value="jun">June</option>
-                                        <option value="jul">July</option>
-                                        <option value="aug">August</option>
-                                        <option value="sep">September</option>
-                                        <option value="oct">October</option>
-                                        <option value="nov">November</option>
-                                        <option value="dec">December</option>
-                                    </select>
-                                </div> --}}
-                                <!--end::Input group-->
                                 <!--begin::Input group-->
                                 <div class="mb-5">
                                     <label class="form-label fs-6 fw-bold">Төлөв:</label>
@@ -201,17 +182,6 @@
                         </span>
                         <!--end::Svg Icon-->Татаж авах</button>
                         <!--end::Export-->
-                        <!--begin::Add product-->
-                        
-                        <a href="#" class="btn btn-primary">
-                        <!--begin::Svg Icon | path: icons/duotone/Navigation/Plus.svg-->
-                        <span class="svg-icon svg-icon-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                <rect fill="#000000" x="4" y="11" width="16" height="2" rx="1" />
-                                <rect fill="#000000" opacity="0.5" transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000)" x="4" y="11" width="16" height="2" rx="1" />
-                            </svg>
-                        </span>Захиалга бүртгэх</a>
-                        <!--end::Add product-->
                 </div>
                 <!--begin::Group actions-->
                 <div class="d-flex justify-content-end align-items-center d-none" data-kt-order-table-toolbar="selected">
