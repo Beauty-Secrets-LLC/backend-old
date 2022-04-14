@@ -135,26 +135,6 @@
                         <!--begin::Content-->
                         <div class="px-7 py-5" data-kt-product-table-filter="form">
                             <!--begin::Input group-->
-                            {{-- <div class="mb-10">
-                                <label class="form-label fs-6 fw-bold">Month:</label>
-                                <select class="form-select form-select-solid fw-bolder" data-kt-select2="true" data-placeholder="Select option" data-allow-clear="true" data-kt-subscription-table-filter="month" data-hide-search="true">
-                                    <option></option>
-                                    <option value="jan">January</option>
-                                    <option value="feb">February</option>
-                                    <option value="mar">March</option>
-                                    <option value="apr">April</option>
-                                    <option value="may">May</option>
-                                    <option value="jun">June</option>
-                                    <option value="jul">July</option>
-                                    <option value="aug">August</option>
-                                    <option value="sep">September</option>
-                                    <option value="oct">October</option>
-                                    <option value="nov">November</option>
-                                    <option value="dec">December</option>
-                                </select>
-                            </div> --}}
-                            <!--end::Input group-->
-                            <!--begin::Input group-->
                             <div class="mb-10">
                                 <label class="form-label fs-6 fw-bold">Төлөв:</label>
                                 <select id="filter_status" class="form-select form-select-solid fw-bolder" data-kt-select2="true" data-placeholder="Төлөв сонгох" data-allow-clear="true" data-hide-search="true">
