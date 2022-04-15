@@ -8,7 +8,7 @@ class Detail extends Component
 {
     public $subscription;
 
-    protected $listeners = ['details:update' => 'update'];
+    protected $listeners = ['subscription:updateDetail' => 'update'];
 
     public function render()
     {

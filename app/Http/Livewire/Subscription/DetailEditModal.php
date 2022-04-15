@@ -46,6 +46,6 @@ class DetailEditModal extends Component
             'address'   =>$this->address
         ]);
 
-        $this->emit('details:update', $this->subscription);
+        $this->emit('subscription:updateDetail', $this->subscription);
     }
 }

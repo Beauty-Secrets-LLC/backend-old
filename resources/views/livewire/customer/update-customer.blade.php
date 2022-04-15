@@ -2,7 +2,6 @@
     <!--begin::Modal content-->
     <div class="modal-content">
         <!--begin::Form-->
-        
         <form class="form" action="#" id="kt_modal_update_customer_form">
             <!--begin::Modal header-->
             <div class="modal-header" id="kt_modal_update_customer_header">
@@ -10,7 +9,7 @@
                 <h2 class="fw-bolder">Мэдээлэл шинэчлэх</h2>
                 <!--end::Modal title-->
                 <!--begin::Close-->
-                <div id="kt_modal_update_customer_close" class="btn btn-icon btn-sm btn-active-icon-primary">
+                <div  data-bs-dismiss="modal" class="btn btn-icon btn-sm btn-active-icon-primary">
                     <!--begin::Svg Icon | path: icons/duotone/Navigation/Close.svg-->
                     <span class="svg-icon svg-icon-1">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -67,82 +66,164 @@
                     </div>
                 @endif
                 <!--begin::Scroll-->
-                <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_update_customer_scroll">
+                <div class="d-flex flex-column scroll-y me-n7 pe-7">
 
                     <!--begin::User form-->
-                    <div id="kt_modal_update_customer_user_info" class="collapse show">
-                        <!--begin::Input group-->
-                        {{-- <div class="mb-7">
-                            <!--begin::Label-->
-                            <label class="fs-6 fw-bold mb-2">
-                                <span>Зураг солих</span>
-                                <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Allowed file types: png, jpg, jpeg."></i>
-                            </label>
-                            <!--end::Label-->
-                            <!--begin::Image input wrapper-->
-                            <div class="mt-1">
-                                <!--begin::Image input-->
-                                <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url({{ asset('assets/media/avatars/blank.png') }})">
-                                    <!--begin::Preview existing avatar-->
-                                    <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{ asset('assets/media/avatars/blank.png') }})"></div>
-                                    <!--end::Preview existing avatar-->
-                                    <!--begin::Edit-->
-                                    <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
-                                        <i class="bi bi-pencil-fill fs-7"></i>
-                                        <!--begin::Inputs-->
-                                        <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
-                                        <input type="hidden" name="avatar_remove" />
-                                        <!--end::Inputs-->
-                                    </label>
-                                    <!--end::Edit-->
-                                    <!--begin::Cancel-->
-                                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
-                                        <i class="bi bi-x fs-2"></i>
-                                    </span>
-                                    <!--end::Cancel-->
-                                    <!--begin::Remove-->
-                                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove avatar">
-                                        <i class="bi bi-x fs-2"></i>
-                                    </span>
-                                    <!--end::Remove-->
+                    <div id="">
+                        <div class="mb-20">
+                            <h4 class="fw-bolder fs-4 mb-10">Ерөнхий мэдээлэл</h4> 
+                            <!--begin::Input group-->
+                            {{-- <div class="mb-7">
+                                <!--begin::Label-->
+                                <label class="fs-6 fw-bold mb-2">
+                                    <span>Зураг солих</span>
+                                    <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Allowed file types: png, jpg, jpeg."></i>
+                                </label>
+                                <!--end::Label-->
+                                <!--begin::Image input wrapper-->
+                                <div class="mt-1">
+                                    <!--begin::Image input-->
+                                    <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url({{ asset('assets/media/avatars/blank.png') }})">
+                                        <!--begin::Preview existing avatar-->
+                                        <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{ asset('assets/media/avatars/blank.png') }})"></div>
+                                        <!--end::Preview existing avatar-->
+                                        <!--begin::Edit-->
+                                        <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
+                                            <i class="bi bi-pencil-fill fs-7"></i>
+                                            <!--begin::Inputs-->
+                                            <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+                                            <input type="hidden" name="avatar_remove" />
+                                            <!--end::Inputs-->
+                                        </label>
+                                        <!--end::Edit-->
+                                        <!--begin::Cancel-->
+                                        <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
+                                            <i class="bi bi-x fs-2"></i>
+                                        </span>
+                                        <!--end::Cancel-->
+                                        <!--begin::Remove-->
+                                        <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove avatar">
+                                            <i class="bi bi-x fs-2"></i>
+                                        </span>
+                                        <!--end::Remove-->
+                                    </div>
+                                    <!--end::Image input-->
                                 </div>
-                                <!--end::Image input-->
+                                <!--end::Image input wrapper-->
+                            </div> --}}
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-8">
+                                <!--begin::Label-->
+                                <label class="fs-6 fw-bold mb-2">Нэр</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" class="form-control form-control-solid" placeholder="" wire:model.defer="customer.name" />
+                                <!--end::Input-->
                             </div>
-                            <!--end::Image input wrapper-->
-                        </div> --}}
-                        <!--end::Input group-->
-                        <!--begin::Input group-->
-                        <div class="fv-row mb-8">
-                            <!--begin::Label-->
-                            <label class="fs-6 fw-bold mb-2">Нэр</label>
-                            <!--end::Label-->
-                            <!--begin::Input-->
-                            <input type="text" class="form-control form-control-solid" placeholder="" wire:model.defer="customer.name" />
-                            <!--end::Input-->
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-8">
+                                <!--begin::Label-->
+                                <label class="fs-6 fw-bold mb-2">Утас</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" maxlength="8" class="form-control form-control-solid" placeholder="" wire:model.defer="customer.phone_primary" />
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-10">
+                                <!--begin::Label-->
+                                <label class="fs-6 fw-bold mb-2">
+                                    <span>И-мэйл хаяг</span>
+                                </label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="email" class="form-control form-control-solid" placeholder="" wire:model.defer="customer.email" />
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
                         </div>
-                        <!--end::Input group-->
-                        <!--begin::Input group-->
-                        <div class="fv-row mb-8">
-                            <!--begin::Label-->
-                            <label class="fs-6 fw-bold mb-2">Утас</label>
-                            <!--end::Label-->
-                            <!--begin::Input-->
-                            <input type="text" maxlength="8" class="form-control form-control-solid" placeholder="" wire:model.defer="customer.phone_primary" />
-                            <!--end::Input-->
-                        </div>
-                        <!--end::Input group-->
-                        <!--begin::Input group-->
-                        <div class="fv-row mb-10">
-                            <!--begin::Label-->
-                            <label class="fs-6 fw-bold mb-2">
-                                <span>И-мэйл хаяг</span>
-                            </label>
-                            <!--end::Label-->
-                            <!--begin::Input-->
-                            <input type="email" class="form-control form-control-solid" placeholder="" wire:model.defer="customer.email" />
-                            <!--end::Input-->
-                        </div>
-                        <!--end::Input group-->
+                       
+                        @if (!empty($customer['addresses']))
+                            <h4 class="fw-bolder fs-4 mb-10">Бүртгэлтэй хаяг ({{ count($customer['addresses']) }})</h4> 
+                            <div class="accordion">
+                                @foreach ($customer['addresses'] as $address_index => $address)
+                                    <div class="accordion-item" id="address_accordion">
+                                        <div class="accordion-header" id="address_accordion_header_{{$address_index}}">
+                                            <button class="accordion-button fs-5 fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#address_accordion_body_{{$address_index}}" aria-expanded="false" aria-controls="address_accordion_body_{{$address_index}}">
+                                                {{ $address['address_name'] }}
+                                            </button>
+                                        </div>
+
+                                        <div id="address_accordion_body_{{$address_index}}" class="accordion-collapse collapse" aria-labelledby="address_accordion_header_{{$address_index}}" data-bs-parent="#address_accordion" wire:ignore.self>
+                                            <div class="p-5">
+                                                <div class="row mb-5">
+                                                    <label class="col-md-4 fs-6 fw-bold mb-2"><span>Хаяг</span></label>
+                                                    <div class="col-md-8">
+                                                        <input type="text" wire:model.defer="customer.addresses.{{$address_index}}.address_name" class="form-control form-control-solid">
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-5">
+                                                    <label class="col-md-4 fs-6 fw-bold mb-2"><span>Аймаг / Хот</span></label>
+                                                    <div class="col-md-8">
+                                                        <select class="form-select form-select-solid" wire:model="customer.addresses.{{$address_index}}.city">
+                                                            @foreach ($mn_address as $city)
+                                                                <option value="{{ $city['name'] }}">{{ $city['name'] }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-5">
+                                                    <label class="col-md-4 fs-6 fw-bold mb-2"><span>Сум / Дүүрэг</span></label>
+                                                    <div class="col-md-8">
+                                                        <select class="form-select form-select-solid" wire:model="customer.addresses.{{$address_index}}.district">
+                                                            @foreach ($mn_address as $city)
+                                                                @if ($city['name'] == $customer['addresses'][$address_index]['city'])
+                                                                    @foreach ($city['sub'] as $district)
+                                                                        <option value="{{ $district['name'] }}">{{ $district['name'] }}</option>
+                                                                    @endforeach
+                                                                @endif
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-5">
+                                                    <label class="col-md-4 fs-6 fw-bold mb-2"><span>Баг / Хороо</span></label>
+                                                    <div class="col-md-8">
+                                                        <select class="form-select form-select-solid" wire:model="customer.addresses.{{$address_index}}.khoroo">
+                                                            @foreach ($mn_address as $city)
+                                                                @if ($city['name'] == $customer['addresses'][$address_index]['city'])
+                                                                    @foreach ($city['sub'] as $district)
+                                                                        @if ($district['name'] == $customer['addresses'][$address_index]['district'])
+                                                                            @foreach ($district['sub'] as $khoroo)
+                                                                                <option value="{{ $khoroo['name'] }}">{{ $khoroo['name'] }}</option>
+                                                                            @endforeach
+                                                                        @endif
+                                                                    @endforeach
+                                                                @endif
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+        
+                                                <div class="row mb-5">
+                                                    <label class="col-md-4 fs-6 fw-bold mb-2"><span>Дэлгэрэнгүй хаяг</span></label>
+                                                    <div class="col-md-8">
+                                                        <textarea class="form-control form-control-solid" wire:model.defer="customer.addresses.{{$address_index}}.address" cols="30" rows="3"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+
+                                        
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
+                        
                     </div>
                     <!--end::User form-->
                     
@@ -154,6 +235,7 @@
             <div class="modal-footer flex-center">
                 <!--begin::Button-->
                 <button type="button" class="btn btn-primary" wire:click="save()">Хадгалах</button>
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Цуцлах</button>
                 <!--end::Button-->
             </div>
             <!--end::Modal footer-->

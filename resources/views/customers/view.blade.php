@@ -88,7 +88,7 @@
         <!--begin::Sidebar-->
         <div class="flex-column flex-lg-row-auto w-100 w-xl-400px mb-10">
             <!--begin::Card-->
-            @component('customers.components.customer-card', ['customer'=>$customer])@endcomponent
+            @component('components.customers.customer-card', ['customer'=>$customer])@endcomponent
             
             <!--end::Card-->
             <!--begin::Connected Accounts-->
@@ -96,7 +96,7 @@
                 <!--begin::Card header-->
                 <div class="card-header border-0">
                     <div class="card-title">
-                        <h3 class="fw-bolder m-0">Connected Accounts</h3>
+                        <h3 class="fw-bolder m-0">Холбогдсон бүртгэлүүд</h3>
                     </div>
                 </div>
                 <!--end::Card header-->
@@ -132,7 +132,7 @@
                         <!--begin::Item-->
                         <div class="d-flex flex-stack">
                             <div class="d-flex">
-                                <img src="assets/media/svg/brand-logos/google-icon.svg" class="w-30px me-6" alt="" />
+                                <img src="{{ asset('assets/media/svg/brand-logos/google-icon.svg') }}" class="w-30px me-6" alt="" />
                                 <div class="d-flex flex-column">
                                     <a href="#" class="fs-5 text-dark text-hover-primary fw-bolder">Google</a>
                                     <div class="fs-6 fw-bold text-muted">Plan properly your workflow</div>
@@ -156,9 +156,9 @@
                         <!--begin::Item-->
                         <div class="d-flex flex-stack">
                             <div class="d-flex">
-                                <img src="assets/media/svg/brand-logos/github.svg" class="w-30px me-6" alt="" />
+                                <img src="{{ asset('assets/media/svg/brand-logos/facebook-3.svg') }}" class="w-30px me-6" alt="" />
                                 <div class="d-flex flex-column">
-                                    <a href="#" class="fs-5 text-dark text-hover-primary fw-bolder">Github</a>
+                                    <a href="#" class="fs-5 text-dark text-hover-primary fw-bolder">Facebook</a>
                                     <div class="fs-6 fw-bold text-muted">Keep eye on on your Repositories</div>
                                 </div>
                             </div>
@@ -176,39 +176,10 @@
                             </div>
                         </div>
                         <!--end::Item-->
-                        <div class="separator separator-dashed my-5"></div>
-                        <!--begin::Item-->
-                        <div class="d-flex flex-stack">
-                            <div class="d-flex">
-                                <img src="assets/media/svg/brand-logos/slack-icon.svg" class="w-30px me-6" alt="" />
-                                <div class="d-flex flex-column">
-                                    <a href="#" class="fs-5 text-dark text-hover-primary fw-bolder">Slack</a>
-                                    <div class="fs-6 fw-bold text-muted">Integrate Projects Discussions</div>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-end">
-                                <!--begin::Switch-->
-                                <label class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
-                                    <!--begin::Input-->
-                                    <input class="form-check-input" name="slack" type="checkbox" value="1" id="kt_modal_connected_accounts_slack" />
-                                    <!--end::Input-->
-                                    <!--begin::Label-->
-                                    <span class="form-check-label fw-bold text-muted" for="kt_modal_connected_accounts_slack"></span>
-                                    <!--end::Label-->
-                                </label>
-                                <!--end::Switch-->
-                            </div>
-                        </div>
-                        <!--end::Item-->
                     </div>
                     <!--end::Items-->
                 </div>
                 <!--end::Card body-->
-                <!--begin::Card footer-->
-                <div class="card-footer border-0 d-flex justify-content-center pt-0">
-                    <button class="btn btn-sm btn-light-primary">Save Changes</button>
-                </div>
-                <!--end::Card footer-->
             </div>
             <!--end::Connected Accounts-->
         </div>
