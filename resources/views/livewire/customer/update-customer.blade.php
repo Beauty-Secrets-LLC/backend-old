@@ -26,7 +26,7 @@
             <!--end::Modal header-->
             <!--begin::Modal body-->
             <div class="modal-body py-10 px-lg-17">
-                @if (session('attribute-save-message'))
+                @if (session('update-success-message'))
                     <div class="alert alert-success d-flex align-items-center p-5 mb-10">
                         <!--begin::Svg Icon | path: icons/duotone/General/Shield-check.svg-->
                         <span class="svg-icon svg-icon-2hx svg-icon-success me-4">
@@ -41,12 +41,12 @@
                         <!--end::Svg Icon-->
                         <div class="d-flex flex-column">
                             <h5 class="mb-1">Амжилттай</h5>
-                            <span>{{ session('attribute-save-message') }}</span>
+                            <span>{{ session('update-success-message') }}</span>
                         </div>
                     </div>
                 @endif
 
-                @if (session('error'))
+                @if (session('update-failed-message'))
                     <div class="alert alert-danger d-flex align-items-center p-5 mb-10">
                         <!--begin::Svg Icon | path: icons/duotone/General/Shield-check.svg-->
                         <span class="svg-icon svg-icon-2hx svg-icon-danger me-4">
@@ -61,7 +61,7 @@
                         <!--end::Svg Icon-->
                         <div class="d-flex flex-column">
                             <h5 class="mb-1">Алдаа</h5>
-                            <span>{{ session('error') }}</span>
+                            <span>{{ session('update-failed-message') }}</span>
                         </div>
                     </div>
                 @endif

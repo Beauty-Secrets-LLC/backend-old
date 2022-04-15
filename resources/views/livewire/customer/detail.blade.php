@@ -38,11 +38,12 @@
     <!--begin::Details content-->
     <div id="kt_customer_view_details" class="collapse show">
         <div class="py-5 fs-6">
-            <!--begin::Badge-->
-
-            <!--begin::Badge-->
+             <!--begin::Details item-->
+             <div class="fw-bolder mb-2">Төрсөн огноо:</div>
+             <div class="text-gray-600">{!! isset($customer['data']['birthdate']) ? $customer['data']['birthdate'] : '<span class="badge badge-light">Мэдээлэл оруулаагүй</span>' !!}</div>
+             <!--begin::Details item-->
             <!--begin::Details item-->
-            <div class="fw-bolder">Утасны дугаар</div>
+            <div class="fw-bolder mt-5">Утасны дугаар</div>
             <div class="text-gray-600">{{ $customer['phone_primary'] }}</div>
             <!--begin::Details item-->
             <!--begin::Details item-->

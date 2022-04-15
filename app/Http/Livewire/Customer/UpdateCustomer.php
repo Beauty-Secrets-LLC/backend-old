@@ -19,30 +19,37 @@ class UpdateCustomer extends Component
     }
 
     public function save() {
-        $customer = Customer::find($this->customer['id']);
+        $user = \Auth::user();
 
-        $update_general = $customer->update([
-            'name'          => $this->customer['name'],
-            'email'         => $this->customer['email'],
-            'phone_primary' => $this->customer['phone_primary'],
-            'data'          => $this->customer['data']
-        ]);
+        if($user->hasPermissionTo('customer_update')) {
+            $customer = Customer::find($this->customer['id']);
 
-        if(!empty($this->customer['addresses'])) {
-            foreach($this->customer['addresses'] as $address) {
-                CustomerAddress::where('id', $address['id'])->update([
-                    'address_name'  => $address['address_name'],
-                    'phone'         => $address['phone'],
-                    'city'          => $address['city'],
-                    'district'      => $address['district'],
-                    'khoroo'        => $address['khoroo'],
-                    'address'       => $address['address']
-                ]);
+            $update_general = $customer->update([
+                'name'          => $this->customer['name'],
+                'email'         => $this->customer['email'],
+                'phone_primary' => $this->customer['phone_primary'],
+                'data'          => $this->customer['data']
+            ]);
+    
+            if(!empty($this->customer['addresses'])) {
+                foreach($this->customer['addresses'] as $address) {
+                    CustomerAddress::where('id', $address['id'])->update([
+                        'address_name'  => $address['address_name'],
+                        'phone'         => $address['phone'],
+                        'city'          => $address['city'],
+                        'district'      => $address['district'],
+                        'khoroo'        => $address['khoroo'],
+                        'address'       => $address['address']
+                    ]);
+                }
             }
+    
+            $this->emit('customer:updateDetail', $this->customer);
+            session()->flash('update-success-message', 'Хэрэглэгчийн мэдээллийг шинэчиллээ.');
+        } 
+        else {
+            session()->flash('update-failed-message', 'Та энэ үйлдлийг хийх эрхгүй байна.');
         }
-
-        $this->emit('customer:updateDetail', $this->customer);
-
-        session()->flash('attribute-save-message', 'Хэрэглэгчийн мэдээллийг шинэчиллээ.');
+        
     }
 }

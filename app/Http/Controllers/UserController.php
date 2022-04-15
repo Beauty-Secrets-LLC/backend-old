@@ -115,7 +115,7 @@ class UserController extends Controller
         unset($request['email']);
         $user = \Auth::user();
         
-        if($user->hasPermissionTo('user_edit')) {
+        if($user->hasPermissionTo('user_update')) {
             DB::beginTransaction();
             try {
                 $user_update = User::find($id)->update($request->all());

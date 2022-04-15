@@ -34,6 +34,10 @@ class Customer extends Model
         return $this->hasMany(CustomerCard::class);
     }
 
+    public function orders(){
+        return $this->hasMany(ShopOrder::class);
+    }
+
 
     public static function get_customers($options = null) {
         $result = [];
@@ -81,7 +85,8 @@ class Customer extends Model
     public static function get_customer($id) {
         $query = Customer::with([
             'addresses',
-            'cards'
+            'cards',
+            'orders'
         ])->find($id);
         return $query->toArray();
     }
