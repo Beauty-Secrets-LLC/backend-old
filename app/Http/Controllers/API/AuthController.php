@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Cookie;
 
 class AuthController extends Controller
 {
@@ -26,8 +27,11 @@ class AuthController extends Controller
         $token = $user->createToken('beautydevelopment')->plainTextToken;
         $user['token'] = $token;
 
+        $cookie = Cookie::make('beauty_user', json_encode($user, JSON_UNESCAPED_UNICODE), 60, null, null, false, false);
+
         return response()
-            ->json($user);
+            ->json($user)
+            ->withCookie($cookie);
 
     }
 
