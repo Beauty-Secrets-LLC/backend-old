@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MediaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CustomerPointController;
@@ -37,6 +38,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard'); 
     Route::get('/activity-log', [DashboardController::class, 'activitylog'])->name('activitylog'); 
     Route::get('/activity-log/json', [DashboardController::class, 'activitylog_listjson'])->name('activitylog.json'); 
+
+    Route::group(['prefix' => 'media'], function () {
+
+        Route::get('/list', [MediaController::class, 'index'])->name('media.list'); 
+        Route::post('/upload', [MediaController::class, 'upload'])->name('media.upload'); 
+    });
 
     Route::group(['prefix' => 'user'], function () {
         Route::get('/list', [UserController::class, 'index'])->name('users.list');

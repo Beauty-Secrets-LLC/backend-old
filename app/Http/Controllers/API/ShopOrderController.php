@@ -35,6 +35,7 @@ class ShopOrderController extends Controller
         DB::beginTransaction();
         try {
             $order = ShopOrder::create($request->all());
+            ShopOrder::OrderNumberGenerator($order);
             $result['result']           = 'success';
             $result['message']          = 'Амжилттай';
             $result['data']             = $order;

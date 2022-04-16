@@ -38,6 +38,10 @@ class Customer extends Model
         return $this->hasMany(ShopOrder::class);
     }
 
+    public function subscriptions(){
+        return $this->hasMany(Subscription::class);
+    }
+
 
     public static function get_customers($options = null) {
         $result = [];
@@ -86,7 +90,10 @@ class Customer extends Model
         $query = Customer::with([
             'addresses',
             'cards',
-            'orders'
+            'orders',
+            'subscriptions' => function($subs) {
+                $subs->with('plan');
+            }
         ])->find($id);
         return $query->toArray();
     }

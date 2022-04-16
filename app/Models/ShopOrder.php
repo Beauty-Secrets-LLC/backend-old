@@ -20,6 +20,7 @@ class ShopOrder extends Model
     ];
 
     protected $fillable = [
+        'order_number',
         'customer_id',
         'customer_phone',
         'customer_email',
@@ -32,7 +33,7 @@ class ShopOrder extends Model
     ];
 
     public function customer() {
-        return $this->belongsTo(Customer::class,'customer_phone','phone_primary');
+        return $this->belongsTo(Customer::class);
     }
 
     public function address() {
@@ -122,8 +123,10 @@ class ShopOrder extends Model
             'vat'
         ])->where('id', $id)->first();
 
-        if($order) 
-            return $order->toArray();
+        if($order) {
+            return $order->toArray(); 
+        }
+            
         
         else 
             return null;
@@ -134,5 +137,13 @@ class ShopOrder extends Model
         return LogOptions::defaults()
         ->useLogName('order_log')
         ->logOnlyDirty();
+    }
+
+    
+
+    public static function OrderNumberGenerator($order) {
+        $ordernumber = 'BS-'.date('ymd').$order->id;
+        $order->order_number = $ordernumber;
+        $order->save();
     }
 }

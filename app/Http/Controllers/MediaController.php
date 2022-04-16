@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Media;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class MediaController extends Controller
 {
@@ -15,6 +16,8 @@ class MediaController extends Controller
     public function index()
     {
         //
+
+        return view('media.list');
     }
 
     /**
@@ -81,5 +84,17 @@ class MediaController extends Controller
     public function destroy(Media $media)
     {
         //
+    }
+
+    public function upload(Request $request)
+    {
+        $disk = Storage::disk('gcs');
+        $file = $disk->put('images', $request->file('file'), $request->file('file')->getClientOriginalName());
+        //$url = $disk->url('/images/mkbeoX4ReO0S8CZWjX95IGJkrn5rOThi4TvbOgnC.jpg');
+        //$delete = $disk->delete('/images/mkbeoX4ReO0S8CZWjX95IGJkrn5rOThi4TvbOgnC.jpg');
+        // $product = \Product::find(74);
+        // $sda = $product->addMedia($request['fileToUpload'])->toMediaCollection('featured', 'gcs');
+        // $image = $product->getMedia('sda')->first()->getUrl();
+        dump($file);
     }
 }

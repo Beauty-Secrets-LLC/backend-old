@@ -12,6 +12,19 @@ class CustomerCard extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'customer_id',
+        'card_name',
+        'public_id',
+        'confirmed'
+    ];
+
+
+    protected $casts = [
+        'created_at'    => 'datetime:Y-m-d H:i:s',
+        'updated_at'    => 'datetime:Y-m-d H:i:s'
+    ];
+
     public function get_transactions_api() {
         $response = Http::withHeaders(Mongolchat::api_sub_header())
         ->post( Mongolchat::api_sub_url('/api/transaction/card/list'), [

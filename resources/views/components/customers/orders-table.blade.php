@@ -21,7 +21,7 @@
                 <tr>
                     <!--begin::Invoice=-->
                     <td>
-                        <a href="#" class="text-gray-600 text-hover-primary mb-1">{{ $order['id'] }}</a>
+                        <a target="_blank" href="{{ route('order.view', $order['id']) }}" class="text-gray-600 text-hover-primary mb-1">#{{ $order['order_number'] }}</a>
                     </td>
                     <!--end::Invoice=-->
                     <!--begin::Status=-->
