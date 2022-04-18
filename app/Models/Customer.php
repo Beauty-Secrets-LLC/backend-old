@@ -42,6 +42,10 @@ class Customer extends Model
         return $this->hasMany(Subscription::class);
     }
 
+    public function points(){
+        return $this->hasOne(CustomerPoint::class);
+    }
+
 
     public static function get_customers($options = null) {
         $result = [];
@@ -89,6 +93,9 @@ class Customer extends Model
     public static function get_customer($id) {
         $query = Customer::with([
             'addresses',
+            'points' => function($points) {
+                $points->with('log');
+            },
             'cards',
             'orders',
             'subscriptions' => function($subs) {
