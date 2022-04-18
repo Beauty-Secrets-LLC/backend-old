@@ -38,5 +38,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('order/create', [ShopOrderController::class, 'store']);
     Route::post('order/{id}', [ShopOrderController::class, 'show']);
 
+    Route::get('cart', [CartController::class, 'getItems']);
+
     // API route for logout user
 });
