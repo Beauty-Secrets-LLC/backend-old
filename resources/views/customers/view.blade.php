@@ -205,109 +205,10 @@
                 <!--end:::Tab item-->
                 <!--begin:::Tab item-->
                 <li class="nav-item">
-                    <a class="nav-link text-active-primary pb-4" data-kt-countup-tabs="true" data-bs-toggle="tab" href="#customer_points">Оноо</a>
+                    <a class="nav-link text-active-primary pb-4 " data-kt-countup-tabs="true" data-bs-toggle="tab" href="#customer_points">Цуглуулсан оноо</a>
                 </li>
                 <!--end:::Tab item-->
-                <!--begin:::Tab item-->
-                <li class="nav-item ms-auto">
-                    <!--begin::Action menu-->
-                    <a href="#" class="btn btn-primary ps-7" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom">Actions
-                    <!--begin::Svg Icon | path: icons/duotone/Navigation/Angle-down.svg-->
-                    <span class="svg-icon svg-icon-2 me-0">
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                <polygon points="0 0 24 0 24 24 0 24" />
-                                <path d="M6.70710678,15.7071068 C6.31658249,16.0976311 5.68341751,16.0976311 5.29289322,15.7071068 C4.90236893,15.3165825 4.90236893,14.6834175 5.29289322,14.2928932 L11.2928932,8.29289322 C11.6714722,7.91431428 12.2810586,7.90106866 12.6757246,8.26284586 L18.6757246,13.7628459 C19.0828436,14.1360383 19.1103465,14.7686056 18.7371541,15.1757246 C18.3639617,15.5828436 17.7313944,15.6103465 17.3242754,15.2371541 L12.0300757,10.3841378 L6.70710678,15.7071068 Z" fill="#000000" fill-rule="nonzero" transform="translate(12.000003, 11.999999) rotate(-180.000000) translate(-12.000003, -11.999999)" />
-                            </g>
-                        </svg>
-                    </span>
-                    <!--end::Svg Icon--></a>
-                    <!--begin::Menu-->
-                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-bold py-4 w-250px fs-6" data-kt-menu="true">
-                        <!--begin::Menu item-->
-                        <div class="menu-item px-5">
-                            <div class="menu-content text-muted pb-2 px-5 fs-7 text-uppercase">Payments</div>
-                        </div>
-                        <!--end::Menu item-->
-                        <!--begin::Menu item-->
-                        <div class="menu-item px-5">
-                            <a href="#" class="menu-link px-5">Create invoice</a>
-                        </div>
-                        <!--end::Menu item-->
-                        <!--begin::Menu item-->
-                        <div class="menu-item px-5">
-                            <a href="#" class="menu-link flex-stack px-5">Create payments
-                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i></a>
-                        </div>
-                        <!--end::Menu item-->
-                        <!--begin::Menu item-->
-                        <div class="menu-item px-5" data-kt-menu-trigger="hover" data-kt-menu-placement="left-start" data-kt-menu-flip="center, top">
-                            <a href="#" class="menu-link px-5">
-                                <span class="menu-title">Subscription</span>
-                                <span class="menu-arrow"></span>
-                            </a>
-                            <!--begin::Menu sub-->
-                            <div class="menu-sub menu-sub-dropdown w-175px py-4">
-                                <!--begin::Menu item-->
-                                <div class="menu-item px-3">
-                                    <a href="#" class="menu-link px-5">Apps</a>
-                                </div>
-                                <!--end::Menu item-->
-                                <!--begin::Menu item-->
-                                <div class="menu-item px-3">
-                                    <a href="#" class="menu-link px-5">Billing</a>
-                                </div>
-                                <!--end::Menu item-->
-                                <!--begin::Menu item-->
-                                <div class="menu-item px-3">
-                                    <a href="#" class="menu-link px-5">Statements</a>
-                                </div>
-                                <!--end::Menu item-->
-                                <!--begin::Menu separator-->
-                                <div class="separator my-2"></div>
-                                <!--end::Menu separator-->
-                                <!--begin::Menu item-->
-                                <div class="menu-item px-3">
-                                    <div class="menu-content px-3">
-                                        <label class="form-check form-switch form-check-custom form-check-solid">
-                                            <input class="form-check-input w-30px h-20px" type="checkbox" value="" name="notifications" checked="checked" id="kt_user_menu_notifications" />
-                                            <span class="form-check-label text-muted fs-6" for="kt_user_menu_notifications">Notifications</span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <!--end::Menu item-->
-                            </div>
-                            <!--end::Menu sub-->
-                        </div>
-                        <!--end::Menu item-->
-                        <!--begin::Menu separator-->
-                        <div class="separator my-3"></div>
-                        <!--end::Menu separator-->
-                        <!--begin::Menu item-->
-                        <div class="menu-item px-5">
-                            <div class="menu-content text-muted pb-2 px-5 fs-7 text-uppercase">Account</div>
-                        </div>
-                        <!--end::Menu item-->
-                        <!--begin::Menu item-->
-                        <div class="menu-item px-5">
-                            <a href="#" class="menu-link px-5">Reports</a>
-                        </div>
-                        <!--end::Menu item-->
-                        <!--begin::Menu item-->
-                        <div class="menu-item px-5 my-1">
-                            <a href="#" class="menu-link px-5">Account Settings</a>
-                        </div>
-                        <!--end::Menu item-->
-                        <!--begin::Menu item-->
-                        <div class="menu-item px-5">
-                            <a href="#" class="menu-link text-danger px-5">Delete customer</a>
-                        </div>
-                        <!--end::Menu item-->
-                    </div>
-                    <!--end::Menu-->
-                    <!--end::Menu-->
-                </li>
-                <!--end:::Tab item-->
+               
             </ul>
             <!--end:::Tabs-->
             <!--begin:::Tab content-->
@@ -411,7 +312,7 @@
                             <!--end::Card title-->
                             <!--begin::Card toolbar-->
                             <div class="card-toolbar">
-                                <a href="#" class="btn btn-sm btn-flex btn-light-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_adjust_balance">
+                                <a href="#" class="btn btn-sm btn-flex btn-light-primary" data-bs-toggle="modal" data-bs-target="#adjust_points_balance">
                                 <!--begin::Svg Icon | path: icons/duotone/General/Edit.svg-->
                                 <span class="svg-icon svg-icon-3">
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -428,10 +329,15 @@
                         <!--end::Card header-->
                         <!--begin::Card body-->
                         <div class="card-body pt-0">
-                            @component('components.customers.points-table', ['points' => $customer['points']]) @endcomponent
+                            @livewire('customer.points', ['customer' => $customer])
+                            <div class="modal fade" tabindex="-1" id="adjust_points_balance">
+                                @livewire('customer.points-edit-modal', ['customer' => $customer])
+                            </div>
                         </div>
                         <!--end::Card body-->
                     </div>
+
+                    
      
                 </div>
                 <!--end:::Tab pane-->
@@ -441,215 +347,7 @@
         <!--end::Content-->
     </div>
     <!--end::Layout-->
-    <!--begin::Modals-->
-    <!--begin::Modal - Add Payment-->
-    <div class="modal fade" id="kt_modal_add_payment" tabindex="-1" aria-hidden="true">
-        <!--begin::Modal dialog-->
-        <div class="modal-dialog mw-650px">
-            <!--begin::Modal content-->
-            <div class="modal-content">
-                <!--begin::Modal header-->
-                <div class="modal-header">
-                    <!--begin::Modal title-->
-                    <h2 class="fw-bolder">Add a Payment Record</h2>
-                    <!--end::Modal title-->
-                    <!--begin::Close-->
-                    <div id="kt_modal_add_payment_close" class="btn btn-icon btn-sm btn-active-icon-primary">
-                        <!--begin::Svg Icon | path: icons/duotone/Navigation/Close.svg-->
-                        <span class="svg-icon svg-icon-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)" fill="#000000">
-                                    <rect fill="#000000" x="0" y="7" width="16" height="2" rx="1" />
-                                    <rect fill="#000000" opacity="0.5" transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)" x="0" y="7" width="16" height="2" rx="1" />
-                                </g>
-                            </svg>
-                        </span>
-                        <!--end::Svg Icon-->
-                    </div>
-                    <!--end::Close-->
-                </div>
-                <!--end::Modal header-->
-                <!--begin::Modal body-->
-                <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
-                    <!--begin::Form-->
-                    <form id="kt_modal_add_payment_form" class="form" action="#">
-                        <!--begin::Input group-->
-                        <div class="fv-row mb-7">
-                            <!--begin::Label-->
-                            <label class="fs-6 fw-bold form-label mb-2">
-                                <span class="required">Invoice Number</span>
-                                <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="The invoice number must be unique."></i>
-                            </label>
-                            <!--end::Label-->
-                            <!--begin::Input-->
-                            <input type="text" class="form-control form-control-solid" name="invoice" value="" />
-                            <!--end::Input-->
-                        </div>
-                        <!--end::Input group-->
-                        <!--begin::Input group-->
-                        <div class="fv-row mb-7">
-                            <!--begin::Label-->
-                            <label class="required fs-6 fw-bold form-label mb-2">Status</label>
-                            <!--end::Label-->
-                            <!--begin::Input-->
-                            <select class="form-select form-select-solid fw-bolder" name="status" data-control="select2" data-placeholder="Select an option" data-hide-search="true">
-                                <option></option>
-                                <option value="0">Approved</option>
-                                <option value="1">Pending</option>
-                                <option value="2">Rejected</option>
-                                <option value="3">In progress</option>
-                                <option value="4">Completed</option>
-                            </select>
-                            <!--end::Input-->
-                        </div>
-                        <!--end::Input group-->
-                        <!--begin::Input group-->
-                        <div class="fv-row mb-7">
-                            <!--begin::Label-->
-                            <label class="required fs-6 fw-bold form-label mb-2">Invoice Amount</label>
-                            <!--end::Label-->
-                            <!--begin::Input-->
-                            <input type="text" class="form-control form-control-solid" name="amount" value="" />
-                            <!--end::Input-->
-                        </div>
-                        <!--end::Input group-->
-                        <!--begin::Input group-->
-                        <div class="fv-row mb-15">
-                            <!--begin::Label-->
-                            <label class="fs-6 fw-bold form-label mb-2">
-                                <span class="required">Additional Information</span>
-                                <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Information such as description of invoice or product purchased."></i>
-                            </label>
-                            <!--end::Label-->
-                            <!--begin::Input-->
-                            <textarea class="form-control form-control-solid rounded-3" name="additional_info"></textarea>
-                            <!--end::Input-->
-                        </div>
-                        <!--end::Input group-->
-                        <!--begin::Actions-->
-                        <div class="text-center">
-                            <button type="reset" id="kt_modal_add_payment_cancel" class="btn btn-light me-3">Discard</button>
-                            <button type="submit" id="kt_modal_add_payment_submit" class="btn btn-primary">
-                                <span class="indicator-label">Submit</span>
-                                <span class="indicator-progress">Please wait...
-                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                            </button>
-                        </div>
-                        <!--end::Actions-->
-                    </form>
-                    <!--end::Form-->
-                </div>
-                <!--end::Modal body-->
-            </div>
-            <!--end::Modal content-->
-        </div>
-        <!--end::Modal dialog-->
-    </div>
-    <!--end::Modal - New Card-->
-    <!--begin::Modal - Adjust Balance-->
-    <div class="modal fade" id="kt_modal_adjust_balance" tabindex="-1" aria-hidden="true">
-        <!--begin::Modal dialog-->
-        <div class="modal-dialog modal-dialog-centered mw-650px">
-            <!--begin::Modal content-->
-            <div class="modal-content">
-                <!--begin::Modal header-->
-                <div class="modal-header">
-                    <!--begin::Modal title-->
-                    <h2 class="fw-bolder">Adjust Balance</h2>
-                    <!--end::Modal title-->
-                    <!--begin::Close-->
-                    <div id="kt_modal_adjust_balance_close" class="btn btn-icon btn-sm btn-active-icon-primary">
-                        <!--begin::Svg Icon | path: icons/duotone/Navigation/Close.svg-->
-                        <span class="svg-icon svg-icon-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)" fill="#000000">
-                                    <rect fill="#000000" x="0" y="7" width="16" height="2" rx="1" />
-                                    <rect fill="#000000" opacity="0.5" transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)" x="0" y="7" width="16" height="2" rx="1" />
-                                </g>
-                            </svg>
-                        </span>
-                        <!--end::Svg Icon-->
-                    </div>
-                    <!--end::Close-->
-                </div>
-                <!--end::Modal header-->
-                <!--begin::Modal body-->
-                <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
-                    <!--begin::Balance preview-->
-                    <div class="d-flex text-center mb-9">
-                        <div class="w-50 border border-dashed border-gray-300 rounded mx-2 p-4">
-                            <div class="fs-6 fw-bold mb-2 text-muted">Current Balance</div>
-                            <div class="fs-2 fw-bolder" kt-modal-adjust-balance="current_balance">US$ 32,487.57</div>
-                        </div>
-                        <div class="w-50 border border-dashed border-gray-300 rounded mx-2 p-4">
-                            <div class="fs-6 fw-bold mb-2 text-muted">New Balance
-                            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Enter an amount to preview the new balance."></i></div>
-                            <div class="fs-2 fw-bolder" kt-modal-adjust-balance="new_balance">--</div>
-                        </div>
-                    </div>
-                    <!--end::Balance preview-->
-                    <!--begin::Form-->
-                    <form id="kt_modal_adjust_balance_form" class="form" action="#">
-                        <!--begin::Input group-->
-                        <div class="fv-row mb-7">
-                            <!--begin::Label-->
-                            <label class="required fs-6 fw-bold form-label mb-2">Adjustment type</label>
-                            <!--end::Label-->
-                            <!--begin::Dropdown-->
-                            <select class="form-select form-select-solid fw-bolder" name="adjustment" aria-label="Select an option" data-control="select2" data-dropdown-parent="#kt_modal_adjust_balance" data-placeholder="Select an option" data-hide-search="true">
-                                <option></option>
-                                <option value="1">Credit</option>
-                                <option value="2">Debit</option>
-                            </select>
-                            <!--end::Dropdown-->
-                        </div>
-                        <!--end::Input group-->
-                        <!--begin::Input group-->
-                        <div class="fv-row mb-7">
-                            <!--begin::Label-->
-                            <label class="required fs-6 fw-bold form-label mb-2">Amount</label>
-                            <!--end::Label-->
-                            <!--begin::Input-->
-                            <input id="kt_modal_inputmask" type="text" class="form-control form-control-solid" name="amount" value="" />
-                            <!--end::Input-->
-                        </div>
-                        <!--end::Input group-->
-                        <!--begin::Input group-->
-                        <div class="fv-row mb-7">
-                            <!--begin::Label-->
-                            <label class="fs-6 fw-bold form-label mb-2">Add adjustment note</label>
-                            <!--end::Label-->
-                            <!--begin::Input-->
-                            <textarea class="form-control form-control-solid rounded-3 mb-5"></textarea>
-                            <!--end::Input-->
-                        </div>
-                        <!--end::Input group-->
-                        <!--begin::Disclaimer-->
-                        <div class="fs-7 text-muted mb-15">Please be aware that all manual balance changes will be audited by the financial team every fortnight. Please maintain your invoices and receipts until then. Thank you.</div>
-                        <!--end::Disclaimer-->
-                        <!--begin::Actions-->
-                        <div class="text-center">
-                            <button type="reset" id="kt_modal_adjust_balance_cancel" class="btn btn-light me-3">Discard</button>
-                            <button type="submit" id="kt_modal_adjust_balance_submit" class="btn btn-primary">
-                                <span class="indicator-label">Submit</span>
-                                <span class="indicator-progress">Please wait...
-                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                            </button>
-                        </div>
-                        <!--end::Actions-->
-                    </form>
-                    <!--end::Form-->
-                </div>
-                <!--end::Modal body-->
-            </div>
-            <!--end::Modal content-->
-        </div>
-        <!--end::Modal dialog-->
-    </div>
-    <!--end::Modal - New Card-->
-    
 
-    <!--end::Modals-->
 @endsection
 
 @section('styles')

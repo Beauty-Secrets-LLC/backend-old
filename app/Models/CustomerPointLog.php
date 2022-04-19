@@ -17,6 +17,11 @@ class CustomerPointLog extends Model
         'customer_point_id',
         'points',
         'type',
-        'description'
+        'description',
+        'user_id',
     ];
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 }
