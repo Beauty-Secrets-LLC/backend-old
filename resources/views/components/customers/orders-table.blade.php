@@ -78,6 +78,11 @@
         <!--end::Table body-->
     </table>
     <!--end::Table-->
-@else
+
+
     
+@else
+    <div class="alert alert-warning text-center">
+        Хэрэглэгч худалдан авалт хийгээгүй байна.
+    </div>
 @endif

@@ -93,9 +93,6 @@ class Customer extends Model
     public static function get_customer($id) {
         $query = Customer::with([
             'addresses',
-            'points' => function($points) {
-                $points->with('log');
-            },
             'cards',
             'orders',
             'subscriptions' => function($subs) {

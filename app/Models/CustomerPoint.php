@@ -24,24 +24,25 @@ class CustomerPoint extends Model
     }
 
     public function log() {
-        return $this->hasMany(CustomerPointLog::class,'customer_point_id','id');
+        return $this->hasMany(CustomerPointLog::class,'customer_point_id','id')->orderby('id', 'DESC');
     }
 
     public function adjust($points = 0, $description = null, $type = 'user_adjust') {
         //register point log
-        self::log()->create(['customer_point_id' => $this->id, 'points'=>$points, 'type' => $type, 'description' => $description]);
+        $user = \Auth::user();
+        self::log()->create(['customer_point_id' => $this->id, 'points'=>$points, 'type' => $type, 'description' => $description, 'user_id' =>$user->id ]);
         return self::update(['points'=>$points]);
     }
 
     public function increase($points = 0, $description = null, $type = 'order_placed') {
         //register point log
-        self::log()->create(['customer_point_id' => $this->id, 'points'=>$points, 'type' => $type, 'description' => $description]);
+        self::log()->create(['customer_point_id' => $this->id, 'points'=>$points, 'type' => $type, 'description' => $description, 'user_id' =>$user->id]);
         return self::update(['points'=> ( $this->points + $points) ]);
     }
 
     public function decrease($points = 0, $description = null, $type = 'order_redeem') {
         //register point log
-        self::log()->create(['customer_point_id' => $this->id, 'points'=>($points*-1), 'type' => $type, 'description' => $description]);
+        self::log()->create(['customer_point_id' => $this->id, 'points'=>($points*-1), 'type' => $type, 'description' => $description, 'user_id' =>$user->id]);
         return self::update(['points'=> ( ( $this->points - $points) < 0 ) ? 0 :  ( $this->points - $points)]);
     }
 
