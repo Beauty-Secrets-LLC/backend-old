@@ -101,12 +101,6 @@ class DashboardController extends Controller
 
     public function test()
     {
-
-        $test = Attribute::with('values')->get()->toArray();
-
-        $test2 = AttributeValue::with('attribute')->get()->toArray();
-        
-        dd($test2);
     }
 
     public function activitylog() {

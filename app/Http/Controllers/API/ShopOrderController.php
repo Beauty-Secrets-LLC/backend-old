@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use DB;
 
 use App\Models\ShopOrder;
+use App\Models\ShopOrderInvoice;
 
 class ShopOrderController extends Controller
 {
@@ -40,6 +41,12 @@ class ShopOrderController extends Controller
             $result['message']          = 'Амжилттай';
             $result['data']             = $order;
             $result['data']['items']    = $order->items()->createMany($request['items']);
+            $result['data']['invoice']  = $order->invoice()->create([
+                'order_id'      => $order->id,
+                'amount'        => $request['total'],
+                'payment_id'    => $request['payment_id'],
+                'expire_at'     => ShopOrderInvoice::generate_expire_date($order->created_at)
+            ]);
             DB::commit();
 
         } catch (\Exception $e) {

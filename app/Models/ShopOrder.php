@@ -26,7 +26,7 @@ class ShopOrder extends Model
         'customer_email',
         'address_id',
         'subtotal',
-        'shipping_id',
+        'delivery_id',
         'total',
         'status',
         'data'
@@ -46,6 +46,10 @@ class ShopOrder extends Model
     }
     public function items() {
         return $this->hasMany(ShopOrderItem::class,'order_id','id');
+    }
+
+    public function invoice() {
+        return $this->hasOne(ShopOrderInvoice::class,'order_id','id');
     }
 
     public function vat() {
