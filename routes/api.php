@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\ShopOrderController;
+use App\Http\Controllers\API\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,9 @@ use App\Http\Controllers\API\ShopOrderController;
 // });
 
 Route::post('/token/auth', [AuthController::class, 'token']);
+
+Route::get('cart/add', [CartController::class, 'addCart']);
+Route::get('cart/items', [CartController::class, 'getItems']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     
