@@ -102,20 +102,16 @@ class DashboardController extends Controller
         $qpay = new Qpay();
 
         $data = array(
-            "sender_invoice_no"		=> 'Manal220421',
-            "invoice_receiver_data" => array(
-                "register"	=> '90911025',
-                "name"		=> 'Manal',
-                "email"		=> 'Manaltseren@gmail.com',
-                "phone"		=> '90911025'
-            ),
-            "invoice_description"	=> 'test is here',
-            "amount"				=> 20,
-            "callback_url"			=> "https://beautysecrets.mn/wp-json/payment/v1/qpay-v2?payment_id=Manal220421"
+            "object_type" 	=> "INVOICE",
+            "object_id" 	=> '9d18c167-e326-40ae-8276-88c7fb39fcfc',
+            "offset" => [
+                "page_number"=> 1,
+                "page_limit" => 100
+            ]
         );
 
 
-        $sda = $qpay->createInvoice($data);
+        $sda = $qpay->checkInvoice($data);
         dump($sda);
     }
 

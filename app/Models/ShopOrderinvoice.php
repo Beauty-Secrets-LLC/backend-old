@@ -29,4 +29,15 @@ class ShopOrderinvoice extends Model
     public static function generate_expire_date($date) {
         return Carbon::createFromFormat('Y-m-d H:i:s', $date)->addDays(1);   
     }
+
+    public function payment() {
+        if($this->payment_id == 1) {
+            
+            return [
+                'id'            => $this->id,
+                'redirect_url'  => 'qpay_url',
+            ];
+        }
+        return false;
+    }
 }

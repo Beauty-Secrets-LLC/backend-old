@@ -46,7 +46,7 @@ class ShopOrderController extends Controller
                 'amount'        => $request['total'],
                 'payment_id'    => $request['payment_id'],
                 'expire_at'     => ShopOrderInvoice::generate_expire_date($order->created_at)
-            ]);
+            ])->payment();
             DB::commit();
 
         } catch (\Exception $e) {

@@ -30,7 +30,6 @@ use App\Http\Controllers\SubscriptionTransactionController;
 // });
 Route::get('/', [DashboardController::class, 'index']);//->name('dashboard-home'); 
 
-
 Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/test', [DashboardController::class, 'test']);

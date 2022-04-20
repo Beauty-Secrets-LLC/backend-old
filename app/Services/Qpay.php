@@ -25,7 +25,6 @@ class Qpay {
     }
 
     public function createInvoice($data) {
-
         /*
             $data = array(
                 "sender_invoice_no"		=> 'Manal220421',
@@ -43,6 +42,11 @@ class Qpay {
         $data["invoice_code"]           = $this->invoice_code;
         $data["invoice_receiver_code"]  = "terminal";
         $response = Http::withToken($this->access_token)->post('https://merchant.qpay.mn/v2/invoice', $data)->json();
+        return $response;
+    }
+
+    public function checkInvoice($data) {
+        $response = Http::withToken($this->access_token)->post('https://merchant.qpay.mn/v2/payment/check', $data)->json();
         return $response;
     }
 }
