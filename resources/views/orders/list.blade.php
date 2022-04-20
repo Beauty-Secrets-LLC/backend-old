@@ -255,7 +255,7 @@
                 { data: 'status' },
                 { data: 'customer_id' },
                 { data: 'address_id' },
-                { data: 'shipping_id' },
+                { data: 'delivery_id' },
                 { data: 'total' },
                 { data: 'created_at' },
             ],
