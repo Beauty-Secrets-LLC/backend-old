@@ -99,20 +99,21 @@ class DashboardController extends Controller
 
     public function test()
     {
-        $qpay = new Qpay();
+        // $qpay = new Qpay();
 
-        $data = array(
-            "object_type" 	=> "INVOICE",
-            "object_id" 	=> '9d18c167-e326-40ae-8276-88c7fb39fcfc',
-            "offset" => [
-                "page_number"=> 1,
-                "page_limit" => 100
-            ]
-        );
+        // $data = array(
+        //     "object_type" 	=> "INVOICE",
+        //     "object_id" 	=> '9d18c167-e326-40ae-8276-88c7fb39fcfc',
+        //     "offset" => [
+        //         "page_number"=> 1,
+        //         "page_limit" => 100
+        //     ]
+        // );
 
 
-        $sda = $qpay->checkInvoice($data);
-        dump($sda);
+        // $sda = $qpay->checkInvoice($data);
+        // dump($sda);
+        dd(\Session::getId());
     }
 
     public function activitylog() {
