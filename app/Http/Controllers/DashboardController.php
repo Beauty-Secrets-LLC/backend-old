@@ -4,12 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Dashboard;
 use Illuminate\Http\Request;
-
 use App\Models\Attribute;
 use App\Models\AttributeValue;
-
 use Spatie\Activitylog\Models\Activity;
-
+use App\Services\Qpay;
 
 
 class DashboardController extends Controller
@@ -101,6 +99,24 @@ class DashboardController extends Controller
 
     public function test()
     {
+        $qpay = new Qpay();
+
+        $data = array(
+            "sender_invoice_no"		=> 'Manal220421',
+            "invoice_receiver_data" => array(
+                "register"	=> '90911025',
+                "name"		=> 'Manal',
+                "email"		=> 'Manaltseren@gmail.com',
+                "phone"		=> '90911025'
+            ),
+            "invoice_description"	=> 'test is here',
+            "amount"				=> 20,
+            "callback_url"			=> "https://beautysecrets.mn/wp-json/payment/v1/qpay-v2?payment_id=Manal220421"
+        );
+
+
+        $sda = $qpay->createInvoice($data);
+        dump($sda);
     }
 
     public function activitylog() {
