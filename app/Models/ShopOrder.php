@@ -151,8 +151,6 @@ class ShopOrder extends Model
     
 
     public static function OrderNumberGenerator($order) {
-        $ordernumber = 'BS-'.date('ymd').$order->id;
-        $order->order_number = $ordernumber;
-        $order->save();
+        return $ordernumber = 'BS-'.date('ymd').$order->id;
     }
 }

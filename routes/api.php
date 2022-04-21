@@ -42,7 +42,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::group(['prefix' => 'payment'], function () {
         //QPAY webhook
-        Route::get('qpay/webhook', [QpayController::class, 'webhook']);
+        Route::get('qpay/webhook', [QpayController::class, 'webhook'])->name('payment.webhook.qpay');
     });
     // API route for logout user
 });

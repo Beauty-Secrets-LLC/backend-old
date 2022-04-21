@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use App\Models\Payment;
 
 class ShopOrderinvoice extends Model
 {
@@ -18,6 +19,7 @@ class ShopOrderinvoice extends Model
     ];
 
     protected $fillable = [
+        'customer_id',
         'order_id',
         'amount',
         'payment_id',
@@ -26,16 +28,38 @@ class ShopOrderinvoice extends Model
         'expire_at'
     ];
 
+    public function invoice_order() {
+        return $this->belongsTo(ShopOrder::class,'order_id','id');
+    }
+
     public static function generate_expire_date($date) {
         return Carbon::createFromFormat('Y-m-d H:i:s', $date)->addDays(1);   
     }
 
     public function payment() {
-        if($this->payment_id == 1) {
-            
+        $order = $this->invoice_order()->with('customer')->first();
+        $customer = $order->customer()->first();
+        $payment_method = Payment::find($this->payment_id);
+        $payment_class = $payment_method->class;
+        if($payment_method->class == 'App\Services\Qpay') {
+            $qpay = new $payment_class();
+            $this->data = $qpay->createInvoice([
+                "sender_invoice_no"		=> $order->order_number,
+                "invoice_receiver_data" => array(
+                    "register"	=> 'BEAUTYMEMBER'.$customer->id,
+                    "name"		=> $customer->name,
+                    "email"		=> $customer->email,
+                    "phone"		=> $customer->phone_primary
+                ),
+                "invoice_description"	=> $order->order_number.' захиалгын төлбөр',
+                "amount"				=> $order->total,
+                "callback_url"			=> route('payment.webhook.qpay', ['payment_id' => $order->order_number])
+            ]);
+
+            $this->save();
             return [
                 'id'            => $this->id,
-                'redirect_url'  => 'qpay_url',
+                'redirect_url'  => 'invoice/'.$this->id,
             ];
         }
         return false;
