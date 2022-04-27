@@ -36,6 +36,10 @@ class ShopOrderinvoice extends Model
         return $this->hasOne(Payment::class,'id','payment_id');
     }
 
+    public function paid() {
+        return 'paid';
+    }
+
     public static function generate_expire_date($date) {
         return Carbon::createFromFormat('Y-m-d H:i:s', $date)->addDays(1);   
     }

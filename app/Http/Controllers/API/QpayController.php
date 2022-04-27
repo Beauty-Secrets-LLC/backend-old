@@ -16,7 +16,7 @@ class QpayController extends Controller
             $order = ShopOrder::where('order_number', $request['payment_id'])->first();
 
             if($order) {
-                $order->processing();
+                $order->invoice()->paid();
             }
 
         }

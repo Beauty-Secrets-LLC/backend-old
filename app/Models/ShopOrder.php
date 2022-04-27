@@ -56,11 +56,6 @@ class ShopOrder extends Model
         return $this->hasOne(Vat::class,'subject_id','id')->where('subject_type', self::class);
     }
 
-    public function processing() {
-        
-    }
-
-
     public static function get_orders($options) {
         $result = [];
 
