@@ -32,9 +32,9 @@ class ShopOrder extends Model
         'data'
     ];
 
-    const STATUS_ONHOLD = 'on-hold'; //Баталгаажаагүй төлбөр хүлээгдэж байгаа
+    const STATUS_ONHOLD     = 'on-hold'; //Баталгаажаагүй төлбөр хүлээгдэж байгаа
     const STATUS_PROCESSING = 'processing'; //Төлбөр төлөгдөж баталгаажсан. Бэлтгэгдэж байгаа
-    const STATUS_COMPLETED = 'completed'; //Захиалгыг хүргэж дуусгасан
+    const STATUS_COMPLETED  = 'completed'; //Захиалгыг хүргэж дуусгасан
 
 
     public function customer() {

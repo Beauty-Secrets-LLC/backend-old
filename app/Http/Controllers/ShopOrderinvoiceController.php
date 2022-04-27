@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ShopOrderinvoice;
+use App\Models\ShopOrderInvoice;
 use Illuminate\Http\Request;
 
-class ShopOrderinvoiceController extends Controller
+class ShopOrderInvoiceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class ShopOrderinvoiceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ShopOrderinvoice  $shopOrderinvoice
+     * @param  \App\Models\ShopOrderInvoice  $ShopOrderInvoice
      * @return \Illuminate\Http\Response
      */
-    public function show(ShopOrderinvoice $shopOrderinvoice)
+    public function show(ShopOrderInvoice $ShopOrderInvoice)
     {
         //
     }
@@ -52,10 +52,10 @@ class ShopOrderinvoiceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\ShopOrderinvoice  $shopOrderinvoice
+     * @param  \App\Models\ShopOrderInvoice  $ShopOrderInvoice
      * @return \Illuminate\Http\Response
      */
-    public function edit(ShopOrderinvoice $shopOrderinvoice)
+    public function edit(ShopOrderInvoice $ShopOrderInvoice)
     {
         //
     }
@@ -64,10 +64,10 @@ class ShopOrderinvoiceController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ShopOrderinvoice  $shopOrderinvoice
+     * @param  \App\Models\ShopOrderInvoice  $ShopOrderInvoice
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ShopOrderinvoice $shopOrderinvoice)
+    public function update(Request $request, ShopOrderInvoice $ShopOrderInvoice)
     {
         //
     }
@@ -75,10 +75,10 @@ class ShopOrderinvoiceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ShopOrderinvoice  $shopOrderinvoice
+     * @param  \App\Models\ShopOrderInvoice  $ShopOrderInvoice
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ShopOrderinvoice $shopOrderinvoice)
+    public function destroy(ShopOrderInvoice $ShopOrderInvoice)
     {
         //
     }

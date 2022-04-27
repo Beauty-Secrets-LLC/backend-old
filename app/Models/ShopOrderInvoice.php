@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use App\Models\Payment;
 
-class ShopOrderinvoice extends Model
+class ShopOrderInvoice extends Model
 {
     use HasFactory;
     protected $table = "order_invoices";
