@@ -12,11 +12,10 @@ class QpayController extends Controller
     public function webhook(Request $request)
     {
         if(isset($request['payment_id'])) {
-            //activity()->useLog('qpay')->event('paid')->log($request['payment_id']);
             $order = ShopOrder::where('order_number', $request['payment_id'])->first();
             if($order) {
                 //Төлбөр төлөгдсөн эсэхийг дахин баталгаажуулж байна.
-                $invoice = $order->invoice();
+                $invoice = $order->invoice()->first();
                 $qpay_class = new Qpay();
                 $data = array(
                     "object_type" 	=> "INVOICE",
@@ -30,7 +29,7 @@ class QpayController extends Controller
                 
                 if($result['count'] > 0 && $result['rows'][0]['payment_status'] == 'PAID' ) {
                     activity()->useLog('qpay')->event('paid')->log($request['payment_id']);
-                    $order->invoice()->processing();
+                    $invoice->processing();
                 } else {
                     activity()->useLog('qpay')->event('unpaid')->log($request['payment_id']);
                     return response()->json(['result' => 'success', 'message' => 'Төлбөр төлөгдөөгүй байна']);

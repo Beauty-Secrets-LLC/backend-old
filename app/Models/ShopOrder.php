@@ -50,7 +50,7 @@ class ShopOrder extends Model
     }
 
     public function invoice() {
-        return $this->hasOne(ShopOrderInvoice::class,'order_id','id')->first();
+        return $this->hasOne(ShopOrderInvoice::class,'order_id','id');
     }
 
     public function vat() {
