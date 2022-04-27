@@ -56,6 +56,11 @@ class ShopOrder extends Model
         return $this->hasOne(Vat::class,'subject_id','id')->where('subject_type', self::class);
     }
 
+    public function processing() {
+        
+    }
+
+
     public static function get_orders($options) {
         $result = [];
 
@@ -129,7 +134,10 @@ class ShopOrder extends Model
                     \DB::raw('CONCAT(city,", ", district,", ",khoroo,", ",address) as full_address')
                 );
             },
-            'vat'
+            'vat',
+            'invoice' => function($invoice) {
+                $invoice->with('payment_method');
+            }
         ])->where('id', $id)->first();
 
         if($order) {

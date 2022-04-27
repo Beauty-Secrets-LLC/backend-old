@@ -29,6 +29,8 @@
         <!--end::Breadcrumb-->
     </div>
     <!--end::Page title-->
+
+    
 </div>
 <!--end::Container-->
 @endsection
@@ -192,7 +194,7 @@
 
 @section('scripts')
     <script>
-        var order_table  = $("#activitylog_table").DataTable({
+        var log_table  = $("#activitylog_table").DataTable({
             processing: true,
             responsive: false,
             serverSide: true,
