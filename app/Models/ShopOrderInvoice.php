@@ -28,6 +28,10 @@ class ShopOrderInvoice extends Model
         'expire_at'
     ];
 
+    const STATUS_UNPAID = 0;
+    const STATUS_PAID = 1;
+    const STATUS_EXPIRED = 2;
+
     public function invoice_order() {
         return $this->belongsTo(ShopOrder::class,'order_id','id');
     }
@@ -36,8 +40,9 @@ class ShopOrderInvoice extends Model
         return $this->hasOne(Payment::class,'id','payment_id');
     }
 
-    public function paid() {
-        return 'paid';
+    public function processing() {
+        $this->status = self::STATUS_PAID ;
+        $this->save();
     }
 
     public static function generate_expire_date($date) {
@@ -49,7 +54,7 @@ class ShopOrderInvoice extends Model
         $customer = $order->customer()->first();
         $payment_method = Payment::find($this->payment_id);
         $payment_class = $payment_method->class;
-        if($payment_method->class == 'App\Services\Qpay') {
+        if($payment_method->class == 'App\Services\Payments\Qpay') {
             $qpay = new $payment_class();
             $this->data = $qpay->createInvoice([
                 "sender_invoice_no"		=> $order->order_number,

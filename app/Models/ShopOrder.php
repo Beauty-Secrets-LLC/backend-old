@@ -35,6 +35,7 @@ class ShopOrder extends Model
     const STATUS_ONHOLD     = 'on-hold'; //Баталгаажаагүй төлбөр хүлээгдэж байгаа
     const STATUS_PROCESSING = 'processing'; //Төлбөр төлөгдөж баталгаажсан. Бэлтгэгдэж байгаа
     const STATUS_COMPLETED  = 'completed'; //Захиалгыг хүргэж дуусгасан
+    const STATUS_CANCELLED  = 'cancelled'; //Захиалгыг цуцласан
 
 
     public function customer() {
@@ -49,7 +50,7 @@ class ShopOrder extends Model
     }
 
     public function invoice() {
-        return $this->hasOne(ShopOrderInvoice::class,'order_id','id');
+        return $this->hasOne(ShopOrderInvoice::class,'order_id','id')->first();
     }
 
     public function vat() {

@@ -98,7 +98,7 @@ class DashboardController extends Controller
 
     public function test()
     {
-        $classname = 'App\Services\Qpay';
+        $classname = 'App\Services\Payments\Qpay';
         $qpay = new $classname();
 
         $data = array(

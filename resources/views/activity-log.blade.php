@@ -173,6 +173,7 @@
                         <th>Нэр</th>
                         <th>Модел</th>
                         <th>Үйлдэл</th>
+                        <th>Тайлбар</th>
                         <th>Гүйцэтгэгч</th>
                         <th>Дэлгэрэнгүй</th>
                         <th>Огноо</th>
@@ -227,6 +228,7 @@
                 { data: 'log_name' },
                 { data: 'subject_type' },
                 { data: 'event' },
+                { data: 'description' },
                 { data: 'causer_id' },
                 { data: 'properties' },
                 { data: 'created_at' }
@@ -251,13 +253,13 @@
                     }
                 },
                 {
-                    targets:   4,
+                    targets:   5,
                     render: function(data,type,full,meta) {
                         return full.causer_type + ': ' + data;
                     }
                 },
                 {
-                    targets:   5,
+                    targets:   6,
                     render: function(data,type,full,meta) {
                        return null;
                     }
