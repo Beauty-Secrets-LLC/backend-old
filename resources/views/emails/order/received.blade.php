@@ -2,5 +2,5 @@
 @section('content')
     Hi manal
 
-    <div class="square"></div>
+    {{ json_encode($data) }}
 @endsection

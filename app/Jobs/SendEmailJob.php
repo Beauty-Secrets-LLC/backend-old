@@ -8,8 +8,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-
-use App\Mail\ShopOrderReceived;
 use Mail;
 
 class SendEmailJob implements ShouldQueue
@@ -36,14 +34,7 @@ class SendEmailJob implements ShouldQueue
     public function handle()
     {
         //
-        switch($this->options['template']) {
-            case('order-received'):
-                $email = new ShopOrderReceived();
-                Mail::to($this->options['to'])->queue($email);
-                break;
-            default:
-                return false;
-        }
-        
+        $template_class = $this->options['template'];
+        Mail::to($this->options['to'])->queue(new $template_class($this->options));
     }
 }

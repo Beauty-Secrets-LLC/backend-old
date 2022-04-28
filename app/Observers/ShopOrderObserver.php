@@ -3,6 +3,8 @@
 namespace App\Observers;
 
 use App\Models\ShopOrder;
+use App\Models\Customer;
+use App\Jobs\SendEmailJob;
 
 class ShopOrderObserver
 {
@@ -16,6 +18,36 @@ class ShopOrderObserver
     {
         //
     }
+
+    public function updating(ShopOrder $shopOrder)
+    {
+        $customer = Customer::find($shopOrder->customer_id);
+        if(!empty($customer->email)) {
+            $template = '';
+            if($shopOrder->status == ShopOrder::STATUS_ONHOLD){
+                $template = 'App\Mail\ShopOrderReceived';
+            }
+            if($shopOrder->status == ShopOrder::STATUS_PROCESSING){
+                $template = 'order-processing';
+            }
+            if($shopOrder->status == ShopOrder::STATUS_COMPLETED){
+                $template = 'order-completed';
+            }
+            if($shopOrder->status == ShopOrder::STATUS_CANCELLED){
+                $template = 'order-cancelled';
+            }
+
+            // dispatch(new SendEmailJob([
+            //     'to' => $customer->email,
+            //     'template' => $template,
+            //     'data' => $shopOrder
+            // ]));
+        }
+        
+       
+    }
+
+
 
     /**
      * Handle the ShopOrder "updated" event.
