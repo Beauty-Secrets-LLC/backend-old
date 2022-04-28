@@ -21,8 +21,8 @@ class ShopOrderObserver
 
     public function updating(ShopOrder $shopOrder)
     {
-        $customer = Customer::find($shopOrder->customer_id);
-        if(!empty($customer->email)) {
+        $order = ShopOrder::get_order($shopOrder->id);
+        if(!empty($order['customer']['email'])) {
             $template = '';
             if($shopOrder->status == ShopOrder::STATUS_ONHOLD){
                 $template = 'App\Mail\ShopOrderReceived';
@@ -37,11 +37,11 @@ class ShopOrderObserver
                 $template = 'order-cancelled';
             }
 
-            // dispatch(new SendEmailJob([
-            //     'to' => $customer->email,
-            //     'template' => $template,
-            //     'data' => $shopOrder
-            // ]));
+            dispatch(new SendEmailJob([
+                'to' => $order['customer']['email'],
+                'template' => $template,
+                'data' => $order
+            ]));
         }
         
        
