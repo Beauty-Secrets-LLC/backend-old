@@ -153,7 +153,7 @@
                                     <!--end::Svg Icon-->Төлбөр</div>
                                 </td>
                                 <td class="fw-bolder text-end">
-                                    <span class="text-gray-800 text-hover-primary" data-bs-toggle="modal" data-bs-target="#payment_data">{{ $order['invoice']['payment_method']['name'] }}</span>
+                                    <span style="cursor:pointer" class="text-gray-800 text-hover-primary" data-bs-toggle="modal" data-bs-target="#payment_data">{{ $order['invoice']['payment_method']['name'] }}</span>
                                 </td>
                             </tr>
                             <!--end::Payment method-->
