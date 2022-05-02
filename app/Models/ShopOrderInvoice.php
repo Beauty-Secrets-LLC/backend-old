@@ -40,9 +40,15 @@ class ShopOrderInvoice extends Model
         return $this->hasOne(Payment::class,'id','payment_id');
     }
 
-    public function processing() {
+    public function vat() {
+        return $this->hasOne(Vat::class,'subject_id','id')->where('subject_type', self::class);
+    }
+
+    public function makePaid() {
         $this->status = self::STATUS_PAID ;
         $this->save();
+
+        //generate EBarimt
     }
 
     public static function generate_expire_date($date) {

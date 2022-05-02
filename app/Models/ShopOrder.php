@@ -53,10 +53,6 @@ class ShopOrder extends Model
         return $this->hasOne(ShopOrderInvoice::class,'order_id','id');
     }
 
-    public function vat() {
-        return $this->hasOne(Vat::class,'subject_id','id')->where('subject_type', self::class);
-    }
-
     public static function get_orders($options) {
         $result = [];
 
@@ -93,7 +89,7 @@ class ShopOrder extends Model
         $result['recordsTotal'] = $query->count();
 
         if (isset($options['id']) && !empty($options['id'])) {
-            $query->where('id', $options['id']);
+            $query->whereRaw('order_number like "%'.$options['id'].'%"');
         }
 
 
@@ -130,9 +126,11 @@ class ShopOrder extends Model
                     \DB::raw('CONCAT(city,", ", district,", ",khoroo,", ",address) as full_address')
                 );
             },
-            'vat',
             'invoice' => function($invoice) {
-                $invoice->with('payment_method');
+                $invoice->with(
+                    'payment_method',
+                    'vat'
+                );
             }
         ])->where('id', $id)->first();
 

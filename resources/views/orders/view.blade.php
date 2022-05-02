@@ -153,7 +153,9 @@
                                     <!--end::Svg Icon-->Төлбөр</div>
                                 </td>
                                 <td class="fw-bolder text-end">
-                                    <span style="cursor:pointer" class="text-gray-800 text-hover-primary" data-bs-toggle="modal" data-bs-target="#payment_data">{{ $order['invoice']['payment_method']['name'] }}</span>
+                                    <span style="cursor:pointer" class="text-gray-800 text-hover-primary" data-bs-toggle="modal" data-bs-target="#payment_data">
+                                        {{ $order['invoice']['payment_method']['name'] }}
+                                    </span>
                                 </td>
                             </tr>
                             <!--end::Payment method-->
@@ -173,6 +175,41 @@
                                 <td class="fw-bolder text-end">Flat Shipping Rate</td>
                             </tr>
                             <!--end::Date-->
+                            <!--begin::Shipping-->
+                            <tr>
+                                <td class="text-muted">
+                                    <div class="d-flex align-items-center">
+                                    <!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm006.svg-->
+                                    <span class="svg-icon svg-icon-2 me-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                            <path d="M20 8H16C15.4 8 15 8.4 15 9V16H10V17C10 17.6 10.4 18 11 18H16C16 16.9 16.9 16 18 16C19.1 16 20 16.9 20 18H21C21.6 18 22 17.6 22 17V13L20 8Z" fill="currentColor"></path>
+                                            <path opacity="0.3" d="M20 18C20 19.1 19.1 20 18 20C16.9 20 16 19.1 16 18C16 16.9 16.9 16 18 16C19.1 16 20 16.9 20 18ZM15 4C15 3.4 14.6 3 14 3H3C2.4 3 2 3.4 2 4V13C2 13.6 2.4 14 3 14H15V4ZM6 16C4.9 16 4 16.9 4 18C4 19.1 4.9 20 6 20C7.1 20 8 19.1 8 18C8 16.9 7.1 16 6 16Z" fill="currentColor"></path>
+                                        </svg>
+                                    </span>
+                                    <!--end::Svg Icon-->Хүргэлтийн код
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Хүртгэлтийн явцыг хянах код"></i></div>
+                                </td>
+                                <td class="fw-bolder text-end">
+                                    <a href="#" class="text-gray-600 text-hover-primary">#SHP-0025410</a>
+                                </td>
+                            </tr>
+                            <!--end::Shipping-->
+
+                            <tr>
+                                <td class="text-muted">
+                                    <div class="d-flex align-items-center">
+                                    <!--begin::Svg Icon | path: icons/duotune/electronics/elc003.svg-->
+                                    <span class="svg-icon svg-icon-2 me-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                            <path opacity="0.3" d="M21.6 11.2L19.3 8.89998V5.59993C19.3 4.99993 18.9 4.59993 18.3 4.59993H14.9L12.6 2.3C12.2 1.9 11.6 1.9 11.2 2.3L8.9 4.59993H5.6C5 4.59993 4.6 4.99993 4.6 5.59993V8.89998L2.3 11.2C1.9 11.6 1.9 12.1999 2.3 12.5999L4.6 14.9V18.2C4.6 18.8 5 19.2 5.6 19.2H8.9L11.2 21.5C11.6 21.9 12.2 21.9 12.6 21.5L14.9 19.2H18.2C18.8 19.2 19.2 18.8 19.2 18.2V14.9L21.5 12.5999C22 12.1999 22 11.6 21.6 11.2Z" fill="currentColor"/>
+                                            <path d="M11.3 9.40002C11.3 10.2 11.1 10.9 10.7 11.3C10.3 11.7 9.8 11.9 9.2 11.9C8.8 11.9 8.40001 11.8 8.10001 11.6C7.80001 11.4 7.50001 11.2 7.40001 10.8C7.20001 10.4 7.10001 10 7.10001 9.40002C7.10001 8.80002 7.20001 8.4 7.30001 8C7.40001 7.6 7.7 7.29998 8 7.09998C8.3 6.89998 8.7 6.80005 9.2 6.80005C9.5 6.80005 9.80001 6.9 10.1 7C10.4 7.1 10.6 7.3 10.8 7.5C11 7.7 11.1 8.00005 11.2 8.30005C11.3 8.60005 11.3 9.00002 11.3 9.40002ZM10.1 9.40002C10.1 8.80002 10 8.39998 9.90001 8.09998C9.80001 7.79998 9.6 7.70007 9.2 7.70007C9 7.70007 8.8 7.80002 8.7 7.90002C8.6 8.00002 8.50001 8.2 8.40001 8.5C8.40001 8.7 8.30001 9.10002 8.30001 9.40002C8.30001 9.80002 8.30001 10.1 8.40001 10.4C8.40001 10.6 8.5 10.8 8.7 11C8.8 11.1 9 11.2001 9.2 11.2001C9.5 11.2001 9.70001 11.1 9.90001 10.8C10 10.4 10.1 10 10.1 9.40002ZM14.9 7.80005L9.40001 16.7001C9.30001 16.9001 9.10001 17.1 8.90001 17.1C8.80001 17.1 8.70001 17.1 8.60001 17C8.50001 16.9 8.40001 16.8001 8.40001 16.7001C8.40001 16.6001 8.4 16.5 8.5 16.4L14 7.5C14.1 7.3 14.2 7.19998 14.3 7.09998C14.4 6.99998 14.5 7 14.6 7C14.7 7 14.8 6.99998 14.9 7.09998C15 7.19998 15 7.30002 15 7.40002C15.2 7.30002 15.1 7.50005 14.9 7.80005ZM16.6 14.2001C16.6 15.0001 16.4 15.7 16 16.1C15.6 16.5 15.1 16.7001 14.5 16.7001C14.1 16.7001 13.7 16.6 13.4 16.4C13.1 16.2 12.8 16 12.7 15.6C12.5 15.2 12.4 14.8001 12.4 14.2001C12.4 13.3001 12.6 12.7 12.9 12.3C13.2 11.9 13.7 11.7001 14.5 11.7001C14.8 11.7001 15.1 11.8 15.4 11.9C15.7 12 15.9 12.2 16.1 12.4C16.3 12.6 16.4 12.9001 16.5 13.2001C16.6 13.4001 16.6 13.8001 16.6 14.2001ZM15.4 14.1C15.4 13.5 15.3 13.1 15.2 12.9C15.1 12.6 14.9 12.5 14.5 12.5C14.3 12.5 14.1 12.6001 14 12.7001C13.9 12.8001 13.8 13.0001 13.7 13.2001C13.6 13.4001 13.6 13.8 13.6 14.1C13.6 14.7 13.7 15.1 13.8 15.4C13.9 15.7 14.1 15.8 14.5 15.8C14.8 15.8 15 15.7 15.2 15.4C15.3 15.2 15.4 14.7 15.4 14.1Z" fill="currentColor"/>
+                                        </svg>
+                                    </span>
+                                    <!--end::Svg Icon-->Хөнгөлөлт / Купон</div>
+                                </td>
+                                <td class="fw-bolder text-end">
+                                </td>
+                            </tr>
                         </tbody>
                         <!--end::Table body-->
                     </table>
@@ -363,44 +400,10 @@
                                 </td>
                             </tr>
                             <!--end::Invoice-->
-                            <!--begin::Shipping-->
-                            <tr>
-                                <td class="text-muted">
-                                    <div class="d-flex align-items-center">
-                                    <!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm006.svg-->
-                                    <span class="svg-icon svg-icon-2 me-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                            <path d="M20 8H16C15.4 8 15 8.4 15 9V16H10V17C10 17.6 10.4 18 11 18H16C16 16.9 16.9 16 18 16C19.1 16 20 16.9 20 18H21C21.6 18 22 17.6 22 17V13L20 8Z" fill="currentColor"></path>
-                                            <path opacity="0.3" d="M20 18C20 19.1 19.1 20 18 20C16.9 20 16 19.1 16 18C16 16.9 16.9 16 18 16C19.1 16 20 16.9 20 18ZM15 4C15 3.4 14.6 3 14 3H3C2.4 3 2 3.4 2 4V13C2 13.6 2.4 14 3 14H15V4ZM6 16C4.9 16 4 16.9 4 18C4 19.1 4.9 20 6 20C7.1 20 8 19.1 8 18C8 16.9 7.1 16 6 16Z" fill="currentColor"></path>
-                                        </svg>
-                                    </span>
-                                    <!--end::Svg Icon-->Хүргэлтийн код
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Хүртгэлтийн явцыг хянах код"></i></div>
-                                </td>
-                                <td class="fw-bolder text-end">
-                                    <a href="#" class="text-gray-600 text-hover-primary">#SHP-0025410</a>
-                                </td>
-                            </tr>
-                            <!--end::Shipping-->
-                            <!--begin::Rewards-->
-                            <tr>
-                                <td class="text-muted">
-                                    <div class="d-flex align-items-center">
-                                    <!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm011.svg-->
-                                    <span class="svg-icon svg-icon-2 me-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                            <path opacity="0.3" d="M21.6 11.2L19.3 8.89998V5.59993C19.3 4.99993 18.9 4.59993 18.3 4.59993H14.9L12.6 2.3C12.2 1.9 11.6 1.9 11.2 2.3L8.9 4.59993H5.6C5 4.59993 4.6 4.99993 4.6 5.59993V8.89998L2.3 11.2C1.9 11.6 1.9 12.1999 2.3 12.5999L4.6 14.9V18.2C4.6 18.8 5 19.2 5.6 19.2H8.9L11.2 21.5C11.6 21.9 12.2 21.9 12.6 21.5L14.9 19.2H18.2C18.8 19.2 19.2 18.8 19.2 18.2V14.9L21.5 12.5999C22 12.1999 22 11.6 21.6 11.2Z" fill="currentColor"></path>
-                                            <path d="M11.3 9.40002C11.3 10.2 11.1 10.9 10.7 11.3C10.3 11.7 9.8 11.9 9.2 11.9C8.8 11.9 8.40001 11.8 8.10001 11.6C7.80001 11.4 7.50001 11.2 7.40001 10.8C7.20001 10.4 7.10001 10 7.10001 9.40002C7.10001 8.80002 7.20001 8.4 7.30001 8C7.40001 7.6 7.7 7.29998 8 7.09998C8.3 6.89998 8.7 6.80005 9.2 6.80005C9.5 6.80005 9.80001 6.9 10.1 7C10.4 7.1 10.6 7.3 10.8 7.5C11 7.7 11.1 8.00005 11.2 8.30005C11.3 8.60005 11.3 9.00002 11.3 9.40002ZM10.1 9.40002C10.1 8.80002 10 8.39998 9.90001 8.09998C9.80001 7.79998 9.6 7.70007 9.2 7.70007C9 7.70007 8.8 7.80002 8.7 7.90002C8.6 8.00002 8.50001 8.2 8.40001 8.5C8.40001 8.7 8.30001 9.10002 8.30001 9.40002C8.30001 9.80002 8.30001 10.1 8.40001 10.4C8.40001 10.6 8.5 10.8 8.7 11C8.8 11.1 9 11.2001 9.2 11.2001C9.5 11.2001 9.70001 11.1 9.90001 10.8C10 10.4 10.1 10 10.1 9.40002ZM14.9 7.80005L9.40001 16.7001C9.30001 16.9001 9.10001 17.1 8.90001 17.1C8.80001 17.1 8.70001 17.1 8.60001 17C8.50001 16.9 8.40001 16.8001 8.40001 16.7001C8.40001 16.6001 8.4 16.5 8.5 16.4L14 7.5C14.1 7.3 14.2 7.19998 14.3 7.09998C14.4 6.99998 14.5 7 14.6 7C14.7 7 14.8 6.99998 14.9 7.09998C15 7.19998 15 7.30002 15 7.40002C15.2 7.30002 15.1 7.50005 14.9 7.80005ZM16.6 14.2001C16.6 15.0001 16.4 15.7 16 16.1C15.6 16.5 15.1 16.7001 14.5 16.7001C14.1 16.7001 13.7 16.6 13.4 16.4C13.1 16.2 12.8 16 12.7 15.6C12.5 15.2 12.4 14.8001 12.4 14.2001C12.4 13.3001 12.6 12.7 12.9 12.3C13.2 11.9 13.7 11.7001 14.5 11.7001C14.8 11.7001 15.1 11.8 15.4 11.9C15.7 12 15.9 12.2 16.1 12.4C16.3 12.6 16.4 12.9001 16.5 13.2001C16.6 13.4001 16.6 13.8001 16.6 14.2001ZM15.4 14.1C15.4 13.5 15.3 13.1 15.2 12.9C15.1 12.6 14.9 12.5 14.5 12.5C14.3 12.5 14.1 12.6001 14 12.7001C13.9 12.8001 13.8 13.0001 13.7 13.2001C13.6 13.4001 13.6 13.8 13.6 14.1C13.6 14.7 13.7 15.1 13.8 15.4C13.9 15.7 14.1 15.8 14.5 15.8C14.8 15.8 15 15.7 15.2 15.4C15.3 15.2 15.4 14.7 15.4 14.1Z" fill="currentColor"></path>
-                                        </svg>
-                                    </span>
-                                    <!--end::Svg Icon-->Цуглуулсан оноо
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Худалдан авалтын дүнгээс хамаарч хэрэгэлэгчийн цуглуулах оноо"></i></div>
-                                </td>
-                                <td class="fw-bolder text-end">600</td>
-                            </tr>
-                            <!--end::Rewards-->
+                            
+                            
 
-                            @if (isset($order['vat']['billId']))
+                            @if (isset($order['invoice']['vat']['billId']))
                                 <tr>
                                     <td class="text-muted">
                                         <div class="d-flex align-items-center">
@@ -414,7 +417,7 @@
                                         <!--end::Svg Icon-->И-баримт
                                     </td>
                                     <td class="fw-bolder text-end">
-                                        {{ $order['vat']['billId'] }}
+                                        {{ bs_ebarimt_format($order['invoice']['vat']['billId']) }}
                                     </td>
                                 </tr>
                                 <tr>
@@ -430,14 +433,14 @@
                                         <!--end::Svg Icon-->И-баримт төрөл
                                     </td>
                                     <td class="fw-bolder text-end">
-                                        @if ($order['vat']['type'] == 1)
+                                        @if ($order['invoice']['vat']['type'] == 1)
                                             Хувь хүн
                                         @else
                                             Байгууллага
                                         @endif
                                     </td>
                                 </tr>
-                                @if ($order['vat']['type'] == 2)
+                                @if ($order['invoice']['vat']['type'] == 2)
                                     <tr>
                                         <td class="text-muted">
                                             <div class="d-flex align-items-center">
@@ -450,11 +453,28 @@
                                             </span>
                                             <!--end::Svg Icon-->Байгууллагын РД
                                         </td>
-                                        <td class="fw-bolder text-end">{{ $order['vat']['register_number'] }}</td>
+                                        <td class="fw-bolder text-end">{{ $order['invoice']['vat']['register_number'] }}</td>
                                     </tr>
                                 @endif
                                
                             @endif
+
+                            <!--begin::Rewards-->
+                            <tr>
+                                <td class="text-muted">
+                                    <div class="d-flex align-items-center">
+                                    <!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm011.svg-->
+                                    <span class="svg-icon svg-icon-2 me-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                            <path d="M18.3721 4.65439C17.6415 4.23815 16.8052 4 15.9142 4C14.3444 4 12.9339 4.73924 12.003 5.89633C11.0657 4.73913 9.66 4 8.08626 4C7.19611 4 6.35789 4.23746 5.62804 4.65439C4.06148 5.54462 3 7.26056 3 9.24232C3 9.81001 3.08941 10.3491 3.25153 10.8593C4.12155 14.9013 9.69287 20 12.0034 20C14.2502 20 19.875 14.9013 20.7488 10.8593C20.9109 10.3491 21 9.81001 21 9.24232C21.0007 7.26056 19.9383 5.54462 18.3721 4.65439Z" fill="currentColor"/>
+                                        </svg>
+                                    </span>
+                                    <!--end::Svg Icon-->Цуглуулсан оноо
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Худалдан авалтын дүнгээс хамаарч хэрэгэлэгчийн цуглуулах оноо"></i></div>
+                                </td>
+                                <td class="fw-bolder text-end">600</td>
+                            </tr>
+                            <!--end::Rewards-->
                             
                         </tbody>
                         <!--end::Table body-->
@@ -827,79 +847,7 @@
     </div>
         
     <div class="modal fade" tabindex="-1" id="payment_data">
-        <div class="modal-dialog  modal-dialog-centered">
-            <div class="modal-content shadow-none">
-                <div class="modal-header">
-                    <!--begin::Modal title-->
-                    <h3>Дэлгэрэнгүй мэдээлэл</h3>
-                    <!--end::Modal title-->
-                    <!--begin::Close-->
-                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
-                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
-                        <span class="svg-icon svg-icon-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor"></rect>
-                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor"></rect>
-                            </svg>
-                        </span>
-                        <!--end::Svg Icon-->
-                    </div>
-                    <!--end::Close-->
-                </div>
-    
-                <div class="modal-body">
-                    @if ($order['invoice']['payment_id'] == 1)
-
-                        <div class="row mb-4">
-                            <label class="col-md-4 fw-bold fs-6 mb-2">Нэхэмжлэхийн ID</label>
-                            <div class="col-md-8">
-                                {{ $order['invoice']['data']['invoice_id'] }}
-                            </div>
-                        </div>
-                        <div class="row mb-4">
-                            <label class="col-md-4 fw-bold fs-6 mb-2">Нэхэмжлэх QR</label>
-                            <div class="col-md-8">
-                                <img width="200" src="data:image/png;base64, {{ $order['invoice']['data']['qr_image'] }}" alt="">
-                            </div>
-                        </div>
-
-                        @if (isset($order['invoice']['data']['paidResponse']))
-                            @foreach ($order['invoice']['data']['paidResponse'] as $response)
-                                <div class="row mb-4">
-                                    <label class="col-md-4 fw-bold fs-6 mb-2">Гүйлгээний дугаар</label>
-                                    <div class="col-md-8">
-                                        {{ $response['payment_id'] }}
-                                    </div>
-                                </div>
-                                <div class="row mb-4">
-                                    <label class="col-md-4 fw-bold fs-6 mb-2">Гүйлгээний төлөв</label>
-                                    <div class="col-md-8">
-                                        @if ($response['payment_status'] == 'PAID')
-                                            <div class="badge badge-light-success fw-bolder">{{ $response['payment_status'] }}</div>
-                                        @else
-                                            <div class="badge badge-light-danger fw-bolder">{{ $response['payment_status'] }}</div>
-                                        @endif
-                                        
-                                    </div>
-                                </div>
-                                <div class="row mb-4">
-                                    <label class="col-md-4 fw-bold fs-6 mb-2">Төлбөр төлсөн</label>
-                                    <div class="col-md-8">
-                                        {{ $response['payment_wallet'] }}
-                                    </div>
-                                </div>
-                            @endforeach
-                           
-                        @endif
-    
-                        
-                    @else
-                        
-                    @endif
-                </div>
-    
-            </div>
-        </div>
+        @livewire('invoice.shop-invoice-qpay', ['invoice' => $order['invoice']])
     </div>
 </div>
 

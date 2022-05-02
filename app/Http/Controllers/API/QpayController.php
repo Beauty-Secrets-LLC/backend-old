@@ -29,7 +29,7 @@ class QpayController extends Controller
                 
                 if($result['count'] > 0 && $result['rows'][0]['payment_status'] == 'PAID' ) {
                     activity()->useLog('qpay')->event('paid')->log($request['payment_id']);
-                    $invoice->processing();
+                    $invoice->makePaid();
                 } else {
                     activity()->useLog('qpay')->event('unpaid')->log($request['payment_id']);
                     return response()->json(['result' => 'success', 'message' => 'Төлбөр төлөгдөөгүй байна']);

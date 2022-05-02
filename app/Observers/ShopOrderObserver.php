@@ -28,7 +28,7 @@ class ShopOrderObserver
                 $template = 'App\Mail\ShopOrderReceived';
             }
             if($shopOrder->status == ShopOrder::STATUS_PROCESSING){
-                $template = 'order-processing';
+                $template = 'App\Mail\ShopOrderProcessing';
             }
             if($shopOrder->status == ShopOrder::STATUS_COMPLETED){
                 $template = 'order-completed';

@@ -105,6 +105,10 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/json', [ShopOrderController::class, 'json'])->name('order.json');
             Route::get('/view/{id}', [ShopOrderController::class, 'show'])->name('order.view');
         }); 
+
+        Route::group(['prefix' => 'invoice'], function () {
+            Route::get('/resend', [ShopOrderInvoiceController::class, 'resend'])->name('invoice.resend');
+        }); 
     });
 
     Route::group(['prefix' => 'subscription'], function () {

@@ -82,4 +82,8 @@ class ShopOrderInvoiceController extends Controller
     {
         //
     }
+
+    public function resend() {
+        
+    }
 }

@@ -269,7 +269,7 @@
                 {
                     targets: 1,
                     render: function(data,type,full,meta) {
-                        return '<a href="/shop/order/view/'+data+'" target="_blank" class="text-gray-800 text-hover-primary mb-1">#'+data+'</a>';
+                        return '<a href="/shop/order/view/'+data+'" target="_blank" class="text-gray-800 text-hover-primary mb-1">#'+full.order_number+'</a>';
                     }
                 },
                 

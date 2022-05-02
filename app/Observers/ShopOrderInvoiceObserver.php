@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Models\ShopOrderInvoice;
 use App\Models\ShopOrder;
+use App\Models\Vat;
 
 class ShopOrderInvoiceObserver
 {
@@ -20,13 +21,18 @@ class ShopOrderInvoiceObserver
 
     public function updating(ShopOrderInvoice $shopOrderInvoice)
     {
+        $order = ShopOrder::find($shopOrderInvoice->order_id);
         // Change order status
         if($shopOrderInvoice->status == ShopOrderInvoice::STATUS_PAID){
-            ShopOrder::find($shopOrderInvoice->order_id)->update(['status' => ShopOrder::STATUS_PROCESSING]);
+            $order->status = ShopOrder::STATUS_PROCESSING;
+
+            //create an Ebarimt
+            Vat::createFromShopOrderInvoice($shopOrderInvoice);
         }
-        elseif($shopOrderInvoice->status == ShopOrderInvoice::STATUS_PAID) {
-            ShopOrder::find($shopOrderInvoice->order_id)->update(['status' => ShopOrder::STATUS_CANCELLED]);
+        elseif($shopOrderInvoice->status == ShopOrderInvoice::STATUS_EXPIRED) {
+            $order->status = ShopOrder::STATUS_CANCELLED;
         }
+        $order->save();
     }
 
 

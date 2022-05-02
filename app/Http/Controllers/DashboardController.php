@@ -9,6 +9,8 @@ use App\Models\AttributeValue;
 use Spatie\Activitylog\Models\Activity;
 
 use App\Models\ShopOrder;
+use App\Models\ShopOrderinvoice;
+use App\Models\Vat;
 
 
 class DashboardController extends Controller
@@ -121,9 +123,39 @@ class DashboardController extends Controller
         //     'template' => 'order-received'
         // ]));
 
-        $order = ShopOrder::find(44);
-        $order->status = 'on-hold';
-        $order->save();
+        // $order = ShopOrder::find(44);
+        // $order->status = 'on-hold';
+        // $order->save();
+
+        // $data = [
+        //     "amount"        => "100.00",
+        //     "vat"           => "9.09",
+        //     "cashAmount"    => "0.00",
+        //     "nonCashAmount" => "100.00",
+        //     "cityTax"       => "0.00",
+        //     "districtCode"  => "25",
+        //     "posNo"         => "0001",
+        //     "billIdSuffix"  => "",
+        //     "billType"      => "1",
+        //     "returnBillId"  => "",
+        //     "stocks"        => [
+        //         [
+        //             "code"=> "manal220501",
+        //             "name"=> "Test product",
+        //             "measureUnit"=> "ш",
+        //             "qty"=> "1.00",
+        //             "unitPrice"=> "100.00",
+        //             "totalAmount"=> "100.00",
+        //             "cityTax"=> "0.00",
+        //             "vat"=> "9.09"
+        //         ]
+                
+        //     ]
+        // ];
+
+
+        $invoice = ShopOrderinvoice::find(26)->vat()->createsda();
+        dd($invoice);
 
         //return view('emails.order.received');
 
