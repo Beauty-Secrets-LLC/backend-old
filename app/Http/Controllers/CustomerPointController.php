@@ -15,6 +15,7 @@ class CustomerPointController extends Controller
     public function index()
     {
         //
+
         return view('points.list');
     }
 

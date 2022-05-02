@@ -89,7 +89,9 @@
            
         </div>
         <div class="card-body pt-0">
-            <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="points_table">
+
+            @livewire('points.list-table')
+            {{-- <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="points_table">
                 <thead>
                     <tr class="fw-bold fs-6 text-muted">
                         <th></th>
@@ -102,11 +104,16 @@
                 </thead>
                 <tbody class="text-gray-600 fw-bold">
                 </tbody> 
-            </table>
+            </table> --}}
             
         </div>
     </div>
 
+    <div class="modal fade" tabindex="-1" id="points_update">
+        <div class="modal-dialog modal-dialog-centered">
+       
+        </div>
+    </div>
 @endsection
 
 @section('styles')
@@ -178,11 +185,11 @@
                     }
                 },
                 {
-                    targets:4,
+                    targets:5,
                     render: function(data, type, full, meta) {
-                        return '<div class="input-group"><div><input type="number" class="form-control form-control-solid w-100px form-control-sm" value="'+ full.points + '"></div><button class="btn btn-sm btn-primary" type="button">Шинэчлэх</button></div>';
+                        return '<button class="btn btn-light btn-sm btn-active-primary" data-customer_id="'+full.customer_id+'" data-points="'+full.points+'">Шинэчлэх</button>';
                     }
-                }
+                },
             ]
         });
 
