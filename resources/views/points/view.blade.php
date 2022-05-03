@@ -81,8 +81,57 @@
     </div>
     @endif
 
+    <div class="card card-flush">
+        <div class="card-header">
+            <h3 class="card-title">Оноо цуглуулсан түүх ({{ $customer_points->points }}) </h3>
+            <div class="card-toolbar">
 
-    @livewire('points.list-table')
+            </div>
+        </div>
+        <div class="card-body">
+            @if ($customer_points->log()->get()->count() > 0)
+                <table class="table align-middle table-row-dashed fs-6 dataTable no-footer">
+                    <thead>
+                        <tr class="fw-bolder fs-6 text-gray-800">
+                            <td></td>
+                            <td>Огноо</td>
+                            <td>Оноо</td>
+                            <td>Үйлдэл</td>
+                            <td>Тайлбар</td>
+                            <td>Гүйцэтгэгч</td>
+                            
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-600 fw-bold">
+                        @foreach ($customer_points->log()->get() as $index => $log)
+                            <tr>
+                                <td>{{ $index+1 }}</td>
+                                <td>{{$log->created_at}}</td>
+                                <td>{{$log->points}}</td>
+                                <td><span class="badge badge-light">{{$log->type}}</span></td>
+                                <td>{{$log->description}}</td>
+                                <td>
+                                    @php
+                                        $user = $log->user()->first();
+                                    @endphp
+                                    @if ($user)
+                                        <a class="text-gray-800 text-hover-primary mb-1" href="{{ route('user.view', $user->id) }}">{{$user->name}}</a>
+                                    @endif
+                                    
+                                </td>
+                                
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @endif
+  
+        </div>
+
+    </div>
+
+   
+
     
 
 @endsection
@@ -92,16 +141,5 @@
 @endsection
 
 @push('js')
-    <script>
-        function showUpdatePointsModal(id) {
-            Livewire.emit('points:setPoints',id)
-            $("#points_update").modal('show');
-        }
-
-        window.livewire.on('component-modal-close',(modalid)=>{
-            $("#"+modalid).modal('hide');
-        });
-
-
-    </script>
+    
 @endpush

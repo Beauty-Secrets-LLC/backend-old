@@ -76,7 +76,7 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::group(['prefix' => 'points'], function () {
             Route::get('/list', [CustomerPointController::class, 'index'])->name('points.list');
-            Route::get('/json', [CustomerPointController::class, 'json'])->name('points.json');
+            Route::get('/view/{id}', [CustomerPointController::class, 'show'])->name('points.view');
             Route::post('/update', [CustomerPointController::class, 'update']);
         });
 
