@@ -31,7 +31,15 @@
             </li>
             <!--end::Item-->
             <!--begin::Item-->
-            <li class="breadcrumb-item text-dark">Оноо</li>
+            <li class="breadcrumb-item text-muted">Оноо</li>
+            <!--end::Item-->
+            <!--begin::Item-->
+            <li class="breadcrumb-item">
+                <span class="bullet bg-gray-200 w-5px h-2px"></span>
+            </li>
+            <!--end::Item-->
+            <!--begin::Item-->
+            <li class="breadcrumb-item text-dark">{{ $customer_points->customer()->first()->name }}</li>
             <!--end::Item-->
         </ul>
         <!--end::Breadcrumb-->

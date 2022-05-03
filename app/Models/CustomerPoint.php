@@ -35,12 +35,14 @@ class CustomerPoint extends Model
     }
 
     public function increase($points = 0, $description = null, $type = 'order_placed') {
+        $user = \Auth::user();
         //register point log
         self::log()->create(['customer_point_id' => $this->id, 'points'=>$points, 'type' => $type, 'description' => $description, 'user_id' =>$user->id]);
         return self::update(['points'=> ( $this->points + $points) ]);
     }
 
     public function decrease($points = 0, $description = null, $type = 'order_redeem') {
+        $user = \Auth::user();
         //register point log
         self::log()->create(['customer_point_id' => $this->id, 'points'=>($points*-1), 'type' => $type, 'description' => $description, 'user_id' =>$user->id]);
         return self::update(['points'=> ( ( $this->points - $points) < 0 ) ? 0 :  ( $this->points - $points)]);
