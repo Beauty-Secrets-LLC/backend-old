@@ -15,6 +15,7 @@ class VatController extends Controller
     public function index()
     {
         //
+        return view('ebarimt.list');
     }
 
     /**

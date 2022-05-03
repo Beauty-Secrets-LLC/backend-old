@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CustomerPointController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\VatController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ShopOrderController;
@@ -43,6 +44,10 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::get('/list', [MediaController::class, 'index'])->name('media.list'); 
         Route::post('/upload', [MediaController::class, 'upload'])->name('media.upload'); 
+    });
+
+    Route::group(['prefix' => 'ebarimt'], function () {
+        Route::get('/list', [VatController::class, 'index'])->name('ebarimt.list'); 
     });
 
     Route::group(['prefix' => 'user'], function () {
