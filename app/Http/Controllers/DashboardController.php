@@ -12,7 +12,7 @@ use App\Models\ShopOrder;
 use App\Models\ShopOrderinvoice;
 use App\Models\Vat;
 
-
+use Illuminate\Support\Facades\Hash;
 
 
 class DashboardController extends Controller
@@ -157,8 +157,7 @@ class DashboardController extends Controller
 
 
         $product = \Product::find(84);
-        dd( Str::slug($product->name) );
-
+        dd( Hash::make('Enigma@5201') );
 
         //return view('emails.order.received');
 
