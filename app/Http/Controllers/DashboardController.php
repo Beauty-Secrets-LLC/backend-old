@@ -154,8 +154,9 @@ class DashboardController extends Controller
         // ];
 
 
-        $invoice = ShopOrderinvoice::find(26)->vat()->createsda();
-        dd($invoice);
+        $product = \Product::find(84)->getMedia('product_gallery');
+        dd($product[0]->getUrl());
+
 
         //return view('emails.order.received');
 

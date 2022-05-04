@@ -89,6 +89,8 @@
                 <!--end::Card body-->
             </div>
 
+            <input type="file" name="gallery_image[]" multiple accept=".png, .jpg, .jpeg">
+
             <div class="card card-flush py-4">
                 <!--begin::Card header-->
                 <div class="card-header">
