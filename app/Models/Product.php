@@ -82,6 +82,14 @@ class Product extends Model implements HasMedia
         if(isset($data['featured_image']) && !empty($data['featured_image'])) {
             $product->addMedia($data['featured_image'])->toMediaCollection('product_image', 'gcs');
         }
+
+        //Add featured image
+        if(isset($data['gallery_image']) && !empty($data['gallery_image'])) {
+            foreach($data['gallery_image'] as $gallery) {
+                $product->addMedia($gallery)->toMediaCollection('product_gallery', 'gcs');
+            }
+            
+        }
         
         //Add tags
         if(isset($data['tags']) && !empty($data['tags'])) {
@@ -197,6 +205,7 @@ class Product extends Model implements HasMedia
     }
 
     public static function get_product($id) {
+        $result = [];
         $product = Product::with([
             'productCategory',
             'productAttributes',
@@ -216,9 +225,19 @@ class Product extends Model implements HasMedia
             //     ]);
             // }
         ])->where('id', $id)->first();
-        
 
-        return ($product) ? $product->toArray() : null ;
+        if($product) {
+            $result = $product->toArray();
+            $result['product_image'] =  $product->getMedia('product_image')[0]->getUrl();
+
+            if(!empty($product->getMedia('product_gallery'))) {
+                foreach($product->getMedia('product_gallery') as $gallery) {
+                    $result['product_gallery'][] = $gallery->getUrl();
+                }
+            }
+        }
+
+        return ($result);
     }
 
 
