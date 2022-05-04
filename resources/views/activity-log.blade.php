@@ -29,6 +29,8 @@
         <!--end::Breadcrumb-->
     </div>
     <!--end::Page title-->
+
+    
 </div>
 <!--end::Container-->
 @endsection
@@ -171,6 +173,7 @@
                         <th>Нэр</th>
                         <th>Модел</th>
                         <th>Үйлдэл</th>
+                        <th>Тайлбар</th>
                         <th>Гүйцэтгэгч</th>
                         <th>Дэлгэрэнгүй</th>
                         <th>Огноо</th>
@@ -192,7 +195,7 @@
 
 @section('scripts')
     <script>
-        var order_table  = $("#activitylog_table").DataTable({
+        var log_table  = $("#activitylog_table").DataTable({
             processing: true,
             responsive: false,
             serverSide: true,
@@ -225,6 +228,7 @@
                 { data: 'log_name' },
                 { data: 'subject_type' },
                 { data: 'event' },
+                { data: 'description' },
                 { data: 'causer_id' },
                 { data: 'properties' },
                 { data: 'created_at' }
@@ -249,13 +253,13 @@
                     }
                 },
                 {
-                    targets:   4,
+                    targets:   5,
                     render: function(data,type,full,meta) {
                         return full.causer_type + ': ' + data;
                     }
                 },
                 {
-                    targets:   5,
+                    targets:   6,
                     render: function(data,type,full,meta) {
                        return null;
                     }

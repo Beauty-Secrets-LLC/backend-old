@@ -26,15 +26,16 @@ class ShopOrder extends Model
         'customer_email',
         'address_id',
         'subtotal',
-        'shipping_id',
+        'delivery_id',
         'total',
         'status',
         'data'
     ];
 
-    const STATUS_ONHOLD = 'on-hold'; //Баталгаажаагүй төлбөр хүлээгдэж байгаа
+    const STATUS_ONHOLD     = 'on-hold'; //Баталгаажаагүй төлбөр хүлээгдэж байгаа
     const STATUS_PROCESSING = 'processing'; //Төлбөр төлөгдөж баталгаажсан. Бэлтгэгдэж байгаа
-    const STATUS_COMPLETED = 'completed'; //Захиалгыг хүргэж дуусгасан
+    const STATUS_COMPLETED  = 'completed'; //Захиалгыг хүргэж дуусгасан
+    const STATUS_CANCELLED  = 'cancelled'; //Захиалгыг цуцласан
 
 
     public function customer() {
@@ -48,8 +49,8 @@ class ShopOrder extends Model
         return $this->hasMany(ShopOrderItem::class,'order_id','id');
     }
 
-    public function vat() {
-        return $this->hasOne(Vat::class,'subject_id','id')->where('subject_type', self::class);
+    public function invoice() {
+        return $this->hasOne(ShopOrderInvoice::class,'order_id','id');
     }
 
     public static function get_orders($options) {
@@ -88,7 +89,7 @@ class ShopOrder extends Model
         $result['recordsTotal'] = $query->count();
 
         if (isset($options['id']) && !empty($options['id'])) {
-            $query->where('id', $options['id']);
+            $query->whereRaw('order_number like "%'.$options['id'].'%"');
         }
 
 
@@ -125,7 +126,12 @@ class ShopOrder extends Model
                     \DB::raw('CONCAT(city,", ", district,", ",khoroo,", ",address) as full_address')
                 );
             },
-            'vat'
+            'invoice' => function($invoice) {
+                $invoice->with(
+                    'payment_method',
+                    'vat'
+                );
+            }
         ])->where('id', $id)->first();
 
         if($order) {
@@ -147,8 +153,6 @@ class ShopOrder extends Model
     
 
     public static function OrderNumberGenerator($order) {
-        $ordernumber = 'BS-'.date('ymd').$order->id;
-        $order->order_number = $ordernumber;
-        $order->save();
+        return $ordernumber = 'BS-'.date('ymd').$order->id;
     }
 }

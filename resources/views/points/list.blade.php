@@ -81,31 +81,9 @@
     </div>
     @endif
 
-    <div class="card card-flush">
-        <div class="card-header border-0 pt-6">
-            <div class="card-title">
-                
-            </div>
-           
-        </div>
-        <div class="card-body pt-0">
-            <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="points_table">
-                <thead>
-                    <tr class="fw-bold fs-6 text-muted">
-                        <th></th>
-                        <th>Нэр</th>
-                        <th>Утас</th>
-                        <th>И-мэйл</th>
-                        <th>Оноо</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody class="text-gray-600 fw-bold">
-                </tbody> 
-            </table>
-            
-        </div>
-    </div>
+
+    @livewire('points.list-table')
+    
 
 @endsection
 
@@ -113,121 +91,17 @@
 
 @endsection
 
-@section('scripts')
+@push('js')
     <script>
-        var points_table  = $("#points_table").DataTable({
-            processing: true,
-            responsive: false,
-            serverSide: true,
-            ordering: false,
-            scrollX: true,
-            pageLength: 50,
-            language: {
-                search: "Хайлт:",
-                infoFiltered: "",
-                processing: "Түр хүлээнэ үү ...",
-                info:           "Нийт: _TOTAL_ | _START_ - _END_ харуулж байна",
-            },
-            oLanguage: {
-                sLengthMenu: "_MENU_",
-                sLoadingRecords: "Түр хүлээнэ үү ...",
-                sZeroRecords: "Тохирох хүсэлт олдсонгүй"
-            },
-            ajax: {
-                url: "{{ route('points.json') }}",
-                type: 'GET',
-                dataType: "json",
-                data: function(d) {  
-                    /* FILTER BOX */
+        function showUpdatePointsModal(id) {
+            Livewire.emit('points:setPoints',id)
+            $("#points_update").modal('show');
+        }
 
-                },
-            },
-            columns: [
-                { data: 'id' },
-                { data: null },
-                { data: null },
-                { data: null },
-                { data: 'points' },
-                { data: null }
-
-            ],
-            columnDefs: [
-                {
-                    orderable: false,
-                    targets:   0,
-                    render: function(data,type,full,meta) {
-                        return '<div class="form-check form-check-sm form-check-custom form-check-solid"><input class="form-check-input" type="checkbox" value="'+data+'"></div>'
-                    }
-                },
-                {
-                    targets:1,
-                    render: function(data, type, full, meta) {
-                        return '<a class="text-gray-800 text-hover-primary mb-1" href="customer/view/'+full.customer.id+'" target="_blank">'+full.customer.name + '</a>';
-                    }
-                },
-                {
-                    targets:2,
-                    render: function(data, type, full, meta) {
-                        return full.customer.phone_primary;
-                    }
-                },
-                {
-                    targets:3,
-                    render: function(data, type, full, meta) {
-                        return full.customer.email;
-                    }
-                },
-                {
-                    targets:4,
-                    render: function(data, type, full, meta) {
-                        return '<div class="input-group"><div><input type="number" class="form-control form-control-solid w-100px form-control-sm" value="'+ full.points + '"></div><button class="btn btn-sm btn-primary" type="button">Шинэчлэх</button></div>';
-                    }
-                }
-            ]
+        window.livewire.on('component-modal-close',(modalid)=>{
+            $("#"+modalid).modal('hide');
         });
 
 
-        $('#points_table tbody').on( 'click', 'button', function () {
-            var data = points_table.row( $(this).parents('tr') ).data();
-            console.log(data);
-            // Swal.fire({
-            //     title: 'Оноо шинэчлэх',
-            //     html: "Та хэрэглэгчийн оноог шинэчлэх гэж байна уу?",
-            //     icon: 'warning',
-            //     input: 'textarea',
-            //     showCancelButton: true,
-            //     customClass: {
-            //         confirmButton: 'btn btn-primary',
-            //         cancelButton: 'btn btn-light',
-            //     },
-            //     cancelButtonText: 'Үгүй',
-            //     confirmButtonText: 'Тийм'
-            // }).then((result) => {
-            //     jQuery.ajax({
-            //         type: "POST",
-            //         url: "/customer/points/update",
-            //         headers: {
-            //             'X-CSRF-Token': "{{ csrf_token() }}"
-            //         },
-            //         dataType:"json",
-            //         data: {
-            //             id: data.id,
-            //             points: data.points,
-            //             description: result.value
-            //         },
-            //         success: function(response){
-                        
-            //             Swal.fire({
-            //                 title: (response.result == 'success') ? 'Амжилттай' : 'Алдаа',
-            //                 html: response.message,
-            //                 icon: (response.result == 'success') ? 'success' : 'error',
-            //                 showCancelButton: false,
-            //                 showConfirmButton: false
-            //             });
-                        
-            //         }
-            //     });
-            // })
-        } );
     </script>
-@endsection
+@endpush

@@ -15,12 +15,8 @@ class CustomerPointController extends Controller
     public function index()
     {
         //
-        return view('points.list');
-    }
 
-    public function json(Request $request) {
-        $data = CustomerPoint::get_points($request->all());
-        return response()->json($data, 200, [], JSON_UNESCAPED_UNICODE);
+        return view('points.list');
     }
 
     /**
@@ -50,9 +46,11 @@ class CustomerPointController extends Controller
      * @param  \App\Models\CustomerPoint  $customerPoint
      * @return \Illuminate\Http\Response
      */
-    public function show(CustomerPoint $customerPoint)
+    public function show(CustomerPoint $customerPoint, $id)
     {
         //
+        $customer_points = $customerPoint->find($id);
+        return view('points.view', compact('customer_points'));
     }
 
     /**

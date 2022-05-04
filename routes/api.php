@@ -7,6 +7,8 @@ use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\ShopOrderController;
 use App\Http\Controllers\API\CartController;
 
+use App\Http\Controllers\API\QpayController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -41,7 +43,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('order/create', [ShopOrderController::class, 'store']);
     Route::post('order/{id}', [ShopOrderController::class, 'show']);
 
-    Route::get('cart', [CartController::class, 'getItems']);
-
+    Route::group(['prefix' => 'payment'], function () {
+        //QPAY webhook
+        Route::get('qpay/webhook', [QpayController::class, 'webhook'])->name('payment.webhook.qpay');
+    });
     // API route for logout user
 });

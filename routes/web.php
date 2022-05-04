@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CustomerPointController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\VatController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ShopOrderController;
@@ -28,12 +29,12 @@ use App\Http\Controllers\SubscriptionTransactionController;
 // Route::get('/', function () {
 //     return view('auth.login');
 // });
-Route::get('/', [DashboardController::class, 'index'])->name('dashboard'); 
-
+Route::get('/', [DashboardController::class, 'index']);//->name('dashboard-home'); 
 
 Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/test', [DashboardController::class, 'test']);
+    
     Route::post('/upload', [DashboardController::class, 'upload'])->name('dashboard.upload');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard'); 
     Route::get('/activity-log', [DashboardController::class, 'activitylog'])->name('activitylog'); 
@@ -43,6 +44,10 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::get('/list', [MediaController::class, 'index'])->name('media.list'); 
         Route::post('/upload', [MediaController::class, 'upload'])->name('media.upload'); 
+    });
+
+    Route::group(['prefix' => 'ebarimt'], function () {
+        Route::get('/list', [VatController::class, 'index'])->name('ebarimt.list'); 
     });
 
     Route::group(['prefix' => 'user'], function () {
@@ -76,7 +81,7 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::group(['prefix' => 'points'], function () {
             Route::get('/list', [CustomerPointController::class, 'index'])->name('points.list');
-            Route::get('/json', [CustomerPointController::class, 'json'])->name('points.json');
+            Route::get('/view/{id}', [CustomerPointController::class, 'show'])->name('points.view');
             Route::post('/update', [CustomerPointController::class, 'update']);
         });
 
@@ -104,6 +109,10 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/list', [ShopOrderController::class, 'index'])->name('order.list');
             Route::get('/json', [ShopOrderController::class, 'json'])->name('order.json');
             Route::get('/view/{id}', [ShopOrderController::class, 'show'])->name('order.view');
+        }); 
+
+        Route::group(['prefix' => 'invoice'], function () {
+            Route::get('/resend', [ShopOrderInvoiceController::class, 'resend'])->name('invoice.resend');
         }); 
     });
 
