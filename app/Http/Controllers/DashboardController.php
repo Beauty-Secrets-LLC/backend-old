@@ -13,6 +13,8 @@ use App\Models\ShopOrderinvoice;
 use App\Models\Vat;
 
 
+
+
 class DashboardController extends Controller
 {
     public function __construct()
@@ -154,8 +156,8 @@ class DashboardController extends Controller
         // ];
 
 
-        $product = \Product::find(84)->getMedia('product_gallery');
-        dd($product[0]->getUrl());
+        $product = \Product::find(84);
+        dd( Str::slug($product->name) );
 
 
         //return view('emails.order.received');

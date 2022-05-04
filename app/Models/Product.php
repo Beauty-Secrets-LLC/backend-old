@@ -5,12 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Tags\Tag;
 use Spatie\Tags\HasTags;
+
 
 use App\Models\ProductCategory;
 
@@ -243,6 +245,12 @@ class Product extends Model implements HasMedia
 
     public static function boot() {
         parent::boot();
+
+        static::creating(function($product) {
+            $slug = Str::slug($product->name);
+            $count = static::where("slug", $slug)->count();
+            $product->slug = $count ? "{$slug}-{$count}" : $slug;
+        });
 
         static::deleting(function($product) { 
             $product->productAttributes()->delete();
