@@ -43,7 +43,7 @@ class ProductController extends Controller
     public function show($id)
     {
         //
-        return response()->json(Product::get_product($id), 200, [], JSON_UNESCAPED_UNICODE);;
+        return response()->json(Product::get_product($id), 200, [], JSON_UNESCAPED_SLASHES);
     }
 
     /**
