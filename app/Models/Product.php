@@ -237,7 +237,7 @@ class Product extends Model implements HasMedia
             }
         }
 
-        return ($result);
+        return $result;
     }
 
 
