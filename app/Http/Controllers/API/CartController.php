@@ -20,18 +20,19 @@ class CartController extends Controller
     public function addCart(Request $request)
     {
         $guest_session = Session::getId();
+        // $_SESSION['zz'] = "hello";
         dd($guest_session);
-        $add = \Cart::session($guest_session)->add([
-            'id' => '123',
-            'name' => 'test product',
-            'price' => 15500,
-            'quantity' => 1,
-            'attributes' => [],
-            'associatedModel' => [
-                'id' => 1,
-                'name' => 'test product'
-            ]
-        ]);
+        // $add = \Cart::session($guest_session)->add([
+        //     'id' => '123',
+        //     'name' => 'test product',
+        //     'price' => 15500,
+        //     'quantity' => 1,
+        //     'attributes' => [],
+        //     'associatedModel' => [
+        //         'id' => 1,
+        //         'name' => 'test product'
+        //     ]
+        // ]);
         dd($add);
     }
     //
