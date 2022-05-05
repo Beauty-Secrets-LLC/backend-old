@@ -1,3 +1,6 @@
+@php
+    $user = \Auth::user();
+@endphp
 {{-- <!--begin::Drawers-->
 <!--begin::Activities drawer-->
 <div id="kt_activities" class="bg-body" data-kt-drawer="true" data-kt-drawer-name="activities" data-kt-drawer-activate="true" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'300px', 'lg': '900px'}" data-kt-drawer-direction="end" data-kt-drawer-toggle="#kt_activities_toggle" data-kt-drawer-close="#kt_activities_close">
@@ -1155,12 +1158,14 @@
                                 </div>
                             </div>
                         </div>
+                        @if ($user->hasPermissionTo('ebarimt_view'))
+                            <div class="menu-item me-lg-1">
+                                <a class="menu-link py-3 {{ (Route::currentRouteName() == 'ebarimt.list') ? 'active' : ''  }}" href="{{ route('ebarimt.list') }}">
+                                    <span class="menu-title">И-баримт</span>
+                                </a>
+                            </div>
+                        @endif
                         
-                        <div class="menu-item me-lg-1">
-                            <a class="menu-link py-3 {{ (Route::currentRouteName() == 'ebarimt.list') ? 'active' : ''  }}" href="{{ route('ebarimt.list') }}">
-                                <span class="menu-title">И-баримт</span>
-                            </a>
-                        </div>
                     </div>
                     <!--end::Menu-->
                 </div>
