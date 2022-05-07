@@ -1050,7 +1050,7 @@
                     <!--begin::Menu-->
                     <div class="menu menu-lg-rounded menu-column menu-lg-row menu-state-bg menu-title-gray-700 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-400 fw-bold my-5 my-lg-0 align-items-stretch" id="#kt_header_menu" data-kt-menu="true">
                         <div class="menu-item me-lg-1">
-                            <a class="menu-link py-3 {{ (Route::currentRouteName() == 'dashboard') ? 'active' : ''  }}" href="{{ url('/dashboard') }}">
+                            <a class="menu-link py-3 {{ (Route::currentRouteName() == 'dashboard' || Route::currentRouteName() == '' ) ? 'active' : ''  }}" href="{{ url('/dashboard') }}">
                                 <span class="menu-title">Удирдлагын самбар</span>
                             </a>
                         </div>
@@ -1158,13 +1158,13 @@
                                 </div>
                             </div>
                         </div>
-                        @if ($user->hasPermissionTo('ebarimt_view'))
+                        @can('ebarimt_view')
                             <div class="menu-item me-lg-1">
                                 <a class="menu-link py-3 {{ (Route::currentRouteName() == 'ebarimt.list') ? 'active' : ''  }}" href="{{ route('ebarimt.list') }}">
                                     <span class="menu-title">И-баримт</span>
                                 </a>
                             </div>
-                        @endif
+                        @endcan
                         
                     </div>
                     <!--end::Menu-->
