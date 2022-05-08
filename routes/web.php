@@ -121,6 +121,7 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::group(['prefix' => 'coupon'], function () {
             Route::get('/list', [CouponController::class, 'index'])->name('coupon.list');
+            Route::get('/new', [CouponController::class, 'create'])->name('coupon.new');
         }); 
     });
 

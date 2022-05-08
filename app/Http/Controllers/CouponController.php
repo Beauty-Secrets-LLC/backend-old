@@ -15,6 +15,7 @@ class CouponController extends Controller
     public function index()
     {
         //
+        return view('coupons.list');
     }
 
     /**
