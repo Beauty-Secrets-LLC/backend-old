@@ -13,7 +13,7 @@
                     </svg>
                 </span>
                 <!--end::Svg Icon-->
-                {{-- <input type="text" wire:model.lazy="search" id="search_phone" class="form-control form-control-solid w-250px ps-14" placeholder="Утасны дугаар"> --}}
+                <input type="text" wire:model.lazy="search" class="form-control form-control-solid w-250px ps-14" placeholder="ДДТД">
             </div>
         </div>
        

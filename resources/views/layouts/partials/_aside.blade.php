@@ -6,7 +6,7 @@
     <!--begin::Brand-->
     <div class="aside-logo flex-column-auto" id="kt_aside_logo">
         <!--begin::Logo-->
-        <a href="index.html">
+        <a href="/">
             <img alt="Logo" src="{{ asset('assets/media/logos/beautysystem.svg') }}" class="h-15px logo" />
         </a>
         <!--end::Logo-->
@@ -57,7 +57,7 @@
                     </a>
                 </div>
 
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ (in_array(Route::currentRouteName(), ['products.list', 'product.new', 'product_category.list'])) ? 'show' : ''  }}">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: assets/media/icons/duotone/Shopping/Box3.svg-->
@@ -73,9 +73,9 @@
                         <span class="menu-title">Бүтээгдэхүүн</span>
                         <span class="menu-arrow"></span>
                     </span>
-                    <div class="menu-sub menu-sub-accordion menu-active-bg">
+                    <div class="menu-sub menu-sub-accordion menu-active-bg {{ (in_array(Route::currentRouteName(), ['products.list', 'product.new', 'product_category.list'])) ? 'show' : ''  }}">
                         <div class="menu-item">
-                            <a class="menu-link" href="/shop/product/list">
+                            <a class="menu-link {{ (Route::currentRouteName() == 'products.list') ? 'active' : ''  }}" href="{{ route('products.list') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -83,7 +83,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="/shop/product/new">
+                            <a class="menu-link {{ (Route::currentRouteName() == 'product.new') ? 'active' : ''  }}" href="{{ route('product.new') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -91,7 +91,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="/shop/category/list">
+                            <a class="menu-link {{ (Route::currentRouteName() == 'product_category.list') ? 'active' : ''  }}" href="{{ route('product_category.list') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -109,7 +109,7 @@
                     </div>
                 </div>
 
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ (in_array(Route::currentRouteName(), ['giftcard.list', 'giftcardtemplate.list'])) ? 'show' : ''  }}">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: assets/media/icons/duotone/Shopping/Box3.svg-->
@@ -123,9 +123,9 @@
                         <span class="menu-title">Цахим бэлгийн карт</span>
                         <span class="menu-arrow"></span>
                     </span>
-                    <div class="menu-sub menu-sub-accordion menu-active-bg">
+                    <div class="menu-sub menu-sub-accordion menu-active-bg {{ (in_array(Route::currentRouteName(), ['giftcard.list', 'giftcardtemplate.list'])) ? 'show' : ''  }}">
                         <div class="menu-item">
-                            <a class="menu-link" href="/shop/product/list">
+                            <a class="menu-link {{ (Route::currentRouteName() == 'giftcard.list') ? 'active' : ''  }}" href="{{ route('giftcard.list') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -133,7 +133,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="/shop/product/new">
+                            <a class="menu-link {{ (Route::currentRouteName() == 'giftcardtemplate.list') ? 'active' : ''  }}" href="{{ route('giftcardtemplate.list') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -201,7 +201,7 @@
                        
                     </div>
                 </div>
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ (in_array(Route::currentRouteName(), ['coupon.list'])) ? 'show' : ''  }}">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotone/Layout/Layout-4-blocks.svg-->
@@ -219,9 +219,9 @@
                         <span class="menu-title">Маркетинг</span>
                         <span class="menu-arrow"></span>
                     </span>
-                    <div class="menu-sub menu-sub-accordion menu-active-bg">
+                    <div class="menu-sub menu-sub-accordion menu-active-bg {{ (in_array(Route::currentRouteName(), ['coupon.list'])) ? 'show' : ''  }}">
                         <div class="menu-item">
-                            <a class="menu-link" href="widgets/lists.html">
+                            <a class="menu-link {{ (Route::currentRouteName() == 'coupon.list') ? 'active' : ''  }}" href="{{ route('coupon.list') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>

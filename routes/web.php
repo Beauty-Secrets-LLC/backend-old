@@ -11,10 +11,14 @@ use App\Http\Controllers\VatController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ShopOrderController;
+use App\Http\Controllers\CouponController;
 
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\SubscriptionPlanController;
 use App\Http\Controllers\SubscriptionTransactionController;
+
+use App\Http\Controllers\GiftCardController;
+use App\Http\Controllers\GiftCardTemplateController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -90,7 +94,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'shop'], function () {
         Route::group(['prefix' => 'product'], function () {
             Route::get('/json', [ProductController::class, 'json'])->name('products.json');
-            Route::get('/list', [ProductController::class, 'index']);
+            Route::get('/list', [ProductController::class, 'index'])->name('products.list');
             Route::get('/new', [ProductController::class, 'create'])->name('product.new');
             Route::post('/create', [ProductController::class, 'store'])->name('product.create');
             Route::get('/view/{id}', [ProductController::class, 'show'])->name('product.view');
@@ -101,8 +105,8 @@ Route::group(['middleware' => ['auth']], function () {
         });
 
         Route::group(['prefix' => 'category'], function () {
-            Route::get('/list', [ProductCategoryController::class, 'index']);
-            Route::post('/new', [ProductCategoryController::class, 'store'])->name('product_category.create');
+            Route::get('/list', [ProductCategoryController::class, 'index'])->name('product_category.list');
+            Route::post('/new', [ProductCategoryController::class, 'store'])->name('product_category.new');
         }); 
 
         Route::group(['prefix' => 'order'], function () {
@@ -114,7 +118,21 @@ Route::group(['middleware' => ['auth']], function () {
         Route::group(['prefix' => 'invoice'], function () {
             Route::get('/resend', [ShopOrderInvoiceController::class, 'resend'])->name('invoice.resend');
         }); 
+
+        Route::group(['prefix' => 'coupon'], function () {
+            Route::get('/list', [CouponController::class, 'index'])->name('coupon.list');
+        }); 
     });
+
+
+    Route::group(['prefix' => 'giftcard'], function () {
+        Route::get('/list', [GiftCardController::class, 'index'])->name('giftcard.list');
+
+        Route::group(['prefix' => 'template'], function () {
+            Route::get('/list', [GiftCardTemplateController::class, 'index'])->name('giftcardtemplate.list');
+        });
+    });
+
 
     Route::group(['prefix' => 'subscription'], function () {
         Route::get('/list', [SubscriptionController::class, 'index'])->name('subscription.list');

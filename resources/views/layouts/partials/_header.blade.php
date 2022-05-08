@@ -1,3 +1,6 @@
+@php
+    $user = \Auth::user();
+@endphp
 {{-- <!--begin::Drawers-->
 <!--begin::Activities drawer-->
 <div id="kt_activities" class="bg-body" data-kt-drawer="true" data-kt-drawer-name="activities" data-kt-drawer-activate="true" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'300px', 'lg': '900px'}" data-kt-drawer-direction="end" data-kt-drawer-toggle="#kt_activities_toggle" data-kt-drawer-close="#kt_activities_close">
@@ -1047,7 +1050,7 @@
                     <!--begin::Menu-->
                     <div class="menu menu-lg-rounded menu-column menu-lg-row menu-state-bg menu-title-gray-700 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-400 fw-bold my-5 my-lg-0 align-items-stretch" id="#kt_header_menu" data-kt-menu="true">
                         <div class="menu-item me-lg-1">
-                            <a class="menu-link active py-3" href="{{ url('/dashboard') }}">
+                            <a class="menu-link py-3 {{ (Route::currentRouteName() == 'dashboard' || Route::currentRouteName() == '' ) ? 'active' : ''  }}" href="{{ url('/dashboard') }}">
                                 <span class="menu-title">Удирдлагын самбар</span>
                             </a>
                         </div>
@@ -1155,11 +1158,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="menu-item menu-lg-down-accordion me-lg-1">
-                            <a class="menu-link py-3" href="{{ route('ebarimt.list') }}">
-                                <span class="menu-title">И-баримт</span>
-                            </a>
-                        </div>
+                        @can('ebarimt_view')
+                            <div class="menu-item me-lg-1">
+                                <a class="menu-link py-3 {{ (Route::currentRouteName() == 'ebarimt.list') ? 'active' : ''  }}" href="{{ route('ebarimt.list') }}">
+                                    <span class="menu-title">И-баримт</span>
+                                </a>
+                            </div>
+                        @endcan
+                        
                     </div>
                     <!--end::Menu-->
                 </div>
