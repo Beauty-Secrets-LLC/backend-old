@@ -42,8 +42,23 @@ class ProductController extends Controller
      */
     public function show($slug)
     {
-        //
-        return response()->json(Product::get_product($id), 200, [], JSON_UNESCAPED_SLASHES);
+        try {
+
+            $product = Product::get_product($slug);
+
+            return response()->json([
+                'success'=>true,
+                'data'=>$product
+            ], 200, [], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT);
+            
+        } catch (\Exception $e) {
+
+            return response()->json([
+                'success'=>false,
+                'message'=>'Бүтээгдэхүүн олдсонгүй'
+            ], 404, [], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT);
+            
+        }
     }
 
     /**
