@@ -25,13 +25,14 @@ class AuthController extends Controller
         $user = User::where('email', $request['email'])->firstOrFail();
 
         $token = $user->createToken('beautydevelopment')->plainTextToken;
-        $user['token'] = $token;
 
         $cookie = Cookie::make('beauty_user', json_encode($user, JSON_UNESCAPED_UNICODE), 60, null, null, false, false);
+        $token = Cookie::make('beauty_token', $token, 60, null, null, false, true);
 
         return response()
             ->json($user)
-            ->withCookie($cookie);
+            ->withCookie($cookie)
+            ->withCookie($token);
 
     }
 

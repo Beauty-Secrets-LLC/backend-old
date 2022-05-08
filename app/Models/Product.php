@@ -206,7 +206,7 @@ class Product extends Model implements HasMedia
         return $result;
     }
 
-    public static function get_product($id) {
+    public static function get_product($slug) {
         $result = [];
         $product = Product::with([
             'productCategory',
@@ -226,7 +226,7 @@ class Product extends Model implements HasMedia
             //         }
             //     ]);
             // }
-        ])->where('id', $id)->first();
+        ])->where('slug', $slug)->first();
 
         if($product) {
             $result = $product->toArray();
@@ -237,6 +237,8 @@ class Product extends Model implements HasMedia
                     $result['product_gallery'][] = $gallery->getUrl();
                 }
             }
+        } else {
+            throw new \Exception();
         }
 
         return $result;

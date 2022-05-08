@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\ShopOrderController;
+use App\Http\Controllers\API\CartController;
 
 use App\Http\Controllers\API\QpayController;
 
@@ -25,16 +26,18 @@ use App\Http\Controllers\API\QpayController;
 
 Route::post('/token/auth', [AuthController::class, 'token']);
 
+Route::get('cart/add', [CartController::class, 'addCart']);
+Route::get('cart/items', [CartController::class, 'getItems']);
+
+Route::apiResources([
+    'products'  => ProductController::class,
+]);
+
 Route::group(['middleware' => ['auth:sanctum']], function () {
     
     Route::get('/user', function(Request $request) {
         return $request->user();
     });
-
-    Route::apiResources([
-        'products'  => ProductController::class,
-    ]);
-
 
     Route::post('orders', [ShopOrderController::class, 'index']);
     Route::post('order/create', [ShopOrderController::class, 'store']);
