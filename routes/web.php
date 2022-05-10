@@ -131,6 +131,8 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::group(['prefix' => 'template'], function () {
             Route::get('/list', [GiftCardTemplateController::class, 'index'])->name('giftcardtemplate.list');
+            Route::get('/new', [GiftCardTemplateController::class, 'create'])->name('giftcardtemplate.new');
+            Route::post('/store', [GiftCardTemplateController::class, 'store'])->name('giftcardtemplate.store');
         });
     });
 

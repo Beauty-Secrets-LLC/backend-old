@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\GiftCardTemplate;
 use Illuminate\Http\Request;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 class GiftCardTemplateController extends Controller
 {
@@ -14,7 +16,7 @@ class GiftCardTemplateController extends Controller
      */
     public function index()
     {
-        //
+        return view('giftcards.templates.list');
     }
 
     /**
@@ -25,6 +27,8 @@ class GiftCardTemplateController extends Controller
     public function create()
     {
         //
+
+        return view('giftcards.templates.new');
     }
 
     /**
@@ -36,6 +40,22 @@ class GiftCardTemplateController extends Controller
     public function store(Request $request)
     {
         //
+
+        try {
+
+            $template = GiftCardTemplate::create($request->all())
+            ->addMedia($request['template_image'])
+            ->withResponsiveImages()
+            ->toMediaCollection('giftcard-image', 'gcs');
+            session()->flash('success', 'Шинэ загвар хадгалагдлаа.');
+            
+        } catch (\Exception $e) {
+            session()->flash('error', $e->getMessage());
+        }
+
+
+        return redirect()->back();
+
     }
 
     /**

@@ -141,11 +141,11 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="/shop/category/list">
+                            <a class="menu-link {{ (Route::currentRouteName() == 'giftcardtemplate.new') ? 'active' : ''  }}" href="{{ route('giftcardtemplate.new') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Шинэ карт үүсгэх</span>
+                                <span class="menu-title">Шинэ картын загвар</span>
                             </a>
                         </div>
                        
