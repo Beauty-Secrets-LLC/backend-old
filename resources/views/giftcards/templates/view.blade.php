@@ -108,7 +108,7 @@
                     <!--begin::Image input-->
                     <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url({{ asset('assets/media/products/giftcard-placeholder.png') }})">
                         <!--begin::Preview existing avatar-->
-                        <div class="image-input-wrapper w-500px h-300px" style="background-image: url({{ asset('assets/media/products/giftcard-placeholder.png') }})"></div>
+                        <div class="image-input-wrapper w-500px h-300px" style="background-image: url({{$template->getFirstMedia('giftcard-image')->getUrl() }})"></div>
                         <!--end::Preview existing avatar-->
                         <!--begin::Label-->
                         <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Зураг шинэчлэх">
@@ -119,12 +119,7 @@
                             <!--end::Inputs-->
                         </label>
                         <!--end::Label-->
-                        <!--begin::Cancel-->
-                        <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Цуцлах">
-                            <i class="bi bi-x fs-2"></i>
-                        </span>
-                        <!--end::Cancel-->
-
+                       
                     </div>
                     <!--end::Image input-->
                     <!--begin::Hint-->
@@ -141,7 +136,7 @@
                 <!--end::Label-->
                 <!--begin::Col-->
                 <div class="col-lg-8 fv-row">
-                    <input type="text" required name="template_name" class="form-control form-control-lg form-control-solid" placeholder="" value="" />
+                    <input type="text" required name="template_name" class="form-control form-control-lg form-control-solid" placeholder="" value="{{ $template->template_name }}" />
                 </div>
                 <!--end::Col-->
             </div>
@@ -154,7 +149,7 @@
                 <!--begin::Col-->
                 <div class="col-lg-8 fv-row">
                     <div class="form-check form-switch form-check-custom form-check-solid">
-                        <input class="form-check-input " type="checkbox" checked name="status" value="1" />
+                        <input class="form-check-input " type="checkbox" {{ ($template->status == 1) ? 'checked' : ''}} name="status" value="1" />
                         <label class="form-check-label" >
                             Идэвхитэй
                         </label>
@@ -167,6 +162,8 @@
         <!--end::Card body-->
         <!--begin::Actions-->
         <div class="card-footer d-flex justify-content-end py-6 px-9">
+            <button type="submit" class="btn btn-primary">Нэмэх</button>
+            
             <button type="submit" class="btn btn-primary">Нэмэх</button>
         </div>
         <!--end::Actions-->

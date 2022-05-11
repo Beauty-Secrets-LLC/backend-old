@@ -64,9 +64,11 @@ class GiftCardTemplateController extends Controller
      * @param  \App\Models\GiftCardTemplate  $giftCardTemplate
      * @return \Illuminate\Http\Response
      */
-    public function show(GiftCardTemplate $giftCardTemplate)
+    public function show(GiftCardTemplate $giftCardTemplate, $id)
     {
         //
+        $template = $giftCardTemplate->find($id);
+        return view('giftcards.templates.view', compact('template'));
     }
 
     /**

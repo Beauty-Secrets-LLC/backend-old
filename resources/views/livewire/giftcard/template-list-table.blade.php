@@ -44,8 +44,8 @@
                             </td>
                             <td>
                                 <img class="w-100px h-60px me-2" src="{{$template->getFirstMedia('giftcard-image')->getUrl() }}" alt="">
+                                <a href="{{ route('giftcardtemplate.show', $template->id) }}" class="text-gray-800 text-hover-primary fs-5 fw-bolder">{{ $template->template_name}}</a>
                                 
-                                {{ $template->template_name}}
                             </td>
                             <td>
                                 @if ($template->status == 1)
