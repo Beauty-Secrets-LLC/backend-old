@@ -72,7 +72,7 @@ class ProductController extends Controller
             $request->session()->flash('error', $e->getMessage());
             DB::rollback();
         }
-        return redirect()->back();
+        return redirect()->route('products.list');
       
     }
 

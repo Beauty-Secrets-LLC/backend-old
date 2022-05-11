@@ -208,6 +208,8 @@ class Product extends Model implements HasMedia
 
     public static function get_product($slug) {
         $result = [];
+
+       
         $product = Product::with([
             'productCategory',
             'productAttributes',
@@ -230,7 +232,8 @@ class Product extends Model implements HasMedia
 
         if($product) {
             $result = $product->toArray();
-            $result['product_image'] =  $product->getMedia('product_image')[0]->getUrl();
+            
+            $result['product_image'] =  ( trim($product->getFirstMediaUrl('product_image')) ) ? $product->getMedia('product_image')[0]->getUrl() : null;
 
             if(!empty($product->getMedia('product_gallery'))) {
                 foreach($product->getMedia('product_gallery') as $gallery) {

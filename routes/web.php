@@ -97,7 +97,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/list', [ProductController::class, 'index'])->name('products.list');
             Route::get('/new', [ProductController::class, 'create'])->name('product.new');
             Route::post('/create', [ProductController::class, 'store'])->name('product.create');
-            Route::get('/view/{id}', [ProductController::class, 'show'])->name('product.view');
+            Route::get('/{slug}', [ProductController::class, 'show'])->name('product.view');
             Route::post('/update/{id}', [ProductController::class, 'update'])->name('product.update');
             Route::post('/delete', [ProductController::class, 'delete']);
             Route::post('/restore/{id}', [ProductController::class, 'restore']);

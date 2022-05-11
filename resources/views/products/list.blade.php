@@ -285,7 +285,7 @@
                 {
                     targets: 1,
                     render: function(data, type, full, meta) {
-                        return '<a class="text-gray-800 text-hover-primary fs-5 fw-bolder" href="/shop/product/view/'+full.id+'">'+data+'</a>';
+                        return '<a class="text-gray-800 text-hover-primary fs-5 fw-bolder" href="/shop/product/'+full.slug+'">'+data+'</a>';
                     }
                 },
                 {
