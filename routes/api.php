@@ -24,7 +24,7 @@ use App\Http\Controllers\API\QpayController;
 //     return $request->user();
 // });
 
-Route::post('/token/auth', [AuthController::class, 'token']);
+Route::post('/auth/login', [AuthController::class, 'token']);
 
 Route::get('cart/add', [CartController::class, 'addCart']);
 Route::get('cart/items', [CartController::class, 'getItems']);

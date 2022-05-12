@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Customer;
 use Cookie;
 
 class AuthController extends Controller
@@ -13,7 +14,7 @@ class AuthController extends Controller
 
     public function token(Request $request)
     {
-        if (!\Auth::attempt($request->only('email', 'password')))
+        if (!\Auth::guard('cguard')->attempt($request->only('email', 'password')))
         {
             return response()
                 ->json([
@@ -22,15 +23,15 @@ class AuthController extends Controller
                 ], 400);
         }
 
-        $user = User::where('email', $request['email'])->firstOrFail();
+        $customer = Customer::where('email', $request['email'])->first();
 
-        $token = $user->createToken('beautydevelopment')->plainTextToken;
+        $token = $customer->createToken('beautydevelopment')->plainTextToken;
 
-        $cookie = Cookie::make('beauty_user', json_encode($user, JSON_UNESCAPED_UNICODE), 60, null, null, false, false);
+        $cookie = Cookie::make('beauty_user', json_encode($customer, JSON_UNESCAPED_UNICODE), 60, null, null, false, false);
         $token = Cookie::make('beauty_token', $token, 60, null, null, false, true);
 
         return response()
-            ->json($user)
+            ->json($customer)
             ->withCookie($cookie)
             ->withCookie($token);
 

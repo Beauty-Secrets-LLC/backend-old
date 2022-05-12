@@ -4,21 +4,29 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Sanctum\HasApiTokens;
 
 use App\Models\CustomerAddress;
 use App\Models\CustomerCard;
 
-class Customer extends Model
+class Customer extends Authenticatable
 {
+    use HasApiTokens;
     use HasFactory;
 
     protected $fillable = [
         'name',
         'phone_primary',
         'email',
+        'password',
         'data'
     ];
 
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
 
     protected $casts = [
         'data'          => 'array',
