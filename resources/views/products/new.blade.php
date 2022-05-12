@@ -270,6 +270,8 @@
                         @component('products.components.new_attributes', ['product'=>$product])@endcomponent
                         <!-- ҮНЭ -->
                         @component('products.components.new_price', ['product'=>$product])@endcomponent
+
+                        @livewire('product.type-select', ['product' => $product], key($product->id))
                     </div>
                     
                 </div>
