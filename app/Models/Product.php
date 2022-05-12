@@ -159,7 +159,8 @@ class Product extends Model implements HasMedia
             'media',
             'productCategory',
             'tags',
-            'productAttributes'
+            'productAttributes',
+            'productVariation'
         ]);
 
         //Нийт бичлэгийн тоог авч бна
