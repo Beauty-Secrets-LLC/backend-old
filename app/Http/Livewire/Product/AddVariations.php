@@ -9,7 +9,8 @@ class AddVariations extends Component
 {
 
     public $listeners = [
-        "new-product:setVariation" => 'setVariation',
+        '$refresh',
+        "add-variations:setVariation" => 'setVariation',
         "edit-product:setVariation" => 'setVariation',
     ];
     public $stored_variations;
@@ -17,7 +18,7 @@ class AddVariations extends Component
     public $variations = [];
     
 
-    public function mount($stored_variations){
+    public function mount($stored_variations, $attributes){
         //set stored variations on edit page
         if(!empty($stored_variations)) {
             $variations = [];
@@ -38,6 +39,8 @@ class AddVariations extends Component
                 ];
             }
             $this->variations = $variations;
+
+            $this->attributes = $attributes;
         }
     }
 

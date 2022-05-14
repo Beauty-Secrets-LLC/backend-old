@@ -104,8 +104,7 @@ class AddAttributes extends Component
                 }
             }
         }
-        $this->emit('new-product:setVariation', $variation_attr);
-        $this->emit('type-select:setVariation', $variation_attr);
+        $this->emit('type-select:setAttribute', $variation_attr);
         session()->flash('attribute-save-message', 'Оруулсан шинж чанаруудыг амжилттай хадгаллаа.');
 
     }

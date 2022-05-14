@@ -1,15 +1,11 @@
 <div class="card card-flush py-4">
     <div class="card-header">
         <div class="card-title">
-            <h2>Test</h2>
+            <h2>Бүтээгдэхүүний төрөл</h2>
         </div>
     </div>
     <div class="card-body pt-0">
         <div class="fv-row mb-10">
-            <!--begin::Label-->
-            <label class="fs-6 fw-bold mb-2">Төрөл
-            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Бүтээгдэхүүний төрлөөс хамааран үнийг динамикаар тохируулах боломжтой"></i></label>
-            <!--End::Label-->
             <!--begin::Row-->
             <div class="row row-cols-1 row-cols-md-3 row-cols-lg-1 row-cols-xl-3 g-9">
                 <!--begin::Col-->
@@ -23,7 +19,7 @@
                         <!--end::Radio-->
                         <!--begin::Info-->
                         <span class="ms-5">
-                            <span class="fs-5 fw-bolder text-gray-800 d-block">Дан бүтээгдэхүүн</span>
+                            <span class="fs-5 fw-bolder text-gray-800 d-block">Шууд захиалах</span>
                         </span>
                         <!--end::Info-->
                     </label>
@@ -41,19 +37,19 @@
                         <!--end::Radio-->
                         <!--begin::Info-->
                         <span class="ms-5">
-                            <span class="fs-5 fw-bolder text-gray-800 d-block">Сонголттой бүтээгдэхүүн</span>
+                            <span class="fs-5 fw-bolder text-gray-800 d-block">Сонголт хийх</span>
                         </span>
                         <!--end::Info-->
                     </label>
                     <!--end::Option-->
-                </div>
-                <!--end::Col-->
-                
+                </div>     
             </div>
             <!--end::Row-->
         </div>
         @if ($product_type == 'simple')
             @livewire('product.variation-detail', ['index'=>0])
+        @elseif($product_type == 'variable')
+            @livewire('product.add-variations', ['stored_variations'=>[], 'attributes' => $attributes], key('asdas'))
         @endif
     </div>
 </div>

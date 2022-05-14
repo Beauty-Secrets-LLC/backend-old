@@ -169,7 +169,7 @@
                 <!--end:::Tab item-->
                 <!--begin:::Tab item-->
                 <li class="nav-item">
-                    <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#product_advanced">Нарийвчилсан мэдээлэл</a>
+                    <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#product_advanced">Бусад мэдээлэл</a>
                 </li>
                 <!--end:::Tab item-->
             </ul>
@@ -269,7 +269,7 @@
                         <!-- Attributes -->
                         @component('products.components.new_attributes', ['product'=>$product])@endcomponent
                         <!-- ҮНЭ -->
-                        @component('products.components.new_price', ['product'=>$product])@endcomponent
+                        {{-- @component('products.components.new_price', ['product'=>$product])@endcomponent --}}
 
                         @livewire('product.type-select', ['product' => $product], key($product->id))
                     </div>
@@ -303,6 +303,7 @@
 @section('scripts')
 
     <script>
+
         var toolbarOptions = [
             ['bold', 'italic', 'underline'],        // toggled buttons
             ['link', 'image'],
@@ -362,6 +363,11 @@
         //     }
         // });
 
+        function saleSchedule(index) {
+            $('#sale_schedule_'+index).toggleClass('d-none');
+        }
+
+
         $(function() {
 
             var taginput = document.querySelector("#tags");
@@ -375,8 +381,8 @@
                 $('#meta_guide_html').val(meta_guide.root.innerHTML);
                 $('#product_submittion').submit();
             });
-
-
+            
+            $(".datepicker").flatpickr();
         });
 
         

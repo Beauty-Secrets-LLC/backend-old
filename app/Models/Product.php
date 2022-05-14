@@ -27,14 +27,15 @@ class Product extends Model implements HasMedia
     ];
     protected $fillable = [
         'name',
+        'sku',
+        'slug',
         'status',
         'type',
-        'price_regular',
-        'price_sale',
-        'quantity',
+        'regular_price',
+        'sale_price',
+        'stock_status',
+        'stock_quantity',
         'data',
-        'is_preorder',
-        'is_digital',
         'user_id'
     ];
 
@@ -74,10 +75,16 @@ class Product extends Model implements HasMedia
     }
 
     public static function create_product($data) {
+        
         //Prepare create a product
         $user = \Auth::user();
         $data['user_id'] = $user->id;
         //Creating product
+
+        if($data['type'] == 'simple' && count($data['variations']) == 1) {
+            $data = array_merge($data, $data['variations'][0]);
+        }
+
         $product = Product::create($data);
         
         //Add featured image
@@ -85,7 +92,7 @@ class Product extends Model implements HasMedia
             $product->addMedia($data['featured_image'])->toMediaCollection('product_image', 'gcs');
         }
 
-        //Add featured image
+        //Add gallery image
         if(isset($data['gallery_image']) && !empty($data['gallery_image'])) {
             foreach($data['gallery_image'] as $gallery) {
                 $product->addMedia($gallery)->toMediaCollection('product_gallery', 'gcs');
@@ -144,8 +151,12 @@ class Product extends Model implements HasMedia
         }
         $product_attributes = $product->productAttributes()->createMany($attributes_data);
         
-        //Add variations
-        $variations = $product->productVariation()->createMany($data[$data['type']]);
+
+        if($data['type'] == 'variable') {
+            //Add variations
+            $variations = $product->productVariation()->createMany($data['variations']);
+        }
+        
         
         return $product;
     }

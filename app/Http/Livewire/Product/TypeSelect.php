@@ -8,23 +8,25 @@ class TypeSelect extends Component
 {
     public $product;
     public $product_type;
-    public $variations = [];
+    public $attributes;
     
     public $listeners = [
-        "type-select:setVariation" => 'setVariation'
+        "type-select:setAttribute" => 'setAttribute'
     ];
 
     public function mount($product) {
         $this->product_type = 'simple';
         $this->type = $product;
+
     }
 
     public function render()
     {
         return view('livewire.product.type-select');
     }
-    public function setVariation($variationAttr)
+    public function setAttribute($variationAttr)
     {
-        $this->variations = $variationAttr;
+        $this->attributes = $variationAttr;
+        $this->emit('add-variations:setVariation', $variationAttr);
     }
 }
