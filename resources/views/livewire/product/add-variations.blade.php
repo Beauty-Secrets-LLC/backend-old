@@ -24,7 +24,7 @@
                                     @foreach ($attributes as $attribute_key => $attribute)
                                         @if (isset($attribute['use_for_variation']) && $attribute['use_for_variation'])
                                             <div style="flex:1">
-                                                <select name="variable[{{$variation_key}}][attributes][{{ $attribute['name'] }}]" class="form-select" wire:model.defer="variations.{{$variation_key}}.attributes.{{ $attribute['name'] }}">
+                                                <select name="variations[{{$variation_key}}][attributes][{{ $attribute['name'] }}]" class="form-select" wire:model.defer="variations.{{$variation_key}}.attributes.{{ $attribute['name'] }}">
                                                     <option value="any" selected>Бүх {{ $attribute['name'] }}</option>
                                                     @if (isset($attribute['selected']))
                                                         @foreach ($attribute['selected'] as $option)
@@ -45,8 +45,6 @@
                                 </div>
                                 
                                 <div class="options">
-                                  
-                                        
                                     <div class="d-inline text-hover-primary me-2">
                                         <span class="svg-icon svg-icon-muted svg-icon-2hx"  data-bs-toggle="collapse" data-bs-target="#variationBody_{{$variation_key}}" aria-expanded="true" aria-controls="variationBody_{{$variation_key}}">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -70,7 +68,7 @@
                     </h2>
                     <div id="variationBody_{{$variation_key}}" class="accordion-collapse collapse" aria-labelledby="variationHeader_{{$variation_key}}" data-bs-parent="#product_variations">
                         <div class="accordion-body" >
-                            @livewire('product.variation-detail', ['index'=>$variation_key], key($variation_key))
+                            @livewire('product.variation-detail', ['index'=>$variation_key, 'variation' => $variation], key($variation_key))
 
                             {{-- <div class="mb-5 d-flex flex-wrap gap-5">
                                 <div class="fv-row">

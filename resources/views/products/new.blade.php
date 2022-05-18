@@ -368,6 +368,9 @@
         }
 
 
+       
+
+
         $(function() {
 
             var taginput = document.querySelector("#tags");
@@ -382,7 +385,8 @@
                 $('#product_submittion').submit();
             });
             
-            $(".datepicker").flatpickr();
+            $(".datepicker").flatpickr();  
+    
         });
 
         

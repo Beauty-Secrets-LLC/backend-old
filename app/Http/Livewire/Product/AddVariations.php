@@ -25,21 +25,20 @@ class AddVariations extends Component
             foreach($stored_variations as $variation_index => $variation) {
                 $variations[$variation_index] = [
                     'attributes'        => $variation['attributes'],
-                    'is_digital'        => null,
-                    'is_preorder'       => null,
-                    'sku'               => $variation['sku'],
+                    'is_digital'        => isset($variation['data']['is_digital']) ? $variation['data']['is_digital'] : null,
+                    'is_preorder'       => isset($variation['data']['is_preorder']) ? $variation['data']['is_preorder'] : null,
+                    'sku'               => isset($variation['data']['sku']) ? $variation['sku'] : null,
                     'regular_price'     => $variation['regular_price'],
                     'sale_price'        => $variation['sale_price'],
+                    'stock_status'      => $variation['stock_status'],
                     'stock_quantity'    => $variation['stock_quantity'],
-                    'backorder'         => null,
-                    'width'             => $variation['data']['width'],
-                    'height'            => $variation['data']['height'],
-                    'length'            => $variation['data']['length'],
-                    'weight'            => $variation['data']['weight'],
+                    'width'             => isset($variation['data']['width']) ? $variation['data']['width'] : null,
+                    'height'            => isset($variation['data']['height']) ? $variation['data']['height'] : null,
+                    'length'            => isset($variation['data']['length']) ? $variation['data']['length'] : null,
+                    'weight'            => isset($variation['data']['weight']) ? $variation['data']['weight'] : null,
                 ];
             }
             $this->variations = $variations;
-
             $this->attributes = $attributes;
         }
     }

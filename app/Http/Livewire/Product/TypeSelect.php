@@ -15,9 +15,8 @@ class TypeSelect extends Component
     ];
 
     public function mount($product) {
-        $this->product_type = 'simple';
-        $this->type = $product;
-
+        $this->product = $product;
+        $this->product_type = (is_null($product)) ? 'simple' : $product['type'];
     }
 
     public function render()
