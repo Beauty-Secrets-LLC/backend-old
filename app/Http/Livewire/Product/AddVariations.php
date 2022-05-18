@@ -25,8 +25,8 @@ class AddVariations extends Component
             foreach($stored_variations as $variation_index => $variation) {
                 $variations[$variation_index] = [
                     'attributes'        => $variation['attributes'],
-                    'is_digital'        => isset($variation['data']['is_digital']) ? $variation['data']['is_digital'] : null,
-                    'is_preorder'       => isset($variation['data']['is_preorder']) ? $variation['data']['is_preorder'] : null,
+                    'is_digital'        => isset($variation['data']['is_digital']) ? $variation['data']['is_digital'] : false,
+                    'is_preorder'       => isset($variation['data']['is_preorder']) ? $variation['data']['is_preorder'] : false,
                     'sku'               => isset($variation['data']['sku']) ? $variation['sku'] : null,
                     'regular_price'     => $variation['regular_price'],
                     'sale_price'        => $variation['sale_price'],

@@ -1,6 +1,4 @@
 <div>
-    @dump($variation)
-    @dump($digital)
     <div class="mb-5 row fv-plugins-icon-container">
         <!--begin::Label-->
         <label class="form-label col-md-4">Нэмэлт төрөл</label>
@@ -12,10 +10,10 @@
                     <label for="is_digital_{{$index}}" class="form-check-label form-label">Цахим бүтээгдэхүүн </label>
                 </div>
             </div>
-            @if (!$digital)
+            @if (!$variation['is_digital'])
                 <div class="fv-row">
                     <div class="form-check form-check-custom form-check-solid mb-2">
-                        <input class="form-check-input" type="checkbox" name="variations[{{$index}}][data][is_preorder]" wire:model="variation.is_preorder" value="yes" id="is_preorder_{{$index}}">
+                        <input class="form-check-input" type="checkbox" name="variations[{{$index}}][data][is_preorder]" wire:model.defer="variation.is_preorder" value="yes" id="is_preorder_{{$index}}">
                         <label for="is_preorder_{{$index}}" class="form-check-label form-label">Урьдчилсан захиалга</label>
                     </div>
                 </div>
@@ -26,14 +24,14 @@
         
  
 
-    @if (!$digital)
+    @if (!$variation['is_digital'])
         <div class="mb-5 row fv-plugins-icon-container">
             <!--begin::Label-->
             <label class="form-label col-md-4">Код</label>
             <!--end::Label-->
             <!--begin::Input-->
             <div class="col-md-8">
-                <input type="text" name="variations[{{$index}}][sku]" class="form-control mb-2" placeholder="Код" wire:model="variation.sku">
+                <input type="text" name="variations[{{$index}}][sku]" class="form-control mb-2" placeholder="Код" wire:model.defer="variation.sku">
                 <!--end::Input-->
                 <!--begin::Description-->
                 <div class="text-muted fs-7">Бүтээгдэхүүний кодыг оруулна уу</div>
@@ -48,7 +46,7 @@
         <label class="required form-label col-md-4">Үндсэн үнэ</label>
         <!--end::Label-->
         <div class="col-md-8">
-            <input type="number" name="variations[{{$index}}][regular_price]" class="form-control mb-2" wire:model="variation.regular_price">
+            <input type="number" name="variations[{{$index}}][regular_price]" class="form-control mb-2" wire:model.defer="variation.regular_price">
             <div class="fv-plugins-message-container invalid-feedback"></div>
         </div>
     </div>
@@ -61,7 +59,7 @@
         <div class="col-md-8">
             <div class="d-flex justify-content-between">
                 <div style="flex: 1;">
-                    <input type="number" name="variations[{{$index}}][sale_price]"  class="form-control mb-2" wire:model="variation.sale_price">
+                    <input type="number" name="variations[{{$index}}][sale_price]"  class="form-control mb-2" wire:model.defer="variation.sale_price">
                 </div>
                 <div class="w-40px text-end pt-2">
                     <div class="text-muted fs-7 text-hover-primary" onclick="saleSchedule({{$index}})">
@@ -77,10 +75,10 @@
             </div>
             <div class="row mt-3 d-none" id="sale_schedule_{{$index}}">
                 <div class="col">
-                    <input type="text" name="variations[{{$index}}][data][sale_startAt]" wire:model="variation.sale_startAt" class="form-control datepicker mb-2" value="" placeholder="Эхлэх огноо">
+                    <input type="text" name="variations[{{$index}}][data][sale_startAt]" wire:model.defer="variation.sale_startAt" class="form-control datepicker mb-2" value="" placeholder="Эхлэх огноо">
                 </div>  
                 <div class="col">
-                    <input type="text" name="variations[{{$index}}][data][sale_expireAt]" wire:model="variation.sale_expireAt" class="form-control datepicker mb-2" value=""  placeholder="Дуусах огноо">
+                    <input type="text" name="variations[{{$index}}][data][sale_expireAt]" wire:model.defer="variation.sale_expireAt" class="form-control datepicker mb-2" value=""  placeholder="Дуусах огноо">
                 </div>    
             </div>            
         </div>
@@ -91,7 +89,7 @@
     <div class="mb-7 row">
         <label class="required form-label col-md-4">Барааны нөөц</label>
         <div class="col-md-8">
-            <select name="variations[{{$index}}][stock_status]" class="form-select" wire:model="variation.stock_status">
+            <select name="variations[{{$index}}][stock_status]" class="form-select" wire:model.defer="variation.stock_status">
                 <option value="{{ Product::STOCK_INSTOCK }}">Байгаа</option>
                 <option value="{{ Product::STOCK_OUTOFSTOCK }}">Дууссан</option>
             </select>
@@ -103,7 +101,7 @@
         <!--end::Label-->
         <!--begin::Input-->
         <div class="col-md-8">
-            <input type="number" name="variations[{{$index}}][stock_quantity]" class="form-control mb-2" placeholder="" wire:model="variation.stock_quantity">
+            <input type="number" name="variations[{{$index}}][stock_quantity]" class="form-control mb-2" placeholder="" wire:model.defer="variation.stock_quantity">
             <!--begin::Input-->
             <div class="form-check form-check-custom form-check-solid mb-2">
                 <input class="form-check-input" type="checkbox" name="variations[{{$index}}][backorder]" value="yes" id="backorder_{{$index}}">
@@ -122,20 +120,20 @@
         <label class="form-label col-md-4">Цуглуулах оноо</label>
         <!--end::Label-->
         <div class="col-md-8">
-            <input type="number" name="variations[{{$index}}][data][points]" class="form-control mb-2" wire:model="variation.points">
+            <input type="number" name="variations[{{$index}}][data][points]" class="form-control mb-2" wire:model.defer="variation.points">
             <!--end::Editor-->
             <!--begin::Description-->
             <div class="text-muted fs-7">Хоосон орхивол системийн <b>Лоялти</b> хэсэгт заасан дүрмээр тооцно.</div>
         </div>
     </div>
 
-    @if (!$digital)
+    @if (!$variation['is_digital'])
         <div class="mb-7 row">
             <!--begin::Label-->
             <label class="form-label col-md-4">Жин</label>
             <!--end::Label-->
             <div class="col-md-8">
-                <input type="number" name="variations[{{$index}}][data][weight]" class="form-control mb-2" wire:model="variation.weight">
+                <input type="number" name="variations[{{$index}}][data][weight]" class="form-control mb-2" wire:model.defer="variation.weight">
                 <!--end::Editor-->
                 <!--begin::Description-->
                 <div class="text-muted fs-7">Бүтээгдэхүүний жинг килограммаар (kg) тооцно.</div>
@@ -145,9 +143,9 @@
             <label class="form-label col-md-4">Овор</label>
             <div class="col-md-8">
                 <div class="d-flex flex-wrap flex-sm-nowrap gap-3">
-                    <input type="number" name="variations[{{$index}}][data][width]" class="form-control mb-2" placeholder="Өргөн (w)" wire:model="variation.width">
-                    <input type="number" name="variations[{{$index}}][data][height]" class="form-control mb-2" placeholder="Өндөр (h)" wire:model="variation.height">
-                    <input type="number" name="variations[{{$index}}][data][length]" class="form-control mb-2" placeholder="Урт (l)" wire:model="variation.length">
+                    <input type="number" name="variations[{{$index}}][data][width]" class="form-control mb-2" placeholder="Өргөн (w)" wire:model.defer="variation.width">
+                    <input type="number" name="variations[{{$index}}][data][height]" class="form-control mb-2" placeholder="Өндөр (h)" wire:model.defer="variation.height">
+                    <input type="number" name="variations[{{$index}}][data][length]" class="form-control mb-2" placeholder="Урт (l)" wire:model.defer="variation.length">
                 </div>
                 <div class="text-muted fs-7">Бүтээгдэхүүний оврыг сантиметрээр (cm) тооцно.</div>
             </div>

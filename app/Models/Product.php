@@ -75,6 +75,7 @@ class Product extends Model implements HasMedia
     }
 
     public static function create_product($data) {
+        
         //Prepare create a product
         $user = \Auth::user();
         $data['user_id'] = $user->id;

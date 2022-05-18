@@ -7,11 +7,12 @@ use Livewire\Component;
 class VariationDetail extends Component
 {
     public $index = 0;
-    public $digital;
     public $variation;
     public function mount($variation) {
         $this->variation = $variation;
-        $this->digital = (empty($variation)) ? false : $variation['is_digital'];
+        if(!isset($variation['is_digital'])) {
+            $this->variation['is_digital'] = false;
+        }
     }
     public function render()
     {

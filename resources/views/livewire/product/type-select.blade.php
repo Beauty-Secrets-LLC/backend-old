@@ -47,7 +47,27 @@
             <!--end::Row-->
         </div>
         @if ($product_type == 'simple')
-            @livewire('product.variation-detail', ['index'=>0])
+            @livewire('product.variation-detail', [
+                'index'=>0, 
+                'variation' => (!empty($product)) ? [
+                    'attributes'    => [],
+                    'is_digital'    => isset($product['data']['is_digital']) ? $product['data']['is_digital'] : false,
+                    'length'        => isset($product['data']['length']) ? $product['data']['length']: null,
+                    'height'        => isset($product['data']['height']) ? $product['data']['height']: null,
+                    'width'         => isset($product['data']['width']) ? $product['data']['width']: null,
+                    'weight'        => isset($product['data']['weight']) ? $product['data']['weight']: null,
+                    'points'        => isset($product['data']['points']) ? $product['data']['points']: null,
+                    'stock_status'  => isset($product['stock_status']) ? $product['stock_status'] : null,
+                    'stock_quantity'=> isset($product['stock_quantity']) ? $product['stock_quantity'] : null,
+                    'sale_price'    => $product['sale_price'],
+                    'sale_startAt'  => isset($product['data']['sale_startAt']) ? $product['data']['sale_startAt'] : null,
+                    'sale_expireAt' => isset($product['data']['sale_expireAt']) ? $product['data']['sale_expireAt'] : null,
+                    'regular_price' => $product['regular_price'],
+                    'sku'           => isset($product['sku']) ? $product['sku']: null,
+                    'is_preorder'   => isset($product['data']['is_preorder']) ? $product['data']['is_preorder'] : false,
+                    'backorder'     => isset($product['data']['backorder']) ? $product['data']['backorder'] : false,
+                ] : []
+                ])
         @elseif($product_type == 'variable')
             @livewire('product.add-variations', ['stored_variations'=> (isset($product['product_variation'])) ? $product['product_variation'] : [] , 'attributes' => $attributes], key('asdas'))
         @endif

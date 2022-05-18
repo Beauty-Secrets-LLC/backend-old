@@ -289,7 +289,9 @@
                 <!--end::Button-->
                 <!--begin::Button-->
                 <button type="submit" id="product_submit" class="btn btn-primary">
-                    <span class="indicator-label">Нэмэх</span>
+                    <span class="indicator-label">
+                        {{ (empty($product)) ? 'Нэмэх' : 'Хадгалах' }}
+                    </span>
                 </button>
                 <!--end::Button-->
             </div>
