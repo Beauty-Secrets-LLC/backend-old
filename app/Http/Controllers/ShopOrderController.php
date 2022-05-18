@@ -15,7 +15,6 @@ class ShopOrderController extends Controller
     public function index()
     {
         //
-
         return view('orders.list');
     }
 

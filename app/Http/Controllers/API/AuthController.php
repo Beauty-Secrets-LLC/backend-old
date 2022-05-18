@@ -27,8 +27,8 @@ class AuthController extends Controller
 
         $token = $customer->createToken('beautydevelopment')->plainTextToken;
 
-        $cookie = Cookie::make('beauty_user', json_encode($customer, JSON_UNESCAPED_UNICODE), 60, null, null, false, false);
-        $token = Cookie::make('beauty_token', $token, 60, null, null, false, true);
+        $cookie = Cookie::make('beauty_user', json_encode($customer, JSON_UNESCAPED_UNICODE), 120, null, null, false, false);
+        $token = Cookie::make('beauty_token', $token, 120, null, null, false, true);
 
         return response()
             ->json($customer)
