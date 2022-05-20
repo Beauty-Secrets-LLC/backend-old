@@ -67,7 +67,7 @@ class AddAttributes extends Component
                 }
             }
         }
-        $this->emit('edit-product:setVariation', $variation_attr);
+        $this->emit('add-product:setVariation', $variation_attr);
     }   
 
     public function render()
@@ -104,9 +104,8 @@ class AddAttributes extends Component
                 }
             }
         }
-        $this->emit('type-select:setAttribute', $variation_attr);
+        $this->emit('add-variations:set_available_attributes', $variation_attr);
         session()->flash('attribute-save-message', 'Оруулсан шинж чанаруудыг амжилттай хадгаллаа.');
-
     }
     
 }

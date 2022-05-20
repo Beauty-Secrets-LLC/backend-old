@@ -26,6 +26,7 @@ class TypeSelect extends Component
     public function setAttribute($variationAttr)
     {
         $this->attributes = $variationAttr;
-        $this->emit('add-variations:setVariation', $variationAttr);
+        $this->emit('add-variations:set_available_attributes', $variationAttr);
     }
+
 }

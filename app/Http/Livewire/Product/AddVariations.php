@@ -10,15 +10,14 @@ class AddVariations extends Component
 
     public $listeners = [
         '$refresh',
-        "add-variations:setVariation" => 'setVariation',
-        "edit-product:setVariation" => 'setVariation',
+        "add-variations:set_available_attributes" => 'set_AvailableAttributes',
     ];
     public $stored_variations;
     public $attributes = [];
     public $variations = [];
     
 
-    public function mount($stored_variations, $attributes){
+    public function mount($stored_variations){
         //set stored variations on edit page
         if(!empty($stored_variations)) {
             $variations = [];
@@ -39,7 +38,7 @@ class AddVariations extends Component
                 ];
             }
             $this->variations = $variations;
-            $this->attributes = $attributes;
+            //$this->attributes = $attributes;
         }
     }
 
@@ -48,9 +47,9 @@ class AddVariations extends Component
         return view('livewire.product.add-variations');
     }
 
-    public function setVariation($attr) {
+    public function set_AvailableAttributes($attr) {
         $this->attributes = $attr;
-         //set default attributes for stored attributes
+         //set default attributes for stored variations
          if(!empty($this->variations)) {
             foreach($this->variations as $variation_key => $variation) {
                 if(!empty($this->attributes)) {
@@ -66,7 +65,6 @@ class AddVariations extends Component
     }
 
     public function add() {
-
         //set default attributes for new variation
         $default_attr = [];
         if(!empty($this->attributes)) {
@@ -74,10 +72,7 @@ class AddVariations extends Component
                 $default_attr[$attributes['name']] = 'any';
             }
         }
-        $this->variations[] = ['attributes' => $default_attr];
-        
-       
-        
+        $this->variations[] = ['attributes' => $default_attr]; 
     }
 
     public function remove($index) {

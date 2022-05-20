@@ -69,7 +69,9 @@
                 ] : []
                 ])
         @elseif($product_type == 'variable')
-            @livewire('product.add-variations', ['stored_variations'=> (isset($product['product_variation'])) ? $product['product_variation'] : [] , 'attributes' => $attributes], key('asdas'))
+            @livewire('product.add-variations', [
+                'stored_variations'=> (isset($product['product_variation'])) ? $product['product_variation'] : [] 
+            ])
         @endif
     </div>
 </div>
