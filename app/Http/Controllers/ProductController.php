@@ -45,7 +45,7 @@ class ProductController extends Controller
             $product = null;
             $product_categories = ProductCategory::get()->toTree();
             $product_tags = Tag::selectRaw('name->>"$.mn" as tagname')->where('type', 'product')->pluck('tagname')->toArray();
-            return view('products.new', compact('product', 'product_categories', 'product_tags'));
+            return view('products.view', compact('product', 'product_categories', 'product_tags'));
         }
         else {
             $request->session()->flash('error', 'Танд бүтээгдэхүүн нэмэх эрх байхгүй байна.');
@@ -86,14 +86,13 @@ class ProductController extends Controller
     {
         //
         $product = Product::get_product($id);
-
         if(is_null($product)) {
             abort(404, "The Product was not found");
         } 
         else {
             $product_categories = ProductCategory::get()->toTree();
             $product_tags = Tag::selectRaw('name->>"$.mn" as tagname')->where('type', 'product')->pluck('tagname')->toArray();
-            return view('products.new', compact('product','product_categories', 'product_tags'));
+            return view('products.view', compact('product','product_categories', 'product_tags'));
         }
         
     }
@@ -119,8 +118,37 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         //
-        dump($id);
-        dd($request->all());
+     
+        DB::beginTransaction();
+        try {
+           
+            $product = Product::find($id);
+            //update categories
+            if(isset($request['categories']) && !empty($request['categories'])) {
+                $product->productCategory()->sync($request['categories']);
+            }
+            //update tags
+            if(isset($request['tags']) && !empty($request['tags'])) {
+                $raw_tags = json_decode($request['tags'], true);
+                $tags = [];
+
+                foreach($raw_tags as $tag) {
+                    $tagObject = Tag::findOrCreateFromString($tag['value'], 'product', 'mn');
+                    $tags[] = $tag['value'];
+                }
+                $product->syncTags($tags);
+            }
+            //update model
+            $product->update($request->all());
+
+            DB::commit();
+            $request->session()->flash('success', "Бүтээгдэхүүн шинэчлэгдлээ");
+
+        } catch (\Exception $e) {
+            $request->session()->flash('error', $e->getMessage());
+            DB::rollback();
+        }
+        return redirect()->back();
     }
 
     public function delete(Request $request)

@@ -14,7 +14,7 @@
                     <label class="btn btn-outline btn-outline-dashed btn-outline-default  d-flex text-start p-6 {{ $product_type == 'simple' ? 'active' : ''}}" >
                         <!--begin::Radio-->
                         <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
-                            <input class="form-check-input" type="radio" name="type" value="simple" wire:model="product_type">
+                            <input class="form-check-input" type="radio" name="type" value="simple" wire:click="change('simple')" wire:model.lazy="product_type">
                         </span>
                         <!--end::Radio-->
                         <!--begin::Info-->
@@ -32,7 +32,7 @@
                     <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-6 {{ $product_type == 'variable' ? 'active' : ''}}">
                         <!--begin::Radio-->
                         <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
-                            <input class="form-check-input" type="radio" name="type" value="variable" wire:model="product_type">
+                            <input class="form-check-input" type="radio" name="type" value="variable" wire:click="change('variable')" wire:model.lazy="product_type">
                         </span>
                         <!--end::Radio-->
                         <!--begin::Info-->

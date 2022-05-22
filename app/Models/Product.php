@@ -223,6 +223,7 @@ class Product extends Model implements HasMedia
 
        
         $product = Product::with([
+            'tags',
             'productCategory',
             'productAttributes',
             'productVariation'

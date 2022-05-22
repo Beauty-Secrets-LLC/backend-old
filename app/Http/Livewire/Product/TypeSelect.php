@@ -29,4 +29,8 @@ class TypeSelect extends Component
         $this->emit('add-variations:set_available_attributes', $variationAttr);
     }
 
+    public function change($type) {
+        $this->emit('add-attribute:loadVariationAttributes');
+    }
+
 }
