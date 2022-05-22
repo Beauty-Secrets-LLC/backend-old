@@ -282,4 +282,51 @@ class Product extends Model implements HasMedia
         ->logOnly(['name', 'user_id']);
     }
 
+    public static function get_items_latest($request)
+    {
+
+        $query = Product::with([
+            'media',
+            'productCategory',
+            'tags',
+            'productAttributes',
+            'productVariation'
+        ]);
+
+        if($request->has('category'))
+            $query->where('co.year',$request->get('year'));
+
+        return $query->orderBy('created_at', 'desc')->get();
+
+    }
+
+    public static function get_items_sales($request)
+    {
+
+        $query = Product::with([
+            'media',
+            'productCategory',
+            'tags',
+            'productAttributes',
+            'productVariation'
+        ]);
+
+        if($request->has('category'))
+            $query->where('co.year',$request->get('year'));
+
+        $query->orderBy('created_at', 'desc')
+                ->whereNotNull('sale_price')
+                ->get();
+
+        $result = $query->get();
+        foreach($result as $q) {
+
+            $q['product_image'] =  ( trim($q->getFirstMediaUrl('product_image')) ) ? $q->getMedia('product_image')[0]->getUrl() : null;
+            
+        }
+
+        return $result;
+
+    }
+
 }

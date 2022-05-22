@@ -6,7 +6,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\ShopOrderController;
 use App\Http\Controllers\API\CartController;
-
+use App\Http\Controllers\API\ProductApiController;
 use App\Http\Controllers\API\QpayController;
 
 /*
@@ -32,6 +32,8 @@ Route::get('cart/items', [CartController::class, 'getItems']);
 Route::apiResources([
     'products'  => ProductController::class,
 ]);
+
+Route::get('p/list', [ProductApiController::class, 'index']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     
