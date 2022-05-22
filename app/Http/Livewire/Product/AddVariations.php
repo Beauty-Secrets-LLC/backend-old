@@ -19,6 +19,7 @@ class AddVariations extends Component
 
     public function mount($stored_variations){
         //set stored variations on edit page
+    
         if(!empty($stored_variations)) {
             $variations = [];
             foreach($stored_variations as $variation_index => $variation) {

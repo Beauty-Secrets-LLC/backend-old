@@ -41,7 +41,7 @@
                     </div>
                 </div>
 
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ (in_array(Route::currentRouteName(), ['products.list', 'product.new', 'product_category.list'])) ? 'show' : ''  }}">
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ (in_array(Route::currentRouteName(), ['products.list', 'product.new', 'product.view', 'product_category.list'])) ? 'show' : ''  }}">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: assets/media/icons/duotone/Shopping/Box3.svg-->

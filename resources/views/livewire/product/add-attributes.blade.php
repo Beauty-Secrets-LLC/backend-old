@@ -1,4 +1,4 @@
-<div wire:init="loadVariationAttributes">
+<div {{ (!empty($attached_attributes)) ? 'wire:init=loadVariationAttributes' : '' }}>
     @if (!empty($attached_attributes))
         <!--begin::Alert-->
         <div class="alert bg-light-primary d-flex flex-column flex-sm-row p-5 mb-3">
@@ -47,7 +47,6 @@
         </div>
     </div>
     @if (!empty($attached_attributes))
-    
         <div class="my-10">
             @foreach ($attached_attributes as $attribute_key => $attribute)
                 <div class="row mb-6">

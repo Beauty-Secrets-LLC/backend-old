@@ -89,7 +89,7 @@
                 <!--end::Card body-->
             </div>
 
-            <input type="file" name="gallery_image[]" multiple accept=".png, .jpg, .jpeg">
+        
 
             <div class="card card-flush py-4">
                 <!--begin::Card header-->
@@ -135,9 +135,11 @@
                     <div class="mb-4">
                         <select  name="categories[]" class="form-select" data-control="select2" data-placeholder="Сонгох" multiple="multiple">
                             @php
-                                $traverse = function ($categories, $prefix = '') use (&$traverse) {
+                                $category_ids = (isset($product['product_category']) && !empty($product['product_category'])) ? array_column($product['product_category'], 'id') : [];
+                                $traverse = function ($categories, $prefix = '') use (&$traverse, $category_ids) {
                                     foreach ($categories as $category) {
-                                        echo '<option value="'.$category->id.'">'.$prefix.' '.$category->name.'</option>';
+                                        $selected = (!empty($category_ids) && in_array($category->id, $category_ids)) ? 'selected' : '';
+                                        echo '<option value="'.$category->id.'" '.$selected.'>'.$prefix.' '.$category->name.'</option>';
                                         $traverse($category->children, $prefix.'— ');
                                     }
                                 };
@@ -147,9 +149,17 @@
                     </div>
                     
                     <div>
+                        @php
+                            $tags = [];
+                            if(isset($product['tags']) && !empty($product['tags'])) {
+                                foreach ($product['tags'] as $tag) {
+                                    $tags[] = $tag['name']['mn'];
+                                }
+                            }
+                        @endphp
                         <label class="form-label d-block">Tags</label>
                         <!--begin::Select2-->
-                        <input type="text" name="tags" id="tags" class="form-control" value="">
+                        <input type="text" name="tags" id="tags" class="form-control" value="{{ implode(',', $tags) }}">
                         <!--end::Select2-->
                         <div class="text-muted fs-7">Бүтээгдэхүүнийг илэрхийлэх үгс</div>
                     </div>
@@ -221,51 +231,9 @@
                             <!--end::Card header-->
                         </div>
                         <!-- МЕДИА -->
-                        {{-- <div class="card card-flush py-4">
-                            <!--begin::Card header-->
-                            <div class="card-header">
-                                <div class="card-title">
-                                    <h2>Медиа</h2>
-                                </div>
-                            </div>
-                            <!--end::Card header-->
-                            <div class="card-body pt-0">
-                                <!--begin::Input group-->
-                                <div class="fv-row mb-2">
-                                    <!--begin::Dropzone-->
-                                    <form class="form" action="#" method="post">
-                                        <!--begin::Input group-->
-                                        <div class="fv-row">
-                                            <!--begin::Dropzone-->
-                                            <div class="dropzone" id="kt_dropzonejs_example_1">
-                                                <!--begin::Message-->
-                                                <div class="dz-message needsclick">
-                                                    <!--begin::Icon-->
-                                                    <i class="bi bi-file-earmark-arrow-up text-primary fs-3x"></i>
-                                                    <!--end::Icon-->
-
-                                                    <!--begin::Info-->
-                                                    <div class="ms-4">
-                                                        <h3 class="fs-5 fw-bolder text-gray-900 mb-1">Энд дарж эсвэл оруулах файлуудаа энд зөөж оруулна уу</h3>
-                                                        <span class="fs-7 fw-bold text-gray-400">10 хүртэлх файл хуулах боломжтой</span>
-                                                    </div>
-                                                    <!--end::Info-->
-                                                </div>
-                                            </div>
-                                            <!--end::Dropzone-->
-                                        </div>
-                                        <!--end::Input group-->
-                                    </form>
-                                    <!--end::Dropzone-->
-                                </div>
-                                <!--end::Input group-->
-                                <!--begin::Description-->
-                                <div class="text-muted fs-7">Бүтээгдэхүүний зургын галерейг үүсгэх</div>
-                                <!--end::Description-->
-                            </div>
-
-                        
-                        </div> --}}
+                        @component('products.components.gallery', ['product'=>$product])
+                            
+                        @endcomponent
                         <!-- Attributes -->
                         @component('products.components.new_attributes', ['product'=>$product])@endcomponent
                         <!-- ҮНЭ -->
@@ -350,28 +318,11 @@
         });
 
 
-        // var myDropzone = new Dropzone("#kt_dropzonejs_example_1", {
-        //     url: "https://keenthemes.com/scripts/void.php", // Set the url for your upload script location
-        //     paramName: "file", // The name that will be used to transfer the file
-        //     maxFiles: 10,
-        //     maxFilesize: 10, // MB
-        //     addRemoveLinks: true,
-        //     accept: function(file, done) {
-        //         if (file.name == "wow.jpg") {
-        //             done("Naha, you don't.");
-        //         } else {
-        //             done();
-        //         }
-        //     }
-        // });
+        
 
         function saleSchedule(index) {
             $('#sale_schedule_'+index).toggleClass('d-none');
         }
-
-
-       
-
 
         $(function() {
 

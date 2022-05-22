@@ -12,6 +12,11 @@ class AddAttributes extends Component
     public $selected_attribute = 'custom';
     public $attached_attributes = [];
 
+    public $listeners = [
+        '$refresh',
+        "add-attribute:loadVariationAttributes" => 'loadVariationAttributes',
+    ];
+
     public function mount($stored_attribute){
         $this->all_attributes = Attribute::with('values')->get()->ToArray();
         //set stored attributes
@@ -55,7 +60,6 @@ class AddAttributes extends Component
             $this->attached_attributes = array_values($temp_attr_storage);
         }
         //end
-        
     }
 
     public function loadVariationAttributes() {
@@ -67,7 +71,7 @@ class AddAttributes extends Component
                 }
             }
         }
-        $this->emit('add-product:setVariation', $variation_attr);
+        $this->emit('add-variations:set_available_attributes', $variation_attr);
     }   
 
     public function render()
