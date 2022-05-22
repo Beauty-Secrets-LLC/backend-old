@@ -46,6 +46,8 @@
             
         </div>
     </div>
+
+    @dump($attached_attributes)
     @if (!empty($attached_attributes))
         <div class="my-10">
             @foreach ($attached_attributes as $attribute_key => $attribute)

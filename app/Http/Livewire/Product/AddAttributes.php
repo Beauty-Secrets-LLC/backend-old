@@ -18,6 +18,7 @@ class AddAttributes extends Component
     ];
 
     public function mount($stored_attribute){
+        dump($stored_attribute);
         $this->all_attributes = Attribute::with('values')->get()->ToArray();
         //set stored attributes
         $temp_attr_storage = [];
