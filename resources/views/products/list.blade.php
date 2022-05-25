@@ -36,6 +36,11 @@
         </ul>
         <!--end::Breadcrumb-->
     </div>
+
+    <div class="d-flex align-items-center gap-2 gap-lg-3">
+        <a href="{{ route('product.new') }}" class="btn btn-sm btn-primary">Бүтээгдэхүүн нэмэх</a>
+    </div>
+    
     <!--end::Page title-->
 </div>
 <!--end::Container-->
@@ -187,15 +192,7 @@
                     <!--end::Export-->
                     <!--begin::Add product-->
                     
-                    <a href="{{ route('product.new') }}" class="btn btn-primary">
-                    <!--begin::Svg Icon | path: icons/duotone/Navigation/Plus.svg-->
-                    <span class="svg-icon svg-icon-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                            <rect fill="#000000" x="4" y="11" width="16" height="2" rx="1" />
-                            <rect fill="#000000" opacity="0.5" transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000)" x="4" y="11" width="16" height="2" rx="1" />
-                        </svg>
-                    </span>
-                    <!--end::Svg Icon-->Бүтээгдэхүүн нэмэх</a>
+                    
                     <!--end::Add product-->
                 </div>
                 <!--end::Toolbar-->
@@ -218,7 +215,7 @@
                         <th></th>
                         <th>Нэр</th>
                         <th>Төлөв</th>
-                        <th>Ангилал</th>
+                        <th class="w-200px">Ангилал</th>
                         <th>Нэмэгдсэн</th>
                         <th></th>
                     </tr>
@@ -318,7 +315,7 @@
                     render: function(data, type, full, meta) {
                         var output = '';
                         $.each(data, function (key, value) {
-                            output += '<a href=""  class="badge badge-light" >' + value.name + '</a> ';
+                            output += '<a href=""  class="badge badge-light me-1 mb-2" >' + value.name + '</a> ';
                         });
 
                         return output;

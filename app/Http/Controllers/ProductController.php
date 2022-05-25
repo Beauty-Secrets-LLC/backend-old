@@ -138,6 +138,8 @@ class ProductController extends Controller
                 }
                 $product->syncTags($tags);
             }
+
+            
             //update model
             $product->update($request->all());
 

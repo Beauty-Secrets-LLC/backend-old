@@ -179,6 +179,16 @@
                 <!--end:::Tab item-->
                 <!--begin:::Tab item-->
                 <li class="nav-item">
+                    <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#product_attributes">Шинж чанар</a>
+                </li>
+                <!--end:::Tab item-->
+                 <!--begin:::Tab item-->
+                 <li class="nav-item">
+                    <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#product_variations">Үнэ, төрөл хэлбэр</a>
+                </li>
+                <!--end:::Tab item-->
+                 <!--begin:::Tab item-->
+                 <li class="nav-item">
                     <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#product_advanced">Бусад мэдээлэл</a>
                 </li>
                 <!--end:::Tab item-->
@@ -187,7 +197,7 @@
                 <!--begin::Tab pane-->
                 <div class="tab-pane fade show active" id="product_general" role="tab-panel">
                     <div class="d-flex flex-column gap-7 gap-lg-10">
-                        <!-- ЕРӨНХИЙ -->
+                   
                         <div class="card card-flush py-4">
                             <!--begin::Card header-->
                             <div class="card-header">
@@ -220,32 +230,78 @@
                                     <textarea name="data[description]" id="general_description_html" class="d-none">
                                         {{ (isset($product['data']['description'])) ? $product['data']['description'] : ''; }}
                                     </textarea>
-
-
                                     <!--end::Editor-->
-                                    <!--begin::Description-->
-                                    <!--end::Description-->
                                 </div>
                                 <!--end::Input group-->
+                                
                             </div>
                             <!--end::Card header-->
                         </div>
-                        <!-- МЕДИА -->
-                        @component('products.components.gallery', ['product'=>$product])
-                            
-                        @endcomponent
-                        <!-- Attributes -->
-                        @component('products.components.new_attributes', ['product'=>$product])@endcomponent
-                        <!-- ҮНЭ -->
-                        {{-- @component('products.components.new_price', ['product'=>$product])@endcomponent --}}
 
-                        @livewire('product.type-select', ['product' => $product], key($product->id))
+                        <div class="card card-flush py-4">
+                            <!--begin::Card header-->
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <h2>Орц</h2>
+                                </div>
+                            </div>
+                            <!--end::Card header-->
+                            <!--begin::Card body-->
+                            <div class="card-body pt-0">
+                                <div id="meta_ingredients" class="min-h-150px mb-2 ql-container ql-snow">
+                                    {!! (isset($product['data']['ingredients'])) ? $product['data']['ingredients'] : '' !!}
+                                </div>
+                                <textarea name="data[ingredients]" id="meta_ingredients_html" class="d-none">
+                                    {{ (isset($product['data']['ingredients'])) ? $product['data']['ingredients'] : ''}}
+                                </textarea>
+                            </div>
+                            <!--end::Card header-->
+                        </div>
+
+                        <div class="card card-flush py-4">
+                            <!--begin::Card header-->
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <h2>Хэрэглэх заавар</h2>
+                                </div>
+                            </div>
+                            <!--end::Card header-->
+                            <!--begin::Card body-->
+                            <div class="card-body pt-0">
+                                <div id="meta_guide" class="min-h-150px mb-2 ql-container ql-snow">
+                                    {!! (isset($product['data']['guide'])) ? $product['data']['guide'] : '' !!}
+                                </div>
+                                <textarea name="data[guide]" id="meta_guide_html" class="d-none">
+                                    {{ (isset($product['data']['guide'])) ? $product['data']['guide'] : ''}}
+                                </textarea>
+                            </div>
+                            <!--end::Card header-->
+                        </div>
+
+
+                        <!-- МЕДИА -->
+                        @component('products.components.gallery', ['product'=>$product])@endcomponent
+                        
                     </div>
                     
                 </div>
+                <div class="tab-pane fade" id="product_attributes" role="tab-panel">
+                    <div class="d-flex flex-column gap-7 gap-lg-10">
+                        @livewire('product.add-attributes', ['product'=>$product])
+                    </div>
+                   
+                </div>
+
+                <div class="tab-pane fade" id="product_variations" role="tab-panel">
+                    <div class="d-flex flex-column gap-7 gap-lg-10">
+                        @livewire('product.type-select', ['product' => $product], key($product->id))
+                    </div>
+                   
+                </div>
+
                 <div class="tab-pane fade" id="product_advanced" role="tab-panel">
                     <div class="d-flex flex-column gap-7 gap-lg-10">
-                        @component('products.components.new_others', ['product'=>$product])@endcomponent
+                        
                     </div>
                    
                 </div>

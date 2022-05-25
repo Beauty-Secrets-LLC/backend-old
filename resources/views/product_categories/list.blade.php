@@ -92,7 +92,7 @@
             <!--end::Card header-->
             <!--begin::Card body-->
             <div class="card-body pt-5">
-                <form action="{{ route('product_category.create') }}" method="POST">
+                <form action="{{ route('product_category.new') }}" method="POST">
                     @csrf
                     <div class="mb-5">
                         <label class="form-label">Нэр</label>
