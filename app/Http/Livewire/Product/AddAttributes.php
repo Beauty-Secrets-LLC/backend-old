@@ -88,8 +88,7 @@ class AddAttributes extends Component
         $this->emit('add-variations:set_available_attributes', $variation_attr);
     }   
 
-    public function render()
-    {
+    public function render(){
         return view('livewire.product.add-attributes');
     }
 
@@ -141,6 +140,8 @@ class AddAttributes extends Component
                                         $value->delete();
                                     }
 
+                                    $value->update(['use_for_variation' => $attribute['use_for_variation']]);
+
                                     if (($key = array_search($value->attribute_value, $values)) !== false) {
                                         unset($values[$key]);
                                     }
@@ -177,6 +178,9 @@ class AddAttributes extends Component
                                     if(!in_array($value->attribute_value, $values )) {
                                         $value->delete();
                                     }
+
+                                    $value->update(['use_for_variation' => $attribute['use_for_variation']]);
+
                                     if (($key = array_search($value->attribute_value, $values)) !== false) {
                                         unset($values[$key]);
                                     }
