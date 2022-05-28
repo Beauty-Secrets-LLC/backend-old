@@ -1,30 +1,19 @@
 <div>
-    @if (!empty($attributes))
-        <button class="btn btn-primary" type="button" wire:click="add" >Хувилбар нэмэх</button>
-    @else
-        <div class="alert alert-dismissible bg-light-primary d-flex flex-column flex-sm-row p-5 mb-10">
-            <!--begin::Wrapper-->
-            <div class="d-flex flex-column">
-                <!--begin::Content-->
-                <span>Та "Шинж чанар" хэсгээс бүтээгдэхүүний сонголтонд ашиглагдах утгуудыг нэмж <b>"Хадгалах"</b> шаардлагатай.</span>
-                <!--end::Content-->
-            </div>
-            <!--end::Wrapper-->
-        </div>
-    @endif
-    @if (!empty($attributes) && !empty($variations))
+    @dump($attributes)
+    @dump($variations)
 
+    @if (!empty($variations))
         <div class="accordion my-5" id="product_variations">
             @foreach ($variations as $variation_key => $variation)
                 <div class="accordion-item p-3">
-                    <h2 class="accordion-header" id="variationHeader_{{$variation_key}}">
+                    <div class="accordion-header" id="variationHeader_{{$variation_key}}">
                         @if (!empty($attributes))
                             <div class="form-group d-flex gap-5  justify-content-between">
                                 <div class="d-flex gap-5" style="flex:1">
                                     @foreach ($attributes as $attribute_key => $attribute)
                                         @if (isset($attribute['use_for_variation']) && $attribute['use_for_variation'])
                                             <div style="flex:1">
-                                                <select name="variations[{{$variation_key}}][attributes][{{ $attribute['name'] }}]" class="form-select" wire:model.defer="variations.{{$variation_key}}.attributes.{{ $attribute['name'] }}">
+                                                <select class="form-select" wire:model="variations.{{ $variation_key }}.attributes.{{ $attribute['name'] }}">
                                                     <option value="any" selected>Бүх {{ $attribute['name'] }}</option>
                                                     @if (isset($attribute['selected']))
                                                         @foreach ($attribute['selected'] as $option)
@@ -52,30 +41,17 @@
                                                 </svg>
                                         </span>
                                     </div>
-                                    <div class="d-inline text-hover-danger me-2">
-                                        <span wire:click="remove({{ $variation_key }})" class="svg-icon svg-icon-muted svg-icon-2hx"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                            <path d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z" fill="currentColor"/>
-                                            <path opacity="0.5" d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z" fill="currentColor"/>
-                                            <path opacity="0.5" d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z" fill="currentColor"/>
-                                            </svg>
-                                        </span>
-                                    </div>
                                 </div>
-                                
                             </div>
                         @endif
-                    </h2>
+                    </div>
+
                     <div id="variationBody_{{$variation_key}}" class="accordion-collapse collapse" aria-labelledby="variationHeader_{{$variation_key}}" data-bs-parent="#product_variations" wire:ignore>
-                        <div class="accordion-body" >
-                            @livewire('product.variation-detail', ['index'=>$variation_key, 'variation' => $variation], key($variation_key))
-                        </div>
+                        {{$variation_key}}
                     </div>
                 </div>
+                
             @endforeach
-
-            <div class="text-end mt-5">
-                <button type="button" class="btn btn-success" wire:click="save">Хадгалах</button>
-            </div>
         </div>
     @endif
 </div>

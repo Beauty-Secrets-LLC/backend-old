@@ -21,8 +21,9 @@
         </div>
     </div>
 
-        
- 
+    @if (isset($variation['id']))
+        <input type="hidden" name="variations[{{$index}}][id]" wire:model.defer="variation.id">
+    @endif
 
     @if (!$variation['is_digital'])
         <div class="mb-5 row fv-plugins-icon-container">
@@ -37,7 +38,6 @@
                 <div class="text-muted fs-7">Бүтээгдэхүүний кодыг оруулна уу</div>
                 <!--end::Description-->
             </div>
-            
         </div>
     @endif
     
@@ -75,10 +75,10 @@
             </div>
             <div class="row mt-3 d-none" id="sale_schedule_{{$index}}">
                 <div class="col">
-                    <input type="text" name="variations[{{$index}}][data][sale_startAt]" wire:model.defer="variation.sale_startAt" class="form-control datepicker mb-2" value="" placeholder="Эхлэх огноо">
+                    <input type="text" name="variations[{{$index}}][data][sale_startAt]" wire:model.defer="variation.data.sale_startAt" class="form-control datepicker mb-2" value="" placeholder="Эхлэх огноо">
                 </div>  
                 <div class="col">
-                    <input type="text" name="variations[{{$index}}][data][sale_expireAt]" wire:model.defer="variation.sale_expireAt" class="form-control datepicker mb-2" value=""  placeholder="Дуусах огноо">
+                    <input type="text" name="variations[{{$index}}][data][sale_expireAt]" wire:model.defer="variation.data.sale_expireAt" class="form-control datepicker mb-2" value=""  placeholder="Дуусах огноо">
                 </div>    
             </div>            
         </div>
@@ -120,7 +120,7 @@
         <label class="form-label col-md-4">Цуглуулах оноо</label>
         <!--end::Label-->
         <div class="col-md-8">
-            <input type="number" name="variations[{{$index}}][data][points]" class="form-control mb-2" wire:model.defer="variation.points">
+            <input type="number" name="variations[{{$index}}][data][points]" class="form-control mb-2" wire:model.defer="variation.data.points">
             <!--end::Editor-->
             <!--begin::Description-->
             <div class="text-muted fs-7">Хоосон орхивол системийн <b>Лоялти</b> хэсэгт заасан дүрмээр тооцно.</div>
@@ -133,7 +133,7 @@
             <label class="form-label col-md-4">Жин</label>
             <!--end::Label-->
             <div class="col-md-8">
-                <input type="number" name="variations[{{$index}}][data][weight]" class="form-control mb-2" wire:model.defer="variation.weight">
+                <input type="number" name="variations[{{$index}}][data][weight]" class="form-control mb-2" wire:model.defer="variation.data.weight">
                 <!--end::Editor-->
                 <!--begin::Description-->
                 <div class="text-muted fs-7">Бүтээгдэхүүний жинг килограммаар (kg) тооцно.</div>
@@ -143,13 +143,14 @@
             <label class="form-label col-md-4">Овор</label>
             <div class="col-md-8">
                 <div class="d-flex flex-wrap flex-sm-nowrap gap-3">
-                    <input type="number" name="variations[{{$index}}][data][width]" class="form-control mb-2" placeholder="Өргөн (w)" wire:model.defer="variation.width">
-                    <input type="number" name="variations[{{$index}}][data][height]" class="form-control mb-2" placeholder="Өндөр (h)" wire:model.defer="variation.height">
-                    <input type="number" name="variations[{{$index}}][data][length]" class="form-control mb-2" placeholder="Урт (l)" wire:model.defer="variation.length">
+                    <input type="number" name="variations[{{$index}}][data][width]" class="form-control mb-2" placeholder="Өргөн (w)" wire:model.defer="variation.data.width">
+                    <input type="number" name="variations[{{$index}}][data][height]" class="form-control mb-2" placeholder="Өндөр (h)" wire:model.defer="variation.data.height">
+                    <input type="number" name="variations[{{$index}}][data][length]" class="form-control mb-2" placeholder="Урт (l)" wire:model.defer="variation.data.length">
                 </div>
                 <div class="text-muted fs-7">Бүтээгдэхүүний оврыг сантиметрээр (cm) тооцно.</div>
             </div>
         </div>
     @endif
     
+   
 </div>

@@ -296,14 +296,12 @@
                     <div class="d-flex flex-column gap-7 gap-lg-10">
                         @livewire('product.type-select', ['product' => $product], key($product->id))
                     </div>
-                   
                 </div>
 
                 <div class="tab-pane fade" id="product_advanced" role="tab-panel">
                     <div class="d-flex flex-column gap-7 gap-lg-10">
                         
                     </div>
-                   
                 </div>
             </div>
 

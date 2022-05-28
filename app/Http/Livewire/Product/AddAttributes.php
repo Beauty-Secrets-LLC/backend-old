@@ -86,6 +86,7 @@ class AddAttributes extends Component
             }
         }
         $this->emit('add-variations:set_available_attributes', $variation_attr);
+        $this->emit('variations:set_available_attributes', $variation_attr);
     }   
 
     public function render(){

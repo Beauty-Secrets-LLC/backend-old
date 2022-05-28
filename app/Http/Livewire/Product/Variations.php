@@ -3,38 +3,19 @@
 namespace App\Http\Livewire\Product;
 
 use Livewire\Component;
-use App\Models\Product;
 
-class AddVariations extends Component
+class Variations extends Component
 {
-
-    public $listeners = [
-        '$refresh',
-        "add-variations:set_available_attributes" => 'set_AvailableAttributes',
-    ];
-    public $stored_variations;
+    public $product;
     public $attributes = [];
     public $variations = [];
+    public $listeners = [
+        '$refresh',
+        "variations:set_available_attributes" => 'set_attributes',
+    ];
 
-    public function set_AvailableAttributes($attr) {
-        $this->attributes = $attr;
-         //set default attributes for stored variations
-         if(!empty($this->variations)) {
-            foreach($this->variations as $variation_key => $variation) {
-                if(!empty($this->attributes)) {
-                    foreach($this->attributes as $attributes) {
-                        if(!isset($variation['attributes'][$attributes['name']])) {
-                            $this->variations[$variation_key]['attributes'][$attributes['name']] = 'any';
-                        }
-                    }
-                }
-            }
-        }
-        
-    }
-
-    public function mount($product){
-        //set stored variations on edit page
+    public function mount($product) {
+        $this->product = $product;
         if(isset($product['product_variation']) && !empty($product['product_variation'])) {
             $variations = [];
             foreach($product['product_variation'] as $variation_index => $variation) {
@@ -60,35 +41,26 @@ class AddVariations extends Component
                 ];
             }
             $this->variations = $variations;
-            //$this->attributes = $attributes;
         }
     }
-
     public function render()
     {
-        return view('livewire.product.add-variations');
+        return view('livewire.product.variations');
     }
 
-    
-
-    public function add() {
-        //set default attributes for new variation
-        $default_attr = [];
-        if(!empty($this->attributes)) {
-            foreach($this->attributes as $attributes) {
-                $default_attr[$attributes['name']] = 'any';
+    public function set_attributes($attr) {
+        $this->attributes = $attr;
+         //set default attributes for stored variations
+         if(!empty($this->variations)) {
+            foreach($this->variations as $variation_key => $variation) {
+                if(!empty($this->attributes)) {
+                    foreach($this->attributes as $attributes) {
+                        if(!isset($variation['attributes'][$attributes['name']])) {
+                            $this->variations[$variation_key]['attributes'][$attributes['name']] = 'any';
+                        }
+                    }
+                }
             }
         }
-        $this->variations[] = ['attributes' => $default_attr, 'status' => 'new']; 
-    }
-
-    public function save() {
-        $this->emitTo('product.add-variations','$refresh');
-        // $this->emit('variation-detail:update_attribute', $this->variations);
-    }
-
-    public function remove($index) {
-        unset($this->variations[$index]);
-        $this->variations = array_values($this->variations);
     }
 }
