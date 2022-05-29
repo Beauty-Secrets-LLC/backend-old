@@ -24,16 +24,22 @@ use App\Http\Controllers\API\QpayController;
 //     return $request->user();
 // });
 
-Route::post('/auth/login', [AuthController::class, 'token']);
-
-Route::get('cart/add', [CartController::class, 'addCart']);
-Route::get('cart/items', [CartController::class, 'getItems']);
-
+// BACKEND ROUTES
 Route::apiResources([
     'products'  => ProductController::class,
 ]);
 
+// Frontend ROUTES
+Route::post('/auth/login', [AuthController::class, 'token']);
 Route::get('p/list', [ProductApiController::class, 'index']);
+
+Route::group(['prefix' => 'cart'], function () {
+
+    Route::get('add', [CartController::class, 'addCart']);
+    Route::get('items', [CartController::class, 'getItems']);
+    Route::post('checkproduct', [CartController::class, 'checkproduct'])->name('cart.checkproduct');
+
+});
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     

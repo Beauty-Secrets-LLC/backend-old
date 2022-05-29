@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Product;
 use Session;
 
 class CartController extends Controller
@@ -35,5 +36,34 @@ class CartController extends Controller
         // ]);
         dd($add);
     }
-    //
+    
+    public function checkproduct(Request $request)
+    {
+
+        try {
+
+            if(!$request->has('pid') || !$request->has('quantity')) throw new \Exception('Мэдээлэл буруу');
+
+            $product = Product::where('id',$request->get('pid'))->first();
+            if(!$product) throw new \Exception('Бүтээгдэхүүн олдсонгүй');
+
+            // Product type == simple
+            if($product['type'] == "simple") {
+                if($product['stock_status'] == 1 && $product['stock_quantity'] < $request->get('quantity')) throw new \Exception('Тухайн барааг '.$request->get('quantity').' тоогоор авах боломжгүй.');
+            }
+
+            return response()->json([
+                'success' => true
+            ], 200, [], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT);
+            
+        } catch (\Exception $e) {
+
+            return response()->json([
+                'success'=>false,
+                'message'=>$e->getMessage()
+            ], 400, [], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT);
+            
+        }
+
+    }
 }
