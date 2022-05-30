@@ -12,6 +12,8 @@
             <!--end::Wrapper-->
         </div>
     @endif
+
+
     @if (!empty($attributes) && !empty($variations))
 
         <div class="accordion my-5" id="product_variations">

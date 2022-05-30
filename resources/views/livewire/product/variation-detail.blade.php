@@ -1,4 +1,5 @@
 <div>
+    {{ $sda }}
     <div class="mb-5 row fv-plugins-icon-container">
         <!--begin::Label-->
         <label class="form-label col-md-4">Нэмэлт төрөл</label>

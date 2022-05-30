@@ -41,9 +41,49 @@
         </div>
     @endif
     
-    <form id="product_submittion" action="{{ is_null($product) ? route('product.create') : route('product.update', $product['id'] ) }}" method="POST" class="form d-flex flex-column flex-lg-row fv-plugins-bootstrap5 fv-plugins-framework" enctype="multipart/form-data">
+    <form id="product_submittion" action="{{ route('product.create') }}" method="POST" class="form d-flex flex-column flex-lg-row fv-plugins-bootstrap5 fv-plugins-framework" enctype="multipart/form-data">
         @csrf
         <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
+
+            <div class="card card-flush py-4">
+                <!--begin::Card header-->
+                <div class="card-header">
+                    <!--begin::Card title-->
+                    <div class="card-title">
+                        <h2>Төлөв</h2>
+                    </div>
+                    <!--end::Card title-->
+                    <!--begin::Card toolbar-->
+                    <div class="card-toolbar">
+                        <div class="rounded-circle bg-success w-15px h-15px" id="product_status"></div>
+                    </div>
+                    <!--begin::Card toolbar-->
+                </div>
+                <!--end::Card header-->
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+                    <!--begin::Select2-->
+                    <select  name="status" class="form-select mb-2" data-control="select2" data-hide-search="true" data-placeholder="Сонгох">
+                        <option value="{{ Product::STATUS_ACTIVE }}">Нээлттэй</option>
+                        <option value="{{ Product::STATUS_DRAFT }}">Ноорог</option>
+                        <option value="{{ Product::STATUS_SCHEDULED }}">Хуваарьт</option>
+                        <option value="{{ Product::STATUS_INACTIVE }}">Идэвхигүй</option>
+                    </select>
+                    <!--end::Select2-->
+
+
+                    <div class="d-flex justify-content-end mt-5">
+                        <!--begin::Button-->
+                        <button type="submit" id="product_submit" class="btn btn-primary">
+                            <span class="indicator-label">
+                                Нэмэх
+                            </span>
+                        </button>
+                        <!--end::Button-->
+                    </div>
+                </div>
+                <!--end::Card body-->
+            </div>
             <div class="card card-flush py-4">
                 <!--begin::Card header-->
                 <div class="card-header">
@@ -85,37 +125,6 @@
                     <!--begin::Description-->
                     <div class="text-muted fs-7">Set the product thumbnail image. Only *.png, *.jpg and *.jpeg image files are accepted</div>
                     <!--end::Description-->
-                </div>
-                <!--end::Card body-->
-            </div>
-
-        
-
-            <div class="card card-flush py-4">
-                <!--begin::Card header-->
-                <div class="card-header">
-                    <!--begin::Card title-->
-                    <div class="card-title">
-                        <h2>Төлөв</h2>
-                    </div>
-                    <!--end::Card title-->
-                    <!--begin::Card toolbar-->
-                    <div class="card-toolbar">
-                        <div class="rounded-circle bg-success w-15px h-15px" id="product_status"></div>
-                    </div>
-                    <!--begin::Card toolbar-->
-                </div>
-                <!--end::Card header-->
-                <!--begin::Card body-->
-                <div class="card-body pt-0">
-                    <!--begin::Select2-->
-                    <select  name="status" class="form-select mb-2" data-control="select2" data-hide-search="true" data-placeholder="Сонгох">
-                        <option value="{{ Product::STATUS_ACTIVE }}">Нээлттэй</option>
-                        <option value="{{ Product::STATUS_DRAFT }}">Ноорог</option>
-                        <option value="{{ Product::STATUS_SCHEDULED }}">Хуваарьт</option>
-                        <option value="{{ Product::STATUS_INACTIVE }}">Идэвхигүй</option>
-                    </select>
-                    <!--end::Select2-->
                 </div>
                 <!--end::Card body-->
             </div>
@@ -305,18 +314,7 @@
                 </div>
             </div>
 
-            <div class="d-flex justify-content-end">
-                <!--begin::Button-->
-                <a href="#" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">Цуцлах</a>
-                <!--end::Button-->
-                <!--begin::Button-->
-                <button type="submit" id="product_submit" class="btn btn-primary">
-                    <span class="indicator-label">
-                        {{ (empty($product)) ? 'Нэмэх' : 'Хадгалах' }}
-                    </span>
-                </button>
-                <!--end::Button-->
-            </div>
+           
         </div>
     </form>
    

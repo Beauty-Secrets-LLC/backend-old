@@ -83,7 +83,7 @@ class AddVariations extends Component
     }
 
     public function save() {
-        $this->emitTo('product.add-variations','$refresh');
+        $this->emit('variation-detail:save', $this->variations);
         // $this->emit('variation-detail:update_attribute', $this->variations);
     }
 

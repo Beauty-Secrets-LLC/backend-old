@@ -69,11 +69,11 @@
                 ] : []
                 ])
         @elseif($product_type == 'variable')
-            {{-- @livewire('product.add-variations', [
+            @livewire('product.add-variations', [
                 'product'=>$product
-            ]) --}}
+            ])
 
-            @livewire('product.variations', ['product' => $product], key($product['id']))
+            {{-- //@livewire('product.variations', ['product' => $product], key($product['id'])) --}}
         @endif
     </div>
 </div>

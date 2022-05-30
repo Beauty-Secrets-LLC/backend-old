@@ -8,17 +8,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Tags\Tag;
 use Spatie\Tags\HasTags;
+use App\Models\Media;
 
 
 use App\Models\ProductCategory;
 
-class Product extends Model implements HasMedia
+class Product extends Model
 {
-    use HasFactory, SoftDeletes, LogsActivity, InteractsWithMedia, HasTags;
+    use HasFactory, SoftDeletes, LogsActivity, HasTags;
 
     protected $casts = [
         'data'  =>  'array',
@@ -74,6 +74,18 @@ class Product extends Model implements HasMedia
         //return $this->hasMany(ProductVariation::class);
     }
 
+    function addMedia($file) {
+
+        $media = Media::upload($file)->attachTo(self::class, $this->id, 'featured');
+        
+        dd($this->id);
+        // dump(self::class);
+        // dump($this->id);
+        // dump($file->getClientMimeType());
+        // dump($file->getSize());
+        return $aa;
+    }
+
     public static function create_product($data) {
         
         //Prepare create a product
@@ -89,6 +101,11 @@ class Product extends Model implements HasMedia
         
         //Add featured image
         if(isset($data['featured_image']) && !empty($data['featured_image'])) {
+            
+
+            //$file = Storage::disk('gcs')->put('avatars/1', $data['featured_image']);
+            dd($product->addmedia($data['featured_image']));
+
             $product->addMedia($data['featured_image'])->toMediaCollection('product_image', 'gcs');
         }
 
@@ -167,7 +184,6 @@ class Product extends Model implements HasMedia
 
         $result['draw'] = (isset($options['draw'])) ? $options['draw'] : 0;
         $query = Product::with([
-            'media',
             'productCategory',
             'tags',
             'productAttributes',

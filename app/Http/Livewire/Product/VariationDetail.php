@@ -10,10 +10,12 @@ class VariationDetail extends Component
 {
     public $index = 0;
     public $variation;
+    public $sda = '';
 
     public $listeners = [
         '$refresh',
         "variation-detail:update_attribute" => 'update_attribute',
+        "variation-detail:save" => 'save1',
     ];
 
 
@@ -30,13 +32,13 @@ class VariationDetail extends Component
         return view('livewire.product.variation-detail');
     }
 
-    public function save() {
-
-        if(isset($this->variation['id'])) {
+    public function save1($variations) {
+        dump($this->index);
+        // if(isset($this->variation['id'])) {
            
-            $aa = ProductVariation::find($this->variation['id'])->update($this->variation);
-
-        }
+        //    // $aa = ProductVariation::find($this->variation['id'])->update($this->variation);
+           
+        // }
         //dump($this->variation);
     }
 
