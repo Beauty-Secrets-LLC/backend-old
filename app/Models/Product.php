@@ -279,7 +279,7 @@ class Product extends Model
     {
 
         $query = Product::with([
-            'media',
+            // 'media',
             'productCategory',
             'tags',
             'productAttributes',

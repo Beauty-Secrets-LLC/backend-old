@@ -38,5 +38,34 @@ class ProductApiController extends Controller
         }
 
     }
+
+    public function show($slug)
+    {
+
+        try {
+
+            $product = Product::with([
+                'tags',
+                'productCategory',
+                'productAttributes',
+                'productVariation'
+            ])->where('slug', $slug)->first();
+            if(!$product) throw new \Exception('Бүтээгдэхүүн олдсонгүй');
+ 
+            return response()->json([
+                'success' => true,
+                'data' => $product
+            ], 200, [], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT);
+            
+        } catch (\Exception $e) {
+
+            return response()->json([
+                'success'=>false,
+                'message'=>$e->getMessage()
+            ], 400, [], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT);
+            
+        }
+
+    }
     //
 }
