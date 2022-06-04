@@ -69,7 +69,7 @@ class Product extends Model
     function getMedia(){
         $media_lookup = MediaLookup::with('media')->where('model_type', self::class)->where('model_id', $this->id)->get();
         if($media_lookup->count() > 0) {
-            $result = [];
+            $result = array();
             foreach($media_lookup as $media) {
                 $result[$media['collection_name']][] = $media['media']['url'];
             }
