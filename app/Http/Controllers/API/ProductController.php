@@ -43,7 +43,6 @@ class ProductController extends Controller
     public function show($slug)
     {
         try {
-
             $product = Product::get_product($slug);
 
             return response()->json([

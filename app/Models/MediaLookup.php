@@ -18,5 +18,8 @@ class MediaLookup extends Model
         'collection_name',
     ];
 
-
+    public function media()
+    {
+        return $this->hasOne(Media::class, 'id', 'media_id');
+    }
 }
