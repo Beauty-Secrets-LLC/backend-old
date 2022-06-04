@@ -32,6 +32,7 @@ Route::apiResources([
 // Frontend ROUTES
 Route::post('/auth/login', [AuthController::class, 'token']);
 Route::get('p/list', [ProductApiController::class, 'index']);
+Route::get('p/id/{slug}', [ProductApiController::class, 'show']);
 
 Route::group(['prefix' => 'cart'], function () {
 
