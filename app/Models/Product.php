@@ -39,6 +39,7 @@ class Product extends Model
         'user_id'
     ];
 
+    protected $appends = ['media'];
 
     /* PRODUCT STATUSES */
     const STATUS_SCHEDULED = 0;
@@ -64,6 +65,13 @@ class Product extends Model
     {
         //return $this->hasMany(ProductVariation::class)->addSelect('product_id',  \DB::raw("CONCAT( MIN(regular_price), '-', MAX(regular_price)) AS price"));
         return $this->hasMany(ProductVariation::class);
+    }
+
+    public function getMediaAttribute()
+    {
+
+        return $this->getMedia();
+
     }
 
     function getMedia(){
