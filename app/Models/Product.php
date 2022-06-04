@@ -56,10 +56,10 @@ class Product extends Model
         return $this->belongsToMany(ProductCategory::class,'product_product_categories');
     }
 
-    // public function productAttributes()
-    // {
-    //     return $this->hasMany(ProductAttributeValue::class);
-    // }
+    public function productAttributes()
+    {
+        return $this->hasMany(ProductAttributeValue::class);
+    }
 
     public function productVariation()
     {
