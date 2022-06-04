@@ -66,6 +66,19 @@ class Product extends Model
         return $this->hasMany(ProductVariation::class);
     }
 
+    function getMedia(){
+        $media_lookup = MediaLookup::with('media')->where('model_type', self::class)->where('model_id', $this->id)->get();
+        if($media_lookup->count() > 0) {
+            $result = [];
+            foreach($media_lookup as $media) {
+                $result[$media['collection_name']][] = $media['media']['url'];
+            }
+
+            return $result;
+        }
+        return null;
+    }
+
     public function variationSummary()
     {
         return $this->hasMany(ProductVariation::class)
@@ -74,16 +87,9 @@ class Product extends Model
         //return $this->hasMany(ProductVariation::class);
     }
 
-    function addMedia($file) {
-
-        $media = Media::upload($file)->attachTo(self::class, $this->id, 'featured');
-        
-        dd($this->id);
-        // dump(self::class);
-        // dump($this->id);
-        // dump($file->getClientMimeType());
-        // dump($file->getSize());
-        return $aa;
+    function addMedia($file, $collection = 'beauty') {
+        $media = Media::upload($file)->attachTo(self::class, $this->id, $collection);
+        return $media;
     }
 
     public static function create_product($data) {
@@ -101,20 +107,14 @@ class Product extends Model
         
         //Add featured image
         if(isset($data['featured_image']) && !empty($data['featured_image'])) {
-            
-
-            //$file = Storage::disk('gcs')->put('avatars/1', $data['featured_image']);
-            dd($product->addmedia($data['featured_image']));
-
-            $product->addMedia($data['featured_image'])->toMediaCollection('product_image', 'gcs');
+            $product->addmedia($data['featured_image'], 'featured_image');
         }
 
         //Add gallery image
         if(isset($data['gallery_image']) && !empty($data['gallery_image'])) {
             foreach($data['gallery_image'] as $gallery) {
-                $product->addMedia($gallery)->toMediaCollection('product_gallery', 'gcs');
-            }
-            
+                $product->addmedia($gallery, 'gallery_image');
+            }   
         }
         
         //Add tags
@@ -236,43 +236,19 @@ class Product extends Model
 
     public static function get_product($slug) {
         $result = [];
-
-       
         $product = Product::with([
             'tags',
             'productCategory',
             'productAttributes',
             'productVariation'
-            // 'productVariation'=>function($variation) {
-            //     $variation->with([
-            //         'attributeValues' => function($attribute_value) {
-            //             $attribute_value->with([
-            //                 'attribute' => function ($attribute) {
-            //                     $attribute->select('id', 'name');
-            //                 }
-            //             ])->select(
-            //                 'value',
-            //                 'product_attribute_id'
-            //             );
-            //         }
-            //     ]);
-            // }
         ])->where('slug', $slug)->first();
 
         if($product) {
             $result = $product->toArray();
-            
-            $result['product_image'] =  ( trim($product->getFirstMediaUrl('product_image')) ) ? $product->getMedia('product_image')[0]->getUrl() : null;
-
-            if(!empty($product->getMedia('product_gallery'))) {
-                foreach($product->getMedia('product_gallery') as $gallery) {
-                    $result['product_gallery'][] = $gallery->getUrl();
-                }
-            }
+            $result['media'] = $product->getMedia();
         } else {
             throw new \Exception();
         }
-
         return $result;
     }
 

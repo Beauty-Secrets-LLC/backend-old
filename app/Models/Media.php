@@ -11,6 +11,7 @@ class Media extends Model
 {
     use HasFactory;
     protected $table = "media";
+    const storage_domain = 'https://storage.googleapis.com/beauty_media/';
 
     protected $casts = [
         'custom_properties'     =>  'array',
@@ -35,7 +36,7 @@ class Media extends Model
         $uploaded_file = Storage::disk('gcs')->put(date('Y/m'), $file);
         $media = Media::create([
             'name'              => $file->getClientOriginalName(),
-            'url'               => $uploaded_file,
+            'url'               => Media::storage_domain.$uploaded_file,
             'mime_type'         => $file->getClientMimeType(),
             'size'              => $file->getSize(),
             'custom_properties' => null,
