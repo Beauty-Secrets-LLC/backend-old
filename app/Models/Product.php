@@ -39,7 +39,7 @@ class Product extends Model
         'user_id'
     ];
 
-    protected $appends = ['media'];
+    protected $appends = ['media', 'attributes'];
 
     /* PRODUCT STATUSES */
     const STATUS_SCHEDULED = 0;
@@ -56,10 +56,10 @@ class Product extends Model
         return $this->belongsToMany(ProductCategory::class,'product_product_categories');
     }
 
-    public function productAttributes()
-    {
-        return $this->hasMany(ProductAttributeValue::class);
-    }
+    // public function productAttributes()
+    // {
+    //     return $this->hasMany(ProductAttributeValue::class);
+    // }
 
     public function productVariation()
     {
@@ -69,9 +69,19 @@ class Product extends Model
 
     public function getMediaAttribute()
     {
-
         return $this->getMedia();
+    }
 
+    public function getAttributesAttribute()
+    {
+        $result = null;
+        $attrs = ProductAttributeValue::where('product_id', $this->id)->get();
+        if($attrs->count() > 0) {
+            foreach($attrs as $attr) {
+                $result[$attr['attribute_name']][] = $attr['attribute_value'];
+            }
+        }
+        return $result;
     }
 
     function getMedia(){
@@ -194,7 +204,6 @@ class Product extends Model
         $query = Product::with([
             'productCategory',
             'tags',
-            'productAttributes',
             'productVariation'
         ]);
 
@@ -247,13 +256,12 @@ class Product extends Model
         $product = Product::with([
             'tags',
             'productCategory',
-            'productAttributes',
             'productVariation'
         ])->where('slug', $slug)->first();
 
         if($product) {
             $result = $product->toArray();
-            $result['media'] = $product->getMedia();
+   
         } else {
             throw new \Exception();
         }
