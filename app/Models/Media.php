@@ -36,7 +36,8 @@ class Media extends Model
         $uploaded_file = Storage::disk('gcs')->put(date('Y/m'), $file);
         $media = Media::create([
             'name'              => $file->getClientOriginalName(),
-            'url'               => Media::storage_domain.$uploaded_file,
+            'url'               => $uploaded_file,
+            'full_url'          => Media::storage_domain.$uploaded_file,
             'mime_type'         => $file->getClientMimeType(),
             'size'              => $file->getSize(),
             'custom_properties' => null,

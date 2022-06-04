@@ -47,7 +47,6 @@ class ProductApiController extends Controller
             $product = Product::with([
                 'tags',
                 'productCategory',
-                'productAttributes',
                 'productVariation'
             ])->where('slug', $slug)->first();
             if(!$product) throw new \Exception('Бүтээгдэхүүн олдсонгүй');

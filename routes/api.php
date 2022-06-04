@@ -25,9 +25,9 @@ use App\Http\Controllers\API\QpayController;
 // });
 
 // BACKEND ROUTES
-Route::apiResources([
-    'products'  => ProductController::class,
-]);
+// Route::apiResources([
+//     'products'  => ProductController::class,
+// ]);
 
 // Frontend ROUTES
 Route::post('/auth/login', [AuthController::class, 'token']);

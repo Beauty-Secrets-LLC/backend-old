@@ -42,9 +42,9 @@ class ProductController extends Controller
      */
     public function show($slug)
     {
+        return $slug;
         try {
             $product = Product::get_product($slug);
-
             return response()->json([
                 'success'=>true,
                 'data'=>$product

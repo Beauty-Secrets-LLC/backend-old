@@ -99,7 +99,7 @@
                     <!--begin::Image input-->
                     <div class="image-input image-input-empty image-input-outline mb-3" data-kt-image-input="true" style="background-image: url({{ asset('assets/media/svg/files/upload.svg') }})">
                         <!--begin::Preview existing avatar-->
-                        <div class="image-input-wrapper w-150px h-150px"></div>
+                        <div class="image-input-wrapper w-150px h-150px" style="{{ (isset($product['media']['featured_image']) && !empty($product['media']['featured_image'])) ? 'background-image: url('.$product['media']['featured_image'][0].')' : ''}}"></div>
                         <!--end::Preview existing avatar-->
                         <!--begin::Label-->
                         <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="" data-bs-original-title="Зураг солих">

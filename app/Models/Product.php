@@ -63,13 +63,26 @@ class Product extends Model
 
     public function productVariation()
     {
-        //return $this->hasMany(ProductVariation::class)->addSelect('product_id',  \DB::raw("CONCAT( MIN(regular_price), '-', MAX(regular_price)) AS price"));
         return $this->hasMany(ProductVariation::class);
+    }
+
+    public function productMedia()
+    {
+        return $this->hasMany(MediaLookup::class,  'model_id', 'id')->where('model_type', self::class);
     }
 
     public function getMediaAttribute()
     {
-        return $this->getMedia();
+        $media_lookup = MediaLookup::with('media')->where('model_type', self::class)->where('model_id', $this->id)->get();
+        if($media_lookup->count() > 0) {
+            $result = array();
+            foreach($media_lookup as $media) {
+                $result[$media['collection_name']][] = $media['media']['url'];
+            }
+
+            return $result;
+        }
+        return null;
     }
 
     public function getAttributesAttribute()
@@ -84,18 +97,7 @@ class Product extends Model
         return $result;
     }
 
-    function getMedia(){
-        $media_lookup = MediaLookup::with('media')->where('model_type', self::class)->where('model_id', $this->id)->get();
-        if($media_lookup->count() > 0) {
-            $result = array();
-            foreach($media_lookup as $media) {
-                $result[$media['collection_name']][] = $media['media']['url'];
-            }
 
-            return $result;
-        }
-        return null;
-    }
 
     public function variationSummary()
     {
@@ -252,6 +254,7 @@ class Product extends Model
     }
 
     public static function get_product($slug) {
+  
         $result = [];
         $product = Product::with([
             'tags',
@@ -281,6 +284,7 @@ class Product extends Model
         static::deleting(function($product) { 
             $product->productAttributes()->delete();
             $product->productVariation()->delete();
+            $product->productMedia()->delete();
         });
     }
 
@@ -298,7 +302,6 @@ class Product extends Model
             // 'media',
             'productCategory',
             'tags',
-            'productAttributes',
             'productVariation'
         ]);
 
@@ -316,7 +319,7 @@ class Product extends Model
             'media',
             'productCategory',
             'tags',
-            'productAttributes',
+
             'productVariation'
         ]);
 
