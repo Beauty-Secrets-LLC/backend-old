@@ -1140,8 +1140,8 @@
                                         
                                     </div>
                                 </div>
-                                <div data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item menu-lg-down-accordion">
-                                    <span class="menu-link py-3">
+                                <div class="menu-item">
+                                    <a class="menu-link py-3 {{ (Route::currentRouteName() == 'media.list') ? 'active' : ''  }}" href="{{ route('media.list') }}">
                                         <span class="menu-icon">
                                             <!--begin::Svg Icon | path: icons/duotone/Interface/Lock.svg-->
                                             <span class="svg-icon svg-icon-2">
@@ -1154,7 +1154,7 @@
                                             <!--end::Svg Icon-->
                                         </span>
                                         <span class="menu-title">Медиа</span>
-                                    </span>
+                                    </a>
                                 </div>
                             </div>
                         </div>

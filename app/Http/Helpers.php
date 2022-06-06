@@ -14,3 +14,11 @@ function bs_ebarimt_format($billId) {
     $ebarimt = substr($billId,0,6).' **** '.substr($billId,-6);
     return $ebarimt;
 }
+
+function bytesToHuman($bytes){
+    $units = ['B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB'];
+    for ($i = 0; $bytes > 1024; $i++) {
+        $bytes /= 1024;
+    }
+    return round($bytes, 2) . ' ' . $units[$i];
+}
