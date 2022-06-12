@@ -149,6 +149,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/view/{id}', [SubscriptionController::class, 'show'])->name('subscription.view');
         Route::get('/import', [SubscriptionController::class, 'import']);
         Route::post('/importdata', [SubscriptionController::class, 'importdata'])->name('subscription.import');
+        Route::post('/create', [SubscriptionController::class, 'create'])->name('subscription.create');
 
         Route::get('/plans', [SubscriptionPlanController::class, 'index'])->name('subscription.plans');
 
