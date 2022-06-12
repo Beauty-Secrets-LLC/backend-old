@@ -11,17 +11,21 @@ class Upload extends Component
     use WithFileUploads;
     public $files = [];
     
+    protected $listeners = [
+        '$refresh',
+        'media:upload' => 'upload'
+    ];
+
     public function render()
     {
         return view('livewire.media.upload');
     }
 
     public function upload() {
-        if(!empty($this->files)) {
+        
             $this->validate([
                 'files.*' => 'image|max:1024', // 1MB Max
             ]);
-            
             foreach ($this->files as $file) {
                 $uploaded_file = $file->store('uploads/'.date('Y/m'), 'gcs');
                 $media = Media::create([
@@ -35,8 +39,8 @@ class Upload extends Component
                     'user_id'           => auth()->user()->id
                 ]);
             }
-
+            $this->files = [];
             $this->emitTo('media.list-view', '$refresh');
-        }
+        
     }
 }

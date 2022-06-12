@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\Attribute;
+use App\Models\AttributeValue;
 use App\Models\Media;
+use App\Models\Brand;
 use Illuminate\Http\Request;
 use Spatie\Tags\Tag;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 use DB;
 
 class ProductController extends Controller
@@ -204,20 +208,116 @@ class ProductController extends Controller
         //
     }
 
-    public function test() {
-        // $product = Product::find(42)->with([
-        //     'productVariation' => function($variation) {
-        //         $variation->with([
-        //             'attributeValues' => function($attribute_value) {
-        //                 $attribute_value->with('attribute');
-        //             }
-        //         ]);
-        //     }
-        // ])
-        // ->first()->toArray();
-        $user = \Auth::user();
-        dd($user->hasPermissionTo('product_delete'));
-        return view('test');
+    public function sync() {
+        $response = Http::post('http://beautysecrets.mn/wp-json/manal/v1/test')->json();
+
+        $img = \Image::make($response[0]['images']['featured']);
+        // header('Content-Type: image/png');
+        // return $img->response();
+
+
+        $uploaded_file = Storage::disk('gcs')->put('synced/'.date('Y/m').'/test.jpg',$img->stream());
+
+
+        dump(Storage::disk('gcs')->url('synced/'.date('Y/m').'/test.jpg'));
+        dd('end');
+        if(!empty($response)) {
+            DB::beginTransaction();
+            try {
+            
+                foreach($response as $product) {
+                    $synced = DB::table('wp_product_sync')->where('wp_id', $product['id'])->first();
+
+                    if($synced)
+                        continue;
+
+                    //FIND BRAND
+                    if(isset($product['brand']) && !empty($product['brand'])) {
+                        $brand = Brand::where('name',$product['brand'])->first();
+                    }
+                    //CREATE PRODUCT
+                    $new_product = Product::create([
+                        'name'          => $product['name'],
+                        'type'          => 'simple',
+                        'regular_price' => (int) $product['regular_price'],
+                        'stock_status'  => $product['stock_status'],
+                        'stock_quantity'=> $product['stock_quantity'],
+                        'brand_id'      => ($brand) ? $brand->id : null,
+                        'sale_price'    => (int) $product['sale_price'],
+                        'data'          => $product['data'],
+                        'created_at'    => $product['created_at'],
+                        'user_id'       => auth()->user()->id,
+                    ]);
+
+                    //ASSIGN CATEGORIES
+                    if(!empty($product['categories'])) {
+                        foreach($product['categories'] as $cat_index => $category) {
+                            $product['categories'][$cat_index] = trim($category);
+                        }
+                        $cats = ProductCategory::whereIn('name', $product['categories'])->pluck('id');
+                        $new_product->productCategory()->sync($cats);
+                    }      
+                    
+                    //ASSIGN TAGS
+                    if(!empty($product['tags'])) {
+                        foreach($product['tags'] as $tag) {
+                            $tag= trim($tag);
+                            $tagObject = Tag::findOrCreate($tag, 'product', 'mn');
+                            $new_product->attachTag($tagObject);
+                        }
+                    }
+
+                    //ASSIGN ATTRIBUTES
+                    $attributes_data = [];
+                    //skin_type
+                    if(isset($product['skin_type']) && !empty($product['skin_type'])) {
+                        foreach($product['skin_type'] as $skin_type) {
+                            $skin_type = trim($skin_type);
+                            $attr = AttributeValue::where('value', $skin_type)->first();
+                            if($attr) {
+                                $attributes_data[] = [
+                                    'type'              => 'attribute',
+                                    'attribute_id'      => 2,
+                                    'attribute_name'    => 'Арьсны төрөл',
+                                    'attribute_value_id'=> $attr->id,
+                                    'attribute_value'   => $skin_type,
+                                    'use_for_variation' => 0,
+                                ];
+                            }
+                            
+                        }
+                    }
+
+                    //size 
+                    if(isset($product['size']) && !empty($product['size'])) {
+                        $attributes_data[] = [
+                            'type'                  => 'custom',
+                            'attribute_name'        => 'Хэмжээ',
+                            'attribute_value'       => $product['size'],
+                            'use_for_variation'     => 0,
+                        ];
+                    }
+
+                    $new_product->productAttributes()->createMany($attributes_data);
+
+                    //Reg to synced
+                    DB::table('wp_product_sync')->insert([
+                        'wp_id' => $product['id'],
+                        'p_id'  => $new_product->id
+                    ]);
+                    
+                    
+                }
+
+                DB::commit();
+            } catch (\Exception $e) {
+                dump($e->getMessage());
+                DB::rollback();
+            }
+
+            
+        }
+
         
     }
 

@@ -1,12 +1,12 @@
 <div>
-    <div class="d-flex flex-row" wire:ignore.self>
+    <div class="d-inline" wire:ignore.self>
         @if (!empty($files))
         
             @foreach ($files as $file_index => $file)
                 {{-- @if (in_array($file->mime_type, ['image/jpeg', 'image/png', 'image/gif'])) --}}
                     {{-- <input class="d-none" type="checkbox" value="{{ $file->id }}" id="file_{{ $file->id }}" wire:model.defer="selected_media"> --}}
     
-                    <label for="file_{{ $file->id }}" class="me-4 mb-4 h-200px w-200px overflow-hidden" >
+                    <label for="file_{{ $file->id }}" class="me-4 mb-4 h-150px w-150px overflow-hidden" >
                         <img style="height:100%; cursor:pointer" class="d-block" src="{{ $file->full_url }}" alt="{{ $file->name }}" wire:click="details({{ $file_index}})">
                     </label>
 

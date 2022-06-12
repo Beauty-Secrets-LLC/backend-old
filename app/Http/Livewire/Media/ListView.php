@@ -29,8 +29,9 @@ class ListView extends Component
     }
 
     public function details($index) {
-        $this->selected_file = $index;
+       
         $this->dispatchBrowserEvent('show-details');
+        $this->selected_file = $index;
     }
 
     function confirm_delete($id) {
@@ -40,9 +41,7 @@ class ListView extends Component
     function delete($id) {
         
         $delete = Media::find($id)->delete();
-        $this->dispatchBrowserEvent('hide-details');
-        $this->emitTo('media.list-view', '$refresh');
-      
+        $this->dispatchBrowserEvent('hide-details'); 
         
     }
 }

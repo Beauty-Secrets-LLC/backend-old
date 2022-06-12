@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use DB;
 
 class ProductCategoryController extends Controller
 {
@@ -15,7 +17,7 @@ class ProductCategoryController extends Controller
     public function index()
     {
         //
-
+        
         $category_tree = ProductCategory::get()->toTree();
         // $traverse = function ($categories, $prefix = '') use (&$traverse) {
         //     foreach ($categories as $category) {
@@ -99,5 +101,35 @@ class ProductCategoryController extends Controller
     public function destroy(ProductCategory $productCategory)
     {
         //
+    }
+
+    public function sync() {
+        // $response = Http::post('http://beautysecrets.mn/wp-json/manal/v1/test')->json();
+        // DB::beginTransaction();
+        // try {
+        //     foreach($response as $category) {
+        //         $cat = ProductCategory::create(['name' => $category['name']]);
+        //         if(!empty($category['sub'])) {
+        //             foreach($category['sub'] as $child1) {
+        //                 $child1_new = ProductCategory::create(['name' => $child1['name']]);
+        //                 $cat->appendNode($child1_new);
+
+        //                 if(!empty($child1['sub'])) {
+        //                     foreach($child1['sub'] as $child2) {
+        //                         $child2_new = ProductCategory::create(['name' => $child2['name']]);
+        //                         $child1_new->appendNode($child2_new);
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+
+
+
+        //     DB::commit();
+        // } catch (\Exception $e) {
+        //     dump($e->getMessage());
+        //     DB::rollback();
+        // }
     }
 }

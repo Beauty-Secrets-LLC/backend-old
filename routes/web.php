@@ -8,6 +8,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CustomerPointController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\VatController;
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ShopOrderController;
@@ -104,6 +105,10 @@ Route::group(['middleware' => ['auth']], function () {
 
         });
 
+        Route::group(['prefix' => 'brand'], function () {
+            Route::get('/list', [BrandController::class, 'index'])->name('brand.list');
+        }); 
+
         Route::group(['prefix' => 'category'], function () {
             Route::get('/list', [ProductCategoryController::class, 'index'])->name('product_category.list');
             Route::post('/new', [ProductCategoryController::class, 'store'])->name('product_category.new');
@@ -154,6 +159,10 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/importdata', [SubscriptionTransactionController::class, 'importdata'])->name('subscription.import_transaction');
             Route::get('/card', [SubscriptionTransactionController::class, 'get_list_by_card'])->name('card.transactions');
         });
+    });
+
+    Route::group(['prefix' => 'sync'], function () {
+        Route::get('/product', [ProductController::class, 'sync']);
     });
 
 });

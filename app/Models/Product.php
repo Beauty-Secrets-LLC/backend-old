@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Spatie\Tags\Tag;
 use Spatie\Tags\HasTags;
 use App\Models\Media;
+use DB;
 
 
 use App\Models\ProductCategory;
@@ -36,7 +37,8 @@ class Product extends Model
         'stock_status',
         'stock_quantity',
         'data',
-        'user_id'
+        'user_id',
+        'created_at'
     ];
 
     protected $appends = ['media', 'attributes'];
@@ -140,7 +142,6 @@ class Product extends Model
         //Add tags
         if(isset($data['tags']) && !empty($data['tags'])) {
             $raw_tags = json_decode($data['tags'], true);
-            $tags = [];
             foreach($raw_tags as $tag) {
                 $tagObject = Tag::findOrCreate($tag['value'], 'product', 'mn');
                 $product->attachTag($tagObject);
@@ -282,6 +283,7 @@ class Product extends Model
         });
 
         static::deleting(function($product) { 
+            DB::table('product_product_categories')->where('product_id', $product->id)->delete();
             $product->productAttributes()->delete();
             $product->productVariation()->delete();
             $product->productMedia()->delete();
