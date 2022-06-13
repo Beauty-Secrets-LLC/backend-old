@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use DB;
 
 use App\Models\ShopOrder;
+use App\Models\Coupon;
 use App\Models\ShopOrderInvoice;
 
 class ShopOrderController extends Controller
@@ -107,5 +108,47 @@ class ShopOrderController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function calculate_total(Request $request) {
+       
+        $result = [];
+        if(!empty($request->get('coupon'))) {
+            $coupon = Coupon::select('type', 'amount', 'expire_at', 'data')->where('code', $request->get('coupon'))->first();
+            if($coupon) {
+                if($coupon->type == 'percentage') {
+                    $amount = ($coupon->amount / 100 * $request->get('subtotal')) * -1;
+                }
+                elseif($coupon->type == 'fixed') {
+                    $amount = $coupon->amount * -1;
+                }
+                $result['discounts'][] = [
+                    'type'      => 'coupon',
+                    'result'    => true,
+                    'message'   => 'Купон: '.$request->get('coupon'),
+                    'amount'    => $amount,
+                    'data'      => $coupon->toArray()
+                ];
+            }
+            else {
+                $result['discounts'][] = [
+                    'type'      => 'coupon',
+                    'result'    => false,
+                    'amount'    => 0,
+                    'message'   => $request->get('coupon').' кодтой купон бүртгэлгүй'
+                ];
+            }
+        }
+
+        if(!empty($request->get('has_giftbox'))) {
+            $result['fees'][] = [
+                'type'      => 'custom',
+                'result'    => true,
+                'message'   => 'Бэлгийн хайрцагтай',
+                'amount'   => 5000
+            ];
+        }
+
+        return $result;
     }
 }

@@ -34,6 +34,8 @@ Route::post('/auth/login', [AuthController::class, 'token']);
 Route::get('p/list', [ProductApiController::class, 'index']);
 Route::get('p/id/{slug}', [ProductApiController::class, 'show']);
 
+Route::post('preorder/calculate', [ShopOrderController::class, 'calculate_total']);
+
 Route::group(['prefix' => 'cart'], function () {
 
     Route::get('add', [CartController::class, 'addCart']);
@@ -47,6 +49,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/user', function(Request $request) {
         return $request->user();
     });
+
+   
 
     Route::post('orders', [ShopOrderController::class, 'index']);
     Route::post('order/create', [ShopOrderController::class, 'store']);
