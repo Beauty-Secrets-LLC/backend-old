@@ -54,10 +54,10 @@ return [
         ],
         'gcs' => [
             'driver' => 'gcs',
-            'project_id' => env('GOOGLE_CLOUD_PROJECT_ID', 'beautys-333302'),
+            'project_id' => env('GOOGLE_CLOUD_PROJECT_ID', 'inbound-byway-353107'),
             'key_file_path' => env('GOOGLE_CLOUD_KEY_FILE', null), 
             'key_file' => [], 
-            'bucket' => env('GOOGLE_CLOUD_STORAGE_BUCKET', 'beauty_media'),
+            'bucket' => env('GOOGLE_CLOUD_STORAGE_BUCKET', 'cdn.beautysecrets.mn'),
             'path_prefix' => env('GOOGLE_CLOUD_STORAGE_PATH_PREFIX', null), 
             'storage_api_uri' => env('GOOGLE_CLOUD_STORAGE_API_URI', null), 
             'visibility' => 'public', 

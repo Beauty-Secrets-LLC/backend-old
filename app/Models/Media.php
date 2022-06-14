@@ -12,7 +12,7 @@ class Media extends Model
     use HasFactory;
     protected $table = "media";
 
-    const storage_domain = 'https://storage.googleapis.com/beauty_media/';
+    const storage_domain = 'https://cdn.beautysecrets.mn/';
 
     protected $casts = [
         'custom_properties'     => 'array',
@@ -52,6 +52,22 @@ class Media extends Model
         ]);
         return $media;
     }
+
+    public static function upload_from_url($url){
+        //dd(preg_match('/[А-Яа-яЁё]/u', $url));
+    
+        $filename = basename($url);
+        $path = 'synced/'.date('Y/m').'/'.$filename;
+        $img = \Image::make(urlencode($url));
+        dd($img);
+        $uploaded_file = Storage::disk('gcs')->put($path, $img->stream());
+        dump(Storage::disk('gcs')->size($path));
+        dd( $uploaded_file );
+
+       
+
+        return $uploaded_file;
+    } 
 
     public function attachTo($model, $model_id, $collection_name = 'default') {
         $q = MediaLookup::create([

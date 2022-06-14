@@ -210,17 +210,6 @@ class ProductController extends Controller
 
     public function sync() {
         $response = Http::post('http://beautysecrets.mn/wp-json/manal/v1/test')->json();
-
-        $img = \Image::make($response[0]['images']['featured']);
-        // header('Content-Type: image/png');
-        // return $img->response();
-
-
-        $uploaded_file = Storage::disk('gcs')->put('synced/'.date('Y/m').'/test.jpg',$img->stream());
-
-
-        dump(Storage::disk('gcs')->url('synced/'.date('Y/m').'/test.jpg'));
-        dd('end');
         if(!empty($response)) {
             DB::beginTransaction();
             try {
@@ -234,7 +223,7 @@ class ProductController extends Controller
                     //FIND BRAND
                     if(isset($product['brand']) && !empty($product['brand'])) {
                         $brand = Brand::where('name',$product['brand'])->first();
-                    }
+                    }         
                     //CREATE PRODUCT
                     $new_product = Product::create([
                         'name'          => $product['name'],
@@ -248,6 +237,53 @@ class ProductController extends Controller
                         'created_at'    => $product['created_at'],
                         'user_id'       => auth()->user()->id,
                     ]);
+
+                    //IMAGE UPLOADS  
+                    //FEATURED
+                    if(!empty($product['images']['featured'])) {
+
+                        if(!preg_match('/[А-Яа-яЁё]/u', $product['images']['featured'])) {
+                            $img = \Image::make($product['images']['featured']);
+                            $filename = basename($product['images']['featured']);
+                            $path = 'synced/'.date('Y/m').'/'.$filename;
+                            $uploaded_file = Storage::disk('gcs')->put($path, $img->stream());
+                            $featured = Media::create([
+                                'name'              => $filename,
+                                'url'               => $path,
+                                'full_url'          => Media::storage_domain.$path,
+                                'mime_type'         => $img->mime,
+                                'size'              => Storage::disk('gcs')->size($path),
+                                'custom_properties' => null,
+                                'responsive_images' => null,
+                                'user_id'           => auth()->user()->id
+                            ]);
+                            $featured->attachTo('App\Models\Product',$new_product->id, 'featured_image' );
+                        }
+                        
+                    }
+
+                    //GALLERY
+                    if(!empty($product['images']['gallery'])) {
+                        foreach($product['images']['gallery'] as $gallery) {
+                            if(!preg_match('/[А-Яа-яЁё]/u', $gallery)) {
+                                $img_gallery = \Image::make($gallery);
+                                $filename_gallery = basename($gallery);
+                                $path_gallery = 'synced/'.date('Y/m').'/'.$filename_gallery;
+                                $uploaded_gallery = Storage::disk('gcs')->put($path_gallery, $img_gallery->stream());
+                                $gallery_img = Media::create([
+                                    'name'              => $filename_gallery,
+                                    'url'               => $path_gallery,
+                                    'full_url'          => Media::storage_domain.$path_gallery,
+                                    'mime_type'         => $img_gallery->mime,
+                                    'size'              => Storage::disk('gcs')->size($path_gallery),
+                                    'custom_properties' => null,
+                                    'responsive_images' => null,
+                                    'user_id'           => auth()->user()->id
+                                ]);
+                                $gallery_img->attachTo('App\Models\Product',$new_product->id, 'gallery_image' );
+                            }
+                        }
+                    }
 
                     //ASSIGN CATEGORIES
                     if(!empty($product['categories'])) {

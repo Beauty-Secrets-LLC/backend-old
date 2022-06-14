@@ -47,6 +47,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['prefix' => 'media'], function () {
 
+        Route::get('/uploadfromurl', [MediaController::class, 'upload_from_url'])->name('media.uploadFromUrl'); 
         Route::get('/list', [MediaController::class, 'index'])->name('media.list'); 
         Route::post('/upload', [MediaController::class, 'upload'])->name('media.upload'); 
     });

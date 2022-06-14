@@ -91,4 +91,10 @@ class MediaController extends Controller
         $file = $disk->put('images', $request->file('file'), $request->file('file')->getClientOriginalName());
         return $file;
     }
+
+    public function upload_from_url() {
+        $url = 'https:\/\/beautysecrets.mn\/wp-content\/uploads\/2022\/05\/Өсвөр-нас-Хар-батга-арчилгааны-багц.jpg';
+        $upload = Media::upload_from_url($url);
+        dd( $upload );
+    }
 }
