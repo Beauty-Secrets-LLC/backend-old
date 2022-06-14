@@ -79,7 +79,7 @@ class Product extends Model
         if($media_lookup->count() > 0) {
             $result = array();
             foreach($media_lookup as $media) {
-                $result[$media['collection_name']][] = $media['media']['url'];
+                $result[$media['collection_name']][] = $media['media']['full_url'];
             }
 
             return $result;

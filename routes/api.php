@@ -9,6 +9,9 @@ use App\Http\Controllers\API\CartController;
 use App\Http\Controllers\API\ProductApiController;
 use App\Http\Controllers\API\QpayController;
 
+use App\Http\Controllers\API\OrderController;
+use App\Http\Controllers\API\CustomerController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -31,6 +34,7 @@ use App\Http\Controllers\API\QpayController;
 
 // Frontend ROUTES
 Route::post('/auth/login', [AuthController::class, 'token']);
+
 Route::get('p/list', [ProductApiController::class, 'index']);
 Route::get('p/id/{slug}', [ProductApiController::class, 'show']);
 
@@ -50,9 +54,13 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         return $request->user();
     });
 
-   
+    Route::post('/auth/logout', [AuthController::class, 'logout']);
+
+    Route::get('/customer/addresses', [CustomerController::class, 'addresses']);
+    Route::get('/checkout/address', [OrderController::class, 'getAddress']);
 
     Route::post('orders', [ShopOrderController::class, 'index']);
+    Route::get('orders', [OrderController::class, 'list']);
     Route::post('order/create', [ShopOrderController::class, 'store']);
     Route::post('order/{id}', [ShopOrderController::class, 'show']);
 
