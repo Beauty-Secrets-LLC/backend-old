@@ -5,16 +5,20 @@ namespace App\Http\Livewire\Product;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Product;
+use App\Models\ProductCategory;
+use App\Models\Brand;
 
 class ListTable extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
-    protected $listeners = ['$refresh','deleteProducts' => 'delete_product'];
+    protected $listeners = ['$refresh','deleteProducts' => 'delete_product', 'set:categories'=>'setCategories'];
     public $search = '';
     public $selectPage = false;
-    public $filters = ['status' => ''];
+    public $filters = ['status' => '', 'brand'=> '', 'categories' => ''];
     public $checked_products = [];
+    public $brands;
+    public $categories;
 
     public function getProductsProperty() {
         return Product::with([
@@ -32,9 +36,22 @@ class ListTable extends Component
                 $q->where('status', $status);
             }
         })
+        ->when($this->filters['brand'], fn($q, $brand) => $q->where('brand_id', $brand))
+        ->when($this->filters['categories'], function($q, $categories) {  
+            $q->whereHas('productCategory', function($cats) use($categories) {
+                $cats->where(function($c) use($categories){
+                    $c->where('product_categories.id', $categories);
+                });
+            });
+        })
         ->where('name', 'like', '%'.$this->search.'%')
         ->orderby('created_at', 'DESC')
         ->paginate(10);
+    }
+
+    public function mount() {
+        $this->brands = Brand::pluck('name', 'id');
+        $this->categories = ProductCategory::get()->toArray();
     }
 
     public function render() {
@@ -46,6 +63,10 @@ class ListTable extends Component
 
     public function resetFilters() { $this->reset(['search', 'filters']); }
 
+    public function updatedFilters() {
+        $this->resetPage();
+    }
+
     public function updatedSelectPage($value) {
         $this->checked_products = ($value) ? $this->products->pluck('id')->map(fn($id) => (string) $id) : [];
     }
@@ -56,6 +77,10 @@ class ListTable extends Component
             'html' => 'Та сонгосон '.count( $this->checked_products).' бүтээгдэхүүнийг устгах гэж байна уу ?',
             'products' => $this->checked_products
         ]);
+    }
+
+    public function setCategories($ids) {
+        $this->filters['categories'] = (!empty($ids)) ? $ids : '';
     }
 
     public function delete_product($ids) {

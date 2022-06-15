@@ -24,7 +24,6 @@ class ProductController extends Controller
     public function index()
     {
         //
-        $product_categories = ProductCategory::get()->toTree()->toArray();
         return view('products.list');
     }
 
@@ -208,7 +207,7 @@ class ProductController extends Controller
     }
 
     public function sync() {
-        $response = Http::post('http://beautysecrets.mn/wp-json/manal/v1/test')->json();
+        $response = Http::post('http://beautysecrets.mn/wp-json/manal/v1/test?limit=10&page=7')->json();
         
         if(!empty($response)) {
             DB::beginTransaction();

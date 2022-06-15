@@ -1,6 +1,6 @@
 <div class="card card-flush">
     <!--begin::Card header-->
-    <div class="card-header border-0 pt-6">
+    <div class="card-header border-0 pt-6" wire:ignore>
         <!--begin::Card title-->
         <div class="card-title">
             <!--begin::Search-->
@@ -28,9 +28,10 @@
                 <!--begin::Group actions-->
                 <div class="d-flex justify-content-end align-items-center">
                     <div class="fw-bolder me-5">
-                
-                        <button class="btn btn-danger" wire:click="deleteChecked()">Сонгосон {{count($checked_products)}} бүтээгдэхүүнийг устгах</button>
+                        <span class="me-2">{{count($checked_products)}}</span>бүтээгдэхүүн сонгогдсон
                     </div>
+                    <button class="btn btn-danger" wire:click="deleteChecked()">Устгах</button>
+       
 
                 </div>
                 <!--end::Group actions-->
@@ -62,7 +63,20 @@
                         <!--begin::Content-->
                         <div class="px-7 py-5">
                             <!--begin::Input group-->
-                            <div class="mb-10">
+                            <div class="mb-5">
+                                <label class="form-label fs-6 fw-bold">Ангилал:</label>
+                                <select id="filter_categories" class="form-select form-select-solid fw-bolder" data-kt-select2="true" data-placeholder="Сонгох" data-hide-search="true" data-allow-clear="true" >
+                                    <option value="">Бүгд</option>
+                                    @if (!empty($categories))
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category['id'] }}">{{ $category['name'] }}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="mb-5">
                                 <label class="form-label fs-6 fw-bold">Төлөв:</label>
                                 <select wire:model="filters.status"  class="form-select form-select-solid fw-bolder" >
                                     <option value="">Бүгд</option>
@@ -72,26 +86,22 @@
                                     <option value="trashed">Хогийн саванд</option>
                                 </select>
                             </div>
-                            <!--end::Input group-->
-                            <!--begin::Input group-->
-                            {{-- <div class="mb-10">
-                                <label class="form-label fs-6 fw-bold">Ангилал:</label>
-                                <select id="filter_categories" class="form-select form-select-solid fw-bolder" data-kt-select2="true" data-placeholder="Ангилал сонгох" data-allow-clear="true" data-hide-search="true" multiple >
+
+                            <div class="mb-5">
+                                <label class="form-label fs-6 fw-bold">Бренд:</label>
+                                <select wire:model="filters.brand"  class="form-select form-select-solid fw-bolder" >
                                     <option value="">Бүгд</option>
-                                    @if (!empty($product_categories))
-                                        @foreach ($product_categories as $category)
-                                            <option value="{{ $category['id'] }}">{{ $category['name'] }}</option>
+                                    @if (!empty($brands))
+                                        @foreach ($brands as $brand_id => $brand)
+                                            <option value="{{ $brand_id }}">{{ $brand }}</option>
                                         @endforeach
                                     @endif
                                 </select>
-                            </div> --}}
-                            <!--end::Input group-->
-                            <!--begin::Actions-->
-                            <div class="d-flex justify-content-end">
-                                <button type="reset" class="btn btn-light btn-active-light-primary fw-bold me-2 px-6" data-kt-menu-dismiss="true" data-kt-subscription-table-filter="reset">Цуцлах</button>
-                                <button type="button" id="apply_filter" class="btn btn-primary fw-bold px-6" data-kt-menu-dismiss="true">Шүүж харах</button>
                             </div>
-                            <!--end::Actions-->
+
+                            <!--end::Input group-->
+                            
+                           
                         </div>
                         <!--end::Content-->
                     </div>
@@ -137,11 +147,11 @@
                         </div>
                     </th>
                     <th>Нэр</th>
+                    <th>Үнэ</th>
                     <th>Төлөв</th>
                     {{-- <th class="w-200px">Ангилал</th>
                     <th>#Tag</th> --}}
-                    <th>Нэмэгдсэн</th>
-                    <th></th>
+                    <th  class="text-end">Нэмэгдсэн</th>
                 </tr>
             </thead>
             <tbody class="text-gray-600 fw-bold">
@@ -153,14 +163,14 @@
                         <td>
                            
                             <div class="d-flex align-items-center">
-                                <div class="symbol symbol-65px me-5">
-                                    <img  src="{{ (isset($product->productMedia[0])) ? $product->productMedia[0]->media->responsive_images['thumbnail']['full_url'] : asset('assets/media/products/no_image_product.png') }}" alt="" class="">
+                                <div class="symbol symbol-65px  me-5">
+                                    <img  src="{{ (isset($product->productMedia[0])) ? $product->productMedia[0]->media->responsive_images['thumbnail']['full_url'] : asset('assets/media/products/no_image_product.png') }}" alt="" class="border">
                                 </div>
                                 <div class="d-flex justify-content-start flex-column">
                                     <a href="{{ route('product.view', $product->slug) }}" class="text-dark fw-bolder text-hover-primary fs-6">{{ $product->name }}</a>
                                     @isset($product->brand->name)
                                         <span class="text-muted text-muted d-block fs-7">
-                                            Бренд: {{ $product->brand->name }}
+                                            {{ $product->brand->name }}
                                         </span>
                                     @endisset
                                     
@@ -168,6 +178,9 @@
                             </div>
 
                        
+                        </td>
+                        <td>
+                            {{ number_format($product->regular_price) }}₮
                         </td>
                         <td>
                             @if (is_null($product->deleted_at))
@@ -197,8 +210,7 @@
                                 @endforeach
                             @endif
                         </td> --}}
-                        <td>{{ $product->created_at}}</td>
-                        <td></td>
+                        <td class="text-end">{{ $product->created_at}}</td>
                     </tr>
                 @empty
                     <tr>
@@ -209,7 +221,7 @@
                 @endforelse
             </tbody>
         </table>
-
+        {{ $products->total() }}
         {{$products->links() }}
     </div>
     <!--end::Card body-->
@@ -218,7 +230,9 @@
 @push('js')
     <script>
 
-        
+        $('#filter_categories').on('change', function () {
+            Livewire.emit('set:categories', $(this).val());
+        });
         window.addEventListener('swal:deleteProducts', function(event) {
             Swal.fire({
                 title: event.detail.title,
