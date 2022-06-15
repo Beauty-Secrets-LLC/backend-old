@@ -87,8 +87,8 @@
         </div>
     @endif
     
-    
-    <div class="card card-flush">
+    <livewire:product.list-table />
+    {{-- <div class="card card-flush">
         <!--begin::Card header-->
         <div class="card-header border-0 pt-6">
             <!--begin::Card title-->
@@ -207,6 +207,7 @@
             <!--end::Card toolbar-->
         </div>
         <!--end::Card header-->
+       
         <!--begin::Card body-->
         <div class="card-body pt-0">
             <table id="product_table" class="table table-row-bordered gy-5">
@@ -226,124 +227,120 @@
             </table>
         </div>
         <!--end::Card body-->
-    </div>
-@endsection
-
-@section('styles')
-    <meta name="_token" content="{{ csrf_token() }}">
+    </div> --}}
 @endsection
 
 @section('scripts')
     <script>
-        var product_table  = $("#product_table").DataTable({
-            responsive: true,
-            processing: true,
-            serverSide: true,
-            deferRender: true,
-            pageLength: 50,
-            language: {
-                search: "Хайлт:",
-                infoFiltered: "",
-                processing: "Түр хүлээнэ үү ...",
-                info:           "Нийт: _TOTAL_ | _START_ - _END_ харуулж байна",
-            },
-            oLanguage: {
-                sLengthMenu: "_MENU_",
-                sLoadingRecords: "Түр хүлээнэ үү ...",
-                sZeroRecords: "Тохирох хүсэлт олдсонгүй"
-            },
-            ajax: {
-                url: "{{ route('products.json') }}",
-                type: 'GET',
-                dataType: "json",
-                data: function(d) {  
-                    /* FILTER BOX */    
-                    d.search_key    = jQuery('#search_key').val();           
-                    d.status        = jQuery('#filter_status').val();           
-                    d.categories    = jQuery('#filter_categories').val();           
-                },
-            },
-            columns: [
-                { data: 'id' },
-                { data: 'name' },
-                { data: 'status' },
-                { data: 'product_category' },
-                { data: 'created_at' },
-                { data: null },
-            ],
-            columnDefs: [
-                {
-                    orderable: false,
-                    targets:   0,
-                    render: function(data,type,full,meta) {
-                        return '<div class="form-check form-check-sm form-check-custom form-check-solid"><input class="form-check-input" type="checkbox" value="'+data+'"></div>'
-                    }
-                },
-                {
-                    targets: 1,
-                    render: function(data, type, full, meta) {
-                        return '<a class="text-gray-800 text-hover-primary fs-5 fw-bolder" href="/shop/product/'+full.slug+'">'+data+'</a>';
-                    }
-                },
-                {
-                    targets: 2,
-                    render: function(data, type, full, meta) {
-                        var status = '';
-                        if($.trim(full.deleted_at) == '') {
-                            if(data == 1) {
-                                status = '<div class="badge badge-light-success">Идэвхитэй</div>';
-                            }
-                            else if(data == 2) {
-                                status = '<div class="badge badge-light-warning">Ноорог</div>';
-                            }
-                            else if(data == 3) {
-                                status = '<div class="badge badge-light-danger">Идэвхигүй</div>';
-                            }
-                            else if(data == 1) {
+        // var product_table  = $("#product_table").DataTable({
+        //     responsive: true,
+        //     processing: true,
+        //     serverSide: true,
+        //     deferRender: true,
+        //     pageLength: 50,
+        //     language: {
+        //         search: "Хайлт:",
+        //         infoFiltered: "",
+        //         processing: "Түр хүлээнэ үү ...",
+        //         info:           "Нийт: _TOTAL_ | _START_ - _END_ харуулж байна",
+        //     },
+        //     oLanguage: {
+        //         sLengthMenu: "_MENU_",
+        //         sLoadingRecords: "Түр хүлээнэ үү ...",
+        //         sZeroRecords: "Тохирох хүсэлт олдсонгүй"
+        //     },
+        //     ajax: {
+        //         url: "{{ route('products.json') }}",
+        //         type: 'GET',
+        //         dataType: "json",
+        //         data: function(d) {  
+        //             /* FILTER BOX */    
+        //             d.search_key    = jQuery('#search_key').val();           
+        //             d.status        = jQuery('#filter_status').val();           
+        //             d.categories    = jQuery('#filter_categories').val();           
+        //         },
+        //     },
+        //     columns: [
+        //         { data: 'id' },
+        //         { data: 'name' },
+        //         { data: 'status' },
+        //         { data: 'product_category' },
+        //         { data: 'created_at' },
+        //         { data: null },
+        //     ],
+        //     columnDefs: [
+        //         {
+        //             orderable: false,
+        //             targets:   0,
+        //             render: function(data,type,full,meta) {
+        //                 return '<div class="form-check form-check-sm form-check-custom form-check-solid"><input class="form-check-input" type="checkbox" value="'+data+'"></div>'
+        //             }
+        //         },
+        //         {
+        //             targets: 1,
+        //             render: function(data, type, full, meta) {
+        //                 return '<a class="text-gray-800 text-hover-primary fs-5 fw-bolder" href="/shop/product/'+full.slug+'">'+data+'</a>';
+        //             }
+        //         },
+        //         {
+        //             targets: 2,
+        //             render: function(data, type, full, meta) {
+        //                 var status = '';
+        //                 if($.trim(full.deleted_at) == '') {
+        //                     if(data == 1) {
+        //                         status = '<div class="badge badge-light-success">Идэвхитэй</div>';
+        //                     }
+        //                     else if(data == 2) {
+        //                         status = '<div class="badge badge-light-warning">Ноорог</div>';
+        //                     }
+        //                     else if(data == 3) {
+        //                         status = '<div class="badge badge-light-danger">Идэвхигүй</div>';
+        //                     }
+        //                     else if(data == 1) {
 
-                            }
-                        } 
-                        else {
-                            status = '<div class="badge badge-light-danger">Устгагдсан</div>';
-                        }
+        //                     }
+        //                 } 
+        //                 else {
+        //                     status = '<div class="badge badge-light-danger">Устгагдсан</div>';
+        //                 }
                         
-                        return status;
-                    }
-                },
-                {
-                    targets: 3,
-                    render: function(data, type, full, meta) {
-                        var output = '';
-                        $.each(data, function (key, value) {
-                            output += '<a href=""  class="badge badge-light me-1 mb-2" >' + value.name + '</a> ';
-                        });
+        //                 return status;
+        //             }
+        //         },
+        //         {
+        //             targets: 3,
+        //             render: function(data, type, full, meta) {
+        //                 var output = '';
+        //                 $.each(data, function (key, value) {
+        //                     output += '<a href=""  class="badge badge-light me-1 mb-2" >' + value.name + '</a> ';
+        //                 });
 
-                        return output;
-                    }
-                },
+        //                 return output;
+        //             }
+        //         },
 
-                {
-                    targets: 5,
-                    render: function(data, type, full, meta) {
-                        var is_deleted = ($.trim(full.deleted_at) != '') ? true : false;
-                        var delete_btn = (is_deleted) ? '<button onclick="productDelete(this)" value="'+full.id+'" data-title="'+full.name+'" class="btn btn-sm btn-light btn-active-light-primary" >Бүр устгах</button>' : '<button onclick="productDelete(this)" value="'+full.id+'" data-title="'+full.name+'" class="btn btn-sm btn-light btn-active-light-primary" >Устгах</button>';
-                        var restore_btn = (is_deleted) ? '<button onclick="productRestore(this)"  class="btn btn-sm btn-light btn-active-light-primary" value="'+full.id+'"  data-title="'+full.name+'">Сэргээх</button>' : '';
-                        return restore_btn + delete_btn;
-                    }
-                }
-            ]
-        });
+        //         {
+        //             targets: 5,
+        //             render: function(data, type, full, meta) {
+        //                 var is_deleted = ($.trim(full.deleted_at) != '') ? true : false;
+        //                 var delete_btn = (is_deleted) ? '<button onclick="productDelete(this)" value="'+full.id+'" data-title="'+full.name+'" class="btn btn-sm btn-light btn-active-light-primary" >Бүр устгах</button>' : '<button onclick="productDelete(this)" value="'+full.id+'" data-title="'+full.name+'" class="btn btn-sm btn-light btn-active-light-primary" >Устгах</button>';
+        //                 var restore_btn = (is_deleted) ? '<button onclick="productRestore(this)"  class="btn btn-sm btn-light btn-active-light-primary" value="'+full.id+'"  data-title="'+full.name+'">Сэргээх</button>' : '';
+        //                 return restore_btn + delete_btn;
+        //             }
+        //         }
+        //     ]
+        // });
 
 
-        //Хайлт хийх талбар өөрчлөгдөх үед
-        jQuery('#search_key').change(function(){
-            product_table.draw();
-        });
+        // //Хайлт хийх талбар өөрчлөгдөх үед
+        // jQuery('#search_key').change(function(){
+        //     product_table.draw();
+        // });
 
-        jQuery('#apply_filter').click(function(){
-            product_table.draw();
-        });
+        // jQuery('#apply_filter').click(function(){
+        //     product_table.draw();
+        // });
         
     </script>
-    <script src="{{ asset('assets/js/custom/apps/products/list.js') }}"></script>
+    {{-- <script src="{{ asset('assets/js/custom/apps/products/list.js') }}"></script> --}}
 @endsection

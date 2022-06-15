@@ -24,9 +24,8 @@ class ProductController extends Controller
     public function index()
     {
         //
-        $products = Product::get_products();
         $product_categories = ProductCategory::get()->toTree()->toArray();
-        return view('products.list', compact('product_categories'));
+        return view('products.list');
     }
 
 
@@ -210,20 +209,28 @@ class ProductController extends Controller
 
     public function sync() {
         $response = Http::post('http://beautysecrets.mn/wp-json/manal/v1/test')->json();
+        
         if(!empty($response)) {
             DB::beginTransaction();
             try {
             
                 foreach($response as $product) {
+
                     $synced = DB::table('wp_product_sync')->where('wp_id', $product['id'])->first();
 
                     if($synced)
                         continue;
 
                     //FIND BRAND
+                    $brand_id = null;
                     if(isset($product['brand']) && !empty($product['brand'])) {
                         $brand = Brand::where('name',$product['brand'])->first();
-                    }         
+                        if($brand) {
+                            $brand_id = $brand->id;
+                        }
+                    }       
+                    
+         
                     //CREATE PRODUCT
                     $new_product = Product::create([
                         'name'          => $product['name'],
@@ -231,7 +238,7 @@ class ProductController extends Controller
                         'regular_price' => (int) $product['regular_price'],
                         'stock_status'  => $product['stock_status'],
                         'stock_quantity'=> $product['stock_quantity'],
-                        'brand_id'      => ($brand) ? $brand->id : null,
+                        'brand_id'      => $brand_id,
                         'sale_price'    => (int) $product['sale_price'],
                         'data'          => $product['data'],
                         'created_at'    => $product['created_at'],
@@ -241,47 +248,17 @@ class ProductController extends Controller
                     //IMAGE UPLOADS  
                     //FEATURED
                     if(!empty($product['images']['featured'])) {
-
-                        if(!preg_match('/[А-Яа-яЁё]/u', $product['images']['featured'])) {
-                            $img = \Image::make($product['images']['featured']);
-                            $filename = basename($product['images']['featured']);
-                            $path = 'synced/'.date('Y/m').'/'.$filename;
-                            $uploaded_file = Storage::disk('gcs')->put($path, $img->stream());
-                            $featured = Media::create([
-                                'name'              => $filename,
-                                'url'               => $path,
-                                'full_url'          => Media::storage_domain.$path,
-                                'mime_type'         => $img->mime,
-                                'size'              => Storage::disk('gcs')->size($path),
-                                'custom_properties' => null,
-                                'responsive_images' => null,
-                                'user_id'           => auth()->user()->id
-                            ]);
+                        $featured = Media::upload_from_url($product['images']['featured']);
+                        if($featured)
                             $featured->attachTo('App\Models\Product',$new_product->id, 'featured_image' );
-                        }
-                        
                     }
 
                     //GALLERY
                     if(!empty($product['images']['gallery'])) {
                         foreach($product['images']['gallery'] as $gallery) {
-                            if(!preg_match('/[А-Яа-яЁё]/u', $gallery)) {
-                                $img_gallery = \Image::make($gallery);
-                                $filename_gallery = basename($gallery);
-                                $path_gallery = 'synced/'.date('Y/m').'/'.$filename_gallery;
-                                $uploaded_gallery = Storage::disk('gcs')->put($path_gallery, $img_gallery->stream());
-                                $gallery_img = Media::create([
-                                    'name'              => $filename_gallery,
-                                    'url'               => $path_gallery,
-                                    'full_url'          => Media::storage_domain.$path_gallery,
-                                    'mime_type'         => $img_gallery->mime,
-                                    'size'              => Storage::disk('gcs')->size($path_gallery),
-                                    'custom_properties' => null,
-                                    'responsive_images' => null,
-                                    'user_id'           => auth()->user()->id
-                                ]);
+                            $gallery_img = Media::upload_from_url($gallery);
+                            if($gallery_img)
                                 $gallery_img->attachTo('App\Models\Product',$new_product->id, 'gallery_image' );
-                            }
                         }
                     }
 

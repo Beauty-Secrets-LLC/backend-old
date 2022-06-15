@@ -19,7 +19,7 @@ class ProductApiController extends Controller
                     break;
                 
                 default:
-                    $products = Product::get_items_latest($request);
+                    $products =[ Product::get_items_latest($request)];
                     break;
             }
 

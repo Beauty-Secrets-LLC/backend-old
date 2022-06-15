@@ -37,6 +37,7 @@ class Product extends Model
         'stock_status',
         'stock_quantity',
         'data',
+        'brand_id',
         'user_id',
         'created_at'
     ];
@@ -52,6 +53,11 @@ class Product extends Model
     /* STOCK STATUSES */
     const STOCK_INSTOCK = 1;
     const STOCK_OUTOFSTOCK = 0;
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
 
     public function productCategory()
     {
@@ -75,28 +81,33 @@ class Product extends Model
 
     public function getMediaAttribute()
     {
-        $media_lookup = MediaLookup::with('media')->where('model_type', self::class)->where('model_id', $this->id)->get();
-        if($media_lookup->count() > 0) {
-            $result = array();
-            foreach($media_lookup as $media) {
-                $result[$media['collection_name']][] = $media['media']['full_url'];
-            }
+        // $media_lookup = MediaLookup::with('media')->where('model_type', self::class)->where('model_id', $this->id)->get();
+        // if($media_lookup->count() > 0) {
+        //     $result = array();
+        //     foreach($media_lookup as $media) {
+        //         $result[$media['collection_name']]['full_size'] = $media['media']['full_url'];
+        //         if(!empty($media['media']['responsive_images'])) {
+        //             foreach($media['media']['responsive_images'] as $size => $responsive_image) {
+        //                 $result[$media['collection_name']][$size] = $responsive_image['full_url'];
+        //             }
+        //         }
+        //     }
 
-            return $result;
-        }
-        return null;
+        //     return $result;
+        // }
+        // return null;
     }
 
     public function getAttributesAttribute()
     {
-        $result = null;
-        $attrs = ProductAttributeValue::where('product_id', $this->id)->get();
-        if($attrs->count() > 0) {
-            foreach($attrs as $attr) {
-                $result[$attr['attribute_name']][] = $attr['attribute_value'];
-            }
-        }
-        return $result;
+        // $result = null;
+        // $attrs = ProductAttributeValue::where('product_id', $this->id)->get();
+        // if($attrs->count() > 0) {
+        //     foreach($attrs as $attr) {
+        //         $result[$attr['attribute_name']][] = $attr['attribute_value'];
+        //     }
+        // }
+        // return $result;
     }
 
 
@@ -299,12 +310,14 @@ class Product extends Model
 
     public static function get_items_latest($request)
     {
-
         $query = Product::with([
+            'productMedia' => function($media) {
+                $media->with('media')->where('collection_name', 'featured_image');
+            },
             'productCategory',
             'tags',
             'productVariation'
-        ]);
+        ])->limit(10);
 
         return $query->orderBy('created_at', 'desc')->get();
 
