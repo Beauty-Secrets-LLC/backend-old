@@ -1,6 +1,6 @@
 <div class="card card-flush">
     <!--begin::Card header-->
-    <div class="card-header border-0 pt-6" wire:ignore>
+    <div class="card-header border-0 pt-6">
         <!--begin::Card title-->
         <div class="card-title">
             <!--begin::Search-->
@@ -24,113 +24,104 @@
         
         <!--begin::Card toolbar-->
         <div class="card-toolbar">
-            @if (!empty($checked_products))
-                <!--begin::Group actions-->
-                <div class="d-flex justify-content-end align-items-center">
-                    <div class="fw-bolder me-5">
-                        <span class="me-2">{{count($checked_products)}}</span>бүтээгдэхүүн сонгогдсон
+            <!--begin::Toolbar-->
+            <div class="d-flex justify-content-end" data-kt-product-table-toolbar="base" wire:ignore>
+                <!--begin::Filter-->
+                <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">
+                <!--begin::Svg Icon | path: icons/duotone/Text/Filter.svg-->
+                <span class="svg-icon svg-icon-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <rect x="0" y="0" width="24" height="24" />
+                            <path d="M5,4 L19,4 C19.2761424,4 19.5,4.22385763 19.5,4.5 C19.5,4.60818511 19.4649111,4.71345191 19.4,4.8 L14,12 L14,20.190983 C14,20.4671254 13.7761424,20.690983 13.5,20.690983 C13.4223775,20.690983 13.3458209,20.6729105 13.2763932,20.6381966 L10,19 L10,12 L4.6,4.8 C4.43431458,4.5790861 4.4790861,4.26568542 4.7,4.1 C4.78654809,4.03508894 4.89181489,4 5,4 Z" fill="#000000" />
+                        </g>
+                    </svg>
+                </span>
+                <!--end::Svg Icon-->Шүүлт</button>
+                <!--begin::Menu 1-->
+                <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
+                    <!--begin::Header-->
+                    <div class="px-7 py-5">
+                        <div class="fs-5 text-dark fw-bolder">Шүүх талбарууд</div>
                     </div>
-                    <button class="btn btn-danger" wire:click="deleteChecked()">Устгах</button>
-       
-
-                </div>
-                <!--end::Group actions-->
-            @else 
-                <!--begin::Toolbar-->
-                <div class="d-flex justify-content-end" data-kt-product-table-toolbar="base">
-                    <!--begin::Filter-->
-                    <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">
-                    <!--begin::Svg Icon | path: icons/duotone/Text/Filter.svg-->
-                    <span class="svg-icon svg-icon-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                <rect x="0" y="0" width="24" height="24" />
-                                <path d="M5,4 L19,4 C19.2761424,4 19.5,4.22385763 19.5,4.5 C19.5,4.60818511 19.4649111,4.71345191 19.4,4.8 L14,12 L14,20.190983 C14,20.4671254 13.7761424,20.690983 13.5,20.690983 C13.4223775,20.690983 13.3458209,20.6729105 13.2763932,20.6381966 L10,19 L10,12 L4.6,4.8 C4.43431458,4.5790861 4.4790861,4.26568542 4.7,4.1 C4.78654809,4.03508894 4.89181489,4 5,4 Z" fill="#000000" />
-                            </g>
-                        </svg>
-                    </span>
-                    <!--end::Svg Icon-->Шүүлт</button>
-                    <!--begin::Menu 1-->
-                    <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
-                        <!--begin::Header-->
-                        <div class="px-7 py-5">
-                            <div class="fs-5 text-dark fw-bolder">Шүүх талбарууд</div>
+                    <!--end::Header-->
+                    <!--begin::Separator-->
+                    <div class="separator border-gray-200"></div>
+                    <!--end::Separator-->
+                    <!--begin::Content-->
+                    <div class="px-7 py-5">
+                        <!--begin::Input group-->
+                        <div class="mb-5">
+                            <label class="form-label fs-6 fw-bold">Ангилал:</label>
+                            <select id="filter_categories" class="form-select form-select-solid fw-bolder" data-kt-select2="true" data-placeholder="Сонгох" data-hide-search="true" data-allow-clear="true" >
+                                <option value="">Бүгд</option>
+                                @if (!empty($categories))
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category['id'] }}">{{ $category['name'] }}</option>
+                                    @endforeach
+                                @endif
+                            </select>
                         </div>
-                        <!--end::Header-->
-                        <!--begin::Separator-->
-                        <div class="separator border-gray-200"></div>
-                        <!--end::Separator-->
-                        <!--begin::Content-->
-                        <div class="px-7 py-5">
-                            <!--begin::Input group-->
-                            <div class="mb-5">
-                                <label class="form-label fs-6 fw-bold">Ангилал:</label>
-                                <select id="filter_categories" class="form-select form-select-solid fw-bolder" data-kt-select2="true" data-placeholder="Сонгох" data-hide-search="true" data-allow-clear="true" >
-                                    <option value="">Бүгд</option>
-                                    @if (!empty($categories))
-                                        @foreach ($categories as $category)
-                                            <option value="{{ $category['id'] }}">{{ $category['name'] }}</option>
-                                        @endforeach
-                                    @endif
-                                </select>
-                            </div>
-                            <!--end::Input group-->
-                            <!--begin::Input group-->
-                            <div class="mb-5">
-                                <label class="form-label fs-6 fw-bold">Төлөв:</label>
-                                <select wire:model="filters.status"  class="form-select form-select-solid fw-bolder" >
-                                    <option value="">Бүгд</option>
-                                    <option value="1">Идэвхитэй</option>
-                                    <option value="2">Ноорог</option>
-                                    <option value="3">Идэвхигүй</option>
-                                    <option value="trashed">Хогийн саванд</option>
-                                </select>
-                            </div>
-
-                            <div class="mb-5">
-                                <label class="form-label fs-6 fw-bold">Бренд:</label>
-                                <select wire:model="filters.brand"  class="form-select form-select-solid fw-bolder" >
-                                    <option value="">Бүгд</option>
-                                    @if (!empty($brands))
-                                        @foreach ($brands as $brand_id => $brand)
-                                            <option value="{{ $brand_id }}">{{ $brand }}</option>
-                                        @endforeach
-                                    @endif
-                                </select>
-                            </div>
-
-                            <!--end::Input group-->
-                            
-                           
+                        <!--end::Input group-->
+                        <!--begin::Input group-->
+                        <div class="mb-5">
+                            <label class="form-label fs-6 fw-bold">Төлөв:</label>
+                            <select wire:model="filters.status"  class="form-select form-select-solid fw-bolder" >
+                                <option value="">Бүгд</option>
+                                <option value="1">Идэвхитэй</option>
+                                <option value="2">Ноорог</option>
+                                <option value="3">Идэвхигүй</option>
+                                <option value="trashed">Хогийн саванд</option>
+                            </select>
                         </div>
-                        <!--end::Content-->
+
+                        <div class="mb-5">
+                            <label class="form-label fs-6 fw-bold">Бренд:</label>
+                            <select wire:model="filters.brand"  class="form-select form-select-solid fw-bolder" >
+                                <option value="">Бүгд</option>
+                                @if (!empty($brands))
+                                    @foreach ($brands as $brand_id => $brand)
+                                        <option value="{{ $brand_id }}">{{ $brand }}</option>
+                                    @endforeach
+                                @endif
+                            </select>
+                        </div>
+
+                        <!--end::Input group--> 
                     </div>
-                    <!--end::Menu 1-->
-                    <!--end::Filter-->
-                    <!--begin::Export-->
-                    <button type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal" data-bs-target="#kt_subscriptions_export_modal">
-                    <!--begin::Svg Icon | path: icons/duotone/Files/Export.svg-->
-                    <span class="svg-icon svg-icon-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                <rect x="0" y="0" width="24" height="24" />
-                                <path d="M17,8 C16.4477153,8 16,7.55228475 16,7 C16,6.44771525 16.4477153,6 17,6 L18,6 C20.209139,6 22,7.790861 22,10 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 L2,9.99305689 C2,7.7839179 3.790861,5.99305689 6,5.99305689 L7.00000482,5.99305689 C7.55228957,5.99305689 8.00000482,6.44077214 8.00000482,6.99305689 C8.00000482,7.54534164 7.55228957,7.99305689 7.00000482,7.99305689 L6,7.99305689 C4.8954305,7.99305689 4,8.88848739 4,9.99305689 L4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,10 C20,8.8954305 19.1045695,8 18,8 L17,8 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
-                                <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 8.000000) scale(1, -1) rotate(-180.000000) translate(-12.000000, -8.000000)" x="11" y="2" width="2" height="12" rx="1" />
-                                <path d="M12,2.58578644 L14.2928932,0.292893219 C14.6834175,-0.0976310729 15.3165825,-0.0976310729 15.7071068,0.292893219 C16.0976311,0.683417511 16.0976311,1.31658249 15.7071068,1.70710678 L12.7071068,4.70710678 C12.3165825,5.09763107 11.6834175,5.09763107 11.2928932,4.70710678 L8.29289322,1.70710678 C7.90236893,1.31658249 7.90236893,0.683417511 8.29289322,0.292893219 C8.68341751,-0.0976310729 9.31658249,-0.0976310729 9.70710678,0.292893219 L12,2.58578644 Z" fill="#000000" fill-rule="nonzero" transform="translate(12.000000, 2.500000) scale(1, -1) translate(-12.000000, -2.500000)" />
-                            </g>
-                        </svg>
-                    </span>
-                    <!--end::Svg Icon-->Татаж авах</button>
-                    <!--end::Export-->
-                    <!--begin::Add product-->
-                    
-                    
-                    <!--end::Add product-->
+                    <!--end::Content-->
                 </div>
-                <!--end::Toolbar-->
-            @endif
-            
+                <!--end::Menu 1-->
+                <!--end::Filter-->
+                <!--begin::Export-->
+                <button type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal" data-bs-target="#kt_subscriptions_export_modal">
+                <!--begin::Svg Icon | path: icons/duotone/Files/Export.svg-->
+                <span class="svg-icon svg-icon-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <rect x="0" y="0" width="24" height="24" />
+                            <path d="M17,8 C16.4477153,8 16,7.55228475 16,7 C16,6.44771525 16.4477153,6 17,6 L18,6 C20.209139,6 22,7.790861 22,10 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 L2,9.99305689 C2,7.7839179 3.790861,5.99305689 6,5.99305689 L7.00000482,5.99305689 C7.55228957,5.99305689 8.00000482,6.44077214 8.00000482,6.99305689 C8.00000482,7.54534164 7.55228957,7.99305689 7.00000482,7.99305689 L6,7.99305689 C4.8954305,7.99305689 4,8.88848739 4,9.99305689 L4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,10 C20,8.8954305 19.1045695,8 18,8 L17,8 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
+                            <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 8.000000) scale(1, -1) rotate(-180.000000) translate(-12.000000, -8.000000)" x="11" y="2" width="2" height="12" rx="1" />
+                            <path d="M12,2.58578644 L14.2928932,0.292893219 C14.6834175,-0.0976310729 15.3165825,-0.0976310729 15.7071068,0.292893219 C16.0976311,0.683417511 16.0976311,1.31658249 15.7071068,1.70710678 L12.7071068,4.70710678 C12.3165825,5.09763107 11.6834175,5.09763107 11.2928932,4.70710678 L8.29289322,1.70710678 C7.90236893,1.31658249 7.90236893,0.683417511 8.29289322,0.292893219 C8.68341751,-0.0976310729 9.31658249,-0.0976310729 9.70710678,0.292893219 L12,2.58578644 Z" fill="#000000" fill-rule="nonzero" transform="translate(12.000000, 2.500000) scale(1, -1) translate(-12.000000, -2.500000)" />
+                        </g>
+                    </svg>
+                </span>
+                <!--end::Svg Icon-->Татаж авах</button>
+                <!--end::Export-->
+                <!--begin::Add product-->
+                
+                
+                <!--end::Add product-->
+            </div>
+            <!--end::Toolbar-->
            
+            <!--begin::Group actions-->
+            @if (!empty($checked_products))
+                <div class="d-flex justify-content-end align-items-center">
+                    <button class="btn btn-danger" wire:click="deleteChecked()">Устгах ({{count($checked_products)}})</button>
+                </div>
+            @endif
+            <!--end::Group actions-->
         </div>
         <!--end::Card toolbar-->
     </div>
@@ -138,91 +129,102 @@
     <!--begin::Card body-->
     
     <div class="card-body pt-0">
-        <table id="product_table" class="table table-row-bordered gy-5" wire:loading.class.delay="opacity-75" >
-            <thead>
-                <tr class="fw-bold fs-6 text-muted">
-                    <th>
-                        <div class="form-check form-check-sm form-check-custom form-check-solid">
-                            <input class="form-check-input" wire:model="selectPage" type="checkbox">
-                        </div>
-                    </th>
-                    <th>Нэр</th>
-                    <th>Үнэ</th>
-                    <th>Төлөв</th>
-                    {{-- <th class="w-200px">Ангилал</th>
-                    <th>#Tag</th> --}}
-                    <th  class="text-end">Нэмэгдсэн</th>
-                </tr>
-            </thead>
-            <tbody class="text-gray-600 fw-bold">
-                @forelse ($products as $product)
-                    <tr class="align-middle">
-                        <td>
-                            <div class="form-check form-check-sm form-check-custom form-check-solid"><input class="form-check-input" wire:model="checked_products" type="checkbox" value="{{ $product->id }}"></div>
-                        </td>
-                        <td>
-                           
-                            <div class="d-flex align-items-center">
-                                <div class="symbol symbol-65px  me-5">
-                                    <img  src="{{ (isset($product->productMedia[0])) ? $product->productMedia[0]->media->responsive_images['thumbnail']['full_url'] : asset('assets/media/products/no_image_product.png') }}" alt="" class="border">
-                                </div>
-                                <div class="d-flex justify-content-start flex-column">
-                                    <a href="{{ route('product.view', $product->slug) }}" class="text-dark fw-bolder text-hover-primary fs-6">{{ $product->name }}</a>
-                                    @isset($product->brand->name)
-                                        <span class="text-muted text-muted d-block fs-7">
-                                            {{ $product->brand->name }}
-                                        </span>
-                                    @endisset
-                                    
-                                </div>
+        <div class="table-responsive">
+            <table id="product_table" class="table table-row-bordered gy-5" wire:loading.class.delay="opacity-75" >
+                <thead>
+                    <tr class="fw-bold fs-6 text-muted">
+                        <th>
+                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                <input class="form-check-input" wire:model="selectPage" type="checkbox">
                             </div>
-
-                       
-                        </td>
-                        <td>
-                            {{ number_format($product->regular_price) }}₮
-                        </td>
-                        <td>
-                            @if (is_null($product->deleted_at))
-                                @switch($product->status)
-                                    @case(1)
-                                        <div class="badge badge-light-success">Идэвхитэй</div>
-                                        @break
-                                    @case(2)
-                                        <div class="badge badge-light-warning">Ноорог</div>
-                                        @break
-                                    @case(3)
-                                        <div class="badge badge-light-danger">Идэвхигүй</div>
-                                        @break
-                                    @default
-                                        
-                                @endswitch 
-                            @else
-                                <div class="badge badge-light-danger">Устгагдсан</div>
-                            @endif
+                        </th>
+                        <th>Нэр</th>
+                        <th>Үнэ</th>
+                        <th>Төлөв</th>
+                        {{-- <th class="w-200px">Ангилал</th>
+                        <th>#Tag</th> --}}
+                        <th  class="text-end">Нэмэгдсэн</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-600 fw-bold">
+                    @forelse ($products as $product)
+                        <tr class="align-middle">
+                            <td>
+                                <div class="form-check form-check-sm form-check-custom form-check-solid"><input class="form-check-input" wire:model="checked_products" type="checkbox" value="{{ $product->id }}"></div>
+                            </td>
+                            <td>
                             
-                        </td>
-                        {{-- <td></td>
-                        <td>
-                            @if (!empty($product->tags))
-                                @foreach ($product->tags as $tag)
-                                   <span class="badge badge-light">{{ $tag->name }}</span>
-                                @endforeach
-                            @endif
-                        </td> --}}
-                        <td class="text-end">{{ $product->created_at}}</td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="7">
-                            <div class="text-center alert alert-warning">Бүтээгдэхүүн бүртгэгдээгүй байна.</div>
-                        </td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
-        {{ $products->total() }}
-        {{$products->links() }}
+                                <div class="d-flex align-items-center">
+                                    <div class="symbol symbol-65px  me-5">
+                                        <img  src="{{ (isset($product->productMedia[0])) ? $product->productMedia[0]->media->responsive_images['thumbnail']['full_url'] : asset('assets/media/products/no_image_product.png') }}" alt="" class="border">
+                                    </div>
+                                    <div class="d-flex justify-content-start flex-column">
+                                        <a href="{{ route('product.view', $product->slug) }}" class="text-dark fw-bolder text-hover-primary fs-6">{{ $product->name }}</a>
+                                        @isset($product->brand->name)
+                                            <span class="text-muted text-muted d-block fs-7">
+                                                {{ $product->brand->name }}
+                                            </span>
+                                        @endisset
+                                        
+                                    </div>
+                                </div>
+
+                        
+                            </td>
+                            <td>
+                                {{ number_format($product->regular_price) }}₮
+                            </td>
+                            <td>
+                                @if (is_null($product->deleted_at))
+                                    @switch($product->status)
+                                        @case(1)
+                                            <div class="badge badge-light-success">Идэвхитэй</div>
+                                            @break
+                                        @case(2)
+                                            <div class="badge badge-light-warning">Ноорог</div>
+                                            @break
+                                        @case(3)
+                                            <div class="badge badge-light-danger">Идэвхигүй</div>
+                                            @break
+                                        @default
+                                            
+                                    @endswitch 
+                                @else
+                                    <div class="badge badge-light-danger">Устгагдсан</div>
+                                @endif
+                                
+                            </td>
+                            {{-- <td></td>
+                            <td>
+                                @if (!empty($product->tags))
+                                    @foreach ($product->tags as $tag)
+                                    <span class="badge badge-light">{{ $tag->name }}</span>
+                                    @endforeach
+                                @endif
+                            </td> --}}
+                            <td class="text-end">{{ $product->created_at}}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="7">
+                                <div class="text-center alert alert-warning">Бүтээгдэхүүн бүртгэгдээгүй байна.</div>
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+
+        <div class="d-flex align-items-center position-relative my-1">
+            <div class=" flex-column-fluid">
+                <span class="text-gray-600">Нийт: <span class="fw-bold">{{ $products->total() }} бүтээгдэхүүн</span></span> 
+            </div>
+            <div>
+                {{$products->links() }}
+            </div>
+        </div>
+       
+        
     </div>
     <!--end::Card body-->
 </div>
@@ -230,9 +232,8 @@
 @push('js')
     <script>
 
-        $('#filter_categories').on('change', function () {
-            Livewire.emit('set:categories', $(this).val());
-        });
+       
+
         window.addEventListener('swal:deleteProducts', function(event) {
             Swal.fire({
                 title: event.detail.title,
@@ -250,6 +251,10 @@
                     Livewire.emit('deleteProducts',event.detail.products);
                 }
             })
+        });
+
+        $('#filter_categories').on('change', function () {
+            Livewire.emit('set:categories', $(this).val());
         });
     </script>
 @endpush

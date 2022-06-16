@@ -27,7 +27,16 @@ class ListTable extends Component
             },
             'brand',
             'productCategory'
-        ])
+        ])->select(
+            'id',
+            'name',
+            'slug',
+            'regular_price',
+            'sale_price',
+            'brand_id',
+            'status',
+            'created_at',
+        )
         ->when($this->filters['status'], function($q, $status){
             if($this->filters['status'] == 'trashed') {
                 $q->onlyTrashed();
@@ -46,7 +55,7 @@ class ListTable extends Component
         })
         ->where('name', 'like', '%'.$this->search.'%')
         ->orderby('created_at', 'DESC')
-        ->paginate(10);
+        ->paginate(20);
     }
 
     public function mount() {
@@ -72,6 +81,7 @@ class ListTable extends Component
     }
 
     public function deleteChecked() {
+
         $this->dispatchBrowserEvent('swal:deleteProducts', [
             'title' => 'Баталгаажуулалт', 
             'html' => 'Та сонгосон '.count( $this->checked_products).' бүтээгдэхүүнийг устгах гэж байна уу ?',

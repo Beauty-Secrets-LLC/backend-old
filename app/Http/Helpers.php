@@ -22,3 +22,7 @@ function bytesToHuman($bytes){
     }
     return round($bytes, 2) . ' ' . $units[$i];
 }
+
+function price($amount){
+    return number_format($amount).'₮';
+}

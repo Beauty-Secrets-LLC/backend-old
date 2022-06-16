@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class MedialookupTable extends Migration
+class CreateOrderItems extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,16 @@ class MedialookupTable extends Migration
      */
     public function up()
     {
-        //
-        Schema::create('media_lookup', function($table) {
+        Schema::create('order_items', function($table) {
             $table->bigIncrements('id');
-            $table->string('model_type');
-            $table->integer('model_id');
-            $table->foreignId('media_id')->constrained()->cascadeOnDelete();
-            $table->string('collection_name');
+            $table->foreignId('order_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('product_id')->constrained()->cascadeOnDelete();
+            $table->integer('quantity');
+            $table->integer('subtotal');
+            $table->integer('total');
             $table->timestamps();
         });
+
 
     }
 
@@ -32,6 +33,6 @@ class MedialookupTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('order_items');
     }
 }
