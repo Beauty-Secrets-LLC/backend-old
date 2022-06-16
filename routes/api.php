@@ -48,6 +48,8 @@ Route::group(['prefix' => 'cart'], function () {
 
 });
 
+Route::get('/checkout/address', [OrderController::class, 'getAddress']);
+
 Route::group(['middleware' => ['auth:sanctum']], function () {
     
     Route::get('/user', function(Request $request) {
@@ -57,7 +59,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/auth/logout', [AuthController::class, 'logout']);
 
     Route::get('/customer/addresses', [CustomerController::class, 'addresses']);
-    Route::get('/checkout/address', [OrderController::class, 'getAddress']);
 
     Route::post('orders', [ShopOrderController::class, 'index']);
     Route::get('orders', [OrderController::class, 'list']);

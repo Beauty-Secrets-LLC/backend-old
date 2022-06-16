@@ -19,7 +19,7 @@ class ProductApiController extends Controller
                     break;
                 
                 default:
-                    $products =[ Product::get_items_latest($request)];
+                    $products = Product::get_items_latest($request);
                     break;
             }
 
@@ -45,6 +45,9 @@ class ProductApiController extends Controller
         try {
 
             $product = Product::with([
+                'productMedia' => function($media) {
+                    $media->with('media')->where('collection_name', 'featured_image');
+                },
                 'tags',
                 'productCategory',
                 'productVariation'
