@@ -72,10 +72,23 @@ class ProductApiController extends Controller
     
 
     public function search($keyword) {
-        $result = Product::search($keyword)->get()->toArray();
-        return response()->json([
-            'success'   => false,
-            'result'    => $result
-        ], 400, [], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT);
+
+
+        $hostIp = '127.0.0.1'; 
+        $hostPort = 7700; 
+        $timeoutTime = 1; 
+        if($fp = fsockopen($hostIp,$hostPort,$errCode,$errStr,$timeoutTime)){   
+           echo 'Port is open';
+        } else {
+           echo 'Port is closed';
+        } 
+        fclose($fp);
+
+        dd('end');
+        $result = Product::search($keyword)->query(function ($builder) {
+            $builder->with(['brand', 'tags']);
+        })->get();
+        return $result;
+        
     }
 }
