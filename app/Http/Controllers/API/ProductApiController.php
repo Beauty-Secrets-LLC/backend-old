@@ -82,7 +82,7 @@ class ProductApiController extends Controller
         
     }
 
-    public function portcheck($keyword) {
+    public function portcheck() {
 
 
         $hostIp = '127.0.0.1'; 
