@@ -51,9 +51,9 @@
             <!--end:::Tab item-->
             
             <!--begin:::Tab item-->
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#history">Захиалгын түүх</a>
-            </li>
+            </li> --}}
             <!--end:::Tab item-->
             
         </ul>
@@ -232,6 +232,7 @@
                     </div>
                     <!--end::Card body-->
                 </div>
+         
                 <!--end::Order details-->
                 <!--begin::Customer details-->
                 <div class="card card-flush py-4 flex-row-fluid">
@@ -535,8 +536,8 @@
                                                 <td>
                                                     <div class="d-flex align-items-center">
                                                         <!--begin::Thumbnail-->
-                                                        <a href="#" class="symbol symbol-50px">
-                                                            <span class="symbol-label" style="background-image:url({{ asset('assets/media//stock/ecommerce/1.gif') }};"></span>
+                                                        <a href="#" class="symbol border symbol-50px">
+                                                            <span class="symbol-label" style="background-image:url({{ (isset($item['product']['product_media'][0])) ? $item['product']['product_media'][0]['media']['responsive_images']['thumbnail']['full_url'] : asset('assets/media/products/no_image_product.png') }});"></span>
                                                         </a>
                                                         <!--end::Thumbnail-->
                                                         <!--begin::Title-->
@@ -602,7 +603,7 @@
         </div>
 
 
-        <div class="tab-pane fade" id="history" role="tab-panel">
+        {{-- <div class="tab-pane fade" id="history" role="tab-panel">
             <div class="d-flex flex-column gap-7 gap-lg-10">
                 <!--begin::Order history-->
                 <div class="card card-flush py-4 flex-row-fluid">
@@ -851,7 +852,7 @@
                 </div>
                 <!--end::Order data-->
             </div>
-        </div>
+        </div> --}}
 
         <div class="tab-pane fade" id="invoice" role="tab-panel">
             @component('components.orders.invoice', ['order' => $order])@endcomponent
@@ -864,5 +865,4 @@
     </div>
 </div>
 
-@dump($order)
 @endsection

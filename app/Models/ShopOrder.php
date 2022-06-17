@@ -14,6 +14,7 @@ class ShopOrder extends Model
 
     protected $table = "orders";
     protected $casts = [
+        'address'       => 'array',
         'data'          => 'array',
         'created_at'    => 'datetime:Y-m-d H:i:s',
         'updated_at'    => 'datetime:Y-m-d H:i:s'
@@ -21,14 +22,14 @@ class ShopOrder extends Model
 
     protected $fillable = [
         'order_number',
-        'customer_id',
+        'status',
+        'customer_name',
         'customer_phone',
         'customer_email',
-        'address_id',
         'subtotal',
-        'delivery_id',
         'total',
-        'status',
+        'address',
+        'delivery_id',
         'data'
     ];
 
@@ -39,7 +40,7 @@ class ShopOrder extends Model
 
 
     public function customer() {
-        return $this->belongsTo(Customer::class);
+        return $this->belongsTo(Customer::class,'customer_phone', 'phone_primary');
     }
 
     public function address() {
@@ -53,92 +54,72 @@ class ShopOrder extends Model
         return $this->hasOne(ShopOrderInvoice::class,'order_id','id');
     }
 
-    public static function get_orders($options) {
-        $result = [];
+    // public static function get_orders($options) {
+    //     $result = [];
 
-        $result['draw'] = (isset($options['draw'])) ? $options['draw'] : 0;
+    //     $result['draw'] = (isset($options['draw'])) ? $options['draw'] : 0;
         
-        $query = ShopOrder::with([
-            'customer',
-            'address' => function($address) {
-                $address->select(
-                    'id', 
-                    'phone', 
-                    'city', 
-                    'district', 
-                    'khoroo', 
-                    'address',
-                    \DB::raw('CONCAT(city,", ", district,", ",khoroo,", ",address) as full_address')
-                );
-            },
-        ]);
+    //     $query = ShopOrder::with([
+    //         'customer',
+    //         'address' => function($address) {
+    //             $address->select(
+    //                 'id', 
+    //                 'phone', 
+    //                 'city', 
+    //                 'district', 
+    //                 'khoroo', 
+    //                 'address',
+    //                 \DB::raw('CONCAT(city,", ", district,", ",khoroo,", ",address) as full_address')
+    //             );
+    //         },
+    //     ]);
 
-        if (isset($options['date']) && trim($options['date'])) {
-            $date_range = explode('-', $options['date']);
-            $sdate = date("Y-m-d", strtotime($date_range[0]));
-            $edate = date("Y-m-d", strtotime($date_range[1]));
-        }
-        else {
-            $sdate = date('Y-m').'-01';
-            $edate = date('Y-m-t');
-        }
+    //     if (isset($options['date']) && trim($options['date'])) {
+    //         $date_range = explode('-', $options['date']);
+    //         $sdate = date("Y-m-d", strtotime($date_range[0]));
+    //         $edate = date("Y-m-d", strtotime($date_range[1]));
+    //     }
+    //     else {
+    //         $sdate = date('Y-m').'-01';
+    //         $edate = date('Y-m-t');
+    //     }
 
-        $query->whereBetween('created_at', array($sdate . ' 00:00:00', $edate . ' 23:59:59'));
+    //     $query->whereBetween('created_at', array($sdate . ' 00:00:00', $edate . ' 23:59:59'));
 
-        //Нийт бичлэгийн тоог авч бна
-        $result['recordsTotal'] = $query->count();
+    //     //Нийт бичлэгийн тоог авч бна
+    //     $result['recordsTotal'] = $query->count();
 
-        if (isset($options['id']) && !empty($options['id'])) {
-            $query->whereRaw('order_number like "%'.$options['id'].'%"');
-        }
+    //     if (isset($options['id']) && !empty($options['id'])) {
+    //         $query->whereRaw('order_number like "%'.$options['id'].'%"');
+    //     }
 
 
-        //Шүүлт хийсний дараах бичлэгийн тоог авч бна
-        $result["recordsFiltered"] = $query->count();
+    //     //Шүүлт хийсний дараах бичлэгийн тоог авч бна
+    //     $result["recordsFiltered"] = $query->count();
         
-        if(isset($options['start']) && isset($options['length']))
-            $query->offset($options['start'])->limit($options['length']);
+    //     if(isset($options['start']) && isset($options['length']))
+    //         $query->offset($options['start'])->limit($options['length']);
         
 
-        $result['data'] = $query->orderby('created_at', 'DESC')->get()->toArray();
+    //     $result['data'] = $query->orderby('created_at', 'DESC')->get()->toArray();
 
-        $result['draw']++;
-        return $result;
-    }
+    //     $result['draw']++;
+    //     return $result;
+    // }
 
     public static function get_order($id) {
         $order = ShopOrder::with([
             'customer',
-            'items'=> function($items) {
-                $items->with([
-                    'product',
-                    'variation'
-                ]);
+            'items.product.productMedia'=> function($media) {
+                $media->with('media')->where('collection_name', 'featured_image');
             },
-            'address' => function($address) {
-                $address->select(
-                    'id', 
-                    'phone', 
-                    'city', 
-                    'district', 
-                    'khoroo', 
-                    'address',
-                    \DB::raw('CONCAT(city,", ", district,", ",khoroo,", ",address) as full_address')
-                );
-            },
-            'invoice' => function($invoice) {
-                $invoice->with(
-                    'payment_method',
-                    'vat'
-                );
-            }
+            'items.variation',
+            'invoice.payment_method',
+            'invoice.vat',
         ])->where('id', $id)->first();
-
         if($order) {
             return $order->toArray(); 
-        }
-            
-        
+        }  
         else 
             return null;
     }

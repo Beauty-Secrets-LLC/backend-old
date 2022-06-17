@@ -48,9 +48,9 @@
                                             <td class="d-flex align-items-center pt-11">
                                                 {{ $item['product']['name'] }}
                                             </td>
-                                            <td class="pt-11">{{ $item['subtotal'] }}</td>
+                                            <td class="pt-11">{{ price($item['subtotal']) }}</td>
                                             <td class="pt-11">{{ $item['quantity'] }}</td>
-                                            <td class="pt-11 fs-5 pe-lg-6 text-dark fw-boldest">{{ $item['total'] }}</td>
+                                            <td class="pt-11 fs-5 pe-lg-6 text-dark fw-boldest">{{ price($item['total']) }}</td>
                                         </tr>
                                     @empty
                                         
@@ -119,7 +119,7 @@
                     <div class="text-end pt-10">
                         <!--begin::Total Amount-->
                         <div class="fs-3 fw-bolder text-muted mb-3">НИЙТ ДҮН</div>
-                        <div class="fs-xl-2x fs-2 fw-boldest">{{ number_format($order['invoice']['amount']) }}₮</div>
+                        <div class="fs-xl-2x fs-2 fw-boldest">{{ price($order['invoice']['amount']) }}</div>
                         <div class="text-muted fw-bold">НӨАТ багтсан</div>
                         <!--end::Total Amount-->
                         <div class="border-bottom w-100 my-7 my-lg-16"></div>

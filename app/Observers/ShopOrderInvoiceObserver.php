@@ -27,7 +27,7 @@ class ShopOrderInvoiceObserver
             $order->status = ShopOrder::STATUS_PROCESSING;
 
             //create an Ebarimt
-            Vat::createFromShopOrderInvoice($shopOrderInvoice);
+            //Vat::createFromShopOrderInvoice($shopOrderInvoice);
         }
         elseif($shopOrderInvoice->status == ShopOrderInvoice::STATUS_EXPIRED) {
             $order->status = ShopOrder::STATUS_CANCELLED;

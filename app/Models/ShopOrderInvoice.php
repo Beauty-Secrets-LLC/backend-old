@@ -19,7 +19,6 @@ class ShopOrderInvoice extends Model
     ];
 
     protected $fillable = [
-        'customer_id',
         'order_id',
         'amount',
         'payment_id',
@@ -65,10 +64,10 @@ class ShopOrderInvoice extends Model
             $this->data = $qpay->createInvoice([
                 "sender_invoice_no"		=> $order->order_number,
                 "invoice_receiver_data" => array(
-                    "register"	=> 'BEAUTYMEMBER'.$customer->id,
-                    "name"		=> $customer->name,
-                    "email"		=> $customer->email,
-                    "phone"		=> $customer->phone_primary
+                    "register"	=> 'BEAUTYMEMBER'.$order->customer_phone,
+                    "name"		=> $order->customer_name,
+                    "email"		=> $order->customer_email,
+                    "phone"		=> $order->customer_phone
                 ),
                 "invoice_description"	=> $order->order_number.' захиалгын төлбөр',
                 "amount"				=> $order->total,

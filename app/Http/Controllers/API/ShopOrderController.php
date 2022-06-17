@@ -46,7 +46,6 @@ class ShopOrderController extends Controller
             $order->items()->createMany($request['items']);
             //Creating invoice
             $invoice = $order->invoice()->create([
-                'customer_id'   => $order->customer_id,
                 'order_id'      => $order->id,
                 'amount'        => $request['total'],
                 'payment_id'    => $request['payment_id'],
@@ -82,7 +81,6 @@ class ShopOrderController extends Controller
     public function show($id)
     {
         //
-
         $order = ShopOrder::get_order($id);
         return response()->json($order, 200, [], JSON_UNESCAPED_UNICODE);
     }

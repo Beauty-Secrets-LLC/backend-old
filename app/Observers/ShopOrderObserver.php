@@ -21,8 +21,7 @@ class ShopOrderObserver
 
     public function updating(ShopOrder $shopOrder)
     {
-        $order = ShopOrder::get_order($shopOrder->id);
-        if(!empty($order['customer']['email'])) {
+        if(!empty($shopOrder->customer_email)) {
             $template = '';
             if($shopOrder->status == ShopOrder::STATUS_ONHOLD){
                 $template = 'App\Mail\ShopOrderReceived';
@@ -38,9 +37,9 @@ class ShopOrderObserver
             }
 
             dispatch(new SendEmailJob([
-                'to' => $order['customer']['email'],
+                'to' => $shopOrder->customer_email,
                 'template' => $template,
-                'data' => $order
+                'data' => $shopOrder->toArray()
             ]));
         }
         
