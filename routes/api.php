@@ -39,6 +39,7 @@ Route::get('p/list', [ProductApiController::class, 'index']);
 Route::get('p/id/{slug}', [ProductApiController::class, 'show']);
 
 Route::get('p/search/{keyword}', [ProductApiController::class, 'search']);
+Route::get('checkport', [ProductApiController::class, 'portcheck']);
 
 Route::post('preorder/calculate', [ShopOrderController::class, 'calculate_total']);
 

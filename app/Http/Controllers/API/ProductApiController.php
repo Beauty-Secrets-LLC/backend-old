@@ -74,6 +74,17 @@ class ProductApiController extends Controller
     public function search($keyword) {
 
 
+       
+        $result = Product::search($keyword)->query(function ($builder) {
+            $builder->with(['brand', 'tags']);
+        })->get();
+        return $result;
+        
+    }
+
+    public function portcheck($keyword) {
+
+
         $hostIp = '127.0.0.1'; 
         $hostPort = 7700; 
         $timeoutTime = 1; 
@@ -85,10 +96,6 @@ class ProductApiController extends Controller
         fclose($fp);
 
         dd('end');
-        $result = Product::search($keyword)->query(function ($builder) {
-            $builder->with(['brand', 'tags']);
-        })->get();
-        return $result;
         
     }
 }
