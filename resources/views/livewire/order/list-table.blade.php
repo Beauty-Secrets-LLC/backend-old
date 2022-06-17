@@ -116,7 +116,7 @@
                         <th>Захиалагч</th>
                         <th>Хаяг</th>
                         <th>Хүргэлт</th>
-                        <th>Захиалгын дүн</th>
+                        <th>Төлөх дүн</th>
                         <th>Төлбөрийн хэлбэр</th>
                         <th>Огноо</th>
                     </tr>
@@ -162,7 +162,9 @@
                                     </div>
                                 </div>
                             </td>
-                            <td></td>
+                            <td>
+                                {{ $order->address['city'] }}, {{ $order->address['district'] }}, {{ $order->address['khoroo'] }}, {{ $order->address['address'] }}
+                            </td>
                             <td></td>
                             <td>{{ price($order->total) }}</td>
                             <td>

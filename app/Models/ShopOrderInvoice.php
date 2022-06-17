@@ -77,7 +77,7 @@ class ShopOrderInvoice extends Model
             $this->save();
             return [
                 'id'            => $this->id,
-                'redirect_url'  => 'invoice/'.$this->id,
+                'redirect_url'  => '/dashboard/orders/view/'.$order->id,
             ];
         }
         return false;

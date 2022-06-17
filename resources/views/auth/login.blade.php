@@ -33,22 +33,22 @@ License: For each use you must have a valid license purchased only from above li
 			<!--begin::Authentication - Sign-in -->
 			<div class="d-flex flex-column flex-lg-row flex-column-fluid">
 				<!--begin::Aside-->
-				<div class="d-flex flex-column flex-lg-row-auto w-xl-600px positon-xl-relative" style="background-color: #ffd4cc">
+				<div id="animate" class="d-flex flex-column flex-lg-row-auto w-xl-700px positon-xl-relative" style="background-color: #07192f">
 					<!--begin::Wrapper-->
-					<div class="d-flex flex-column position-xl-fixed top-0 bottom-0 w-xl-600px scroll-y">
+					{{-- <div class="d-flex flex-column position-xl-fixed top-0 bottom-0 w-xl-600px scroll-y">
 						<!--begin::Content-->
 						<div class="d-flex flex-row-fluid flex-column text-center p-10 pt-lg-20">
 							<!--begin::Logo-->
-							{{-- <a href="index.html" class="py-9">
+							<a href="index.html" class="py-9">
 								<img alt="Logo" src="{{ asset('assets/media/logos/beautysecrets.svg') }}" class="h-70px" />
-							</a> --}}
+							</a>
 							<!--end::Logo-->
 						</div>
 						<!--end::Content-->
 						<!--begin::Illustration-->
 						<div class="d-flex flex-row-auto bgi-no-repeat bgi-position-x-center bgi-size-contain bgi-position-y-bottom min-h-100px min-h-lg-350px" style="background-image: url(assets/media/illustrations/checkout.png)"></div>
 						<!--end::Illustration-->
-					</div>
+					</div> --}}
 					<!--end::Wrapper-->
 				</div>
 				<!--end::Aside-->
@@ -152,6 +152,21 @@ License: For each use you must have a valid license purchased only from above li
 		<script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
 		<!--end::Global Javascript Bundle-->
 		<!--end::Javascript-->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vanta@0.5.22/dist/vanta.birds.min.js"></script>
+		<script>
+			VANTA.BIRDS({
+			el: "#animate",
+			mouseControls: true,
+			touchControls: true,
+			gyroControls: false,
+			minHeight: 200.00,
+			minWidth: 200.00,
+			scale: 1.00,
+			scaleMobile: 1.00,
+			backgroundColor: 0x7192f
+			})
+		</script>
 	</body>
 	<!--end::Body-->
 </html>
