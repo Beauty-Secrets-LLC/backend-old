@@ -69,5 +69,13 @@ class ProductApiController extends Controller
         }
 
     }
-    //
+    
+
+    public function search($keyword) {
+        $result = Product::search($keyword)->get()->toArray();
+        return response()->json([
+            'success'   => false,
+            'result'    => $result
+        ], 400, [], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT);
+    }
 }

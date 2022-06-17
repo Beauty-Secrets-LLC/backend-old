@@ -33,7 +33,7 @@ License: For each use you must have a valid license purchased only from above li
 			<!--begin::Authentication - Sign-in -->
 			<div class="d-flex flex-column flex-lg-row flex-column-fluid">
 				<!--begin::Aside-->
-				<div id="animate" class="d-flex flex-column flex-lg-row-auto w-xl-700px positon-xl-relative" style="background-color: #07192f">
+				<div id="animate" class="d-flex flex-column flex-lg-row-auto w-xl-700px positon-xl-relative overflow-hidden" style="background-color: #07192f">
 					<!--begin::Wrapper-->
 					{{-- <div class="d-flex flex-column position-xl-fixed top-0 bottom-0 w-xl-600px scroll-y">
 						<!--begin::Content-->

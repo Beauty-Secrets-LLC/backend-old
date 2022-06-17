@@ -155,7 +155,7 @@
                             <td>
                                 <div class="d-flex align-items-center">
                                     <div class="d-flex justify-content-start flex-column">
-                                        <a href="{{ route('customer.view',$order->customer->id) }}" class="text-dark fw-bolder text-hover-primary fs-6">{{ $order->customer->name }}</a>
+                                        <a href="{{ isset($order->customer) ?  route('customer.view',$order->customer->id) : '#' }}" class="text-dark fw-bolder text-hover-primary fs-6">{{ $order->customer_name }}</a>
                                         <span class="text-muted text-muted d-block fs-7">
                                             {{ $order->customer_phone }}
                                         </span>

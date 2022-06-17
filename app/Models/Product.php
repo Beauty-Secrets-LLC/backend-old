@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Spatie\Tags\Tag;
 use Spatie\Tags\HasTags;
 use App\Models\Media;
+use Laravel\Scout\Searchable;
 use DB;
 
 
@@ -19,7 +20,7 @@ use App\Models\ProductCategory;
 
 class Product extends Model
 {
-    use HasFactory, SoftDeletes, LogsActivity, HasTags;
+    use HasFactory, SoftDeletes, LogsActivity, HasTags, Searchable;
 
     protected $casts = [
         'data'  =>  'array',

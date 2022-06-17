@@ -38,6 +38,8 @@ Route::post('/auth/login', [AuthController::class, 'token']);
 Route::get('p/list', [ProductApiController::class, 'index']);
 Route::get('p/id/{slug}', [ProductApiController::class, 'show']);
 
+Route::get('p/search/{keyword}', [ProductApiController::class, 'search']);
+
 Route::post('preorder/calculate', [ShopOrderController::class, 'calculate_total']);
 
 Route::group(['prefix' => 'cart'], function () {
