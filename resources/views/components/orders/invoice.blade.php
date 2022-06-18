@@ -125,8 +125,8 @@
                         <div class="border-bottom w-100 my-7 my-lg-16"></div>
                         <!--begin::Invoice To-->
                         <div class="text-gray-600 fs-6 fw-bold mb-3">ТӨЛӨГЧ</div>
-                        <div class="fs-6 text-gray-800 fw-bold mb-8">{{ $order['customer']['name'] }}
-                        <br>{{ $order['customer']['phone_primary'] }}</div>
+                        <div class="fs-6 text-gray-800 fw-bold mb-8">{{ $order['customer_name'] }}
+                        <br>{{ $order['customer_phone'] }}</div>
                         <!--end::Invoice To-->
                         <!--begin::Invoice No-->
                         <div class="text-gray-600 fs-6 fw-bold mb-3">НЭХ/ДУГААР</div>

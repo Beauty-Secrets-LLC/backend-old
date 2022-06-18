@@ -41,6 +41,8 @@ Route::get('p/id/{slug}', [ProductApiController::class, 'show']);
 Route::get('p/search/{keyword}', [ProductApiController::class, 'search']);
 Route::get('checkport', [ProductApiController::class, 'portcheck']);
 
+Route::post('order/create', [ShopOrderController::class, 'store']);
+
 Route::post('preorder/calculate', [ShopOrderController::class, 'calculate_total']);
 
 Route::group(['prefix' => 'cart'], function () {
@@ -65,7 +67,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::post('orders', [ShopOrderController::class, 'index']);
     Route::get('orders', [OrderController::class, 'list']);
-    Route::post('order/create', [ShopOrderController::class, 'store']);
+    
     Route::post('order/{id}', [ShopOrderController::class, 'show']);
 
     Route::group(['prefix' => 'payment'], function () {

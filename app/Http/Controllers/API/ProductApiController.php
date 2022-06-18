@@ -46,7 +46,7 @@ class ProductApiController extends Controller
 
             $product = Product::with([
                 'productMedia' => function($media) {
-                    $media->with('media')->where('collection_name', 'featured_image');
+                    $media->with('media');
                 },
                 'tags',
                 'productCategory',

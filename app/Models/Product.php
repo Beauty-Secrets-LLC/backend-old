@@ -313,8 +313,9 @@ class Product extends Model
     {
         $query = Product::with([
             'productMedia' => function($media) {
-                $media->with('media')->where('collection_name', 'featured_image');
+                $media->with('media');
             },
+            // 'productMedia',
             'productCategory',
             'tags',
             'productVariation'

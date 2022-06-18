@@ -52,8 +52,9 @@ class OrderController extends Controller
 
                     foreach($keyed2[$request->get('code')]['sub'] as $sum) {
                         $arr = [
-                            'value' => $sum['code'],
-                            'label' => $sum['name']
+                            'value' => $sum['name'],
+                            'label' => $sum['name'],
+                            'code' => $sum['code'],
                         ];
                         array_push($khoroo_arr, $arr);
                     }
@@ -69,8 +70,9 @@ class OrderController extends Controller
 
                     foreach($keyed[$request->get('city')]['sub'] as $duureg) {
                         $arr = [
-                            'value' => $duureg['code'],
+                            'value' => $duureg['name'],
                             'label' => $duureg['name'],
+                            'code' => $duureg['code'],
                             'isLeaf' => false
                         ];
                         array_push($duureg_arr, $arr);
@@ -86,8 +88,9 @@ class OrderController extends Controller
                 $city = [];
                 foreach($addresses as $address) {
                     $arr = [
-                        'value' => $address['code'],
+                        'value' => $address['name'],
                         'label' => $address['name'],
+                        'code' => $address['code'],
                         'isLeaf' => false
                     ];
                     array_push($city, $arr);

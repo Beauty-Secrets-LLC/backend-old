@@ -30,11 +30,11 @@
                             <div class="d-flex align-items-center justify-content-end">
                                 <!--begin:: Avatar -->
                                 <div class="symbol symbol-circle symbol-25px overflow-hidden me-3">
-                                    <a target="_blank" href="{{ route('customer.view', $order['customer']['id']) }}">
+                                    {{-- <a target="_blank" href="{{ route('customer.view', $order['customer']['id']) }}">
                                         <div class="symbol-label">
                                             <img src="{{ asset('assets/media/avatars/blank.png') }}" class="w-100">
                                         </div>
-                                    </a>
+                                    </a> --}}
                                 </div>
                                 <!--end::Avatar-->
                                 <!--begin::Name-->
