@@ -8,6 +8,7 @@ use DB;
 
 use App\Models\ShopOrder;
 use App\Models\Coupon;
+use App\Models\Delivery;
 use App\Models\ShopOrderInvoice;
 
 class ShopOrderController extends Controller
@@ -152,10 +153,23 @@ class ShopOrderController extends Controller
 
 
     public function get_deliveries(Request $request) {
+        $deliveries = Delivery::select('id', 'name', 'description', 'amount')->where('status', Delivery::STATUS_ACTIVE)->get();
 
-        if($request->get('city') == "Улаанбаатар") {
-            return 'Улаанбаатар хот';
+        if($deliveries->count()) {
+            foreach($deliveries as $index => $delivery) {
+                if(!empty($delivery->conditions)) {
+                    $condition = $delivery->conditions;
+                    if(isset($condition['city']) && !in_array($request->get('city'), $condition['city'])) {
+                        unset($deliveries[$index]);
+                    }
+                 
+                }
+            }
         }
-        return $request->all();
+        // if($request->get('city') == "Улаанбаатар") {
+           
+        // }
+
+        return response()->json($deliveries, 200, [], JSON_UNESCAPED_UNICODE);
     }
 }

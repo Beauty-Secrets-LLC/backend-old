@@ -43,7 +43,7 @@ class Product extends Model
         'created_at'
     ];
 
-    protected $appends = ['media', 'attributes'];
+    //protected $appends = ['media', 'attributes'];
 
     /* PRODUCT STATUSES */
     const STATUS_SCHEDULED = 0;
