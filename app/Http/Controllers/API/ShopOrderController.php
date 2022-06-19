@@ -149,4 +149,13 @@ class ShopOrderController extends Controller
 
         return $result;
     }
+
+
+    public function get_deliveries(Request $request) {
+
+        if($reguest->get('city') == "Улаанбаатар") {
+            return 'Улаанбаатар хот';
+        }
+        return $request->all();
+    }
 }

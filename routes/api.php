@@ -42,6 +42,7 @@ Route::get('p/search/{keyword}', [ProductApiController::class, 'search']);
 Route::get('checkport', [ProductApiController::class, 'portcheck']);
 
 Route::post('order/create', [ShopOrderController::class, 'store']);
+Route::post('order/getDelivery', [ShopOrderController::class, 'get_deliveries']);
 
 Route::post('preorder/calculate', [ShopOrderController::class, 'calculate_total']);
 
