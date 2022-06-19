@@ -13,10 +13,11 @@ class OrderController extends Controller
 
         try {
 
-            $orders = ShopOrder::all();
+            $orders = ShopOrder::with('customer')->where('customer_phone', auth()->user()->phone_primary)->get();
 
             return response()->json([
-                'success' => true
+                'success' => true,
+                'data' => $orders
             ], 200, [], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT);
             
         } catch (\Exception $e) {
