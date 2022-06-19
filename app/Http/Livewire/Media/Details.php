@@ -22,7 +22,7 @@ class Details extends Component
     function show_details($id) {
 
         $this->selected_media = Media::find($id);
-        $this->ShopOrderInvoice('show-details', 'media_detail');
+       // $this->ShopOrderInvoice('show-details', 'media_detail');
         
     }
 }
