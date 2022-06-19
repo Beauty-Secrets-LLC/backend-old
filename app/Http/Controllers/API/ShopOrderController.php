@@ -153,7 +153,7 @@ class ShopOrderController extends Controller
 
     public function get_deliveries(Request $request) {
 
-        if($reguest->get('city') == "Улаанбаатар") {
+        if($request->get('city') == "Улаанбаатар") {
             return 'Улаанбаатар хот';
         }
         return $request->all();
